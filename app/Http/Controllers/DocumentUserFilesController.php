@@ -124,7 +124,9 @@ class DocumentUserFilesController extends AppBaseController
      */
     public function docFileCreate($userID, $docID, Request $request)
     {
+        #modal-alert
         $typeDoc = TypeDoc::where('id', $docID)->first();
+        //return redirect(route('document_user_files.create', ['docID' => $docID, 'userID' => $userID, 'typeDoc' => $typeDoc]) . '#modal-alert');
         return view('document_user_files.create')->with('docID', $docID)->with('userID', $userID)->with('typeDoc', $typeDoc);
     }
 
@@ -164,9 +166,8 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function docFileUpload($userID, $docID, CreateDocumentUserFilesRequest $request)
+    public function docFileUpload($userID, $docID, Request $request)
     {
-
         $input = $request->all();
 
         $documentStatus = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('expired', '1')->get();
@@ -188,7 +189,7 @@ class DocumentUserFilesController extends AppBaseController
         $documentUserFiles = $this->documentUserFilesRepository->create($input);
 
         Flash::success('Document User Files saved successfully.');
-        return redirect(route('workers.show', [$userID]));
+        return redirect(route('workers.show', [$userID]) . "?nav=documents");
     }
 
     /**

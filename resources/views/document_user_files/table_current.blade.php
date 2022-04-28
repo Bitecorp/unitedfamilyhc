@@ -1,3 +1,8 @@
+<?php
+    $user = $userID;
+    $doc = '';
+    $name = '';
+?>
 <div class="row">
     <!-- <div class="col-6"> -->
         <div class="col-6">
@@ -55,6 +60,7 @@
                                                     @if(count(array($filesUploads)) >= 1)
                                                         @foreach($filesUploads as $key => $filesUpload)
                                                             @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired == 1)
+                                                            <a href="#modal-alert" class="btn btn-sm btn-danger" data-toggle="modal">Demo</a>
                                                                 <a href="{{ route('documentUserFiles.uploadFile', [$userID, $filesUpload->document_id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-upload"></i> Upload </a>
                                                             @endif
                                                         @endforeach
@@ -63,6 +69,7 @@
                                                     @if(isset($documentUserFilesDiffs) && !empty($documentUserFilesDiffs) && count(array($documentUserFilesDiffs)) >= 1)
                                                         @foreach($documentUserFilesDiffs as $key => $documentUserFilesDiff)
                                                             @if($documentUserFile->id == $documentUserFilesDiff->id)
+                                                            <a href="#modal-alert" data-item-use-id={{ $userID }} data-item-doc-id={{ $documentUserFilesDiff->id }} class="btn btn-sm btn-danger" data-toggle="modal">Demo</a>
                                                                 <a href="{{ route('documentUserFiles.uploadFile', [$userID, $documentUserFilesDiff->id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-upload"></i> Upload </a>
                                                             @endif
                                                         @endforeach
@@ -85,10 +92,37 @@
 
             </div>
         </div>
+        <div class="modal fade" id="modal-alert">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+						<h4 class="modal-title">Alert Header</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">
+                        {!! Form::open(['route' => ['documentUserFiles.docFileUpload', $user, $doc], 'method' => 'post', 'files' => true]) !!}
+                            @include('document_user_files.fields')
+                        {!! Form::close() !!}
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-white" data-dismiss="modal">Close</a>
+						<a href="javascript:;" class="btn btn-danger" data-dismiss="modal">Action</a>
+					</div>
+				</div>
+			</div>
+		</div>
     <!-- </div> -->
 </div>
 
 @push('scripts')
+<script>
+$(document).on("click", ".modal-open", function () {
+    var foroId= $(this).attr('data-item-foro-id');
+    var temaId= $(this).attr('data-item-tema-id');
+    $("#foro_id").val(foroId);
+    $("#tema_id").val(temaId);
+});
+</script>
 <script type="text/javascript">
     function vieFile(valFile) {
         var URLdomain = window.location.host;

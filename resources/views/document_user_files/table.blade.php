@@ -12,6 +12,14 @@
 	<link href="/assets/plugins/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" />
 @endpush
 
+<?php
+    $link = "$_SERVER[REQUEST_URI]";
+    $components = parse_url($link);
+    parse_str($components['query'], $results);
+    $isVisibiliti =  isset($results) && isset($results['nav']) && $results['nav'] == 'documents' ? true : false;
+
+?>
+
 <div id="accordion">
     <div class="card">
         <div class="card-header" style="padding: 0 !important;" id="headingOne">
@@ -37,7 +45,7 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div id="collapseTwo" class="collapse {{ $isVisibiliti == true ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
                 @include('document_user_files.table_current')
             </div>
