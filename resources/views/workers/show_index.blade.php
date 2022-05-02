@@ -3,10 +3,10 @@
 @section('content')
 
 <?php
+    $isVisibiliti = false;
     $link = "$_SERVER[REQUEST_URI]";
-    $components = parse_url($link);
-    parse_str($components['query'], $results);
-    $isVisibiliti =  isset($results) && isset($results['nav']) && $results['nav'] == 'documents' ? true : false;
+    $stringSeparado = parse_url($link, PHP_URL_QUERY );
+    $isVisibiliti =  isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' ? true : false;
 
 ?>
 	<!-- begin nav-tabs -->

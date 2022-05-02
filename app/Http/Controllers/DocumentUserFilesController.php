@@ -124,9 +124,8 @@ class DocumentUserFilesController extends AppBaseController
      */
     public function docFileCreate($userID, $docID, Request $request)
     {
-        #modal-alert
         $typeDoc = TypeDoc::where('id', $docID)->first();
-        //return redirect(route('document_user_files.create', ['docID' => $docID, 'userID' => $userID, 'typeDoc' => $typeDoc]) . '#modal-alert');
+
         return view('document_user_files.create')->with('docID', $docID)->with('userID', $userID)->with('typeDoc', $typeDoc);
     }
 
@@ -137,8 +136,9 @@ class DocumentUserFilesController extends AppBaseController
      */
     public function docFileUpdate($userID, $fileID, $docID, Request $request)
     {
+        $typeDoc = TypeDoc::where('id', $docID)->first();
         $file = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('id', $fileID)->first();
-        return view('document_user_files.edit')->with('docID', $docID)->with('userID', $userID)->with('documentUserFiles', $file)->with('fileID', $fileID);
+        return view('document_user_files.edit')->with('docID', $docID)->with('userID', $userID)->with('documentUserFiles', $file)->with('fileID', $fileID)->with('typeDoc', $typeDoc);
     }
 
     /**
@@ -189,7 +189,7 @@ class DocumentUserFilesController extends AppBaseController
         $documentUserFiles = $this->documentUserFilesRepository->create($input);
 
         Flash::success('Document User Files saved successfully.');
-        return redirect(route('workers.show', [$userID]) . "?nav=documents");
+        return redirect(route('workers.show', [$userID]) . "?documents");
     }
 
     /**
@@ -238,7 +238,7 @@ class DocumentUserFilesController extends AppBaseController
 
         Flash::success('Document User Files saved successfully.');
 
-        return redirect(route('workers.show', [$userID]));
+        return redirect(route('workers.show', [$userID]) . "?documents");
     }
 
     /**
@@ -335,7 +335,7 @@ class DocumentUserFilesController extends AppBaseController
 
             Flash::success('Document User Files deleted successfully.');
 
-            return redirect(route('workers.show', [$userID]));
+            return redirect(route('workers.show', [$userID]) . "?documents");
         }
     }
 }
