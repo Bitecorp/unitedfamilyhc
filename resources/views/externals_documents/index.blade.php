@@ -14,11 +14,11 @@
 				<!-- begin panel-heading -->
 				<div class="panel-heading">
                     <h4 class="panel-title">
-                        Sub Services For {{ $service->name_service }}
+                        Files Documents
                     </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="{{ route('subServices.addSubService', [$service->id]) }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('externalsDocuments.create') }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                     </div>
@@ -31,31 +31,38 @@
                             <thead>
                                 <tr>
                                     <th width="1%"></th>
-                                    <th class="text-nowrap">Name Sub Service</th>
-                                    <th class="text-nowrap">Type</th>
-                                    <th class="text-nowrap">Price</th>
+                                    <th class="text-nowrap">Title</th>
+                                    <th class="text-nowrap">URL</th>
+                                    <th class="text-nowrap">Rol</th>
+                                    <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($subServices as $key => $subServices)
+                                @foreach($externalsDocuments as $key => $externalsDocuments)
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
-                                        <td>{{ $subServices->name_sub_service }}</td>
-                                        @if($subServices->type_salary == 0)
-                                            <td>Monthly</td>
-                                        @else
-                                            <td>Per Hour</td>
-                                        @endif
-                                        <td>{{ $subServices->price_sub_service }}</td>
+                                        <td>{{ $externalsDocuments->title }}</td>
+                                        <td>{{ asset('filesUsers/' . $externalsDocuments->file) }}</td>
+
+                                        <td>
+                                            @foreach($roles as $role)
+                                                {{ $externalsDocuments->role_id == $role->id ? $role->name_role : null }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($services as $service)
+                                                {{ $externalsDocuments->service_id == $service->id ? $service->name_service : null }}
+                                            @endforeach
+                                        </td>
                                         <td class="with-btn" nowrap>
-                                            {!! Form::open(['route' => ['subServices.destroy', $subServices->id], 'method' => 'delete']) !!}
+                                            {!! Form::open(['route' => ['externalsDocuments.destroy', $externalsDocuments->id], 'method' => 'delete']) !!}
                                             <div>
-                                                <!-- <a href="{{ route('subServices.show', [$subServices->id]) }}" class='btn btn-sm btn-success'><i class="fa fa-eye"></i> Show  </a> -->
-                                                <a href="{{ route('subServices.edit', [$subServices->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Edit </a>
+                                                <!-- <a target=”_blank” href="{{ asset('filesUsers/' . $externalsDocuments->file) }}" class='btn btn-sm btn-success'><i class="fa fa-eye"></i> Show </a> -->
+                                                <a href="{{ route('externalsDocuments.edit', [$externalsDocuments->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Edit </a>
                                                 @if(Auth::user()->role_id == 1)
-                                                    {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                                @endif
+     {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+@endif
                                             </div>
                                             {!! Form::close() !!}
                                         </td>
@@ -87,3 +94,6 @@
 	<script src="/assets/plugins/jszip/dist/jszip.min.js"></script>
 	<script src="/assets/js/demo/table-manage-combine.demo.js"></script>
 @endpush
+
+
+

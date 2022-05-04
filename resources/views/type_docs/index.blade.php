@@ -33,6 +33,7 @@
                                     <th width="1%"></th>
                                     <th class="text-nowrap">Name</th>
                                     <th class="text-nowrap">Type</th>
+                                    <th class="text-nowrap">Expired</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -41,19 +42,16 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $typeDoc->name_doc }}</td>
-                                        @if($typeDoc->document_certificate == '0')
-                                            <td>DOCUMENT</td>
-                                        @else
-                                            <td>CERTIFICATE</td>
-                                        @endif
+                                        <td>{{$typeDoc->document_certificate == '0' ? 'DOCUMENT' : 'CERTIFICATE'}}</td>
+                                        <td>{{$typeDoc->expired == '0' ? 'NOT EXPIRED' : 'EXPIRED'}}</td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['typeDocs.destroy', $typeDoc->id], 'method' => 'delete']) !!}
                                             <div>
-                                                <a href="{{ route('typeDocs.show', [$typeDoc->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
+                                                <!-- <a href="{{ route('typeDocs.show', [$typeDoc->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a> -->
                                                 <a href="{{ route('typeDocs.edit', [$typeDoc->id]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
                                                 @if(Auth::user()->role_id == 1)
-     {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-@endif
+                                                    {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                                @endif
                                             </div>
                                             {!! Form::close() !!}
                                         </td>

@@ -1,23 +1,31 @@
 @include('service_assigneds.create')
 </br>
 @if($servicesAssigned != null)
+
 <!-- @include('sub_services.table')-->
 <div id="accordion">
-    <div class="card">
-        <div class="card-header" style="padding: 0 !important;" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Salary Services Assigneds
-                </button>
-            </h5>
-        </div>
+    @if(isset($collection))
+        @foreach($collection AS $key => $value)
+            <div class="card">
+                <div class="card-header" style="padding: 0 !important;" id="heading{{ $value->id }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ $value->id }}" aria-expanded="false" aria-controls="collapse{{ $value->id }}">
+                            {{ $value->name_service }}
+                        </button>
+                    </h5>
+                </div>
 
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                @include('salary_service_assigneds.table')
+                <div id="collapse{{ $value->id }}" class="collapse" aria-labelledby="heading{{ $value->id }}" data-parent="#accordion">
+                    <div class="card-body">
+                        @if(isset($subServices))
+                            @include('salary_service_assigneds.table')
+                        @endif
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+            </br>
+        @endforeach
+    @endif
 </div>
 @endif
 <!-- Submit Field -->

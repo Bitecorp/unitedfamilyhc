@@ -56,6 +56,7 @@ use App\Models\ReferencesPersonales;
 use App\Models\ReferencesPersonalesTwo;
 use App\Models\alertDocuments;
 use App\Models\SubServices;
+use App\Models\ExternalsDocuments;
 use Flash;
 use Response;
 use DB;
@@ -410,6 +411,9 @@ class WorkerController extends AppBaseController
 
         $returnView = '';
         $subServices = [];
+        $subServicesDif = [];
+        $idsSubServices = [];
+        $externalDocuments = [];
 
         if(!empty($servicesAssingneds)){
             $salaryServiceAssigneds = SalaryServiceAssigneds::where('user_id', '=', $id)->get();
@@ -417,8 +421,12 @@ class WorkerController extends AppBaseController
             $dataServicesAssigneds = array();
             foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
                 array_push($dataServicesAssigneds, DB::table('services')->select('documents')->where('id', $value)->first());
-                array_push($subServices, SubServices::where('service_id', $value)->first());
+                array_push($subServices, SubServices::where('service_id', $value)->get());
+                array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
+                array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', $value)->get());
             }
+
+            //dd($externalDocuments);
 
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
@@ -496,6 +504,7 @@ class WorkerController extends AppBaseController
                 }
             }
 
+           //dd($salaryServiceAssigneds);
             $returnView = view('workers.show_index')
                 ->with('roles', $roles)
                 ->with('status', $status)
@@ -525,7 +534,8 @@ class WorkerController extends AppBaseController
                 ->with('servicesDist', collect($servicesDist))
                 ->with('maritalStatus', $maritalStatus)
                 ->with('filesUploadsExpired', !empty($filesUploadsExpired)  ? $filesUploadsExpired : null)
-                ->with('subServices', !empty($subServices) ? $subServices : null);
+                ->with('subServices', !empty($subServices) ? $subServices : null)
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
 
         }else{
 
@@ -555,7 +565,8 @@ class WorkerController extends AppBaseController
                 ->with('userID', $id)
                 ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('maritalStatus', $maritalStatus)
-                ->with('subServices', !empty($subServices) ? $subServices : null);
+                ->with('subServices', !empty($subServices) ? $subServices : null)
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
 
         }
 

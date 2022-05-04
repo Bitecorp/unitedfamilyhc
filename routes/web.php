@@ -84,11 +84,15 @@ Route::resource('settings/PDFs/documentsEditors', App\Http\Controllers\documents
 
 Route::resource('settings/PDFs/imagesDocuments', App\Http\Controllers\ImagesDocumentsController::class);
 
+Route::resource('settings/PDFs/externalsDocuments', App\Http\Controllers\ExternalsDocumentsController::class);
+
 Route::resource('salaryServiceAssigneds', App\Http\Controllers\SalaryServiceAssignedsController::class);
 
 Route::resource('alertDocuments', App\Http\Controllers\AlertDocumentsController::class);
 
 Route::resource('subServices', App\Http\Controllers\SubServicesController::class);
+
+Route::post('/subServices/assignSubService/{userId}/{subServiceId}', [App\Http\Controllers\SubServicesController::class, 'assignSubService'])->name('subServices.assignSubService');
 
 Route::get('/subServices/list/{idService}', [App\Http\Controllers\SubServicesController::class, 'list'])->name('subServices.list');
 

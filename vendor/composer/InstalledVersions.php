@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'be431faaf7395ccd53cf21ca8437df857fa901a9',
+    'reference' => '5dfd22e980030ebe640a1395f0c67458876357bd',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -581,7 +581,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'be431faaf7395ccd53cf21ca8437df857fa901a9',
+      'reference' => '5dfd22e980030ebe640a1395f0c67458876357bd',
     ),
     'laravel/sail' => 
     array (
@@ -663,6 +663,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'ff6248ea87a9f116e78edd6002e39e5128a0d4dd',
+    ),
+    'luecano/numero-a-letras' => 
+    array (
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bab51e3e81545e38d6a11efccb3e6d568765ba7c',
     ),
     'mockery/mockery' => 
     array (
@@ -989,8 +998,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0|2.0',
-        1 => '1.0.0 || 2.0.0 || 3.0.0',
+        0 => '1.0.0 || 2.0.0 || 3.0.0',
+        1 => '1.0|2.0',
       ),
     ),
     'psr/simple-cache' => 

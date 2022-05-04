@@ -75,7 +75,7 @@ class ImagesDocuments extends Model
      */
     public static $rules = [
         'title' => 'nullable|string|max:255',
-        'file' => 'nullable|mimes:jpeg,png,pdf',
+        'file' => 'nullable|mimes:jpeg,png',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

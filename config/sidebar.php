@@ -73,6 +73,10 @@ return [
                             'title' => 'Images'
                         ],
                         [
+                            'url' => '/settings/PDFs/externalsDocuments',
+                            'title' => 'Upload Documents Externals'
+                        ],
+                        [
                             'url' => '/settings/PDFs/documentsEditors',
                             'title' => 'Create Documents PDFs'
                         ],

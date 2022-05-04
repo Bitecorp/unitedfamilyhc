@@ -11,6 +11,7 @@ use Flash;
 use Response;
 use App\Models\Service;
 use App\Models\SubServices;
+use App\Models\SalaryServiceAssigneds;
 
 class SubServicesController extends AppBaseController
 {
@@ -52,12 +53,12 @@ class SubServicesController extends AppBaseController
      * @return Response
      */
     public function create()
-    {        
+    {
         return view('sub_services.create');
     }
 
     public function addSubService($idService, Request $request)
-    {   
+    {
         $service = Service::where('id', $idService)->first();
         return view('sub_services.create')->with('service', $service);
     }
@@ -69,15 +70,42 @@ class SubServicesController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateSubServicesRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $data = $request->all();
 
-        $subServices = $this->subServicesRepository->create($input);
+        if(isset($data['type_salary'])){
+            $data['type_salary'] = true;
+        }else{
+            $data['type_salary'] = false;
+        }
+
+        $subServices = $this->subServicesRepository->create($data);
 
         Flash::success('Sub Services saved successfully.');
 
-        return redirect(route('subServices.list', [$input['service_id']]));
+        return redirect(route('subServices.list', [$data['service_id']]));
+    }
+
+    public function assignSubService($userId, $subServiceId, Request $request){
+        $data = $request->all();
+        $subService = SubServices::where('id', $subServiceId)->first();
+
+        $exist = SalaryServiceAssigneds::where('service_id', $subServiceId)->first();
+
+        if(!empty($exist)){
+            $flight = SalaryServiceAssigneds::find($exist->id);
+            $flight->delete();
+        }else{
+            $saveData = new SalaryServiceAssigneds;
+            $saveData->user_id = $userId;
+            $saveData->service_id = $subServiceId;
+            $saveData->type_salary = $subService->type_salary;
+            $saveData->salary = $subService->price_sub_service;
+            $saveData->save();
+        }
+
+        return redirect(route('workers.show', [$userId]). '?services');
     }
 
     /**
@@ -108,7 +136,7 @@ class SubServicesController extends AppBaseController
      * @return Response
      */
     public function edit($id)
-    {           
+    {
         $subServices = $this->subServicesRepository->find($id);
         $service = Service::where('id', $subServices->service_id)->first();
 
@@ -129,8 +157,9 @@ class SubServicesController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateSubServicesRequest $request)
+    public function update($id, Request $request)
     {
+        $data = $request->all();
         $subServices = $this->subServicesRepository->find($id);
 
         if (empty($subServices)) {
@@ -139,7 +168,13 @@ class SubServicesController extends AppBaseController
             return redirect(route('subServices.index'));
         }
 
-        $subServices = $this->subServicesRepository->update($request->all(), $id);
+        if(isset($data['type_salary'])){
+            $data['type_salary'] = true;
+        }else{
+            $data['type_salary'] = false;
+        }
+
+        $subServices = $this->subServicesRepository->update($data, $id);
 
         Flash::success('Sub Services updated successfully.');
 

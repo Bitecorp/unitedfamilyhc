@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Service;
+use App\Models\SubServices;
 use Flash;
 use Response;
 
@@ -97,15 +98,14 @@ class SalaryServiceAssignedsController extends AppBaseController
      */
     public function edit($id)
     {
-        $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->find($id);
-        $services = Service::all();
+        $salaryServiceAssigneds = SalaryServiceAssigneds::find($id);
+        $services = SubServices::find($salaryServiceAssigneds->service_id);
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
-
         return view('salary_service_assigneds.edit')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services);
     }
 
@@ -119,17 +119,16 @@ class SalaryServiceAssignedsController extends AppBaseController
      */
     public function update($id, Request $request)
     {
-        $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->find($id);
+        $data = $request->all();
+        $serviceName = SubServices::where('name_sub_service', $data['service_id'])->first();
+
+        $salaryServiceAssigneds = SalaryServiceAssigneds::where('service_id', $serviceName->id)->first();
 
         if (empty($salaryServiceAssigneds)) {
-            Flash::error('Salary Service Assigneds not found');
+            Flash::error('Salary Sub Service Assigneds not found');
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
-
-        $data = $request->all();
-
-        $serviceName = Service::where('name_service', $data['service_id'])->first();
 
         $data['service_id'] = $serviceName->id;
 
@@ -143,7 +142,7 @@ class SalaryServiceAssignedsController extends AppBaseController
 
         Flash::success('Salary Service Assigneds updated successfully.');
 
-        return redirect(route('workers.show', [$data['user_id']]));
+        return redirect(route('workers.show', [$data['user_id']]). '?services');
     }
 
     /**

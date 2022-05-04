@@ -2,39 +2,67 @@
 	<!-- begin panel-body -->
 	<div class="panel-body">
         <div class="col-xs-12 ">
-            <table id="tableSalary" class="table table-striped table-bordered table-td-valign-middle">
+            <table id="tableSalary{{$value->id}}" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
                     <tr>
                         <th width="1%"></th>
-                        <th class="text-nowrap">Service Id</th>
+                        <th class="text-nowrap">Sub Service</th>
                         <th class="text-nowrap">Type Salary</th>
-                        <th class="text-nowrap">Salary</th>
+                        <th class="text-nowrap">Assigned</th>
+                        <th class="text-nowrap">Salary Assigned</th>
                         <th class="text-nowrap">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($salaryServiceAssigneds as $key => $salaryServiceAssigneds)
-                        <tr>
-                            <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
-                            @foreach($services AS $key => $value)
-                                @if($salaryServiceAssigneds->service_id == $value->id)
-                                    <td>{{ $value->name_service }}</td>
+                    @if(isset($subServices))
+                        @foreach($subServices AS $keyS => $subServic)
+                            @foreach($subServic AS $keySs => $subService)
+                                @if($value->id == $subService->service_id)
+                                    <tr>
+                                        <td width="1%" class="f-s-600 text-inverse">{{ $keySs + 1 }}</td>
+                                        <td>{{ $subService->name_sub_service }}</td>
+                                        @if(isset($salaryServiceAssigneds))
+                                            @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                @if($subService->id == $salaryServiceAssigned->service_id)
+                                                    <td>{{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Hour'}}</td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        <td>
+                                            {!! Form::model($subService, ['route' => ['subServices.assignSubService', $worker->id, $subService->id], 'method' => 'post', 'id' => "sendForm_$subService->id"]) !!}
+                                            <!-- begin custom-switches -->
+                                                <div class="custom-control custom-switch">
+                                                    @if(isset($salaryServiceAssigneds))
+                                                        @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                            <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}" {{ $subService->id == $salaryServiceAssigned->service_id ? 'checked' : '' }}>
+                                                        @endforeach
+                                                    @endif
+                                                    <label class="custom-control-label" for="Switch_{{$subService->id}}"></label>
+                                                </div>
+                                            <!-- end custom-switches -->
+                                            {!! Form::close() !!}
+                                        </td>
+                                        @if(isset($salaryServiceAssigneds))
+                                            @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                @if($subService->id == $salaryServiceAssigned->service_id)
+                                                    <td>{{ $salaryServiceAssigned->salary }} $</td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        <td class="with-btn" nowrap>
+                                            @if(isset($salaryServiceAssigneds))
+                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                    @if($subService->id == $salaryServiceAssigned->service_id)
+                                                        <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigned->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endif
                             @endforeach
-                            @if($salaryServiceAssigneds->type_salary == 0)
-                                <td>Monthly</td>
-                            @else
-                                <td>Per Hour</td>
-                            @endif
-                            <td>{{ $salaryServiceAssigneds->salary != '' ? $salaryServiceAssigneds->salary : 0 }} $ {{ $salaryServiceAssigneds->type_salary == 0 ? 'Monthly' : ''}} {{ $salaryServiceAssigneds->type_salary == 1 ? 'Per Hour' : ''}}</td>
-                            <td class="with-btn" nowrap>
-                                {!! Form::open(['route' => ['salaryServiceAssigneds.destroy', $salaryServiceAssigneds->id], 'method' => 'delete']) !!}
-                                    <!-- <a href="{{ route('salaryServiceAssigneds.show', [$salaryServiceAssigneds->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a> -->
-                                    <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigneds->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
-                                {!! Form::close() !!}
-                            </td>
-                        </tr>
-                    @endforeach
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -44,8 +72,15 @@
 
 @push('scripts')
 <script>
+    function changeStatus(dato) {
+        $('#Switch_' + dato).change(function() {
+            $('#sendForm_' + dato).submit();
+        })
+    };
+</script>
+<script>
     $(function () {
-        $('#tableSalary').DataTable( {
+        $('#tableSalary' + {{ $value->id }}).DataTable( {
             retrieve: true,
             paging: true,
             searching: true

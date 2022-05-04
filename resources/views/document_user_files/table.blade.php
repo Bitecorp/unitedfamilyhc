@@ -38,6 +38,22 @@
     </div>
     </br>
     <div class="card">
+        <div class="card-header" style="padding: 0 !important;" id="headingFor">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFor" aria-expanded="false" aria-controls="collapseFor">
+                    Documents Externals
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseFor" class="collapse" aria-labelledby="headingFor" data-parent="#accordion">
+            <div class="card-body">
+                @include('document_user_files.table_external')
+            </div>
+        </div>
+    </div>
+    </br>
+    <div class="card">
         <div class="card-header" style="padding: 0 !important;" id="headingTwo">
             <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -45,7 +61,7 @@
                 </button>
             </h5>
         </div>
-        <div id="collapseTwo" class="collapse {{ $isVisibiliti == true ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body">
                 @include('document_user_files.table_current')
             </div>

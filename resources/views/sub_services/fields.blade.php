@@ -14,6 +14,15 @@
         </div>
     </div>
     <div class="col">
+        <div class="form-group">
+            <p>Type of Salary:</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" {{ isset($subServices) && $subServices->type_salary == 1 ? 'checked' : '' }}>
+                <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
+            </div>
+        </div>
+    </div>
+    <div class="col">
         <!-- Price Sub Service Field -->
         <div class="form-group">
             {!! Form::label('price_sub_service', 'Price Sub Service:') !!}

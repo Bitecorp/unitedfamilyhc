@@ -90,7 +90,7 @@ class SalaryServiceAssigneds extends Model
     public static $rules = [
         'user_id' => 'nullable|string|max:255',
         'service_id' => 'nullable|string|max:255',
-        'type_salary' => 'boolean',
+        'type_salary' => 'nullable|boolean',
         'salary' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'

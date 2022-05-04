@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @SWG\Definition(
- *      definition="SubServices",
+ *      definition="ExternalsDocuments",
  *      required={""},
  *      @SWG\Property(
  *          property="id",
@@ -17,23 +17,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="service_id",
- *          description="service_id",
+ *          property="title",
+ *          description="title",
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="name_sub_service",
- *          description="name_sub_service",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="price_sub_service",
- *          description="price_sub_service",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="config_validate",
- *          description="config_validate",
+ *          property="file",
+ *          description="file",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -50,12 +40,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      )
  * )
  */
-class SubServices extends Model
+class ExternalsDocuments extends Model
 {
 
     use HasFactory;
 
-    public $table = 'sub_services';
+    public $table = 'externals_documents';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -63,11 +53,10 @@ class SubServices extends Model
 
 
     public $fillable = [
+        'title',
+        'file',
         'service_id',
-        'name_sub_service',
-        'price_sub_service',
-        'type_salary',
-        'config_validate'
+        'role_id'
     ];
 
     /**
@@ -77,11 +66,10 @@ class SubServices extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'service_id' => 'string',
-        'type_salary' => 'boolean',
-        'name_sub_service' => 'string',
-        'price_sub_service' => 'string',
-        'config_validate' => 'string'
+        'title' => 'string',
+        'file' => 'string',
+        'service_id' => 'integer',
+        'role_id' => 'integer'
     ];
 
     /**
@@ -90,11 +78,10 @@ class SubServices extends Model
      * @var array
      */
     public static $rules = [
-        'service_id' => 'nullable|string|max:255',
-        'name_sub_service' => 'required|string|max:255',
-        'price_sub_service' => 'required|string|max:255',
-        'type_salary' => 'nullable|boolean',
-        'config_validate' => 'nullable|string|max:255',
+        'title' => 'nullable|string|max:255',
+        'file' => 'nullable|mimes:pdf',
+        'service_id' => 'nullable|string',
+        'role_ide' => 'nullable|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

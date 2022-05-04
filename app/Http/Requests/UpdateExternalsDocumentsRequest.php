@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\ImagesDocuments;
+use App\Models\ExternalsDocuments;
 
-class UpdateImagesDocumentsRequest extends FormRequest
+class UpdateExternalsDocumentsRequest extends FormRequest
 {
 
     /**
@@ -25,7 +25,7 @@ class UpdateImagesDocumentsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = ImagesDocuments::$rules;
+        $rules = ExternalsDocuments::$rules;
         return $rules;
     }
 }

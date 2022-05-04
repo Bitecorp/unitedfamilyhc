@@ -114,45 +114,8 @@ class ServiceAssignedsController extends AppBaseController
 
             Flash::success('Service Assigneds saved successfully.');
 
-            return redirect(route('workers.show', $id));
+            return redirect(route('workers.show', $id). '?services');
         }else{
-            $servicesAsigneds = DB::table('salary_service_assigneds')->where('user_id', $id)->get();
-
-            $arrayServices = [];
-
-            foreach($servicesAsigneds as $key => $valueservice){
-                array_push($arrayServices, $valueservice->service_id);
-            }
-
-            /* foreach($input['services'] as $key => $value){
-                array_push($arrayServices, $value);
-            } */
-
-            $idDIffOne = array_diff($arrayServices, $input['services']);
-            $idDIffTwo = array_diff($input['services'], $arrayServices);
-
-            $arrayData = '';
-
-            if(!empty($idDIffOne) || !empty($idDIffTwo)){
-                if(!empty($idDIffOne) && count($idDIffOne) >= 1){
-                    $arrayData = $idDIffOne;
-                }elseif(!empty($idDIffTwo) && count($idDIffTwo) >= 1){
-                    $arrayData = $idDIffTwo;
-                }elseif(!empty($idDIffOne) && count($idDIffOne) >= 1 && !empty($idDIffTwo) && count($idDIffTwo) >= 1){
-                    $arrayData = array_unique(array_merge($idDIffOne , $idDIffTwo));
-                }
-
-                foreach($arrayData as $key => $value){
-                    if(!empty(DB::table('salary_service_assigneds')->where('service_id', $value)->first())){
-                        $serviceAssignedsDelete = DB::table('salary_service_assigneds')->where('service_id', $value)->delete();
-                    }else{
-                         DB::table('salary_service_assigneds')->insert([
-                            'user_id' => $id,
-                            'service_id' => $value
-                        ]);
-                    }
-                }
-            }
 
             $input['services'] = json_encode($input['services']);
 
@@ -160,7 +123,7 @@ class ServiceAssignedsController extends AppBaseController
 
             Flash::success('Service Assigneds updated successfully.');
 
-            return redirect(route('workers.show', $id));
+            return redirect(route('workers.show', $id). '?services');
         }
     }
 

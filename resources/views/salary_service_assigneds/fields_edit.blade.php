@@ -2,20 +2,16 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            {!! Form::label('service_id', 'Service:') !!}
-            @foreach($services AS $key => $value)
-                @if($salaryServiceAssigneds->service_id == $value->id)
-                    <input type="text" name="service_id" class="form-control" readonly value="{{ $value->name_service }}" >
-                @endif
-            @endforeach
+            {!! Form::label('service_id', 'Sub Service:') !!}
+            <input type="text" name="service_id" class="form-control" readonly value="{{ $services->name_sub_service }}" >
         </div>
     </div>
     <div class="col">
         <div class="form-group">
             <p>Type of Salary:</p>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" {{ $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '' }}>
-                <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
+                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" {{ $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '' }}">
+                <label class="custom-control-label" for="type_salary">Per hour/Monthly</label>
             </div>
         </div>
     </div>
@@ -30,7 +26,7 @@
 <div class="col" hidden>
     <div class="form-group">
         {!! Form::label('user_id', 'User ID:') !!}
-        {!! Form::text('user_id', null, ['class' => 'form-control','maxlength' => 255]) !!}
+        {!! Form::text('user_id', $salaryServiceAssigneds->user_id,['class' => 'form-control','maxlength' => 255]) !!}
     </div>
 </div>
 

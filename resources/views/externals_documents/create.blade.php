@@ -1,9 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
+    @include('coreui-templates::common.errors')
+    <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">Salary Sub Service Assigneds</h4>
+            <h4 class="panel-title">Upload File for Document</h4>
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
@@ -12,7 +14,10 @@
             </div>
         </div>
         <div class="panel-body">
-            @include('salary_service_assigneds.fields_edit')
+            {!! Form::open(['route' => 'externalsDocuments.store', 'files' => true]) !!}
+                @include('externals_documents.fields')
+            {!! Form::close() !!}
         </div>
     </div>
+    <!-- end panel -->
 @endsection
