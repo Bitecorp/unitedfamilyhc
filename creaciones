@@ -1,4 +1,4 @@
-php artisan infyom:scaffold AlertDocuments --fromTable --tableName=users --save --factory --seeder
+php artisan infyom:scaffold Units --fromTable --tableName=unidades --save --factory --seeder
 
 php artisan storage:link
 

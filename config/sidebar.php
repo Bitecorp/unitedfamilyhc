@@ -64,6 +64,14 @@ return [
                     'title' => 'Services'
                 ],
                 [
+                    'url' => '/settings/units',
+                    'title' => 'Units'
+                ],
+                [
+                    'url' => '/settings/taskSubServices',
+                    'title' => 'Tasks Sub Services'
+                ],
+                [
                     'url' => 'javascript:;',
                     'title' => 'PDFs',
                     'caret' => true,

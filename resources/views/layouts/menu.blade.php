@@ -127,3 +127,15 @@
         <span>Sub Services</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('taskSubServices*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('taskSubServices.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Task Sub Services</span>
+    </a>
+</li>
+<li class="nav-item {{ Request::is('units*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('units.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Units</span>
+    </a>
+</li>

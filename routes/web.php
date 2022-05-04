@@ -97,3 +97,7 @@ Route::post('/subServices/assignSubService/{userId}/{subServiceId}', [App\Http\C
 Route::get('/subServices/list/{idService}', [App\Http\Controllers\SubServicesController::class, 'list'])->name('subServices.list');
 
 Route::get('/subServices/addSubService/{idService}', [App\Http\Controllers\SubServicesController::class, 'addSubService'])->name('subServices.addSubService');
+
+Route::resource('settings/taskSubServices', App\Http\Controllers\TaskSubServicesController::class);
+
+Route::resource('settings/units', App\Http\Controllers\UnitsController::class);
