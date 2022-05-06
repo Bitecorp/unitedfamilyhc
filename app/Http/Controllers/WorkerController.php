@@ -427,7 +427,7 @@ class WorkerController extends AppBaseController
             }
             array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', 0)->get());
 
-            //dd($externalDocuments);
+            //dd($dataServicesAssigneds);
 
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
@@ -441,10 +441,29 @@ class WorkerController extends AppBaseController
                 array_push($dataListFilesClear, $val->id);
             }
 
-            $documentUserFiles = array();
+            $documentUserFilesFoo = array();
             foreach(array_unique($dataListFilesClear) as $key => $valID){
+                foreach(collect(json_decode($servicesAssingneds->services)) as $keyS => $valueS){
+                    $test = DB::table('type_docs')->select('id', 'name_doc', 'service_id')->where('id', $valID)->first();
+                    foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
+                        if($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0'){
+                            array_push($documentUserFilesFoo,  DB::table('type_docs')->select('id')->where('id', $valID)->first());
+                        }
+                    }
+                }
+            }
+
+            $documentUserFilesFo = array();
+            foreach(collect($documentUserFilesFoo) as $key => $val){
+                array_push($documentUserFilesFo, $val->id);
+            }
+
+            $documentUserFiles = array();
+            foreach(array_unique($documentUserFilesFo) as $key => $valID){
                 array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc')->where('id', $valID)->first());
             }
+
+            //dd($documentUserFiles);
 
             /* $documentUserFiles = $documentUserFiles; */
             $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', 0)->orderBy('created_at', 'DESC')->get());
