@@ -34,6 +34,7 @@
                                     <th class="text-nowrap">Name</th>
                                     <th class="text-nowrap">Type</th>
                                     <th class="text-nowrap">Expired</th>
+                                    <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -42,8 +43,9 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $typeDoc->name_doc }}</td>
-                                        <td>{{$typeDoc->document_certificate == '0' ? 'DOCUMENT' : 'CERTIFICATE'}}</td>
-                                        <td>{{$typeDoc->expired == '0' ? 'NOT EXPIRED' : 'EXPIRED'}}</td>
+                                        <td>{{ $typeDoc->document_certificate == '0' ? 'DOCUMENT' : 'CERTIFICATE'}}</td>
+                                        <td>{{ $typeDoc->expired == '0' ? 'NOT EXPIRED' : 'EXPIRED'}}</td>
+                                        <td>{{ $typeDoc->service_id }}</td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['typeDocs.destroy', $typeDoc->id], 'method' => 'delete']) !!}
                                             <div>

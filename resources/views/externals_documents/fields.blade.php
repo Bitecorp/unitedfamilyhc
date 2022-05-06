@@ -27,10 +27,8 @@
             {!! Form::label('role_id', 'For:') !!}
             <select name='role_id' class="form-control">
                 @foreach($roles as $role)
-                    @if(empty($externalsDocuments))
-                        <option value='{{ $role->id }}' {{ $role->id == '2' ? 'selected' : '' }} >{{ $role->name_role }}</option>
-                    @else
-                        <option value='{{ $role->id }}' {{ $externalsDocuments->role_id == $role->id ? 'selected' : '' }} >{{ $role->name_role }}</option>
+                    @if(!empty($role))
+                        <option value='{{ $role->id }}' {{ isset($externalsDocuments) && isset($externalsDocuments->role_id) && $externalsDocuments->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
                     @endif
                 @endforeach
             </select>
@@ -41,12 +39,10 @@
         <div class="form-group">
             {!! Form::label('service_id', 'Service:') !!}
             <select name='service_id' class="form-control">
-                <option value='0'>ALL</option>
+                <option value='0' {{ isset($externalsDocuments) && isset($externalsDocuments->service_id) && $externalsDocuments->service_id == 0 ? 'selected' : '' }} >ALL</option>
                 @foreach($services as $service)
-                    @if(empty($externalsDocuments))
-                        <option value='{{ $service->id }}' {{ $service->id == '0' ? 'selected' : '' }} >{{ $service->name_service }}</option>
-                    @else
-                        <option value='{{ $service->id }}' {{ $externalsDocuments->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
+                    @if(!empty($service))
+                        <option value='{{ $service->id }}' {{ isset($externalsDocuments) && isset($externalsDocuments->service_id) && $externalsDocuments->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
                     @endif
                 @endforeach
             </select>

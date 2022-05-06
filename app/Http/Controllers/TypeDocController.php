@@ -8,6 +8,7 @@ use App\Repositories\TypeDocRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\TypeDoc;
+use App\Models\Service;
 use Flash;
 use Response;
 
@@ -31,9 +32,23 @@ class TypeDocController extends AppBaseController
     public function index(Request $request)
     {
         $typeDocs = TypeDoc::all();
+        $services = Service::all();
+
+        foreach($typeDocs AS $typeDoc){
+            if($typeDoc['service_id'] == '0'){
+                $typeDoc['service_id'] = 'ALL';
+            }else{
+                foreach($services AS $service){
+                    if($typeDoc['service_id'] == $service['id']){
+                        $typeDoc['service_id'] = $service['name_service'];
+                    }
+                }
+            }
+        }
 
         return view('type_docs.index')
-            ->with('typeDocs', $typeDocs);
+            ->with('typeDocs', $typeDocs)
+            ->with('services', $services);
     }
 
     /**
@@ -44,8 +59,11 @@ class TypeDocController extends AppBaseController
     public function create()
     {
         $typeDocs = TypeDoc::all();
+        $services = Service::all();
+
         return view('type_docs.create')
-            ->with('typeDocs', $typeDocs);
+            ->with('typeDocs', $typeDocs)
+            ->with('services', $services);
     }
 
     /**
@@ -81,6 +99,7 @@ class TypeDocController extends AppBaseController
     public function show($id)
     {
         $typeDoc = $this->typeDocRepository->find($id);
+        $services = Service::all();
 
         if (empty($typeDoc)) {
             Flash::error('Type Doc not found');
@@ -88,7 +107,7 @@ class TypeDocController extends AppBaseController
             return redirect(route('typeDocs.index'));
         }
 
-        return view('type_docs.show')->with('typeDoc', $typeDoc);
+        return view('type_docs.show')->with('typeDoc', $typeDoc)->with('services', $services);
     }
 
     /**
@@ -101,6 +120,7 @@ class TypeDocController extends AppBaseController
     public function edit($id)
     {
         $typeDoc = $this->typeDocRepository->find($id);
+        $services = Service::all();
 
         if (empty($typeDoc)) {
             Flash::error('Type Doc not found');
@@ -108,7 +128,7 @@ class TypeDocController extends AppBaseController
             return redirect(route('typeDocs.index'));
         }
 
-        return view('type_docs.edit')->with('typeDoc', $typeDoc);
+        return view('type_docs.edit')->with('typeDoc', $typeDoc)->with('services', $services);
     }
 
     /**

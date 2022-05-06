@@ -50,6 +50,7 @@ class TypeDoc extends Model
     public $fillable = [
         'name_doc',
         'document_certificate',
+        'service_id',
         'expired'
     ];
 
@@ -62,6 +63,7 @@ class TypeDoc extends Model
         'id' => 'integer',
         'name_doc' => 'string',
         'document_certificate' => 'string',
+        'service_id' => 'string',
         'expired' => 'string'
     ];
 
@@ -72,6 +74,7 @@ class TypeDoc extends Model
      */
     public static $rules = [
         'name_doc' => 'required|unique:type_docs|string|max:255',
+        'service_id' => 'required|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

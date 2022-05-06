@@ -28,10 +28,8 @@
                     {!! Form::label('role_id', 'Document For:') !!}
                     <select name='role_id' class="form-control">
                         @foreach($roles as $role)
-                            @if(empty($documentsEditors))
-                                <option value='{{ $role->id }}' {{ $role->id == '2' ? 'selected' : '' }} >{{ $role->name_role }}</option>
-                            @else
-                                <option value='{{ $role->id }}' {{ $documentsEditors->role_id == $role->id ? 'selected' : '' }} >{{ $role->name_role }}</option>
+                            @if(!empty($role))
+                                <option value='{{ $role->id }}' {{ isset($documentsEditors) && isset($documentsEditors->role_id) && $documentsEditors->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
                             @endif
                         @endforeach
                     </select>

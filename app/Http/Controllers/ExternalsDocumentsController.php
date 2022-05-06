@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Service;
+use App\Models\ExternalsDocuments;
 use Flash;
 use Response;
 
@@ -31,7 +32,7 @@ class ExternalsDocumentsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $externalsDocuments = $this->externalsDocumentsRepository->paginate(10);
+        $externalsDocuments = ExternalsDocuments::all();
         $roles = Role::all();
         $services = Service::all();
 

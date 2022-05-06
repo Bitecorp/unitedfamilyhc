@@ -51,9 +51,15 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach($services as $service)
-                                                {{ $externalsDocuments->service_id == $service->id ? $service->name_service : ($externalsDocuments->service_id == '0' ? 'ALL' : null)}}
+                                        @if($externalsDocuments->service_id == 0)
+                                            ALL
+                                        @else
+                                            @foreach($services AS $service)
+                                                @if($externalsDocuments->service_id == $service->id)
+                                                    {{$service->name_service}}
+                                                @endif
                                             @endforeach
+                                        @endif
                                         </td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['externalsDocuments.destroy', $externalsDocuments->id], 'method' => 'delete']) !!}
