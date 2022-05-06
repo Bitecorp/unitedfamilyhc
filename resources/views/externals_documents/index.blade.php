@@ -52,7 +52,7 @@
                                         </td>
                                         <td>
                                             @foreach($services as $service)
-                                                {{ $externalsDocuments->service_id == $service->id ? $service->name_service : null }}
+                                                {{ $externalsDocuments->service_id == $service->id ? $service->name_service : ($externalsDocuments->service_id == '0' ? 'ALL' : null)}}
                                             @endforeach
                                         </td>
                                         <td class="with-btn" nowrap>

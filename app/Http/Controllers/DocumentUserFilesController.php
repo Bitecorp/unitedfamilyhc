@@ -12,6 +12,8 @@ use App\Models\documentsEditors;
 use App\Models\DocumentUserFiles;
 use App\Models\AlertDocumentsExpired;
 use App\Models\TypeDoc;
+use App\Models\Worker;
+use App\Models\Patiente;
 use Flash;
 use Response;
 use DB;
@@ -125,8 +127,9 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileCreate($userID, $docID, Request $request)
     {
         $typeDoc = TypeDoc::where('id', $docID)->first();
+        $user = Patiente::find($userID);
 
-        return view('document_user_files.create')->with('docID', $docID)->with('userID', $userID)->with('typeDoc', $typeDoc);
+        return view('document_user_files.create')->with('docID', $docID)->with('userID', $userID)->with('typeDoc', $typeDoc)->with('user', $user);
     }
 
     /**
@@ -137,8 +140,9 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileUpdate($userID, $fileID, $docID, Request $request)
     {
         $typeDoc = TypeDoc::where('id', $docID)->first();
+        $user = Patiente::find($userID);
         $file = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('id', $fileID)->first();
-        return view('document_user_files.edit')->with('docID', $docID)->with('userID', $userID)->with('documentUserFiles', $file)->with('fileID', $fileID)->with('typeDoc', $typeDoc);
+        return view('document_user_files.edit')->with('docID', $docID)->with('userID', $userID)->with('documentUserFiles', $file)->with('fileID', $fileID)->with('typeDoc', $typeDoc)->with('user', $user);
     }
 
     /**
@@ -169,6 +173,7 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileUpload($userID, $docID, Request $request)
     {
         $input = $request->all();
+        $user = Patiente::find($userID);
 
         $documentStatus = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('expired', '1')->get();
         if(isset($documentStatus) && !empty($documentStatus)){
@@ -189,7 +194,12 @@ class DocumentUserFilesController extends AppBaseController
         $documentUserFiles = $this->documentUserFilesRepository->create($input);
 
         Flash::success('Document User Files saved successfully.');
-        return redirect(route('workers.show', [$userID]) . "?documents");
+
+        if(!empty($user) && $user->role_id == 4){
+            return redirect(route('patientes.show', [$userID]) . "?documents");
+        }else{
+            return redirect(route('workers.show', [$userID]) . "?documents");
+        }
     }
 
     /**
@@ -203,11 +213,16 @@ class DocumentUserFilesController extends AppBaseController
     {
 
         $documentUserFiles = $this->documentUserFilesRepository->find($fileID);
+        $user = Patiente::find($userID);
 
         if (empty($documentUserFiles)) {
             Flash::error('Document User Files not found');
 
-            return redirect(route('workers.show', [$userID]));
+            if(!empty($user) && $user->role_id == 4){
+                return redirect(route('patientes.show', [$userID]) . "?documents");
+            }else{
+                return redirect(route('workers.show', [$userID]) . "?documents");
+            }
         }
 
         $deleteImage = deleteFile($documentUserFiles->file);
@@ -238,7 +253,11 @@ class DocumentUserFilesController extends AppBaseController
 
         Flash::success('Document User Files saved successfully.');
 
-        return redirect(route('workers.show', [$userID]) . "?documents");
+        if(!empty($user) && $user->role_id == 4){
+            return redirect(route('patientes.show', [$userID]) . "?documents");
+        }else{
+            return redirect(route('workers.show', [$userID]) . "?documents");
+        }
     }
 
     /**
@@ -335,7 +354,13 @@ class DocumentUserFilesController extends AppBaseController
 
             Flash::success('Document User Files deleted successfully.');
 
-            return redirect(route('workers.show', [$userID]) . "?documents");
+            $user = Patiente::find($userID);
+
+            if(!empty($user) && $user->role_id == 4){
+                return redirect(route('patientes.show', [$userID]) . "?documents");
+            }else{
+                return redirect(route('workers.show', [$userID]) . "?documents");
+            }
         }
     }
 }

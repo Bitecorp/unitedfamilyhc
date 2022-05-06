@@ -31,7 +31,7 @@
 			<!-- begin row -->
 			<div>
                 @include('contact_emergencies.show_guardian_fields')
-			</div>	
+			</div>
 			<!-- end row -->
 		</div>
 		<!-- end tab-pane -->

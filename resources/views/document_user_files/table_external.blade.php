@@ -10,18 +10,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($externalDocuments as $key => $externalDocuments)
-                        @foreach($externalDocuments as $keyE => $externalDocument)
-                            @if(isset($externalDocument) && !empty($externalDocument))
-                            <tr>
-                                <td>{{ $externalDocument->title }}</td>
-                                <td class="with-btn" nowrap>
-                                    <a href="{{ asset('filesUsers/' . $externalDocument->file) }}" target="_blanck" class='btn btn-info'><i class="fa fa-file"></i> Download PDF</a>
-                                </td>
-                            </tr>
-                            @endif
+                    @if(isset($externalDocuments))
+                        @foreach($externalDocuments as $key => $externalDocuments)
+                            @foreach($externalDocuments as $keyE => $externalDocument)
+                                @if(isset($externalDocument) && !empty($externalDocument))
+                                <tr>
+                                    <td>{{ $externalDocument->title }}</td>
+                                    <td class="with-btn" nowrap>
+                                        <a href="{{ asset('filesUsers/' . $externalDocument->file) }}" target="_blanck" class='btn btn-info'><i class="fa fa-file"></i> Download PDF</a>
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
                         @endforeach
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

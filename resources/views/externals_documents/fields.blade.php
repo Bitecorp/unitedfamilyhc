@@ -41,9 +41,10 @@
         <div class="form-group">
             {!! Form::label('service_id', 'Service:') !!}
             <select name='service_id' class="form-control">
+                <option value='0'>ALL</option>
                 @foreach($services as $service)
                     @if(empty($externalsDocuments))
-                        <option value='{{ $service->id }}' {{ $service->id == '1' ? 'selected' : '' }} >{{ $service->name_service }}</option>
+                        <option value='{{ $service->id }}' {{ $service->id == '0' ? 'selected' : '' }} >{{ $service->name_service }}</option>
                     @else
                         <option value='{{ $service->id }}' {{ $externalsDocuments->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
                     @endif

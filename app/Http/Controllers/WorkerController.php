@@ -372,7 +372,7 @@ class WorkerController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $workers = Worker::all();
+        $workers = Worker::where('role_id', '<>', 4);
 
         $locations = Location::all();
 
@@ -425,6 +425,7 @@ class WorkerController extends AppBaseController
                 array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
                 array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', $value)->get());
             }
+            array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', 0)->get());
 
             //dd($externalDocuments);
 

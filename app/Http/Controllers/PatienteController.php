@@ -47,12 +47,16 @@ use App\Models\Education;
 use App\Models\JobInformation;
 use App\Models\ContactEmergency;
 use App\Models\documentsEditors;
+use App\Models\DocumentsUserFiles;
 use App\Models\Location;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\ReferencesJobs;
 use App\Models\ReferencesJobsTwo;
 use App\Models\ReferencesPersonales;
 use App\Models\ReferencesPersonalesTwo;
+use App\Models\alertDocuments;
+use App\Models\SubServices;
+use App\Models\ExternalsDocuments;
 use Flash;
 use Response;
 use DB;
@@ -171,7 +175,8 @@ class PatienteController extends AppBaseController
         ->with('jobInformations', $jobInformations)
         ->with('patientes', $patientes)
         ->with('servicesAssigned', $servicesAssigned)
-        ->with('educations', $educations);
+        ->with('educations', $educations)
+        ->with('maritalStatus', $maritalStatus);
     }
 
     public function getPDF($id, $idPdf, Request $request){
@@ -217,11 +222,11 @@ class PatienteController extends AppBaseController
         ];
         /* ob_end_clean(); */
         $pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
-        return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
+       /* return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');*/
 
-        /* return $pdf->download($patiente->first_name . $patiente->first_name . '.pdf'); */
-		/* $pdf = PDF::loadView('pdf/patientePDF');
-		return $pdf->stream('pdf/patientePDF.pdf'); */
+        /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
+		/* $pdf = PDF::loadView('pdf/workerPDF'); */
+		return $pdf->stream(str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf');
 	}
 
     /**
@@ -405,6 +410,10 @@ class PatienteController extends AppBaseController
         $servicesAssingneds = DB::table('service_assigneds')->select('services')->where('user_id', $id)->first();
 
         $returnView = '';
+        $subServices = [];
+        $subServicesDif = [];
+        $idsSubServices = [];
+        $externalDocuments = [];
 
         if(!empty($servicesAssingneds)){
             $salaryServiceAssigneds = SalaryServiceAssigneds::where('user_id', '=', $id)->get();
@@ -412,7 +421,13 @@ class PatienteController extends AppBaseController
             $dataServicesAssigneds = array();
             foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
                 array_push($dataServicesAssigneds, DB::table('services')->select('documents')->where('id', $value)->first());
+                array_push($subServices, SubServices::where('service_id', $value)->get());
+                array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
+                array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $patiente->role_id)->where('service_id', $value)->get());
             }
+            array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $patiente->role_id)->where('service_id', 0)->get());
+
+            //dd($externalDocuments);
 
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
@@ -432,7 +447,8 @@ class PatienteController extends AppBaseController
             }
 
             /* $documentUserFiles = $documentUserFiles; */
-            $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->orderBy('expired', 'DESC')->orderBy('created_at', 'DESC')->get());
+            $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', 0)->orderBy('created_at', 'DESC')->get());
+            $filesUploadsExpired = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', '<>', 0)->orderBy('created_at', 'DESC')->get());
 
             $documentUserFilesUpload = array();
             foreach($filesUploads AS $key => $value){
@@ -489,6 +505,7 @@ class PatienteController extends AppBaseController
                 }
             }
 
+            //dd($salaryServiceAssigneds);
             $returnView = view('patientes.show_index')
                 ->with('roles', $roles)
                 ->with('status', $status)
@@ -518,7 +535,11 @@ class PatienteController extends AppBaseController
                 ->with('userID', $id)
                 ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('collection', collect($data))
-                ->with('servicesDist', collect($servicesDist));
+                ->with('servicesDist', collect($servicesDist))
+                ->with('maritalStatus', $maritalStatus)
+                ->with('filesUploadsExpired', !empty($filesUploadsExpired)  ? $filesUploadsExpired : null)
+                ->with('subServices', !empty($subServices) ? $subServices : null)
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
 
         }else{
 
@@ -549,7 +570,10 @@ class PatienteController extends AppBaseController
                 ->with('salaryServiceAssigneds', !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds : null)
                 ->with('locations', $locations)
                 ->with('userID', $id)
-                ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null);
+                ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null)
+                ->with('maritalStatus', $maritalStatus)
+                ->with('subServices', !empty($subServices) ? $subServices : null)
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
 
         }
 

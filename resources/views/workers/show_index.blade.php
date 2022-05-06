@@ -45,7 +45,7 @@
                 </div>
                 <!-- end tab-pane -->
                 <!-- begin tab-pane -->
-                <div class="tab-pane fade  {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'show active' : ''}}" id="nav-documents">
+                <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'show active' : ''}}" id="nav-documents">
                     <!-- begin row -->
                     <div>
                         @include('document_user_files.table')

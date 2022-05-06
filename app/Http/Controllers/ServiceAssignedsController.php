@@ -12,6 +12,8 @@ use Flash;
 use Response;
 use DB;
 use Illuminate\Support\Collection;
+use App\Models\Patiente;
+use App\Models\Worker;
 
 class ServiceAssignedsController extends AppBaseController
 {
@@ -99,6 +101,7 @@ class ServiceAssignedsController extends AppBaseController
         $input['user_id'] = $id;
 
         $serviceAssignedsID = DB::table('service_assigneds')->select('id')->where('user_id', $id)->first();
+        $userID = Patiente::find($id);
 
         if(empty($serviceAssignedsID)){
             $input['services'] = json_encode($input['services']);
@@ -114,7 +117,11 @@ class ServiceAssignedsController extends AppBaseController
 
             Flash::success('Service Assigneds saved successfully.');
 
-            return redirect(route('workers.show', $id). '?services');
+            if(!empty($userID) && $userID->role_id == 4){
+                return redirect(route('patientes.show', $id). '?services');
+            }else{
+                return redirect(route('workers.show', $id). '?services');
+            }
         }else{
 
             $input['services'] = json_encode($input['services']);
@@ -123,7 +130,11 @@ class ServiceAssignedsController extends AppBaseController
 
             Flash::success('Service Assigneds updated successfully.');
 
-            return redirect(route('workers.show', $id). '?services');
+            if(!empty($userID) && $userID->role_id == 4){
+                return redirect(route('patientes.show', $id). '?services');
+            }else{
+                return redirect(route('workers.show', $id). '?services');
+            }
         }
     }
 

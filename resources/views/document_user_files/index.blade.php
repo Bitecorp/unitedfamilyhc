@@ -65,8 +65,8 @@
                                                             <a href="{{ asset('filesUsers/' . $value->file) }}" target="_blank" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
                                                             <!-- <a href="{{ route('documentUserFiles.edit', [$documentUserFiles->id]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Update </a> -->
                                                             @if(Auth::user()->role_id == 1)
-     {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-@endif
+                                                                {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                                            @endif
                                                         @else
                                                             <a href="{{ route('documentUserFiles.uploadFile', [$userID, $documentUserFiles->id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-upload"></i> Upload </a>
                                                         @endif
