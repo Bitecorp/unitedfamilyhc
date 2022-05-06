@@ -19,8 +19,6 @@
                                     @if(isset($documentUserFiles) && !empty($documentUserFiles) && count(array($documentUserFiles)) >= 1)
                                         @foreach($documentUserFiles as $key => $documentUserFile)
                                             <tr>
-                                                
-                                            <p> {{$documentUserFile->name_doc}}</p>
                                                 <td>{{ $documentUserFile->name_doc }}</td>
                                                 @if(count(array($filesUploads)) >= 1)
                                                     <td>
