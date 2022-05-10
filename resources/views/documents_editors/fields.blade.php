@@ -35,6 +35,20 @@
                     </select>
                 </div>
             </div>
+            <div class="col">
+                <!-- Service Id Field -->
+                <div class="form-group">
+                    {!! Form::label('service_id', 'Service:') !!}
+                    <select name='service_id' class="form-control">
+                        <option value='0' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == 0 ? 'selected' : '' }} >ALL</option>
+                        @foreach($services as $service)
+                            @if(!empty($service))
+                                <option value='{{ $service->id }}' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="row">

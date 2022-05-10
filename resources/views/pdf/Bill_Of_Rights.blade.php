@@ -2,9 +2,11 @@
         <!DOCTYPE html>
         <html lang="es">
             <head>
+                <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-                <style>
+                <style type="text/css">
                     @page {
                         margin-top: 1.3in;
                         margin-left: 0.8in;

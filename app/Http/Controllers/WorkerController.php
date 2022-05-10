@@ -222,7 +222,10 @@ class WorkerController extends AppBaseController
             'services' => $services,
             'salaryServices' => SalaryServiceAssigneds::where('user_id', $id)->get(),
         ];
-        /* ob_end_clean(); */
+        if(ob_get_length() > 0) {
+            ob_clean();
+            ob_end_flush();
+        }
         $pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
        /* return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');*/
 
@@ -414,6 +417,7 @@ class WorkerController extends AppBaseController
         $subServicesDif = [];
         $idsSubServices = [];
         $externalDocuments = [];
+        $documentsEditors = [];
 
         if(!empty($servicesAssingneds)){
             $salaryServiceAssigneds = SalaryServiceAssigneds::where('user_id', '=', $id)->get();
@@ -424,10 +428,18 @@ class WorkerController extends AppBaseController
                 array_push($subServices, SubServices::where('service_id', $value)->get());
                 array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
                 array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', $value)->get());
+                $dataMoment = documentsEditors::where('role_id', [2,3])->where('service_id', $value)->get();
+                if(isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1){
+                    array_push($documentsEditors, documentsEditors::where('role_id', [2,3])->where('service_id', $value)->get());
+                }
+            }
+            $dataMoment = documentsEditors::where('role_id', [2,3])->where('service_id', 0)->get();
+            if(isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1){
+                array_push($documentsEditors, documentsEditors::where('role_id', [2,3])->where('service_id', 0)->get());
             }
             array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', 0)->get());
 
-            //dd($dataServicesAssigneds);
+            //dd(($documentsEditors));
 
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
@@ -545,7 +557,7 @@ class WorkerController extends AppBaseController
                 ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
-                ->with('documentsEditors', !empty($documentsEditors) ? collect($documentsEditors) : null)
+                ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
                 ->with('salaryServiceAssigneds', !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds : null)
                 ->with('locations', $locations)
                 ->with('userID', $id)
@@ -579,7 +591,7 @@ class WorkerController extends AppBaseController
                 ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
-                ->with('documentsEditors', !empty($documentsEditors) ? collect($documentsEditors) : null)
+                ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
                 ->with('salaryServiceAssigneds', !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds : null)
                 ->with('locations', $locations)
                 ->with('userID', $id)

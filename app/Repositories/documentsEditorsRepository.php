@@ -18,7 +18,8 @@ class documentsEditorsRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'name_document_editor',
-        'content'
+        'content',
+        'service_id'
     ];
 
     /**

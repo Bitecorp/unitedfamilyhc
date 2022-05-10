@@ -65,3 +65,14 @@ function deleteFile($url){
 
     return true;
 }
+
+function recoveryFile($url){
+
+    $file = DataFile::select('id', 'url')->where('url', $url)->first();
+
+    if (!empty($file) && Storage::disk('public_files')->exists($url)) {
+        $fileRecovery = Storage::disk('public_files')->get($url);
+    }
+
+    return $fileRecovery;
+}

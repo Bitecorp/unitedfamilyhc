@@ -57,7 +57,8 @@ class documentsEditors extends Model
         'role_id',
         'backgroundImg',
         'pagination',
-        'content'
+        'content',
+        'service_id'
     ];
 
     /**
@@ -70,7 +71,8 @@ class documentsEditors extends Model
         'name_document_editor' => 'string',
         'backgroundImg' => 'string',
         'role_id' => 'string',
-        'content' => 'string'
+        'content' => 'string',
+        'service_id' => 'string'
     ];
 
     /**
@@ -83,6 +85,7 @@ class documentsEditors extends Model
         'content' => 'nullable|string',
         'backgroundImg' => 'nullable|string',
         'role_id' => 'nullable|string|max:255',
+        'service_id' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

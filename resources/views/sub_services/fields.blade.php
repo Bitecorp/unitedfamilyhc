@@ -25,7 +25,7 @@
     <div class="col">
         <!-- Price Sub Service Field -->
         <div class="form-group">
-            {!! Form::label('price_sub_service', 'Price Sub Service:') !!}
+            {!! Form::label('price_sub_service', 'Customer Billing:') !!}
             {!! Form::text('price_sub_service', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
     </div>

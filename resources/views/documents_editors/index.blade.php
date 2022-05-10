@@ -41,11 +41,13 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $documentsEditors->name_document_editor }}</td>
+                                        <td>
                                         @foreach($roles AS $key => $role)
                                             @if($documentsEditors->role_id == $role->id)
-                                                <td>{{ $role->name_role }}</td>
+                                                {{ $role->name_role }}
                                             @endif
                                         @endforeach
+                                        </td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['documentsEditors.destroy', $documentsEditors->id], 'method' => 'delete']) !!}
                                             <div>

@@ -38,9 +38,12 @@ class documentsEditorsController extends AppBaseController
     {
         //dd(DB::select('SELECT role_id FROM documents_editors GROUP BY role_id'));
         $documentsEditors = documentsEditors::orderBy('name_document_editor', 'asc')->orderBy('role_id', 'asc')->get();
+        $services = Service::all();
+        $services2 = Service::all();
 
         return view('documents_editors.index')
             ->with('documentsEditors', $documentsEditors)
+            ->with('services', $services)
             ->with('roles', Role::all());
     }
 
@@ -77,7 +80,7 @@ class documentsEditorsController extends AppBaseController
         $backgroundImg = '';
         if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
             $backgroundImg = '
-                <style>
+                <style type="text/css">
                     @page {
                         margin-top: 1.3in;
                         margin-left: 0.8in;
@@ -105,7 +108,9 @@ class documentsEditorsController extends AppBaseController
         <!DOCTYPE html>
         <html lang="es">
             <head>
+                <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
                 ' . $backgroundImg . '
                 <title>' . $input['name_document_editor'] . '</title>
             </head>
@@ -221,7 +226,7 @@ class documentsEditorsController extends AppBaseController
         $backgroundImg = '';
         if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
             $backgroundImg = '
-                <style>
+                <style type="text/css">
                     @page {
                         margin-top: 1.3in;
                         margin-left: 0.8in;
@@ -249,7 +254,9 @@ class documentsEditorsController extends AppBaseController
         <!DOCTYPE html>
         <html lang="es">
             <head>
+                <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
                 ' . $backgroundImg . '
                 <title>' . $input['name_document_editor'] . '</title>
             </head>

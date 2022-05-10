@@ -10,14 +10,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($documentsEditors as $key => $documentsEditors)
-                        <tr>
-                            <td>{{ $documentsEditors->name_document_editor }}</td>
-                            <td class="with-btn" nowrap>
-                                <a href="{{ route('workers.pdf', [$worker->id, $documentsEditors->id]) }}" target="_blanck" class='btn btn-info'><i class="fa fa-file"></i> Download PDF</a>
-                            </td>
-                        </tr>
-                    @endforeach
+                    @if (is_array($documentsEditors) || is_object($documentsEditors))
+                        @foreach($documentsEditors as $key => $documentsEditor)
+                            @foreach($documentsEditor as $keyD => $documentsEdit)
+                                <tr>
+                                    <td>{{ $documentsEdit->name_document_editor }}</td>
+                                    <td class="with-btn" nowrap>
+                                        <a href="{{ route('workers.pdf', [$worker->id, $documentsEdit->id]) }}" target="_blanck" class='btn btn-info'><i class="fa fa-file"></i> Download PDF</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

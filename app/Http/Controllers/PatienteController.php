@@ -373,8 +373,6 @@ class PatienteController extends AppBaseController
 
         $locations = Location::all();
 
-        $documentsEditors = documentsEditors::where('role_id', 4)->get();
-
         $patiente = $this->patienteRepository->find($id);
 
         if (empty($patiente)) {
@@ -414,6 +412,7 @@ class PatienteController extends AppBaseController
         $subServicesDif = [];
         $idsSubServices = [];
         $externalDocuments = [];
+        $documentsEditors = [];
 
         if(!empty($servicesAssingneds)){
             $salaryServiceAssigneds = SalaryServiceAssigneds::where('user_id', '=', $id)->get();
@@ -423,11 +422,19 @@ class PatienteController extends AppBaseController
                 array_push($dataServicesAssigneds, DB::table('services')->select('documents')->where('id', $value)->first());
                 array_push($subServices, SubServices::where('service_id', $value)->get());
                 array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
-                array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $patiente->role_id)->where('service_id', $value)->get());
+                array_push($externalDocuments, ExternalsDocuments::where('role_id', 4)->where('service_id', $value)->get());
+                $dataMoment = documentsEditors::where('role_id', 4)->where('service_id', $value)->get();
+                if(isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1){
+                    array_push($documentsEditors, documentsEditors::where('role_id', 4)->where('service_id', $value)->get());
+                }
             }
-            array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $patiente->role_id)->where('service_id', 0)->get());
+            $dataMoment = documentsEditors::where('role_id', 4)->where('service_id', 0)->get();
+            if(isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1){
+                array_push($documentsEditors, documentsEditors::where('role_id', 4)->where('service_id', 0)->get());
+            }
+            array_push($externalDocuments, ExternalsDocuments::where('role_id', 4)->where('service_id', 0)->get());
 
-            //dd($externalDocuments);
+            //dd($documentsEditors);
 
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
@@ -524,7 +531,6 @@ class PatienteController extends AppBaseController
                 }
             }
 
-            //dd($salaryServiceAssigneds);
             $returnView = view('patientes.show_index')
                 ->with('roles', $roles)
                 ->with('status', $status)
@@ -548,7 +554,7 @@ class PatienteController extends AppBaseController
                 ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
-                ->with('documentsEditors', !empty($documentsEditors) ? collect($documentsEditors) : null)
+                ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
                 ->with('salaryServiceAssigneds', !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds : null)
                 ->with('locations', $locations)
                 ->with('userID', $id)
@@ -585,7 +591,7 @@ class PatienteController extends AppBaseController
                 ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
-                ->with('documentsEditors', !empty($documentsEditors) ? collect($documentsEditors) : null)
+                ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
                 ->with('salaryServiceAssigneds', !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds : null)
                 ->with('locations', $locations)
                 ->with('userID', $id)
