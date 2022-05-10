@@ -209,7 +209,7 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function docFileUploadUpdate($userID, $fileID, $docID, CreateDocumentUserFilesRequest $request)
+    public function docFileUploadUpdate($userID, $fileID, $docID, Request $request)
     {
 
         $documentUserFiles = $this->documentUserFilesRepository->find($fileID);
@@ -225,31 +225,34 @@ class DocumentUserFilesController extends AppBaseController
             }
         }
 
-        $deleteImage = deleteFile($documentUserFiles->file);
-
-        if($deleteImage){
-            $this->documentUserFilesRepository->delete($fileID);
-        }
-
         $input = $request->all();
 
-        $documentStatus = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('expired', '1')->get();
-        if(isset($documentStatus) && !empty($documentStatus)){
-            foreach($documentStatus AS $key => $value){
-                DocumentUserFiles::where('id', $value->id)->update(['expired' => '2']);
-                AlertDocumentsExpired::where('document_user_file_id', $value->id)->delete();
+        if(isset($input['file'])){
+            $deleteImage = deleteFile($documentUserFiles->file);
+
+            if($deleteImage){
+                $this->documentUserFilesRepository->delete($fileID);
             }
+
+            $documentStatus = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('expired', '1')->get();
+            if(isset($documentStatus) && !empty($documentStatus)){
+                foreach($documentStatus AS $key => $value){
+                    DocumentUserFiles::where('id', $value->id)->update(['expired' => '2']);
+                    AlertDocumentsExpired::where('document_user_file_id', $value->id)->delete();
+                }
+            }
+
+            $file = $request->file('file');
+            $titleFile = '';
+            $uploadImage = createFile($file, $titleFile);
+            $input['file'] = $uploadImage;
+            $input['user_id'] = $userID;
+            $input['document_id'] = $docID;
+
+            $documentUserFile = $this->documentUserFilesRepository->create($input);
         }
 
-        $file = $request->file('file');
-        $titleFile = '';
-        $uploadImage = createFile($file, $titleFile);
-
-        $input['file'] = $uploadImage;
-        $input['user_id'] = $userID;
-        $input['document_id'] = $docID;
-
-        $documentUserFile = $this->documentUserFilesRepository->create($input);
+        $externalsDocuments = $this->documentUserFilesRepository->update($input, $documentUserFiles->id);
 
         Flash::success('Document User Files saved successfully.');
 

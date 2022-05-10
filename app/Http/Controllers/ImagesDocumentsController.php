@@ -129,12 +129,13 @@ class ImagesDocumentsController extends AppBaseController
 
         $input = $request->all();
 
-        $deleteImage = deleteFile($imagesDocuments->file);
-
-        $file = $request->file('file');
-        $titleFile = $input['title'];
-        $uploadImage = createFile($file, $titleFile);
-        $input['file'] = $uploadImage;
+        if(isset($input['file'])){
+            $deleteImage = deleteFile($imagesDocuments->file);
+            $file = $request->file('file');
+            $titleFile = $input['title'];
+            $uploadImage = createFile($file, $titleFile);
+            $input['file'] = $uploadImage;
+        }
 
         $imagesDocuments = $this->imagesDocumentsRepository->update($input, $id);
 

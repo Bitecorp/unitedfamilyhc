@@ -67,8 +67,8 @@
                                                 <!-- <a target=”_blank” href="{{ asset('filesUsers/' . $externalsDocuments->file) }}" class='btn btn-sm btn-success'><i class="fa fa-eye"></i> Show </a> -->
                                                 <a href="{{ route('externalsDocuments.edit', [$externalsDocuments->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Edit </a>
                                                 @if(Auth::user()->role_id == 1)
-     {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-@endif
+                                                    {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                                @endif
                                             </div>
                                             {!! Form::close() !!}
                                         </td>

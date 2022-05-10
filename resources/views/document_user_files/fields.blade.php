@@ -13,8 +13,8 @@
                     <span class="input-group-text">File:</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required>
-                    <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+                    <input type="file" name="file" class="custom-file-input" id="inputGroupFile" {{ isset($documentUserFiles) && isset($documentUserFiles->file) ? '' : 'required'}}>
+                    <label class="custom-file-label" for="inputGroupFile">{{ isset($documentUserFiles) && isset($documentUserFiles->file) ? $documentUserFiles->file : 'Choose file' }}</label>
                 </div>
             </div>
         </div>

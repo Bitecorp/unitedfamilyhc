@@ -146,12 +146,13 @@ class ExternalsDocumentsController extends AppBaseController
 
         $input = $request->all();
 
-        $deleteImage = deleteFile($externalsDocuments->file);
-
-        $file = $request->file('file');
-        $titleFile = $input['title'];
-        $uploadImage = createFile($file, $titleFile);
-        $input['file'] = $uploadImage;
+        if(isset($input['file'])){
+            $deleteImage = deleteFile($externalsDocuments->file);
+            $file = $request->file('file');
+            $titleFile = $input['title'];
+            $uploadImage = createFile($file, $titleFile);
+            $input['file'] = $uploadImage;
+        }
 
         $externalsDocuments = $this->externalsDocumentsRepository->update($input, $id);
 
