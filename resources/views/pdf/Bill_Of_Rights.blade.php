@@ -5,7 +5,6 @@
                 <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                
                 <style type="text/css">
                     @page {
                         margin-top: 1.3in;
@@ -30,7 +29,7 @@
                 </style>
                 <title>Bill Of Rights</title>
             </head>
-            <body>
+            <body style="margin-top: -25px !important;">
         <p style="text-align: center;"><strong>BILL OF RIGHTS FOR PERSONS WITH DISABILITIES</strong></p>
 <p><strong>&nbsp;</strong></p>
 <p>&nbsp;Chapter 393 of the Florida Statutes says that you have the right:</p>

@@ -114,7 +114,7 @@ class documentsEditorsController extends AppBaseController
                 ' . $backgroundImg . '
                 <title>' . $input['name_document_editor'] . '</title>
             </head>
-            <body>
+            <body style="margin-top: -25px !important;">
         ';
 
         $endHTML = '
@@ -260,7 +260,7 @@ class documentsEditorsController extends AppBaseController
                 ' . $backgroundImg . '
                 <title>' . $input['name_document_editor'] . '</title>
             </head>
-            <body>
+            <body style="margin-top: -25px !important;">
         ';
 
         $endHTML = '
