@@ -33,6 +33,7 @@
                                     <th width="1%"></th>
                                     <th class="text-nowrap">Document</th>
                                     <th class="text-nowrap">Rol</th>
+                                    <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -47,6 +48,17 @@
                                                 {{ $role->name_role }}
                                             @endif
                                         @endforeach
+                                        </td>
+                                        <td>
+                                        @if($documentsEditors->service_id == 0)
+                                            ALL
+                                        @else
+                                            @foreach($services AS $service)
+                                                @if($documentsEditors->service_id == $service->id)
+                                                    {{$service->name_service}}
+                                                @endif
+                                            @endforeach
+                                        @endif
                                         </td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['documentsEditors.destroy', $documentsEditors->id], 'method' => 'delete']) !!}
