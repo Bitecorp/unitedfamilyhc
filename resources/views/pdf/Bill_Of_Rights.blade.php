@@ -5,6 +5,7 @@
                 <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
+                
                 <style type="text/css">
                     @page {
                         margin-top: 1.3in;
@@ -34,7 +35,7 @@
 <p><strong>&nbsp;</strong></p>
 <p>&nbsp;Chapter 393 of the Florida Statutes says that you have the right:</p>
 <ol>
-<li>To dignity, privacy, and humane care.</li>
+<li>To dignity, privacy, and humane care</li>
 <li>To religious freedom.</li>
 <li>To services that protect personal liberty and provide the least restrictive environment to achieve the treatment outcomes.</li>
 <li>To an appropriate quality education and training service.</li>
@@ -49,7 +50,7 @@
 <p>I have received a copy of my rights and have had a chance to talk about them with my provider. I know I can ask to talk about my rights at any time with United Family Health Care and they will help me understand my rights</p>
 <p>TO REPORT ABUSE CALL 1(800) 96-ABUSE</p>
 <p>&nbsp;</p>
-<p>Date: {{ date("d/m/Y") }}</p>
+<p>Date: ___/___/____</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

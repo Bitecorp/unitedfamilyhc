@@ -113,7 +113,10 @@ class ServiceController extends AppBaseController
         $data = [];
 
         foreach($collections as $collection){
-            array_push($data, DB::table('type_docs')->select('id', 'name_doc')->where('id', $collection)->first());
+            $valData = DB::table('type_docs')->select('id', 'name_doc')->where('id', $collection)->first();
+            if(isset($valData) && !empty($valData)){
+                array_push($data, $valData);
+            }
         }
 
         $docDist = DB::table('type_docs')->select('id', 'name_doc')->get(); /* unset($flowers[1]); */

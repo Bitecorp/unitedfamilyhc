@@ -34,6 +34,7 @@
                                     <th class="text-nowrap">Name</th>
                                     <th class="text-nowrap">Type</th>
                                     <th class="text-nowrap">Expired</th>
+                                    <th class="text-nowrap">Role</th>
                                     <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
@@ -45,6 +46,11 @@
                                         <td>{{ $typeDoc->name_doc }}</td>
                                         <td>{{ $typeDoc->document_certificate == '0' ? 'DOCUMENT' : 'CERTIFICATE'}}</td>
                                         <td>{{ $typeDoc->expired == '0' ? 'NOT EXPIRED' : 'EXPIRED'}}</td>
+                                        <td>
+                                            @foreach($roles as $role)
+                                                {{ isset($typeDoc) && isset($typeDoc->role_id) && $typeDoc->role_id == $role->id ? $role->name_role : null }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $typeDoc->service_id }}</td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['typeDocs.destroy', $typeDoc->id], 'method' => 'delete']) !!}

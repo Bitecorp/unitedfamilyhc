@@ -32,6 +32,19 @@
         </div>
     </div>
     <div class="col">
+        <!-- Role Id Field -->
+        <div class="form-group">
+            {!! Form::label('role_id', 'For:') !!}
+            <select name='role_id' class="form-control">
+                @foreach($roles as $role)
+                    @if(!empty($role))
+                        <option value='{{ $role->id }}' {{ isset($typeDoc) && isset($typeDoc->role_id) && $typeDoc->role_id == $role->id ? 'selected' : (isset($role) && isset($role->id) && $role->id == 1 ? 'selected' : '') }} >{{ $role->name_role }}</option>
+                    @endif
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col">
         <!-- Service Id Field -->
         <div class="form-group">
             {!! Form::label('service_id', 'Service:') !!}

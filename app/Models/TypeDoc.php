@@ -51,6 +51,7 @@ class TypeDoc extends Model
         'name_doc',
         'document_certificate',
         'service_id',
+        'role_id',
         'expired'
     ];
 
@@ -64,6 +65,7 @@ class TypeDoc extends Model
         'name_doc' => 'string',
         'document_certificate' => 'string',
         'service_id' => 'string',
+        'role_id' => 'string',
         'expired' => 'string'
     ];
 
@@ -75,6 +77,7 @@ class TypeDoc extends Model
     public static $rules = [
         'name_doc' => 'required|unique:type_docs|string|max:255',
         'service_id' => 'required|string|max:255',
+        'role_id' => 'required|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

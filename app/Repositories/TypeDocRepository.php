@@ -17,7 +17,9 @@ class TypeDocRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'name_doc'
+        'name_doc',
+        'service_id',
+        'role_id'
     ];
 
     /**

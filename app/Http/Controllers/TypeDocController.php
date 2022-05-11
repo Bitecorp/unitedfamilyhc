@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\TypeDoc;
 use App\Models\Service;
+use App\Models\Role;
 use Flash;
 use Response;
 
@@ -33,6 +34,7 @@ class TypeDocController extends AppBaseController
     {
         $typeDocs = TypeDoc::all();
         $services = Service::all();
+        $roles = Role::all();
 
         foreach($typeDocs AS $typeDoc){
             if($typeDoc['service_id'] == '0'){
@@ -48,6 +50,7 @@ class TypeDocController extends AppBaseController
 
         return view('type_docs.index')
             ->with('typeDocs', $typeDocs)
+            ->with('roles', $roles)
             ->with('services', $services);
     }
 
@@ -60,9 +63,11 @@ class TypeDocController extends AppBaseController
     {
         $typeDocs = TypeDoc::all();
         $services = Service::all();
+        $roles = Role::all();
 
         return view('type_docs.create')
             ->with('typeDocs', $typeDocs)
+            ->with('roles', $roles)
             ->with('services', $services);
     }
 
@@ -100,6 +105,7 @@ class TypeDocController extends AppBaseController
     {
         $typeDoc = $this->typeDocRepository->find($id);
         $services = Service::all();
+        $roles = Role::all();
 
         if (empty($typeDoc)) {
             Flash::error('Type Doc not found');
@@ -107,7 +113,7 @@ class TypeDocController extends AppBaseController
             return redirect(route('typeDocs.index'));
         }
 
-        return view('type_docs.show')->with('typeDoc', $typeDoc)->with('services', $services);
+        return view('type_docs.show')->with('typeDoc', $typeDoc)->with('services', $services)->with('roles', $roles);
     }
 
     /**
@@ -121,6 +127,7 @@ class TypeDocController extends AppBaseController
     {
         $typeDoc = $this->typeDocRepository->find($id);
         $services = Service::all();
+        $roles = Role::all();
 
         if (empty($typeDoc)) {
             Flash::error('Type Doc not found');
@@ -128,7 +135,7 @@ class TypeDocController extends AppBaseController
             return redirect(route('typeDocs.index'));
         }
 
-        return view('type_docs.edit')->with('typeDoc', $typeDoc)->with('services', $services);
+        return view('type_docs.edit')->with('typeDoc', $typeDoc)->with('services', $services)->with('roles', $roles);
     }
 
     /**

@@ -439,7 +439,10 @@ class PatienteController extends AppBaseController
             $dataListFiles = array();
             foreach($dataServicesAssigneds as $key => $values){
                 foreach(json_decode($values->documents) as $key => $value){
-                    array_push($dataListFiles, DB::table('type_docs')->select('id')->where('id', $value)->first());
+                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->where('role_id', 4)->first();
+                    if(isset($consult)){
+                        array_push($dataListFiles, $consult);
+                    }
                 }
             }
 
@@ -451,10 +454,12 @@ class PatienteController extends AppBaseController
             $documentUserFilesFoo = array();
             foreach(array_unique($dataListFilesClear) as $key => $valID){
                 foreach(collect(json_decode($servicesAssingneds->services)) as $keyS => $valueS){
-                    $test = DB::table('type_docs')->select('id', 'name_doc', 'service_id')->where('id', $valID)->first();
-                    foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
-                        if($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0'){
-                            array_push($documentUserFilesFoo,  DB::table('type_docs')->select('id')->where('id', $valID)->first());
+                    $test = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->first();
+                    if(!empty($test)){
+                        foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
+                            if($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0'){
+                                array_push($documentUserFilesFoo,  DB::table('type_docs')->select('id')->where('id', $valID)->first());
+                            }
                         }
                     }
                 }
@@ -467,10 +472,8 @@ class PatienteController extends AppBaseController
 
             $documentUserFiles = array();
             foreach(array_unique($documentUserFilesFo) as $key => $valID){
-                array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc')->where('id', $valID)->first());
+                array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc', 'role_id', 'service_id')->where('id', $valID)->first());
             }
-
-            //dd($documentUserFiles);
 
             /* $documentUserFiles = $documentUserFiles; */
             $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', 0)->orderBy('created_at', 'DESC')->get());
@@ -509,7 +512,10 @@ class PatienteController extends AppBaseController
             $documentUserFilesDinst = array();
             if(!empty($arrayData) && count($arrayData) >= 1){
                 foreach($arrayData AS $key => $value){
-                    array_push($documentUserFilesDinst, DB::table('type_docs')->select('id', 'name_doc')->where('id', $value)->first());
+                    $valConsult = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $value)->first();
+                    if(!empty($valConsult)){
+                        array_push($documentUserFilesDinst, $valConsult);
+                    }
                 }
             }
 
