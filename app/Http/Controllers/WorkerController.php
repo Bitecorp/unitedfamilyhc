@@ -42,6 +42,7 @@ use App\Models\MaritalStatus;
 use App\Models\TitleJobs;
 use App\Models\TypeDoc;
 use App\Models\Worker;
+use App\Models\Patiente;
 use App\Models\ConfirmationIndependent;
 use App\Models\Education;
 use App\Models\JobInformation;
@@ -186,6 +187,7 @@ class WorkerController extends AppBaseController
         $namePdf = documentsEditors::find($idPdf);
 
         $worker = Worker::find($id);
+        $patiente = Patiente::find($id);
         $confirmation_independent = ConfirmationIndependent::where('user_id', $worker->id)->first();
         $companie = Companies::where('user_id', $id)->first();
         $job_information = JobInformation::where('user_id', $worker->id)->first();
@@ -205,6 +207,10 @@ class WorkerController extends AppBaseController
 
         $arrayData = [
             'worker' => $worker,
+            'patiente' => $patiente,
+            'contactEmergencyPatiente' => ContactEmergency::where('user_id', $patiente->id)->where('guardian', 0)->first(),
+            'guardianPatiente' => ContactEmergency::where('user_id', $patiente->id)->where('guardian', 1)->first(),
+            'fullNamePatiente' => $patiente->first_name . ' ' . $patiente->last_name,
             'fullName' => $nameFile,
             'maritalStatus' => MaritalStatus::where('id', $worker->marital_status)->first(),
             'role' => Role::where('id', $worker->role_id)->first(),

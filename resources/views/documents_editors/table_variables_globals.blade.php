@@ -10,9 +10,8 @@
                 <script type='text/php'>
                     if (isset(&#36;pdf)){ &#36;pdf->page_script('&#36;pdf->text(280, 820, <&#36;PAGE_NUM>, &#36;fontMetrics->get_font(<fonts>), 10); '); }
                 </script>
-                "       
+                "
             ],
-        
     ];
 ?>
 

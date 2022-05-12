@@ -223,7 +223,7 @@
         [
             'dato' => 'Worker / Reference Job N#2 / Reason Leaving',
             'llamado' => '{{ isset($reference_job_two->reason_leaving) ? $reference_job_two->reason_leaving : ""  }}'
-        ],       
+        ],
         [
             'dato' => 'Worker / Confirmation Independent (options)',
             'llamado' => '{{ $confirmation_independent->independent_contractor == 1 ? "Independent Contractor" : "W2 Worker"  }}'
@@ -267,6 +267,130 @@
         [
             'dato' => 'Worker / Confirmation Independen / Companie / Email',
             'llamado' => '{{ $confirmation_independent->independent_contractor == 1 && $confirmation_independent->personalEmpresa == 2 && isset($companie) ? $companie->email : "" }}'
+        ],
+        [
+            'dato' => 'Full Name / Patiente',
+            'llamado' => '{{ $fullNamePatiente }}'
+        ],
+        [
+            'dato' => 'Patiente / First Name',
+            'llamado' => '{{ $patiente->first_name }}'
+        ],
+        [
+            'dato' => 'Patiente / Last Name',
+            'llamado' => '{{ $patiente->last_name }}'
+        ],
+        [
+            'dato' => 'Patiente / MI',
+            'llamado' => '{{ isset($patiente->mi) ? $patiente->mi : "" }}'
+        ],
+        [
+            'dato' => 'Patiente / Street Addres',
+            'llamado' => '{{ $patiente->street_addres }}'
+        ],
+        [
+            'dato' => 'Patiente / Apartment Unit',
+            'llamado' => '{{ $patiente->apartment_unit }}'
+        ],
+        [
+            'dato' => 'Patiente / City',
+            'llamado' => '{{ $patiente->city }}'
+        ],
+        [
+            'dato' => 'Patiente / State',
+            'llamado' => '{{ $patiente->state }}'
+        ],
+        [
+            'dato' => 'Patiente / Zip Code',
+            'llamado' => '{{ $patiente->zip_code }}'
+        ],
+        [
+            'dato' => 'Patiente / Home Phone',
+            'llamado' => '{{ $patiente->home_phone }}'
+        ],
+        [
+            'dato' => 'Patiente / Alternate Phone',
+            'llamado' => '{{ isset($patiente->alternate_phone) ? $patiente->alternate_phone : "" }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / First Name',
+            'llamado' => '{{ $contactEmergencyPatiente->first_name }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Last Name',
+            'llamado' => '{{ $contactEmergencyPatiente->last_name }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / MI',
+            'llamado' => '{{ isset($contactEmergencyPatiente->mi) ? $contactEmergencyPatiente->mi : "" }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Street Addres',
+            'llamado' => '{{ $contactEmergencyPatiente->street_addres }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Apartment Unit',
+            'llamado' => '{{ $contactEmergencyPatiente->apartment_unit }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / City',
+            'llamado' => '{{ $contactEmergencyPatiente->city }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / State',
+            'llamado' => '{{ $contactEmergencyPatiente->state }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Zip Code',
+            'llamado' => '{{ $contactEmergencyPatiente->zip_code }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Home Phone',
+            'llamado' => '{{ $contactEmergencyPatiente->home_phone }}'
+        ],
+        [
+            'dato' => 'Patiente / Emergency Contact / Alternate Phone',
+            'llamado' => '{{ isset($contactEmergencyPatiente->alternate_phone) ? $contactEmergencyPatiente->alternate_phone : "" }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / First Name',
+            'llamado' => '{{ $guardianPatiente->first_name }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Last Name',
+            'llamado' => '{{ $guardianPatiente->last_name }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / MI',
+            'llamado' => '{{ isset($guardianPatiente->mi) ? $guardianPatiente->mi : "" }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Street Addres',
+            'llamado' => '{{ $guardianPatiente->street_addres }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Apartment Unit',
+            'llamado' => '{{ $guardianPatiente->apartment_unit }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / City',
+            'llamado' => '{{ $guardianPatiente->city }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / State',
+            'llamado' => '{{ $guardianPatiente->state }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Zip Code',
+            'llamado' => '{{ $guardianPatiente->zip_code }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Home Phone',
+            'llamado' => '{{ $guardianPatiente->home_phone }}'
+        ],
+        [
+            'dato' => 'Patiente / Guardian / Alternate Phone',
+            'llamado' => '{{ isset($guardianPatiente->alternate_phone) ? $guardianPatiente->alternate_phone : "" }}'
         ],
     ];
 ?>
