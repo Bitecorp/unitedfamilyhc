@@ -66,7 +66,8 @@ class SalaryServiceAssigneds extends Model
         'user_id',
         'service_id',
         'type_salary',
-        'salary'
+        'salary',
+        'customer_payment'
     ];
 
     /**
@@ -79,7 +80,8 @@ class SalaryServiceAssigneds extends Model
         'user_id' => 'string',
         'service_id' => 'string',
         'type_salary' => 'boolean',
-        'salary' => 'string'
+        'salary' => 'string',
+        'customer_payment' => 'string'
     ];
 
     /**
@@ -92,6 +94,7 @@ class SalaryServiceAssigneds extends Model
         'service_id' => 'nullable|string|max:255',
         'type_salary' => 'nullable|boolean',
         'salary' => 'nullable|string|max:255',
+        'customer_payment' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

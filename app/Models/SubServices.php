@@ -67,7 +67,10 @@ class SubServices extends Model
         'name_sub_service',
         'price_sub_service',
         'type_salary',
-        'config_validate'
+        'config_validate',
+        'unit_worker_payment_id',
+        'worker_payment',
+        'unit_customer_id'
     ];
 
     /**
@@ -81,7 +84,10 @@ class SubServices extends Model
         'type_salary' => 'boolean',
         'name_sub_service' => 'string',
         'price_sub_service' => 'string',
-        'config_validate' => 'string'
+        'config_validate' => 'string',
+        'unit_worker_payment_id' => 'string',
+        'worker_payment' => 'string',
+        'unit_customer_id' => 'string'
     ];
 
     /**
@@ -95,6 +101,9 @@ class SubServices extends Model
         'price_sub_service' => 'required|string|max:255',
         'type_salary' => 'nullable|boolean',
         'config_validate' => 'nullable|string|max:255',
+        'unit_worker_payment_id' => 'nullable|string|max:255',
+        'worker_payment' => 'required|string|max:255',
+        'unit_customer_id' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

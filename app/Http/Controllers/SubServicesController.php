@@ -12,6 +12,8 @@ use Response;
 use App\Models\Service;
 use App\Models\SubServices;
 use App\Models\SalaryServiceAssigneds;
+use App\Models\Units;
+use App\Models\Patiente;
 
 class SubServicesController extends AppBaseController
 {
@@ -59,8 +61,11 @@ class SubServicesController extends AppBaseController
 
     public function addSubService($idService, Request $request)
     {
+        $units = Units::all();
         $service = Service::where('id', $idService)->first();
-        return view('sub_services.create')->with('service', $service);
+        return view('sub_services.create')
+            ->with('service', $service)
+            ->with('units', $units);
     }
 
     /**
@@ -93,6 +98,8 @@ class SubServicesController extends AppBaseController
 
         $exist = SalaryServiceAssigneds::where('service_id', $subServiceId)->first();
 
+        $dataUser = Patiente::where('id', $userId)->first();
+
         if(!empty($exist)){
             $flight = SalaryServiceAssigneds::find($exist->id);
             $flight->delete();
@@ -101,11 +108,18 @@ class SubServicesController extends AppBaseController
             $saveData->user_id = $userId;
             $saveData->service_id = $subServiceId;
             $saveData->type_salary = $subService->type_salary;
-            $saveData->salary = $subService->price_sub_service;
+            $saveData->customer_payment = $subService->price_sub_service;
+            $saveData->salary = $subService->worker_payment;
+            $saveData->created_at = now();
+            $saveData->updated_at = now();
             $saveData->save();
         }
 
-        return redirect(route('workers.show', [$userId]). '?services');
+        if($dataUser->role_id == 4){
+            return redirect(route('patientes.show', [$userId]). '?services');
+        }else{
+            return redirect(route('workers.show', [$userId]). '?services');
+        }
     }
 
     /**
@@ -139,6 +153,7 @@ class SubServicesController extends AppBaseController
     {
         $subServices = $this->subServicesRepository->find($id);
         $service = Service::where('id', $subServices->service_id)->first();
+        $units = Units::all();
 
         if (empty($subServices)) {
             Flash::error('Sub Services not found');
@@ -146,7 +161,7 @@ class SubServicesController extends AppBaseController
             return redirect(route('subServices.index'));
         }
 
-        return view('sub_services.edit')->with('subServices', $subServices)->with('service', $service);
+        return view('sub_services.edit')->with('subServices', $subServices)->with('service', $service)->with('units', $units);
     }
 
     /**
@@ -172,6 +187,11 @@ class SubServicesController extends AppBaseController
             $data['type_salary'] = true;
         }else{
             $data['type_salary'] = false;
+        }
+
+        if($data['type_salary'] == false){
+            $data['unit_worker_payment_id'] = NULL;
+            $data['unit_customer_id'] = NULL;
         }
 
         $subServices = $this->subServicesRepository->update($data, $id);

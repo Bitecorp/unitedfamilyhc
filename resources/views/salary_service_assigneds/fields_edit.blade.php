@@ -10,14 +10,20 @@
         <div class="form-group">
             <p>Type of Salary:</p>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" {{ $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '' }}">
-                <label class="custom-control-label" for="type_salary">Per hour/Monthly</label>
+                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" value="0" {{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '' }}>
+                <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
             </div>
         </div>
     </div>
     <div class="col">
         <div class="form-group">
-            {!! Form::label('salary', 'Salary:') !!}
+            {!! Form::label('customer_payment', 'Customer Billing:') !!}
+            {!! Form::text('customer_payment', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('salary', 'Worker Payment:') !!}
             {!! Form::text('salary', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>

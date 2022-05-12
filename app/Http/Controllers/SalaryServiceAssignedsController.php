@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Service;
 use App\Models\SubServices;
+use App\Models\Patiente;
 use Flash;
 use Response;
 
@@ -98,8 +99,8 @@ class SalaryServiceAssignedsController extends AppBaseController
      */
     public function edit($id)
     {
-        $salaryServiceAssigneds = SalaryServiceAssigneds::find($id);
-        $services = SubServices::find($salaryServiceAssigneds->service_id);
+        $salaryServiceAssigneds = SalaryServiceAssigneds::where('id', $id)->first();
+        $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
@@ -138,11 +139,20 @@ class SalaryServiceAssignedsController extends AppBaseController
             $data['type_salary'] = false;
         }
 
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+
         $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->update($data, $id);
+
+        $isPatiente = Patiente::where('id', $data['user_id'])->first();
 
         Flash::success('Salary Service Assigneds updated successfully.');
 
-        return redirect(route('workers.show', [$data['user_id']]). '?services');
+        if(!empty($isPatiente) && $isPatiente->role_id == 4){
+            return redirect(route('patientes.show', [$isPatiente->id]). '?services');
+        }else{
+            return redirect(route('workers.show', [$isPatiente->id]). '?services');
+        }
     }
 
     /**

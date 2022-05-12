@@ -33,7 +33,6 @@
                                     <th width="1%"></th>
                                     <th class="text-nowrap">Name Sub Service</th>
                                     <th class="text-nowrap">Type</th>
-                                    <th class="text-nowrap">Price</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -42,12 +41,7 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $subServices->name_sub_service }}</td>
-                                        @if($subServices->type_salary == 0)
-                                            <td>Monthly</td>
-                                        @else
-                                            <td>Per Hour</td>
-                                        @endif
-                                        <td>{{ $subServices->price_sub_service }}</td>
+                                        <td>{{ $subServices->type_salary == 0 ? 'Monthly' : 'Per Hour' }}</td>
                                         <td class="with-btn" nowrap>
                                             {!! Form::open(['route' => ['subServices.destroy', $subServices->id], 'method' => 'delete']) !!}
                                             <div>

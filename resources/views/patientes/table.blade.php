@@ -4,7 +4,6 @@
             <th width="1%"></th>
             <th class="text-nowrap">Full Name</th>
             <th class="text-nowrap">Home Phone</th>
-            <th class="text-nowrap">Email</th>
             <th class="text-nowrap">Role</th>
             <th class="text-nowrap">Status</th>
             <th class="text-nowrap">Action</th>
@@ -16,7 +15,6 @@
                 <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                 <td>{{ $patiente->first_name }} {{ $patiente->last_name }}</td>
                 <td>{{ $patiente->home_phone }}</td>
-                <td>{{ $patiente->email }}</td>
                 @foreach($roles as $role)
                     @if($patiente->role_id == $role->id)
                         <td>{{ $role->name_role }}</td>

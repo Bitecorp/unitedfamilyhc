@@ -6,10 +6,11 @@
                 <thead>
                     <tr>
                         <th width="1%"></th>
-                        <th class="text-nowrap">Sub Service</th>
-                        <th class="text-nowrap">Type Salary</th>
+                        <th class="text-nowrap">Name Sub Service</th>
                         <th class="text-nowrap">Assigned</th>
-                        <th class="text-nowrap">Salary Assigned</th>
+                        <th class="text-nowrap">Type Salary</th>
+                        <th class="text-nowrap">Customer Billing</th>
+                        <th class="text-nowrap">Worker Payment</th>
                         <th class="text-nowrap">Action</th>
                     </tr>
                 </thead>
@@ -21,34 +22,45 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $keySs + 1 }}</td>
                                         <td>{{ $subService->name_sub_service }}</td>
-                                        @if(isset($salaryServiceAssigneds))
-                                            @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                @if($subService->id == $salaryServiceAssigned->service_id)
-                                                    <td>{{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Hour'}}</td>
-                                                @endif
-                                            @endforeach
-                                        @endif
                                         <td>
                                             {!! Form::model($subService, ['route' => ['subServices.assignSubService', $worker->id, $subService->id], 'method' => 'post', 'id' => "sendForm_$subService->id"]) !!}
                                             <!-- begin custom-switches -->
                                                 <div class="custom-control custom-switch">
-                                                    @if(isset($salaryServiceAssigneds))
-                                                        @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                            <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}" {{ $subService->id == $salaryServiceAssigned->service_id ? 'checked' : '' }}>
-                                                        @endforeach
-                                                    @endif
+                                                    @foreach($salaryServiceAssigneds AS $salaryServiceAssigned)
+                                                        <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}" {{ isset($salaryServiceAssigned) && isset($salaryServiceAssigned->service_id) && $salaryServiceAssigned->service_id == $subService->id ? 'checked' : '' }}>
+                                                    @endforeach
                                                     <label class="custom-control-label" for="Switch_{{$subService->id}}"></label>
                                                 </div>
                                             <!-- end custom-switches -->
                                             {!! Form::close() !!}
                                         </td>
-                                        @if(isset($salaryServiceAssigneds))
-                                            @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                @if($subService->id == $salaryServiceAssigned->service_id)
-                                                    <td>{{ $salaryServiceAssigned->salary }} $</td>
-                                                @endif
-                                            @endforeach
-                                        @endif
+                                        <td>
+                                            @if(isset($salaryServiceAssigneds))
+                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                    @if($subService->id == $salaryServiceAssigned->service_id)
+                                                        {{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Hour'}}
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(isset($salaryServiceAssigneds))
+                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                    @if($subService->id == $salaryServiceAssigned->service_id)
+                                                        {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(isset($salaryServiceAssigneds))
+                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                    @if($subService->id == $salaryServiceAssigned->service_id)
+                                                        {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td class="with-btn" nowrap>
                                             @if(isset($salaryServiceAssigneds))
                                                 @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
@@ -77,8 +89,7 @@
             $('#sendForm_' + dato).submit();
         })
     };
-</script>
-<script>
+
     $(function () {
         $('#tableSalary' + {{ $value->id }}).DataTable( {
             retrieve: true,
