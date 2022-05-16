@@ -28,7 +28,7 @@
                     <tr>
                         <th class="text-nowrap">Service</th>
                         <th class="text-nowrap">Called name</th>
-                        <th class="text-nowrap">salary call</th>
+                        <!-- <th class="text-nowrap">salary call</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                         <tr>
                             <td>{{ $service->name_service }}</td>
                             <td>{{ $start }}{{ $service->id }}{{ $midle }}{{ $end }}</td>
-                            <td>{{ $startTwo }}{{ $midleTwo }}{{ $endTwo }}</td>
+                            <!-- <td>{{ $startTwo }}{{ $midleTwo }}{{ $endTwo }}</td> -->
                         </tr>
                     @endforeach
                 </tbody>

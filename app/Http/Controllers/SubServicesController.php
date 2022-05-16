@@ -96,7 +96,7 @@ class SubServicesController extends AppBaseController
         $data = $request->all();
         $subService = SubServices::where('id', $subServiceId)->first();
 
-        $exist = SalaryServiceAssigneds::where('service_id', $subServiceId)->first();
+        $exist = SalaryServiceAssigneds::where('service_id', $subServiceId)->where('user_id', $userId)->first();
 
         $dataUser = Patiente::where('id', $userId)->first();
 
