@@ -17,7 +17,7 @@ use App\Models\Service;
 use App\Models\MaritalStatus;
 use App\Models\TitleJobs;
 use App\Models\TypeDoc;
-use App\Models\Worker;
+use App\Models\User;
 use App\Models\ConfirmationIndependent;
 use App\Models\Education;
 use App\Models\JobInformation;
@@ -31,6 +31,8 @@ use App\Models\ReferencesJobsTwo;
 use App\Models\ReferencesPersonales;
 use App\Models\ReferencesPersonalesTwo;
 use App\Models\AlertDocumentsExpired;
+use Mail;
+use App\Mail\updateDocuments;
 
 class AlertDocumentsController extends AppBaseController
 {
@@ -76,7 +78,7 @@ class AlertDocumentsController extends AppBaseController
         }
 
         foreach($dataDocuments AS $key => $dataDocument){
-            array_push($workers, Worker::find($dataDocument->user_id));
+            array_push($workers, User::find($dataDocument->user_id));
         }
 
         $confirmationIndependents = ConfirmationIndependent::all();
@@ -97,6 +99,57 @@ class AlertDocumentsController extends AppBaseController
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);
+    }
+
+    /**
+     * Send Email User.
+     *
+     * @param int $idUser
+     *
+     *
+     * @return Response
+     */
+    public function sendEmail($idUser)
+    {
+        $infoUser = User::where('id', $idUser)->first();
+
+        if (empty($infoUser)) {
+            Flash::error('User not found');
+
+            return redirect(route('alertDocuments.index'));
+        }
+
+        Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+
+        Flash::success('Send Email successfully.');
+
+        return redirect(route('alertDocuments.index'));
+
+    }
+
+    /**
+     * Display a listing of the AlertDocuments.
+     *
+     * @return Response
+     */
+    public function sendEmailFull()
+    {
+        $dataDocumentsExpired = AlertDocumentsExpired::all();
+
+        if(!empty($dataDocumentsExpired)){
+            foreach($dataDocumentsExpired AS $dataDocumentExpired){
+                $dataDocument = DocumentUserFiles::where('id', $dataDocumentExpired->document_user_file_id)->first();
+                $infoUser = User::where('id', $dataDocument->user_id)->first();
+
+                Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+
+            }
+        }
+
+        Flash::success('Send Emails successfully.');
+
+        return redirect(route('alertDocuments.index'));
+
     }
 
     /**
@@ -136,15 +189,19 @@ class AlertDocumentsController extends AppBaseController
      */
     public function show($id)
     {
-        $alertDocuments = $this->alertDocumentsRepository->find($id);
+        $infoUser = User::where('id', $id)->first();
 
-        if (empty($alertDocuments)) {
-            Flash::error('Alert Documents not found');
+        if (empty($infoUser)) {
+            Flash::error('User not found');
 
             return redirect(route('alertDocuments.index'));
         }
 
-        return view('alert_documents.show')->with('alertDocuments', $alertDocuments);
+        Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+
+        Flash::success('Send Email successfully.');
+
+        return redirect(route('alertDocuments.index'));
     }
 
     /**
@@ -156,6 +213,7 @@ class AlertDocumentsController extends AppBaseController
      */
     public function edit($id)
     {
+        
         $alertDocuments = $this->alertDocumentsRepository->find($id);
 
         if (empty($alertDocuments)) {
@@ -217,4 +275,6 @@ class AlertDocumentsController extends AppBaseController
 
         return redirect(route('alertDocuments.index'));
     }
+
+
 }

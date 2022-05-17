@@ -23,10 +23,8 @@
                 @endforeach 
                 <td class="with-btn" nowrap>
                     @if($worker->id > 1 )
-                        {!! Form::open(['route' => ['workers.destroy', $worker->id], 'method' => 'delete']) !!}
-                            <a href="{{ route('workers.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show User </a>
-                            <a href="{{ route('workers.show', [$worker->id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-envelope"></i> Send Email </a>
-                        {!! Form::close() !!}
+                        <a href="{{ route('workers.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show User </a>
+                        <a href="{{ route('alertDocuments.sendEmail', [$worker->id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-envelope"></i> Send Email </a>
                     @endif
                 </td>
             </tr>
