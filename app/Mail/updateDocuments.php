@@ -28,6 +28,6 @@ class updateDocuments extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.updateDocuments', ['data' => $this->data]);
+        return $this->from('update@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Urgent Documents Required')->view('mails.updateDocuments', ['data' => $this->data]);
     }
 }

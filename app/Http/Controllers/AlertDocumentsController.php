@@ -213,7 +213,6 @@ class AlertDocumentsController extends AppBaseController
      */
     public function edit($id)
     {
-        
         $alertDocuments = $this->alertDocumentsRepository->find($id);
 
         if (empty($alertDocuments)) {

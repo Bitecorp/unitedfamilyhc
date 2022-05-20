@@ -206,11 +206,11 @@
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">We have documents that are about to expire, it is extremely urgent that you help us by sending the updated document or certificate.</span></span></p>
 <br></br>
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">Tenemos documentos que estan proximos a expirar es de suma urgencia que nos ayudes viando el documento o certificado actualizado.</span></span></p>
+<p style="font-size: 12px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 12px; color: #40E0D0; margin-top: -20px !important;"><span style="font-size: 12px; color: #40E0D0; margin-top: -20px !important;">Tenemos documentos que estan proximos a expirar es de suma urgencia que nos ayudes viando el documento o certificado actualizado.</span></span></p>
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">You can send the document as a response to this email. </span></span></p>
 <br></br>
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">Puedes enviar el documento como respuesta a este correo.</span></span></p>
+<p style="font-size: 12px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 12px; color: #40E0D0; margin-top: -20px !important;"><span style="font-size: 12px; color: #40E0D0; margin-top: -20px !important;">Puedes enviar el documento como respuesta a este correo.</span></span></p>
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px; font-weight: 600; color: #FF0000;"><span style="font-size: 14px; font-weight: 600; color: #FF0000;">Remember if you do not update your documents we cannot continue to serve patients because the documents are mandatory to provide services.</span></span></p>
 </div>
