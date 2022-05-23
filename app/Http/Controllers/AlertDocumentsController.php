@@ -111,7 +111,7 @@ class AlertDocumentsController extends AppBaseController
      */
     public function sendEmail($idUser)
     {
-        $infoUser = User::where('id', $idUser)->first();
+        $infoUser = User::where('id', $idUser)->first() ?? '';
 
         if (empty($infoUser)) {
             Flash::error('User not found');
@@ -119,7 +119,17 @@ class AlertDocumentsController extends AppBaseController
             return redirect(route('alertDocuments.index'));
         }
 
-        Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+        if(isset($infoUser) && !empty($infoUser)){
+        $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
+            if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
+                foreach($documentsUser AS $keyD => $documentUser){
+                    $infoDocs = TypeDoc::where('id', $documentUser->document_id)->get() ?? [];
+                    if(isset($infoDocs) && !empty($infoDocs) && count($infoDocs) > 0){
+                        Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $infoDocs));
+                    }
+                }
+            }
+        }
 
         Flash::success('Send Email successfully.');
 
@@ -139,9 +149,19 @@ class AlertDocumentsController extends AppBaseController
         if(!empty($dataDocumentsExpired)){
             foreach($dataDocumentsExpired AS $dataDocumentExpired){
                 $dataDocument = DocumentUserFiles::where('id', $dataDocumentExpired->document_user_file_id)->first();
-                $infoUser = User::where('id', $dataDocument->user_id)->first();
+                $infoUser = User::where('id', $dataDocument->user_id)->first() ?? '';
 
-                Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+                if(isset($infoUser) && !empty($infoUser)){
+                $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
+                    if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
+                        foreach($documentsUser AS $keyD => $documentUser){
+                            $infoDocs = TypeDoc::where('id', $documentUser->document_id)->get() ?? [];
+                            if(isset($infoDocs) && !empty($infoDocs) && count($infoDocs) > 0){
+                                Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $infoDocs));
+                            }
+                        }
+                    }
+                }
 
             }
         }
@@ -197,7 +217,17 @@ class AlertDocumentsController extends AppBaseController
             return redirect(route('alertDocuments.index'));
         }
 
-        Mail::to($infoUser->email)->send(new updateDocuments($infoUser));
+        if(isset($infoUser) && !empty($infoUser)){
+        $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
+            if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
+                foreach($documentsUser AS $keyD => $documentUser){
+                    $infoDocs = TypeDoc::where('id', $documentUser->document_id)->get() ?? [];
+                    if(isset($infoDocs) && !empty($infoDocs) && count($infoDocs) > 0){
+                        Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $infoDocs));
+                    }
+                }
+            }
+        }
 
         Flash::success('Send Email successfully.');
 
@@ -213,7 +243,6 @@ class AlertDocumentsController extends AppBaseController
      */
     public function edit($id)
     {
-        
         $alertDocuments = $this->alertDocumentsRepository->find($id);
 
         if (empty($alertDocuments)) {

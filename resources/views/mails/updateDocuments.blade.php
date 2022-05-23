@@ -28,7 +28,7 @@
 			line-height: inherit;
 		}
 
-		a[x-apple-data-detectors=true] {
+		a[x-apple-infoUser-detectors=true] {
 			color: inherit !important;
 			text-decoration: none !important;
 		}
@@ -202,15 +202,22 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 30px; padding-top: 10px; padding-bottom: 5px; font-family: Arial, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:5px;padding-left:30px;">
 <div style="font-size: 12px; line-height: 1.2; color: #555555; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 14px;">
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 24px;">Hi, {{ $data->first_name }} {{ $data->last_name }} </span></strong></p>
+<p style="font-size: 17px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 24px;">Hi, {{ $data['infoUser']->first_name }} {{ $data['infoUser']->last_name }} </span></strong></p>
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">We have documents that are about to expire, it is extremely urgent that you help us by sending the updated document or certificate.</span></span></p>
+<p style="font-size: 12px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 12px; color: #40E0D0; margin-top: 10px !important;"><span style="font-size: 12px; color: #40E0D0; margin-top: 10px !important;">Tenemos documentos que estan proximos a expirar es de suma urgencia que nos ayudes viando el documento o certificado actualizado.</span></span></p>
 <br></br>
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">Tenemos documentos que estan proximos a expirar es de suma urgencia que nos ayudes viando el documento o certificado actualizado.</span></span></p>
+
+<p style="font-size: 17px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 18px;">Expired Documents List:</span></strong></p>
+<ol style="list-style: none; font-size: 14px; line-height: 32px; font-weight: regular;">
+@foreach($data['infoDocs'] AS $key => $infoDoc)
+<li style="clear: both;">{{ $infoDoc->name_doc }}.</li>
+@endforeach
+</ol>
+
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">You can send the document as a response to this email. </span></span></p>
-<br></br>
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"><span style="font-size: 14px;">Puedes enviar el documento como respuesta a este correo.</span></span></p>
+<p style="font-size: 12px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 12px; color: #40E0D0; margin-top: 10px !important;"><span style="font-size: 12px; color: #40E0D0; margin-top: 10px !important;">Puedes enviar el documento como respuesta a este correo.</span></span></p>
 <br></br>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px; font-weight: 600; color: #FF0000;"><span style="font-size: 14px; font-weight: 600; color: #FF0000;">Remember if you do not update your documents we cannot continue to serve patients because the documents are mandatory to provide services.</span></span></p>
 </div>
