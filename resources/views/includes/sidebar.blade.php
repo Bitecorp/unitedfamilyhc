@@ -68,7 +68,7 @@
 					}
 					return $subMenu;
 				}
-				foreach (config('sidebar.menu') as $key => $menu) {
+				foreach (Auth::user()->role_id != 2 ? config('sidebar.menu') : config('sidebarWorker.menu') as $key => $menu) {
 					$GLOBALS['parent_active'] = '';
 					$hasSub = (!empty($menu['sub_menu'])) ? 'has-sub' : '';
 					$hasCaret = (!empty($menu['caret'])) ? '<b class="caret"></b>' : '';
@@ -88,9 +88,10 @@
 					}
 					$active = ($currentUrl == $menu['url']) ? 'active' : '';
 					$active = (empty($active) && !empty($GLOBALS['parent_active'])) ? 'active' : $active;
+					$urlsUser = Auth::user()->role_id == 2 && $menu['url'] == '/workers' ? $menu['url'] . '/' . Auth::user()->id : $menu['url'] ;
 					echo '
 						<li class="'. $hasSub .' '. $active .'">
-							<a href="'. $menu['url'] .'">
+							<a href="'. $urlsUser .'">
 								'. $hasImg .'
 								'. $hasBadge .'
 								'. $hasCaret .'

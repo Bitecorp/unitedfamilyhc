@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('/register', function () {
+    return view('auth/register');
+});
+
+Route::post('/registerWorker', [App\Http\Controllers\WorkerController::class, 'storeExternal'])->name('registerWorker');
+
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

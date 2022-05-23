@@ -27,9 +27,9 @@
 	<!-- begin login -->
 	<div class="login login-v2" data-pageload-addclass="animated fadeIn">
 		<!-- begin brand -->
-		<div class="login-header">
+		<div class="login-header" style='text-align: center !important'>
 			<div class="brand">
-				<b>Bienvenido,</b> <msg>Inicie Sesión</msg>
+				<b>Hi,</b> <msg>Please Login</msg>
 			</div>
 		</div>
 		<!-- end brand -->
