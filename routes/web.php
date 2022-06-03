@@ -27,6 +27,12 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::resource('agents', App\Http\Controllers\AgentController::class);
+
+Route::get('/agents/pdf/{id}/{idPdf}', [App\Http\Controllers\AgentController::class, 'getPDF'])->name('agent.pdf');
+
+Route::post('/agents/updateState/{id}', [App\Http\Controllers\AgentController::class, 'updateState'])->name('agents.updateState');
+
 Route::resource('patientes', App\Http\Controllers\PatienteController::class);
 
 Route::get('/patientes/pdf/{id}/{idPdf}', [App\Http\Controllers\PatienteController::class, 'getPDF'])->name('patientes.pdf');

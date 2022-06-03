@@ -25,6 +25,11 @@ return [
             'url' => '/workers',
 	    ],
         [
+            'icon' => 'fa fa-user-md',
+            'title' => 'Agents',
+            'url' => '/agents',
+	    ],
+        [
             'icon' => 'fa fa-users',
             'title' => 'Patientes',
             'url' => '/patientes',
