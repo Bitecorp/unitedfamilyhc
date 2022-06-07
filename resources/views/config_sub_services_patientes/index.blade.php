@@ -1,8 +1,8 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('content')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">Salary Service Assigneds</li>
+        <li class="breadcrumb-item">Config Sub Services Patientes</li>
     </ol>
     <div class="container-fluid">
         <div class="animated fadeIn">
@@ -12,14 +12,13 @@
                      <div class="card">
                          <div class="card-header">
                              <i class="fa fa-align-justify"></i>
-                             SalaryServiceAssigneds
-                             <a class="pull-right" href="{{ route('salaryServiceAssigneds.create') }}"><i class="fa fa-plus-square fa-lg"></i></a>
+                             ConfigSubServicesPatientes
+                             <a class="pull-right" href="{{ route('configSubServicesPatientes.create') }}"><i class="fa fa-plus-square fa-lg"></i></a>
                          </div>
                          <div class="card-body">
-                             @include('salary_service_assigneds.table')
+                             @include('config_sub_services_patientes.table')
                               <div class="pull-right mr-3">
-        @include('coreui-templates::common.paginate', ['records' => $salaryServiceAssigneds])
-
+                                     
                               </div>
                          </div>
                      </div>

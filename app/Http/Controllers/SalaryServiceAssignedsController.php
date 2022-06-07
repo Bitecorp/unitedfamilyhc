@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateSalaryServiceAssignedsRequest;
 use App\Http\Requests\UpdateSalaryServiceAssignedsRequest;
 use App\Repositories\SalaryServiceAssignedsRepository;
+use App\Repositories\ConfigSubServicesPatienteRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Service;
 use App\Models\SubServices;
 use App\Models\Patiente;
+use App\Models\ConfigSubServicesPatiente;
+use App\Models\User;
 use Flash;
 use Response;
 
@@ -19,9 +22,13 @@ class SalaryServiceAssignedsController extends AppBaseController
     /** @var  SalaryServiceAssignedsRepository */
     private $salaryServiceAssignedsRepository;
 
-    public function __construct(SalaryServiceAssignedsRepository $salaryServiceAssignedsRepo)
+    /** @var ConfigSubServicesPatienteRepository $configSubServicesPatienteRepository*/
+    private $configSubServicesPatienteRepository;
+
+    public function __construct(SalaryServiceAssignedsRepository $salaryServiceAssignedsRepo, ConfigSubServicesPatienteRepository $configSubServicesPatienteRepo)
     {
         $this->salaryServiceAssignedsRepository = $salaryServiceAssignedsRepo;
+        $this->configSubServicesPatienteRepository = $configSubServicesPatienteRepo;
     }
 
     /**
@@ -63,6 +70,7 @@ class SalaryServiceAssignedsController extends AppBaseController
         $input = $request->all();
 
         $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->create($input);
+        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->create($input);
 
         Flash::success('Salary Service Assigneds saved successfully.');
 
@@ -78,8 +86,11 @@ class SalaryServiceAssignedsController extends AppBaseController
      */
     public function show($id)
     {
-        $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->find($id);
-        $services = Service::all();
+        $agents = User::where('role_id', 5)->get();
+        $salaryServiceAssigneds = SalaryServiceAssigneds::where('id', $id)->first();
+        $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
+        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
+        $user = User::find($salaryServiceAssigneds->user_id);
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
@@ -87,7 +98,7 @@ class SalaryServiceAssignedsController extends AppBaseController
             return redirect(route('salaryServiceAssigneds.index'));
         }
 
-        return view('salary_service_assigneds.show')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services);
+        return view('salary_service_assigneds.show')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
     }
 
     /**
@@ -99,15 +110,18 @@ class SalaryServiceAssignedsController extends AppBaseController
      */
     public function edit($id)
     {
+        $agents = User::where('role_id', 5)->get();
         $salaryServiceAssigneds = SalaryServiceAssigneds::where('id', $id)->first();
         $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
+        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
+        $user = User::find($salaryServiceAssigneds->user_id);
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
-        return view('salary_service_assigneds.edit')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services);
+        return view('salary_service_assigneds.edit')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
     }
 
     /**
@@ -143,6 +157,9 @@ class SalaryServiceAssignedsController extends AppBaseController
         $data['updated_at'] = now();
 
         $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->update($data, $id);
+
+        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
+        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->update($data, $config->id);
 
         $isPatiente = Patiente::where('id', $data['user_id'])->first();
 

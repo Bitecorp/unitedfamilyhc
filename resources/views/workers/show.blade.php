@@ -111,7 +111,9 @@
         <!-- Submit Field -->
         <div style="margin-top: 20px; margin-bottom: 20px;" class="form-group col-sm-12">
             <a href="{{ route('workers.edit', [$worker->id]) }}" class='btn btn-warning'><i class="fa fa-edit"></i> Edit </a>
-            <a href="{{ route('workers.index') }}" class="btn btn-secondary">Back</a>
+            @if(Auth::user()->role_id != 2)
+                <a href="{{ route('workers.index') }}" class="btn btn-secondary">Back</a>
+            @endif
         </div>
 	</div>
 	<!-- end tab-content -->

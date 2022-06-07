@@ -31,7 +31,7 @@
                                                             <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}" {{ isset($salaryServiceAssigned) && isset($salaryServiceAssigned->service_id) && $salaryServiceAssigned->service_id == $subService->id ? 'checked' : '' }}>
                                                         @endforeach
                                                     @else
-                                                        <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}" >
+                                                        <input type="checkbox" onclick="changeStatus('{{$subService->id}}');"  class="custom-control-input" data-id="{{ $subService->id }}" name="{{$subService->id}}" id="Switch_{{$subService->id}}">
                                                     @endif
                                                     <label class="custom-control-label" for="Switch_{{$subService->id}}"></label>
                                                 </div>
@@ -43,12 +43,8 @@
                                                 @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                     @if($subService->id == $salaryServiceAssigned->service_id)
                                                         {{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Hour'}}
-                                                    @else
-                                                        <a>N/A</a>
                                                     @endif
                                                 @endforeach
-                                            @else
-                                                <a>N/A</a>
                                             @endif
                                         </td>
                                         <td>
@@ -56,12 +52,8 @@
                                                 @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                     @if($subService->id == $salaryServiceAssigned->service_id)
                                                         {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $
-                                                    @else
-                                                        <a>N/A</a>
                                                     @endif
                                                 @endforeach
-                                            @else
-                                                <a>N/A</a>
                                             @endif
                                         </td>
                                         <td>
@@ -69,27 +61,19 @@
                                                 @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                     @if($subService->id == $salaryServiceAssigned->service_id)
                                                         {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $
-                                                    @else
-                                                        <a>N/A</a>
                                                     @endif
                                                 @endforeach
-                                            @else
-                                                <a>N/A</a>
                                             @endif
                                         </td>
-                                        <td class="with-btn" nowrap>
-                                            @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
-                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                    @if($subService->id == $salaryServiceAssigned->service_id)
-                                                        <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigned->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
-                                                    @else
-                                                        <a>N/A</a>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                <a>N/A</a>
-                                            @endif
-                                        </td>
+                                            <td class="with-btn" nowrap>
+                                                @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
+                                                    @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                        @if($subService->id == $salaryServiceAssigned->service_id)
+                                                            <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigned->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
                                     </tr>
                                 @endif
                             @endforeach

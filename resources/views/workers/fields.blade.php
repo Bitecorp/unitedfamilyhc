@@ -185,7 +185,11 @@
     @if($stringSeparado[2] === 'create')
         <a href="{{ route('workers.index') }}" class="btn btn-secondary">Cancel</a>
     @else
-        <a href="{{ route('workers.show', [$stringSeparado[2]]) }}" class='btn btn-success'>Show</a>
+        @if(Auth::user()->role_id == 2)
+        <a href="{{ route('workers.show', [$stringSeparado[2]]) }}" class='btn btn-secondary'>Back</a>
+        @else
+        <a href="{{ route('workers.show', [$stringSeparado[2]]) }}" class='btn btn-success'>Back</a>
         <a href="{{ route('workers.index') }}" class="btn btn-secondary">Cancel</a>
+        @endif
     @endif
 </div>

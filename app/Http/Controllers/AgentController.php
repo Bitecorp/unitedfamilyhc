@@ -159,7 +159,7 @@ class AgentController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $agents = Agent::where('role_id', '!=', 4)->get();
+        $agents = Agent::where('role_id', 5)->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 
@@ -283,95 +283,7 @@ class AgentController extends AppBaseController
         $input['password'] = Hash::make($input['ssn']);
         $input['remember_token'] = Str::random(10);
         $input['email_verified_at'] = now();
-
-        $age = Carbon::parse($input['birth_date'])->age;
-
-        if($age < 18){
-
-            Flash::error('The Agent cannot be less than 18 years old.');
-
-            return redirect(route('agents.create'));
-
-        }else{
-            $agent = $this->agentRepository->create($input);
-
-            DB::table('contacts_emergencys')->insert([
-                    'user_id' => $agent->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('jobs_information')->insert([
-                    'user_id' => $agent->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('educations')->insert([
-                    'user_id' => $agent->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('confirmations')->insert([
-                    'user_id' => $agent->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('references')->insert([
-                    'user_id' => $agent->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('references_jobs')->insert([
-                    'user_id' => $agent->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('references')->insert([
-                    'user_id' => $agent->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-            DB::table('references_jobs')->insert([
-                    'user_id' => $agent->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-
-
-            $contactEmergencyID = DB::table('contacts_emergencys')->select('id')->where('user_id', '=', $agent->id)->first();
-            $contactEmergency = $this->contactEmergencyRepository->find($contactEmergencyID->id);
-
-            Flash::success('Agent saved successfully, your current password is your SSN.');
-
-            return view('contact_emergencies.create')->with('agentID', $agent->id)->with('contactEmergency', $contactEmergency);
-
-        }
-    }
-
-    /**
-     * Store a newly created Agent in storage.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function storeExternal(Request $request)
-    {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-        $input['remember_token'] = Str::random(10);
-        $input['email_verified_at'] = now();
-        $input['role_id'] = 2;
+        $input['role_id'] = 5;
         $input['statu_id'] = 1;
 
         $agent = $this->agentRepository->create($input);
@@ -427,10 +339,9 @@ class AgentController extends AppBaseController
                     'created_at' => now(),
                     'updated_at' => now()
             ]);
-        
-        Flash::success('Agent saved successfully.');
-        return redirect(route('login'));
 
+            Flash::success('Agent saved successfully.');
+            return redirect(route('agents.index'));
     }
 
     /**
@@ -743,7 +654,7 @@ class AgentController extends AppBaseController
         ->with('confirmationIndependent', $confirmationIndependent)
         ->with('contactEmergency', $contactEmergency)
         ->with('jobInformation', $jobInformation)
-        ->with('agent', $agent)
+        ->with('worker', $agent)
         ->with('education', $education)
         ->with('marital_status', $marital_status)
         ->with('titleJobs', $titleJobs);
@@ -767,13 +678,14 @@ class AgentController extends AppBaseController
             return redirect(route('agents.index'));
         }
 
-        $agent = $this->agentRepository->update($request->all(), $id);
+        $input = $request->all();
+        $input['role_id'] = 5;
+
+        $agent = $this->agentRepository->update($input, $id);
 
         Flash::success('Agent updated successfully.');
-        $contactEmergencyID = DB::table('contacts_emergencys')->select('id')->where('user_id', '=', $id)->first();
-        $contactEmergency = $this->contactEmergencyRepository->find($contactEmergencyID->id);
 
-        return view('contact_emergencies.edit')->with('contactEmergency', $contactEmergency);
+        return redirect(route('agents.show', $id));
     }
 
     /**

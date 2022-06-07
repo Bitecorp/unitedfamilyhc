@@ -10,46 +10,11 @@
     <div class="progress" style="height: 30px; margin-bottom: 20px;">
         <div class="progress-bar progress-bar-striped bg-success"
             role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
+            style="width: 100%"
+            aria-valuenow="100"
             aria-valuemin="0"
             aria-valuemax="100"
-        > Worker Data </div>
-        <div class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        > Emergency Contact </div>
-        <div class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        > Job Information </div>
-        <div class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        > Education </div>
-        <div class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        > References </div>
-        <div class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            style="width: 16.67%"
-            aria-valuenow="16.67"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        > Independent Contractor </div>
+        > Agent Data </div>
     </div>
     <!-- begin panel -->
     <div class="panel panel-inverse">

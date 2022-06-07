@@ -159,7 +159,7 @@ class WorkerController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $workers = Worker::where('role_id', '!=', 4)->get();
+        $workers = Worker::where('role_id', '!=', [4, 5])->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 

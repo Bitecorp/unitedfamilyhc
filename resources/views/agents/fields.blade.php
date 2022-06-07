@@ -139,15 +139,11 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('role_id', 'Role:') !!}
-            <select name='role_id' class="form-control">
-                @foreach($roles as $role)
-                    @if(empty($worker))
-                        <option value='{{ $role->id }}' {{ $role->id == '2' ? 'selected' : '' }} >{{ $role->name_role }}</option>
-                    @else
-                        <option value='{{ $role->id }}' {{ $worker->role_id == $role->id ? 'selected' : '' }} >{{ $role->name_role }}</option>
-                    @endif
-                @endforeach
-            </select>
+            @foreach($roles as $key => $role)
+                @if($role->id == 5)
+                    <input type="text" name="role_id" class="form-control" readonly value="{{ $role->name }}" >
+                @endif
+            @endforeach
         </div>
     </div>
     @if(empty($worker))
@@ -177,7 +173,7 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Next', ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <?php
         $link = "$_SERVER[REQUEST_URI]";
         $stringSeparado = explode('/', $link);
@@ -185,7 +181,7 @@
     @if($stringSeparado[2] === 'create')
         <a href="{{ route('agents.index') }}" class="btn btn-secondary">Cancel</a>
     @else
-        <a href="{{ route('agents.show', [$stringSeparado[2]]) }}" class='btn btn-success'>Show</a>
+        <a href="{{ route('agents.show', $worker->id) }}" class="btn btn-success">Show</a>
         <a href="{{ route('agents.index') }}" class="btn btn-secondary">Cancel</a>
     @endif
 </div>

@@ -115,3 +115,6 @@ Route::get('/subServices/addSubService/{idService}', [App\Http\Controllers\SubSe
 Route::resource('settings/taskSubServices', App\Http\Controllers\TaskSubServicesController::class);
 
 Route::resource('settings/units', App\Http\Controllers\UnitsController::class);
+
+
+Route::resource('configSubServicesPatientes', App\Http\Controllers\ConfigSubServicesPatienteController::class);

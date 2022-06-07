@@ -139,3 +139,9 @@
         <span>Units</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('configSubServicesPatientes*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('configSubServicesPatientes.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Config Sub Services Patientes</span>
+    </a>
+</li>
