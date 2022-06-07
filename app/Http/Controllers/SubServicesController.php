@@ -6,6 +6,7 @@ use App\Http\Requests\CreateSubServicesRequest;
 use App\Http\Requests\UpdateSubServicesRequest;
 use App\Repositories\SubServicesRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\ConfigSubServicesPatienteRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -14,15 +15,20 @@ use App\Models\SubServices;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Units;
 use App\Models\Patiente;
+use App\Models\ConfigSubServicesPatiente;
 
 class SubServicesController extends AppBaseController
 {
     /** @var  SubServicesRepository */
     private $subServicesRepository;
 
-    public function __construct(SubServicesRepository $subServicesRepo)
+    /** @var ConfigSubServicesPatienteRepository $configSubServicesPatienteRepository*/
+    private $configSubServicesPatienteRepository;
+
+    public function __construct(SubServicesRepository $subServicesRepo, ConfigSubServicesPatienteRepository $configSubServicesPatienteRepo)
     {
         $this->subServicesRepository = $subServicesRepo;
+        $this->configSubServicesPatienteRepository = $configSubServicesPatienteRepo;
     }
 
     /**
@@ -101,6 +107,9 @@ class SubServicesController extends AppBaseController
         $dataUser = Patiente::where('id', $userId)->first();
 
         if(!empty($exist)){
+            $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $exist->id)->first();
+            $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+
             $flight = SalaryServiceAssigneds::find($exist->id);
             $flight->delete();
         }else{
@@ -113,6 +122,11 @@ class SubServicesController extends AppBaseController
             $saveData->created_at = now();
             $saveData->updated_at = now();
             $saveData->save();
+
+            $input['salary_service_assigned_id'] = $saveData->id;
+
+            $configSubServicesPatiente = $this->configSubServicesPatienteRepository->create($input);
+
         }
 
         if($dataUser->role_id == 4){
@@ -219,6 +233,9 @@ class SubServicesController extends AppBaseController
 
             return redirect(route('subServices.index'));
         }
+
+        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
+        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
 
         $this->subServicesRepository->delete($id);
 

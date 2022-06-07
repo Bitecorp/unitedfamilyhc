@@ -70,6 +70,9 @@ class SalaryServiceAssignedsController extends AppBaseController
         $input = $request->all();
 
         $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->create($input);
+
+        $input['salary_service_assigned_id'] = $salaryServiceAssigneds->id;
+
         $configSubServicesPatiente = $this->configSubServicesPatienteRepository->create($input);
 
         Flash::success('Salary Service Assigneds saved successfully.');
@@ -190,6 +193,9 @@ class SalaryServiceAssignedsController extends AppBaseController
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
+
+        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
+        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
 
         $this->salaryServiceAssignedsRepository->delete($id);
 
