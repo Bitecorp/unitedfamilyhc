@@ -156,6 +156,7 @@ class Patiente extends Model
         'role_id',
         'statu_id',
         'remember_token',
+        'companie_agent',
     ];
 
     /**
@@ -183,7 +184,8 @@ class Patiente extends Model
         'password' => 'string',
         'role_id' => 'string',
         'statu_id' => 'string',
-        'remember_token' => 'string'
+        'remember_token' => 'string',
+        'companie_agent' => 'string'
     ];
 
     /**
@@ -212,7 +214,8 @@ class Patiente extends Model
         'statu_id' => 'required|string|max:255',
         'remember_token' => 'nullable|string|max:100',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'companie_agent' => 'nullable|string|max:100',
     ];
 
      /**
@@ -241,6 +244,7 @@ class Patiente extends Model
         'statu_id' => 'required|string|max:255',
         'remember_token' => 'nullable|string|max:100',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'companie_agent' => 'nullable|string|max:100',
     ];
 }

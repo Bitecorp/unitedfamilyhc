@@ -108,7 +108,9 @@ class SubServicesController extends AppBaseController
 
         if(!empty($exist)){
             $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $exist->id)->first();
-            $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+            if(isset($config) && !empty($config)){
+                $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+            }
 
             $flight = SalaryServiceAssigneds::find($exist->id);
             $flight->delete();
@@ -234,8 +236,13 @@ class SubServicesController extends AppBaseController
             return redirect(route('subServices.index'));
         }
 
-        $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
-        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+        $exist = SalaryServiceAssigneds::where('service_id', $subServices->id)->get();
+
+        if(isset($exist) && !empty($exist) && count($exist) >= 1){
+            Flash::error('There are salaries with this sub-service assigned to it, it cannot be eliminated.');
+
+            return redirect(route('subServices.list', [$subServices->service_id]));
+        }
 
         $this->subServicesRepository->delete($id);
 

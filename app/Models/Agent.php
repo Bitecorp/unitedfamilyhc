@@ -156,6 +156,7 @@ class Agent extends Model
         'role_id',
         'statu_id',
         'remember_token',
+        'companie_agent',
     ];
 
     /**
@@ -183,7 +184,8 @@ class Agent extends Model
         'password' => 'string',
         'role_id' => 'string',
         'statu_id' => 'string',
-        'remember_token' => 'string'
+        'remember_token' => 'string',
+        'companie_agent' => 'string'
     ];
 
     /**
@@ -202,9 +204,9 @@ class Agent extends Model
         'zip_code' => 'required|string|max:255',
         'home_phone' => 'required|string|max:255',
         'alternate_phone' => 'nullable|string|max:255',
-        'ssn' => 'required|string|unique:users|max:255',
-        'birth_date' => 'required|date_format:Y-m-d',
-        'marital_status' => 'required|string|max:255',
+        'ssn' => 'nullable|string|unique:users|max:255',
+        'birth_date' => 'nullable|date_format:Y-m-d',
+        'marital_status' => 'nullable|string|max:255',
         'email' => 'required|email|unique:users|max:255',
         'email_verified_at' => 'nullable',
         'password' => 'nullable|string|max:255',
@@ -212,7 +214,8 @@ class Agent extends Model
         'statu_id' => 'required|string|max:255',
         'remember_token' => 'nullable|string|max:100',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'companie_agent' => 'nullable|string|max:100',
     ];
 
      /**
@@ -231,9 +234,9 @@ class Agent extends Model
         'zip_code' => 'required|string|max:255',
         'home_phone' => 'required|string|max:255',
         'alternate_phone' => 'nullable|string|max:255',
-        'ssn' => 'required|string|max:255',
-        'birth_date' => 'required|date_format:Y-m-d',
-        'marital_status' => 'required|string|max:255',
+        'ssn' => 'nullable|string|max:255',
+        'birth_date' => 'nullable|date_format:Y-m-d',
+        'marital_status' => 'nullable|string|max:255',
         'email' => 'required|email|max:255',
         'email_verified_at' => 'nullable',
         'password' => 'nullable|string|max:255',
@@ -241,6 +244,7 @@ class Agent extends Model
         'statu_id' => 'required|string|max:255',
         'remember_token' => 'nullable|string|max:100',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'companie_agent' => 'nullable|string|max:100',
     ];
 }

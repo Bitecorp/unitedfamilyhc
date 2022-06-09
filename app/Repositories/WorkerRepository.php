@@ -35,7 +35,8 @@ class WorkerRepository extends BaseRepository
         'password',
         'role_id',
         'statu_id',
-        'remember_token'
+        'remember_token',
+        'companie_agent',
     ];
 
     /**

@@ -57,6 +57,7 @@ use App\Models\ReferencesPersonalesTwo;
 use App\Models\alertDocuments;
 use App\Models\SubServices;
 use App\Models\ExternalsDocuments;
+use App\Models\ConfigSubServicesPatiente;
 use Flash;
 use Response;
 use DB;
@@ -788,6 +789,18 @@ class PatienteController extends AppBaseController
         $referencePersonalsID = DB::table('references')->select('id')->where('user_id', '=', $id)->get();
         $referenceJobsID = DB::table('references_jobs')->select('id')->where('user_id', '=', $id)->get();
         $companiesID = DB::table('companies')->select('id')->where('user_id', '=', $id)->first();
+
+        $existData = SalaryServiceAssigneds::where('user_id', $id)->get();
+        if(isset($existData) && !empty($existData) && count($existData) >= 1){
+            foreach($existData AS $exist){
+                $configs = ConfigSubServicesPatiente::where('salary_service_assigned_id', $exist->id)->first();
+                $config = ConfigSubServicesPatiente::find($configs->id);
+                $config->delete();
+
+                $flight = SalaryServiceAssigneds::find($exist->id);
+                $flight->delete();
+            }
+        }
 
         $this->educationRepository->delete($educationID->id);
         $this->confirmationIndependentRepository->delete($confirmationIndependentID->id);

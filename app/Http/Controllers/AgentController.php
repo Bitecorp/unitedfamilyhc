@@ -280,7 +280,7 @@ class AgentController extends AppBaseController
     public function store(CreateAgentRequest $request)
     {
         $input = $request->all();
-        $input['password'] = Hash::make($input['ssn']);
+        $input['password'] = Hash::make(isset($input['ssn']) && !empty($input['ssn']) ? $input['ssn'] : '');
         $input['remember_token'] = Str::random(10);
         $input['email_verified_at'] = now();
         $input['role_id'] = 5;

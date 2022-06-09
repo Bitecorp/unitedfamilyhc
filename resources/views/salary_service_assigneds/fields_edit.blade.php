@@ -44,7 +44,7 @@
             <select name='agent_id' class="form-control">
                 <option value='' selected>Select Agent..</option>
                 @foreach($agents as $agent)
-                    <option value='{{ $agent->id }}' {{ isset($config) && !empty($config) && isset($config->agent_id) && !empty($config->agent_id) && $config->agent_id == $agent->id ? 'selected' : '' }} >{{ $agent->first_name }} {{ $agent->last_name }}</option>
+                    <option value='{{ $agent->id }}' {{ isset($config) && !empty($config) && isset($config->agent_id) && !empty($config->agent_id) && $config->agent_id == $agent->id ? 'selected' : '' }} >{{ $agent->first_name }} {{ $agent->last_name }} - {{ $agent->companie_agent }}</option>
                 @endforeach
             </select>
         </div>

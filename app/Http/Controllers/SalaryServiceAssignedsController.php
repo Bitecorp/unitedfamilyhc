@@ -193,9 +193,11 @@ class SalaryServiceAssignedsController extends AppBaseController
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
-
+        
         $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
-        $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+        if($config){
+            $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+        }
 
         $this->salaryServiceAssignedsRepository->delete($id);
 

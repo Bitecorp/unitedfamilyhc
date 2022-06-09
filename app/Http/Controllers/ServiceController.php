@@ -12,6 +12,7 @@ use Flash;
 use Response;
 use DB;
 use Illuminate\Support\Collection;
+use App\Models\SubServices;
 
 class ServiceController extends AppBaseController
 {
@@ -176,6 +177,14 @@ class ServiceController extends AppBaseController
 
         if (empty($service)) {
             Flash::error('Service not found');
+
+            return redirect(route('services.index'));
+        }
+
+        $subServices = SubServices::where('service_id', $id)->get();
+
+        if (!empty($subServices) && count($subServices) >= 1) {
+            Flash::error('There are tied sub-services, cannot be eliminated');
 
             return redirect(route('services.index'));
         }

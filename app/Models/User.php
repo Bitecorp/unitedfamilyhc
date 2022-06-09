@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'statu_id',
+        'companie_agent',
     ];
 
     /**
@@ -53,6 +54,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
+        'first_name' => 'string',
+        'last_name' => 'string',
+        'mi' => 'string',
+        'street_addres' => 'string',
+        'apartment_unit' => 'string',
+        'city' => 'string',
+        'state' => 'string',
+        'zip_code' => 'string',
+        'home_phone' => 'string',
+        'alternate_phone' => 'string',
+        'ssn' => 'string',
+        'birth_date' => 'date',
+        'marital_status' => 'string',
+        'email' => 'string',
         'email_verified_at' => 'datetime',
+        'password' => 'string',
+        'role_id' => 'string',
+        'statu_id' => 'string',
+        'remember_token' => 'string',
+        'companie_agent' => 'string',
     ];
 }

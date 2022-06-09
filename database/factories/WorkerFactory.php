@@ -42,7 +42,8 @@ class WorkerFactory extends Factory
             'statu_id' => $this->faker->word,
             'remember_token' => $this->faker->word,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->date('Y-m-d H:i:s')
+            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+            'companie_agent' => $this->faker->word
         ];
     }
 }

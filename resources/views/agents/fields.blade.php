@@ -20,6 +20,13 @@
             {!! Form::text('last_name', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
+    <div class="col">
+        <!-- Companie Agent Field -->
+        <div class="form-group">
+            {!! Form::label('companie_agent', 'Companie:') !!}
+            {!! Form::text('companie_agent', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -82,14 +89,14 @@
         <!-- Ssn Field -->
         <div class="form-group">
             {!! Form::label('ssn', 'SSN:') !!}
-            {!! Form::text('ssn', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+            {!! Form::text('ssn', null, ['class' => 'form-control','maxlength' => 255]) !!}
         </div>
     </div>
     <div class="col">
         <!-- Birth Date Field -->
         <div class="form-group">
             {!! Form::label('birth_date', 'Birth Date:') !!}
-            {!! Form::text('birth_date', null, ['class' => 'form-control','id'=>'birth_date', 'required' => true]) !!}
+            {!! Form::text('birth_date', null, ['class' => 'form-control','id'=>'birth_date']) !!}
         </div>
     </div>
     <div class="col">
@@ -97,6 +104,7 @@
         <div class="form-group">
             {!! Form::label('marital_status', 'Marital Status:') !!}
             <select name='marital_status' class="form-control">
+                 <option value=''>Select Option...</option>
                 @foreach($marital_status as $marital_statu)
                     @if(empty($worker))
                         <option value='{{ $marital_statu->id }}'>{{ $marital_statu->name_marital_status }}</option>
@@ -141,7 +149,7 @@
             {!! Form::label('role_id', 'Role:') !!}
             @foreach($roles as $key => $role)
                 @if($role->id == 5)
-                    <input type="text" name="role_id" class="form-control" readonly value="{{ $role->name }}" >
+                    <input type="text" name="role_id" class="form-control" readonly value="{{ $role->name_role }}" >
                 @endif
             @endforeach
         </div>

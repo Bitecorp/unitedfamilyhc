@@ -20,6 +20,13 @@
             <input type="text" name="last_name" class="form-control" readonly value="{{ $worker->last_name }}" >
         </div>
     </div>
+    <div class="col">
+        <!-- Companie Agent Field -->
+        <div class="form-group">
+            {!! Form::label('companie_agent', 'Companie:') !!}
+            <input type="text" name="companie_agent" class="form-control" readonly value="{{ $worker->companie_agent }}" >
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -99,11 +106,15 @@
         <!-- Marital Status Field -->
         <div class="form-group">
             {!! Form::label('marital_status', 'Marital Status:') !!}
-            @foreach($maritalStatus as $key => $maritalS)
-                @if($maritalS->id == $worker->marital_status)
-                    <input type="text" name="marital_status" class="form-control" readonly value="{{ $maritalS->name_marital_status }}" >
-                @endif
-            @endforeach
+            @if(!isset($worker->marital_status) || empty($worker->marital_status))
+                <input ype="text" name="marital_status" class="form-control" readonly value='No Option Selected...'>
+            @else
+                @foreach($maritalStatus as $key => $maritalS)
+                    @if($maritalS->id == $worker->marital_status)
+                        <input type="text" name="marital_status" class="form-control" readonly value="{{ $maritalS->name_marital_status }}" >
+                    @endif
+                @endforeach
+            @endif
         </div>
     </div>
     <div class="col">
