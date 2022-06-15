@@ -15,9 +15,9 @@ function cambioOpciones(){
             <select name='title' class="form-control">
                 @foreach($titleJobs as $titleJob)
                     @if(empty($jobInformation))
-                        <option value='{{ $titleJob->name_job }}'>{{ $titleJob->name_job }}</option>
+                        <option value='{{ $titleJob->id }}'>{{ $titleJob->name_job }}</option>
                     @else
-                        <option value='{{ $titleJob->name_job }}' {{ $jobInformation->title == $titleJob->name_job ? 'selected' : '' }} >{{ $titleJob->name_job }}</option>
+                        <option value='{{ $titleJob->id }}' {{ $jobInformation->title == $titleJob->id ? 'selected' : '' }} >{{ $titleJob->name_job }}</option>
                     @endif
                 @endforeach
             </select>
@@ -33,7 +33,7 @@ function cambioOpciones(){
                     @if(empty($jobInformation))
                         <option value='{{ $manager->home_phone }}'>{{ $manager->first_name }} {{ $manager->last_name }}</option>
                     @else
-                        <option value='{{ $manager->home_phone }}' {{ $jobInformation->supervisor  == $manager->id ? 'selected' : '' }} >{{ $manager->first_name }} {{ $manager->last_name }}</option>
+                        <option value='{{ $manager->home_phone }}' {{ $jobInformation->supervisor == $manager->id ? 'selected' : '' }} >{{ $manager->first_name }} {{ $manager->last_name }}</option>
                     @endif
                 @endforeach
             </select>

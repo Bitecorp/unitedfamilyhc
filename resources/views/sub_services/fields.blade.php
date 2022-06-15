@@ -43,7 +43,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('unit_customer_id', 'Unit Customer:') !!}
-            <select name='unit_customer_id' id='unit_customer_id' class="form-control" {{ isset($subServices) && $subServices->type_salary == 1 ? '' : 'required' }}>
+            <select name='unit_customer_id' id='unit_customer_id' class="form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
                 <option value='' {{ isset($subServices) && isset($subServices->unit_customer_id) && !empty($subServices->unit_customer_id) ? 'selected' : '' }} >Select Option</option>
                 @foreach($units as $unit)
                     @if(!empty($unit))
@@ -64,7 +64,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('unit_worker_payment', 'Unit Customer:') !!}
-            <select name='unit_worker_payment_id' id='unit_worker_payment_id' class="form-control" {{ isset($subServices) && $subServices->type_salary == 1 ? '' : 'required' }}>
+            <select name='unit_worker_payment_id' id='unit_worker_payment_id' class="form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
                 <option value='' {{ isset($subServices) && isset($subServices->unit_worker_payment_id) && !empty($subServices->unit_worker_payment_id)  ? 'selected' : '' }} >Select Option</option>
                 @foreach($units as $unit)
                     @if(!empty($unit))

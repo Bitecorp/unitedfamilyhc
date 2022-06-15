@@ -25,6 +25,7 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\TitleJobs;
 
 class JobInformationController extends AppBaseController
 {
@@ -129,7 +130,7 @@ class JobInformationController extends AppBaseController
     {
         $jobInformation = $this->jobInformationRepository->find($id);
 
-        $titleJobs = DB::table('title_jobs')->select('id', 'name_job')->get();
+        $titleJobs = TitleJobs::all();
 
         if (empty($jobInformation)) {
             Flash::error('Job Information not found');
@@ -191,6 +192,7 @@ class JobInformationController extends AppBaseController
         $data = $request->all();
         $managerID = DB::table('users')->select('id')->where('home_phone', $data['supervisor'])->first();
         $data['supervisor'] = $managerID->id;
+        $data['work_phone'] = null;
 
         if(isset($data['type_salary'])){
             $data['type_salary'] = true;

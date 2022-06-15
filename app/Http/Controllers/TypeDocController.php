@@ -189,6 +189,23 @@ class TypeDocController extends AppBaseController
             return redirect(route('typeDocs.index'));
         }
 
+        $typeDocsA = Service::all();
+        $countVal = 0;
+
+        if(!empty($typeDocsA) && isset($typeDocsA) && count($typeDocsA) >= 1){
+            foreach($typeDocsA as $typeDocs){
+                foreach(json_decode($typeDocs->documents) as $val){
+                    if($id == $val)
+                    $countVal = $countVal + 1;
+                }
+            }
+            if($countVal >= 1){
+                Flash::error('you cannot delete this document because it is assigned to one or more services');
+
+                return redirect(route('typeDocs.index'));
+            }
+        }
+
         $this->typeDocRepository->delete($id);
 
         Flash::success('Type Doc deleted successfully.');

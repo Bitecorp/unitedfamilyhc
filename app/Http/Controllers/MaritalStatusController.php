@@ -8,6 +8,7 @@ use App\Repositories\MaritalStatusRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\MaritalStatus;
+use App\Models\User;
 use Flash;
 use Response;
 
@@ -144,6 +145,14 @@ class MaritalStatusController extends AppBaseController
 
         if (empty($maritalStatus)) {
             Flash::error('Marital Status not found');
+
+            return redirect(route('maritalStatuses.index'));
+        }
+
+        $maritalStatuA = User::where('marital_status', $id)->get();
+
+        if(!empty($maritalStatuA) && isset($maritalStatuA) && count($maritalStatuA) >= 1){
+            Flash::error('you cannot delete this marital status because it is assigned to one or more users');
 
             return redirect(route('maritalStatuses.index'));
         }

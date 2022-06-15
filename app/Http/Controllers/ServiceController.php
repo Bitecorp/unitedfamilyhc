@@ -189,6 +189,23 @@ class ServiceController extends AppBaseController
             return redirect(route('services.index'));
         }
 
+        $servicesAssignedsA = Service::all();
+        $countVal = 0;
+
+        if(!empty($servicesAssignedsA) && isset($servicesAssignedsA) && count($servicesAssignedsA) >= 1){
+            foreach($servicesAssignedsA as $services){
+                foreach(json_decode($services->services) as $val){
+                    if($id == $val)
+                    $countVal = $countVal + 1;
+                }
+            }
+            if($countVal >= 1){
+                Flash::error('you cannot delete this services because it is assigned to one or more services');
+
+                return redirect(route('typeDocs.index'));
+            }
+        }
+
         $this->serviceRepository->delete($id);
 
         Flash::success('Service deleted successfully.');

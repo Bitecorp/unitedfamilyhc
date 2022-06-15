@@ -101,7 +101,7 @@ class JobInformation extends Model
         'title' => 'required|string|max:255',
         'supervisor' => 'required|string|max:255',
         'work_name_location' => 'required|string|max:255',
-        'work_phone' => 'required|string|max:255',
+        'work_phone' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

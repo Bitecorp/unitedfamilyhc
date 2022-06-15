@@ -8,6 +8,7 @@ use App\Repositories\StatuRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\Statu;
+use App\Models\User;
 use Flash;
 use Response;
 
@@ -144,6 +145,14 @@ class StatuController extends AppBaseController
 
         if (empty($estate)) {
             Flash::error('Statu not found');
+
+            return redirect(route('status.index'));
+        }
+
+        $statuA = User::where('statu_id', $id)->get();
+
+        if(!empty($statuA) && isset($statuA) && count($statuA) >= 1){
+            Flash::error('you cannot delete this status because it is assigned to one or more users');
 
             return redirect(route('status.index'));
         }

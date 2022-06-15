@@ -8,6 +8,7 @@ use App\Repositories\TitleJobsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\TitleJobs;
+use App\Models\JobInformation;
 use Flash;
 use Response;
 
@@ -144,6 +145,14 @@ class TitleJobsController extends AppBaseController
 
         if (empty($titleJobs)) {
             Flash::error('Title Jobs not found');
+
+            return redirect(route('titleJobs.index'));
+        }
+
+        $titleJobsA = JobInformation::where('title', $titleJobs->id)->get();
+
+        if(!empty($titleJobsA) && isset($titleJobsA) && count($titleJobsA) >= 1){
+            Flash::error('you cannot delete this job because it is assigned to one or more other users.');
 
             return redirect(route('titleJobs.index'));
         }

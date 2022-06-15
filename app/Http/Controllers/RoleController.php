@@ -8,6 +8,7 @@ use App\Repositories\RoleRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
 use Flash;
 use Response;
 
@@ -144,6 +145,14 @@ class RoleController extends AppBaseController
 
         if (empty($role)) {
             Flash::error('Role not found');
+
+            return redirect(route('roles.index'));
+        }
+
+        $roleA = User::where('role_id', $id)->get();
+
+        if(!empty($roleA) && isset($roleA) && count($roleA) >= 1){
+            Flash::error('you cannot delete this role because it is assigned to one or more users');
 
             return redirect(route('roles.index'));
         }

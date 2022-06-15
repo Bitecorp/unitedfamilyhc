@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateLocationRequest;
 use App\Repositories\LocationRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\JobInformation;
 use Flash;
 use Response;
 
@@ -143,6 +144,14 @@ class LocationController extends AppBaseController
 
         if (empty($location)) {
             Flash::error('Location not found');
+
+            return redirect(route('locations.index'));
+        }
+
+        $locationA = JobInformation::where('work_name_location', $id)->get();
+
+        if(!empty($locationA) && isset($locationA) && count($locationA) >= 1){
+            Flash::error('you cannot delete this location because it is assigned to one or more users');
 
             return redirect(route('locations.index'));
         }

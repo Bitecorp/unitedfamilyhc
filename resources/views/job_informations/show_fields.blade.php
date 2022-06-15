@@ -3,21 +3,33 @@
         <!-- Zip Code Field -->
         <div class="form-group">
             {!! Form::label('title', 'Title:') !!}
-            <input type="text" name="title" class="form-control" readonly value="{{ $jobInformation->title }}" >
+            @foreach($titleJobs as $job)
+                @if($job->id == $jobInformation->supervisor)
+                    <input type="text" name="title" class="form-control" readonly value="{{ $job->name_job }}" >
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="col">
         <!-- Home Phone Field -->
         <div class="form-group">
             {!! Form::label('supervisor', 'Supervisor:') !!}
-            <input type="text" name="supervisor" class="form-control" readonly value="{{ $jobInformation->supervisor }}" >
+            @foreach($workers as $supervisor)
+                @if($supervisor->id == $jobInformation->supervisor)
+                    <input type="text" name="supervisor" class="form-control" readonly value="{{ $supervisor->id }}" >
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="col">
         <!-- Zip Code Field -->
         <div class="form-group">
              {!! Form::label('work_phone', 'Work Phone:') !!}
-            <input type="text" name="work_phone" class="form-control" readonly value="{{ $jobInformation->work_phone }}" >
+             @foreach($workers as $supervisor)
+                @if($supervisor->id == $jobInformation->supervisor)
+                    <input type="text" name="work_phone" class="form-control" readonly value="{{ $supervisor->home_phone }}" >
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="col">

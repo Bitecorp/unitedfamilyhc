@@ -45,7 +45,7 @@
                         {!! Form::open(['route' => ['agents.destroy', $worker->id], 'method' => 'delete']) !!}
                             <a href="{{ route('agents.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
                             @if(Auth::user()->role_id == 1)
-                                {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('You are about to delete a root record, if the information is not saved all documents attached to this worker will be lost. (Valid Documents and Expired Documents, Signed Contracts, Etc.).')"]) !!}
                             @endif
                         {!! Form::close() !!}
                     @endif
