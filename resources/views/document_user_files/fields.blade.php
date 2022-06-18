@@ -26,44 +26,20 @@
         <!-- Date Expedition Field -->
         <div class="form-group">
             {!! Form::label('date_expedition', 'Date Expedition:') !!}
-            {!! Form::text('date_expedition', null, ['class' => 'form-control','id'=>'date_expedition', 'required' => true]) !!}
+            <input type="date" placeholder="YYYY-MM-DD" name="date_expedition" id="date_expedition" class="form-control" value="{{ isset($documentUserFiles->) && !empty($documentUserFiles->) && isset($documentUserFiles->->date_expedition) && !empty($documentUserFiles->->date_expedition) ? date_format($documentUserFiles->->date_expedition, 'Y-m-d') : '' }}">
         </div>
     </div>
     <div class="col" {{ $isRequired == true ? '' : 'hidden' }}>
         <!-- Date Expired Field -->
         <div class="form-group">
             {!! Form::label('date_expired', 'Date Expired:') !!}
-            {!! Form::text('date_expired', null, ['class' => 'form-control','id'=>'date_expired', 'required' => $isRequired]) !!}
+            <input type="date" required="{{ $isRequired }}" placeholder="YYYY-MM-DD" name="date_expired" id="date_expired" class="form-control" value="{{ isset($documentUserFiles->) && !empty($documentUserFiles->) && isset($documentUserFiles->->date_expired) && !empty($documentUserFiles->->date_expired) ? date_format($documentUserFiles->->date_expired, 'Y-m-d') : '' }}">
         </div>
     </div>
 </div>
 
 @push('scripts')
     <script type="text/javascript">
-        $(function () {
-            $('#date_expedition').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true
-            });
-        });
-
-        $(function () {
-            $('#date_expired').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true
-            });
-        });
-
         $(function () {
             $(".custom-file-input").on("change", function() {
                 var fileName = $(this).val().split("\\").pop();

@@ -93,10 +93,10 @@
         </div>
     </div>
     <div class="col">
-        <!-- Birth Date Field -->
+        <!-- Date Expedition Field -->
         <div class="form-group">
-            {!! Form::label('birth_date', 'Birth Date:') !!}
-            {!! Form::text('birth_date', null, ['class' => 'form-control','id'=>'birth_date']) !!}
+            {!! Form::label('birth_date', 'Date Birth Date:') !!}
+            <input type="date" placeholder="MM-DD-YYYY" name="birth_date" id="birth_date" class="form-control" value="{{ isset($worker) && !empty($worker) && isset($worker->birth_date) && !empty($worker->birth_date) ? date_format($worker->birth_date, 'Y-m-d') : '' }}">
         </div>
     </div>
     <div class="col">
@@ -119,19 +119,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        var date = new Date();
-        var dateOld = date.getFullYear() - 18 + '-' + String(date.getMonth()).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-        $(function () {
-            $('#birth_date').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true,
-            });
-        });
+        
     </script>
 @endpush
 

@@ -20,6 +20,13 @@
             {!! Form::text('last_name', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
+    <div class="col">
+        <!-- Date Expedition Field -->
+        <div class="form-group">
+            {!! Form::label('birth_date', 'Date Birth Date:') !!}
+            <input type="date" placeholder="MM-DD-YYYY" name="birth_date" id="birth_date" class="form-control" value="{{ isset($patiente) && !empty($patiente) && isset($patiente->birth_date) && !empty($patiente->birth_date) ? date_format($patiente->birth_date, 'Y-m-d') : '' }}">
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -86,13 +93,6 @@
         </div>
     </div>
     <div class="col">
-        <!-- Birth Date Field -->
-        <div class="form-group">
-            {!! Form::label('birth_date', 'Birth Date:') !!}
-            {!! Form::text('birth_date', null, ['class' => 'form-control','id'=>'birth_date', 'required' => false]) !!}
-        </div>
-    </div>
-    <div class="col">
         <!-- Marital Status Field -->
         <div class="form-group">
             {!! Form::label('marital_status', 'Marital Status:') !!}
@@ -103,19 +103,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        var date = new Date();
-        var dateOld = date.getFullYear() - 18 + '-' + String(date.getMonth()).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-        $(function () {
-            $('#birth_date').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true,
-            });
-        });
+        
     </script>
 @endpush
 

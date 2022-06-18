@@ -20,6 +20,13 @@
             <input type="text" name="last_name" class="form-control" readonly value="{{ $patiente->last_name }}" >
         </div>
     </div>
+    <div class="col">
+        <!-- Birth Date Field -->
+        <div class="form-group">
+            {!! Form::label('birth_date', 'Birth Date:') !!}
+            <input type="date" name="birth_date" class="form-control" readonly value={{ $patiente->birth_date }} >
+        </div>
+    </div>
 </div>
 
 <div class="row">

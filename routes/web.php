@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WorkerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +43,10 @@ Route::resource('workers', App\Http\Controllers\WorkerController::class);
 Route::get('/workers/pdf/{id}/{idPdf}', [App\Http\Controllers\WorkerController::class, 'getPDF'])->name('workers.pdf');
 
 Route::post('/workers/updateState/{id}', [App\Http\Controllers\WorkerController::class, 'updateState'])->name('workers.updateState');
+
+Route::get('/sendEmailRegister/emailRegisterWorker', [App\Http\Controllers\SendEmailRegisterController::class, 'emailRegisterWorker'])->name('sendEmailRegisterController.emailRegisterWorker');
+
+Route::post('/sendEmailRegister/emailRegisterWorker', [App\Http\Controllers\SendEmailRegisterController::class, 'sendEmailRegisterWorker'])->name('sendEmailRegisterController.sendEmailRegisterWorker');
 
 Route::resource('settings/roles', App\Http\Controllers\RoleController::class);
 

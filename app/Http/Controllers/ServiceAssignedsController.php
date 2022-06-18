@@ -108,13 +108,6 @@ class ServiceAssignedsController extends AppBaseController
 
             $serviceAssigneds = $this->serviceAssignedsRepository->create($input);
 
-            foreach(json_decode($input['services']) as $key => $value){
-                DB::table('salary_service_assigneds')->insert([
-                    'user_id' => $id,
-                    'service_id' => $value
-                ]);
-            }
-
             Flash::success('Service Assigneds saved successfully.');
 
             if(!empty($userID) && $userID->role_id == 4){
