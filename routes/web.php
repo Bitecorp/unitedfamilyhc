@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +39,8 @@ Route::resource('patientes', App\Http\Controllers\PatienteController::class);
 Route::get('/patientes/pdf/{id}/{idPdf}', [App\Http\Controllers\PatienteController::class, 'getPDF'])->name('patientes.pdf');
 
 Route::post('/patientes/updateState/{id}', [App\Http\Controllers\PatienteController::class, 'updateState'])->name('patientes.updateState');
+
+Route::post('/patientes/assingWorker/{idPatiente}/{idWorker}', [App\Http\Controllers\PatienteController::class, 'assingWorker'])->name('patientes.assingWorker');
 
 Route::resource('workers', App\Http\Controllers\WorkerController::class);
 

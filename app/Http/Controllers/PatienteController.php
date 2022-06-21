@@ -35,6 +35,7 @@ use App\Repositories\CompaniesRepository;
 use Illuminate\Http\Request;
 use App\Models\ServiceAssigneds;
 use App\Models\Companies;
+use App\Models\User;
 use App\Models\Role;
 use App\Models\Statu;
 use App\Models\Service;
@@ -44,6 +45,7 @@ use App\Models\TypeDoc;
 use App\Models\Patiente;
 use App\Models\ConfirmationIndependent;
 use App\Models\Education;
+use App\Models\PatientesAssignedWorkers;
 use App\Models\JobInformation;
 use App\Models\ContactEmergency;
 use App\Models\documentsEditors;
@@ -370,7 +372,7 @@ class PatienteController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $patientes = Patiente::where('role_id', 4);
+        $patientes = Patiente::where('role_id', 4)->get();
 
         $locations = Location::all();
 
@@ -537,6 +539,31 @@ class PatienteController extends AppBaseController
                     }
                 }
             }
+            
+            $userAndServices = ServiceAssigneds::all();
+
+            $workersServicesPatientes = [];
+
+            foreach($userAndServices as $userAndService){
+                foreach(json_decode($userAndService->services) as $servUser){
+                    foreach(json_decode($servicesAssingneds->services) as $servPat){
+                        if($servPat == $servUser){
+                            array_push($workersServicesPatientes, $userAndService->user_id);
+                        }
+                    }
+                }
+            }
+
+            $workerList = [];
+
+            foreach(array_unique($workersServicesPatientes) as $value){
+                $userValue = User::where('id', $value)->first();
+                if(isset($userValue) && !empty($userValue) && $userValue['role_id'] == 2 && $userValue['statu_id'] == 1){
+                    array_push($workerList, $userValue);
+                }
+            }
+
+            $workersAssigneds = PatientesAssignedWorkers::where('patiente_id', $id)->get();
 
             $returnView = view('patientes.show_index')
                 ->with('roles', $roles)
@@ -571,7 +598,9 @@ class PatienteController extends AppBaseController
                 ->with('maritalStatus', $maritalStatus)
                 ->with('filesUploadsExpired', !empty($filesUploadsExpired)  ? $filesUploadsExpired : null)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
-                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null)
+                ->with('workerList', isset($workerList) && !empty($workerList) && count($workerList) >= 1 ? $workerList : [])
+                ->with('workersAssigneds', isset($workersAssigneds) && !empty($workersAssigneds) && count($workersAssigneds) >= 1 ? $workersAssigneds: []);
 
         }else{
 
@@ -605,7 +634,9 @@ class PatienteController extends AppBaseController
                 ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('maritalStatus', $maritalStatus)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
-                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null)
+                ->with('workerList', isset($workerList) && !empty($workerList) && count($workerList) >= 1 ? $workerList : [])
+                ->with('workersAssigneds', isset($workersAssigneds) && !empty($workersAssigneds) && count($workersAssigneds) >= 1 ? $workersAssigneds: []);
 
         }
 
@@ -820,5 +851,26 @@ class PatienteController extends AppBaseController
         Flash::success('Patiente deleted successfully.');
 
         return redirect(route('patientes.index'));
+    }
+
+    public function assingWorker($idPatiente, $idWorker)
+    {
+        $exist = PatientesAssignedWorkers::where('patiente_id', $idPatiente)->where('worker_id', $idWorker)->first();
+
+        if(isset($exist) && !empty($exist)){
+            $flight = PatientesAssignedWorkers::find($exist->id);
+ 
+            $flight->delete();
+        }else{
+
+            $flight = new PatientesAssignedWorkers;
+    
+            $flight->patiente_id = $idPatiente;
+            $flight->worker_id = $idWorker;
+    
+            $flight->save();
+        }
+
+        return redirect(route('patientes.show', [$idPatiente]) . "?assignWorker");
     }
 }

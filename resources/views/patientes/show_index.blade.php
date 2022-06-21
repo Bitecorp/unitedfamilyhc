@@ -6,8 +6,16 @@
     $isVisibiliti = false;
     $link = "$_SERVER[REQUEST_URI]";
     $stringSeparado = parse_url($link, PHP_URL_QUERY );
-    $isVisibiliti =  isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' ? true : (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'services' ? true : false);
-    $isVisibilitiValue = isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' || $stringSeparado == 'services' ? $stringSeparado : '';
+
+    if(isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents'){
+        $isVisibiliti = true;
+    }else if(isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'services'){
+        $isVisibiliti = true;
+    }else if(isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'assignWorker'){
+        $isVisibiliti = true;
+    }
+
+    $isVisibilitiValue = isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' || $stringSeparado == 'services' || $stringSeparado == 'assignWorker' ? $stringSeparado : '';
 
 ?>
 
@@ -18,6 +26,7 @@
             @if($contactEmergencyGuardian->user_id == $patiente->id)
                 <li class="nav-item"><a href="#nav-assign-service" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
                 <li class="nav-item"><a href="#nav-documents" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'active' : ''}}"><span class="d-none d-lg-inline m-l-5">Documents</span>&nbsp;</a></li>
+                <li class="nav-item"><a href="#nav-assign-worker" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'assignWorker' ? 'active' : ''}}"><span class="d-none d-lg-inline m-l-5">Assign Worker</span>&nbsp;</a></li>
             @endif
         @endif
     </ul>
@@ -50,6 +59,16 @@
                     <!-- begin row -->
                     <div>
                         @include('document_user_files.table')
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end tab-pane -->
+                <!-- begin tab-pane -->
+                <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'assignWorker' ? 'show active' : ''}}" id="nav-assign-worker">
+                    <!-- begin row -->
+                    <div>
+                        @include('patientes.table_workerAssign')
+                        
                     </div>
                     <!-- end row -->
                 </div>

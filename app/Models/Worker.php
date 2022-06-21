@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model as Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
