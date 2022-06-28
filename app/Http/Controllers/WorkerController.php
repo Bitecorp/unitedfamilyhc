@@ -247,7 +247,7 @@ class WorkerController extends AppBaseController
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::where('id', '<=', 3)->get();
 
         $status = Statu::all();
 
@@ -442,7 +442,7 @@ class WorkerController extends AppBaseController
      */
     public function show($id)
     {
-        $roles = Role::all();
+        $roles = Role::where('id', '<=', 3)->get();
 
         $status = Statu::all();
 
@@ -707,7 +707,7 @@ class WorkerController extends AppBaseController
     {
         $worker = $this->workerRepository->find($id);
 
-        $roles = Role::all();
+        $roles = Role::where('id', '<=', 3)->get();
 
         $status = Statu::all();
 
@@ -802,7 +802,7 @@ class WorkerController extends AppBaseController
 
         Flash::success('Worker updated successfully.');
 
-        $roles = Role::all();
+        $roles = Role::where('id', '<=', 3)->get();
 
         $status = Statu::all();
 

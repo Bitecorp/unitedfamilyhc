@@ -99,6 +99,7 @@ class HomeController extends Controller
         $subServicesActives = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get() ?? [];
         $dataSearch = [];
         $subservices = [];
+        $dataPatiente = '';
         if(!empty($subServicesActives) && isset($subServicesActives) && count($subServicesActives) >= 1){
             foreach($subServicesActives as $key => $val){
                 if($key == 0){
@@ -118,9 +119,11 @@ class HomeController extends Controller
                     }
                 }
             }
+
+            $dataPatiente = User::where('id', $dataSearch['patiente_id'])->first();
         }
 
-
+        //dd(collect($dataSearch));
 
         if(Auth::user()->role_id != 2){
             return view('pages/dashboard/dashboard-v1')
@@ -130,10 +133,11 @@ class HomeController extends Controller
                 ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)));
         }else{
             return view('pages/dashboard/clearView')
-                ->with('services', collect($services))
+                ->with('services', isset($services) && !empty($services) && !empty(collect($services)) && count(collect($services)) >= 1 ? collect($services) : [])
                 ->with('subServicesActives', $subServicesActives)
-                ->with('dataSearch', isset($dataSearch) && !empty($dataSearch) ? $dataSearch : [])
-                ->with('subservices', isset($subservices) && !empty($subservices) ? $subservices : []);
+                ->with('dataSearch', isset($dataSearch) && !empty($dataSearch) ? collect($dataSearch) : [])
+                ->with('subservices', isset($subservices) && !empty($subservices) ? $subservices : [])
+                ->with('dataPatiente', isset($dataPatiente) && !empty($dataPatiente) ? $dataPatiente : '');
         }
     }
 
@@ -188,6 +192,7 @@ class HomeController extends Controller
         $input = $request->all();
         
         $servicesAssignedss = SalaryServiceAssigneds::where('user_id', $input['patiente_id'])->get();
+        $dataPatiente = User::where('id', $input['patiente_id'])->first() ?? '';
 
         $subservices = [];
         if(isset($servicesAssignedss) && !empty($servicesAssignedss) && count($servicesAssignedss) >= 1){
@@ -199,7 +204,7 @@ class HomeController extends Controller
             }
         }
 
-        return response()->json(['subServices' => collect($subservices)]);
+        return response()->json(['subServices' => collect($subservices), 'dataPatiente' => $dataPatiente]);
     }
 
     public function registerAttentions(Request $request)

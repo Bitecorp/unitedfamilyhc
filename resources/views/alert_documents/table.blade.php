@@ -1,10 +1,3 @@
-<?php
-
-    $link = "$_SERVER[REQUEST_URI]";
-    $stringSeparado = parse_url($link, PHP_URL_QUERY );
-
-?>
-
 <table id="tableDocumentsExpired" class="table table-striped table-bordered table-td-valign-middle">
     <thead>
         <tr>

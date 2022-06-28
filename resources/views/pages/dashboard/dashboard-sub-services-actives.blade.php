@@ -1,5 +1,5 @@
 	<!-- begin row -->
-	<div class="row" id="resultados">
+	<div class="row" id="resultadosActivos">
 		@if(isset($dataSearch) && !empty($dataSearch) && isset($services) && !empty($services) && isset($subServicesActives) && !empty($subServicesActives) && isset($dataPatiente) && !empty($dataPatiente))
 			@foreach ($services as $service)
 				@if($service->id == $dataSearch['service_id'])

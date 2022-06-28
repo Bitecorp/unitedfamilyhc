@@ -26,11 +26,11 @@
 				<!-- Role Id Field -->
 				<div class="form-group">
 					{!! Form::label('service_id', 'Service:') !!}
-					<select name='service_id'id="service_id" class="form-control" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' ? 'disabled' : ''}}>
+					<select name='service_id'id="service_id" class="form-control">
 						@if (isset($services) && !empty($services) && count($services) >= 1)
-							<option value='' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' ? '' : 'selected'}}>Select Option...</option>
+							<option data-name-service='' value='' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' ? '' : 'selected'}}>Select Option...</option>
 							@foreach($services as $service)
-								<option value='{{ $service->id }}' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] == $service->id  ? 'selected' : '' }}>{{ $service->name_service }}</option>
+								<option data-name-service='{{ $service->name_service }}' value='{{ $service->id }}' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] == $service->id  ? 'selected' : '' }}>{{ $service->name_service }}</option>
 							@endforeach
 						@endif
 					</select>					
@@ -40,7 +40,7 @@
 				<!-- Role Id Field -->
 				<div class="form-group">
 					{!! Form::label('patiente_id', 'Patiente:') !!}
-					<select name='patiente_id' id="patiente_id" class="form-control" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['patiente_id'] != '' ? 'disabled' : ''}}>
+					<select name='patiente_id' id="patiente_id" class="form-control">
 						@if (isset($dataSearch) && !empty($dataSearch) && $dataSearch['patiente_id'] != '')
 							<option value="{{ $dataSearch['patiente_id'] }}" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['patiente_id'] != ''  ? 'selected' : '' }}>{{ $dataSearch['fullNamePatiente'] }}</option>
 						@else
@@ -58,7 +58,11 @@
     </div>
 </div>
 
-<div id="dashboard" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] && $dataSearch['patiente_id'] != '' ? '' : 'hidden'}}>
+<div id="dashboardActives" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' && $dataSearch['patiente_id'] != '' ? '' : 'hidden'}}>
+	@include('pages.dashboard.dashboard-sub-services-actives')
+</div>
+
+<div id="dashboard" hidden>
 	@include('pages.dashboard.dashboard-sub-services')
 </div>
 
@@ -83,13 +87,14 @@
 					},
 					success: function(data) {
 						$('#patiente_id').removeAttr('disabled');
-						$('#service_id').attr('disabled', 'disabled');
+						//$('#service_id').attr('disabled', 'disabled');
 						$('#patiente_id').attr('required', true);
-						var patientes = data['patientes']; 
+						var patientes = data['patientes'];
+
 
 						$.each(patientes, function (ind, elem) { 
 							$('#patiente_id').append($('<option />', {
-								text: elem['first_name'] + ' ' + elem['last_name'] ,
+								text: elem['first_name'] + ' ' + elem['last_name'],
 								value: elem['id'],
 							}));
 						});
@@ -106,7 +111,6 @@
 			$("#patiente_id option:selected").each(function() {
 				$('#btn_submit').removeAttr('disabled');			
 			});
-
 		});
 	</script>
 
@@ -114,14 +118,17 @@
 
 	<script>
 		$('#btn_submit').click(function() {
+			
 			var url = '/searchSubServicesPatiente';
 
 			var service_id = $('#service_id').val();
 			var patiente_id = $('#patiente_id').val();
-			if(patiente_id != '' && patiente_id != null && patiente_id != 'undefined'){
-				$('#patiente_id').attr('disabled', 'disabled');
-			}
+			//if(patiente_id != '' && patiente_id != null && patiente_id != 'undefined'){
+				//$('#patiente_id').attr('disabled', 'disabled');
+			//}
 			var token = '{{ csrf_token() }}';
+
+			var nameService = $('#service_id').find(':selected').data('name-service');
 
 			$.ajax({
 				type: "post",
@@ -139,6 +146,8 @@
 					var dataTotal = data['subServices'];
 					var htmlResultados = '';
 					var elementoHtml = $('#resultados');
+					
+					var namePatiente = data['dataPatiente'].first_name + ' ' + data['dataPatiente'].last_name;
 
 					for (var i = 0; i < dataTotal.length; i++) {
 						
@@ -147,7 +156,7 @@
 								'<div id="bg_color_' + dataTotal[i].id + '" class="widget widget-stats bg-blue">\n' +
 									'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 									'<div class="stats-info">\n' +
-										'<h4 id="titleSubService_' + dataTotal[i].id + '">' + dataTotal[i].name_sub_service + '</h4>\n' +
+										'<h4 id="titleSubService_' + dataTotal[i].id + '">' + nameService + ' - ' + dataTotal[i].name_sub_service + ' - ' + namePatiente + '</h4>\n' +
 									'</div>\n' +
 									'<div class="stats-link">\n' +
 										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" onclick="runTime(' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
