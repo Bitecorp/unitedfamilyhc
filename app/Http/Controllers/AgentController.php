@@ -341,7 +341,7 @@ class AgentController extends AppBaseController
             ]);
 
             Flash::success('Agent saved successfully.');
-            return redirect(route('agents.index'));
+            return redirect(route('agents.show', [$agent->id]));
     }
 
     /**

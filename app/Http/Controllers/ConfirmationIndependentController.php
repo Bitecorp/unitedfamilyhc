@@ -214,7 +214,7 @@ class ConfirmationIndependentController extends AppBaseController
 
         Flash::success('Data loaded successfully');
 
-        return redirect(route('workers.index'));
+        return redirect(route('workers.show', [$confirmationIndependent->user_id]));
     }
 
     /**

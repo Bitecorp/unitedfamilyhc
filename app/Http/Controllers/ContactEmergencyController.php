@@ -191,11 +191,11 @@ class ContactEmergencyController extends AppBaseController
             $contactEmergency = $this->contactEmergencyRepository->update($input, $contactEmergencyID->id);
 
 
-        if($userPatiente->role_id != 4){
+        if($userPatiente->role_id == 2 || $userPatiente->role_id == 3){
 
             $titleJobs = DB::table('title_jobs')->select('id', 'name_job')->get();
 
-            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', '<>', '2')->get();
+            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', 1)->where('role_id', 3)->where('user_id', '<>', $contactEmergency->user_id)->get() ?? [];
 
             Flash::success($msj);
 
@@ -219,7 +219,7 @@ class ContactEmergencyController extends AppBaseController
                 return view('contact_emergencies.create')->with('patienteID', $userPatiente->id)->with('workerID', $userPatiente->id)->with('contactEmergency', $contactEmergency);
             }elseif($contactEmergency->guardian == 1){
                 Flash::success('Guardian saved successfully.');
-                return redirect(route('patientes.index'));
+                return redirect(route('patientes.show', [$contactEmergency->user_id]));
             }
         }
     }

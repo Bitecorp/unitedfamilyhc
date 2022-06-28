@@ -38,8 +38,8 @@ class HomeController extends Controller
     {
         $documentsExpireds = AlertDocumentsExpired::all();
 
-        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get();
-        $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
+        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get() ?? [];
+        $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get() ?? [];
 
         $workersDocumentsExpireds = [];
         if(isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0){
