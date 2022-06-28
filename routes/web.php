@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,16 @@ Route::post('/registerWorker', [App\Http\Controllers\WorkerController::class, 's
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::controller(HomeController::class)->group(function () {
+
+    Route::get('/dashboard', 'index')->name('home');
+
+    Route::post('/searchSubServicesPatiente', 'searchSubServicesPatiente');
+
+    Route::post('/searchPatienteService', 'searchPatienteService');
+
+    Route::post('/registerAttentions', 'registerAttentions');
+});
 
 Route::resource('agents', App\Http\Controllers\AgentController::class);
 
@@ -122,6 +132,5 @@ Route::get('/subServices/addSubService/{idService}', [App\Http\Controllers\SubSe
 Route::resource('settings/taskSubServices', App\Http\Controllers\TaskSubServicesController::class);
 
 Route::resource('settings/units', App\Http\Controllers\UnitsController::class);
-
 
 Route::resource('configSubServicesPatientes', App\Http\Controllers\ConfigSubServicesPatienteController::class);

@@ -152,7 +152,7 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateDocumentUserFilesRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
 
@@ -312,7 +312,7 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateDocumentUserFilesRequest $request)
+    public function update($id, Request $request)
     {
         $documentUserFiles = $this->documentUserFilesRepository->find($id);
 

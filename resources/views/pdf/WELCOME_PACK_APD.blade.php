@@ -20,7 +20,7 @@
                         display: block;
                         position: fixed;
                         top: -1in; right: -1in; bottom: -1in; left: -1in;
-                        background-image: url(filesUsers/Background_Foot.jpg);
+                        background-image: url(filesUsers/Background_Foot.jpeg);
                         background-size: 100% 100%;
                         background-repeat: no-repeat;
                         margin: -20px 15px 15px 10px !important;

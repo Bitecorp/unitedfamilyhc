@@ -83,10 +83,10 @@
     <script>
         $(function () {
             $('#tablaDocumentsEditors').DataTable( {
-                responsive: true,retrieve: true,
+                responsive: true,
+                retrieve: true,
                 paging: true,
                 searching: true,
-                responsive: true,retrieve: true,
             });
         });
     </script>

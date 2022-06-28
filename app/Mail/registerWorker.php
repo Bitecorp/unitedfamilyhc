@@ -31,7 +31,7 @@ class registerWorker extends Mailable
         $data = [
             'data' => $this->data
         ];
-        dd($data);
+
         return $this->from('no-reply@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('New Register')->view('mails.registerWorker')->with('data', $data);
     }
 }

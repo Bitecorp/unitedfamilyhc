@@ -20,10 +20,10 @@
                         display: block;
                         position: fixed;
                         top: -1in; right: -1in; bottom: -1in; left: -1in;
-                        background-image: url(filesUsers/Background_Plain.jpg);
+                        background-image: url(filesUsers/Background_Plain.jpeg);
                         background-size: 100% 100%;
-                        background-repeat: no-repeat;
                         margin: -20px 15px 15px 10px !important;
+                        background-repeat: no-repeat;
                         content: "";
                         z-index: -1000;
                     }

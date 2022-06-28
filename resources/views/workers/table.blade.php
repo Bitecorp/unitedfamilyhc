@@ -31,7 +31,7 @@
                                 {!! Form::model($worker, ['route' => ['workers.updateState', $worker->id], 'method' => 'post', 'id' => "sendForm_$worker->id"]) !!}
                                 <!-- begin custom-switches -->
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" onclick="changeStatus('{{$worker->id}}');"  class="custom-control-input" data-id="{{ $worker->id }}" name="{{$worker->id}}" id="Switch_{{$worker->id}}" {{ $worker->statu_id == 1 ? 'checked' : '' }}>
+                                        <input type="checkbox" onclick="changeStatus('{{$worker->id}}');"  class="custom-control-input" data-id="{{ $worker->id }}" name="Switch_{{$worker->id}}" id="Switch_{{$worker->id}}" {{ $worker->statu_id == 1 ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="Switch_{{$worker->id}}"></label>
                                     </div>
                                 <!-- end custom-switches -->

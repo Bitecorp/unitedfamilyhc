@@ -212,7 +212,7 @@ class documentsEditorsController extends AppBaseController
 
             return redirect(route('documentsEditors.index'));
         }
-
+        
         unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
 
         $input = $request->all();

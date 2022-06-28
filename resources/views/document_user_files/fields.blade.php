@@ -1,5 +1,5 @@
 <?php
-    $isRequired = isset($typeDoc) && $typeDoc->expired == 1 ? true : false;
+    $isRequired = isset($typeDoc) && intval($typeDoc->expired) == 1 ? 'true' : 'false';
     $link = "$_SERVER[REQUEST_URI]";
     $stringSeparado = explode('/', $link);
     $urlUser = $stringSeparado[1];
@@ -26,14 +26,14 @@
         <!-- Date Expedition Field -->
         <div class="form-group">
             {!! Form::label('date_expedition', 'Date Expedition:') !!}
-            <input type="date" placeholder="YYYY-MM-DD" name="date_expedition" id="date_expedition" class="form-control" value="{{ isset($documentUserFiles->) && !empty($documentUserFiles->) && isset($documentUserFiles->->date_expedition) && !empty($documentUserFiles->->date_expedition) ? date_format($documentUserFiles->->date_expedition, 'Y-m-d') : '' }}">
+            <input type="date" placeholder="YYYY-MM-DD" name="date_expedition" id="date_expedition" class="form-control" value="{{ isset($documentUserFiles) && !empty($documentUserFiles) && isset($documentUserFiles->date_expedition) && !empty($documentUserFiles->date_expedition) ? date_format($documentUserFiles->date_expedition, 'Y-m-d') : '' }}" required>
         </div>
     </div>
-    <div class="col" {{ $isRequired == true ? '' : 'hidden' }}>
+    <div class="col" {{ isset($typeDoc) && intval($typeDoc->expired) == 1 ? '' : 'hidden' }}>
         <!-- Date Expired Field -->
         <div class="form-group">
             {!! Form::label('date_expired', 'Date Expired:') !!}
-            <input type="date" required="{{ $isRequired }}" placeholder="YYYY-MM-DD" name="date_expired" id="date_expired" class="form-control" value="{{ isset($documentUserFiles->) && !empty($documentUserFiles->) && isset($documentUserFiles->->date_expired) && !empty($documentUserFiles->->date_expired) ? date_format($documentUserFiles->->date_expired, 'Y-m-d') : '' }}">
+            <input type="date" {{ isset($typeDoc) && intval($typeDoc->expired) == 1 ? 'required' : '' }} placeholder="YYYY-MM-DD" name="date_expired" id="date_expired" class="form-control" value="{{ isset($documentUserFiles) && !empty($documentUserFiles) && isset($documentUserFiles->date_expired) && !empty($documentUserFiles->date_expired) ? date_format($documentUserFiles->date_expired, 'Y-m-d') : '' }}">
         </div>
     </div>
 </div>
@@ -56,5 +56,4 @@
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route($user->role_id == 4 ? 'patientes.show' : 'workers.show', [$userID]) }}?documents" class="btn btn-secondary">Cancel</a>
 </div>
-
 
