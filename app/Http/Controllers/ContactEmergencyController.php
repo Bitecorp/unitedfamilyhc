@@ -75,7 +75,7 @@ class ContactEmergencyController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $contactEmergencies = $this->contactEmergencyRepository->paginate(10);
+        $contactEmergencies = $this->contactEmergencyRepository->all();
 
         return view('contact_emergencies.index')
             ->with('contactEmergencies', $contactEmergencies);
@@ -195,7 +195,7 @@ class ContactEmergencyController extends AppBaseController
 
             $titleJobs = DB::table('title_jobs')->select('id', 'name_job')->get();
 
-            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', 1)->where('role_id', 3)->where('user_id', '<>', $contactEmergency->user_id)->get() ?? [];
+            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', 1)->where('role_id', 3)->get() ?? [];
 
             Flash::success($msj);
 
