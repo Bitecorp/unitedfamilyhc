@@ -11,6 +11,7 @@ use App\Models\SubServices;
 use App\Models\Service;
 use App\Models\ServiceAssigneds;
 use App\Models\PatientesAssignedWorkers;
+use App\Models\DocumentUserFiles;
 use Illuminate\Support\Collection;
 use App\Models\RegisterAttentions;
 use DB;
@@ -35,9 +36,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $documentsExpired = AlertDocumentsExpired::all();
-        $workersCount = User::where('role_id', '<>', [1,4])->where('statu_id', 1)->get();
+        $documentsExpireds = AlertDocumentsExpired::all();
+
+        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get();
         $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
+
+        $workersDocumentsExpireds = [];
+        if(isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0){
+            foreach($documentsExpireds AS $key => $documentsExpired){
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first() ?? '';
+                if(isset($dataDocument) && !empty($dataDocument)){
+                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 2)->where('role_id', 3)->first() ?? '';
+                    if(isset($infoUser) && !empty($infoUser)){
+                        array_push($workersDocumentsExpireds, $infoUser);                        
+                    }
+                }
+
+            }
+        }
+
+        $patientesDocumentsExpireds = [];
+        if(isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0){
+            foreach($documentsExpireds AS $key => $documentsExpired){
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first() ?? '';
+                if(isset($dataDocument) && !empty($dataDocument)){
+                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->first() ?? '';
+                    if(isset($infoUser) && !empty($infoUser)){
+                        array_push($patientesDocumentsExpireds, $infoUser);                        
+                    }
+                }
+
+            }
+        }
+
 
         $salaryServicesAssigneds = SalaryServiceAssigneds::where('user_id', Auth::user()->id)->get();
 
@@ -92,7 +123,11 @@ class HomeController extends Controller
 
 
         if(Auth::user()->role_id != 2){
-            return view('pages/dashboard/dashboard-v1')->with('countDocumentsWorkers', count($documentsExpired))->with('workersCount', count($workersCount))->with('patientesCount', count($patientesCount));
+            return view('pages/dashboard/dashboard-v1')
+                ->with('workersCount', count($workersCount))
+                ->with('countDocumentsWorkers', count(collect($workersDocumentsExpireds)))
+                ->with('patientesCount', count($patientesCount))
+                ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)));
         }else{
             return view('pages/dashboard/clearView')
                 ->with('services', collect($services))
