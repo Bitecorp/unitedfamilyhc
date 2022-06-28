@@ -87,7 +87,7 @@
 		<!-- end col-3 -->
 		<!-- begin col-3 -->
 		<div class="col-xl-3 col-md-6">
-			<div class="widget widget-stats bg-red">
+			<div class="widget widget-stats {{ $countDocumentsPatientes >= 1 ? 'bg-red' : 'bg-teal'}}">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-file fa-fw"></i></div>
 				<div class="stats-content">
 					<div class="stats-title">DOCUMENTS PATIENTES TO EXPIRED</div>
