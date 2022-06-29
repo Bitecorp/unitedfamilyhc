@@ -194,7 +194,7 @@ class ContactEmergencyController extends AppBaseController
 
             $titleJobs = DB::table('title_jobs')->select('id', 'name_job')->get();
 
-            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', '<=', 2)->where('statu_id', '=', 1)->get() ?? [];
+            $workers = Worker::all();
 
             Flash::success($msj);
 

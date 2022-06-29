@@ -456,7 +456,7 @@ class WorkerController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $workers = Worker::where('role_id', '<>', 4);
+        $workers = Worker::all();
 
         $locations = Location::all();
 

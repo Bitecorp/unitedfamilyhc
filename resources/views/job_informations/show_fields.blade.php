@@ -16,7 +16,7 @@
             {!! Form::label('supervisor', 'Supervisor:') !!}
             @foreach($workers as $supervisor)
                 @if($supervisor->id == $jobInformation->supervisor)
-                    <input type="text" name="supervisor" class="form-control" readonly value="{{ $supervisor->id }}" >
+                    <input type="text" name="supervisor" class="form-control" readonly value="{{ $supervisor->first_name }} {{ $supervisor->last_name }}" >
                 @endif
             @endforeach
         </div>
