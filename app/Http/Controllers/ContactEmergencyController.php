@@ -190,12 +190,11 @@ class ContactEmergencyController extends AppBaseController
         }
             $contactEmergency = $this->contactEmergencyRepository->update($input, $contactEmergencyID->id);
 
-
         if($userPatiente->role_id == 2 || $userPatiente->role_id == 3){
 
             $titleJobs = DB::table('title_jobs')->select('id', 'name_job')->get();
 
-            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', 1)->where('role_id', 3)->get() ?? [];
+            $workers = DB::table('users')->select('id', 'first_name', 'last_name', 'home_phone')->where('role_id', '<=', 2)->where('statu_id', '=', 1)->get() ?? [];
 
             Flash::success($msj);
 
