@@ -23,6 +23,11 @@ return [
             'icon' => 'fa fa-user-md',
             'title' => 'Worker',
             'url' => "/workers",
+	    ],
+        [
+            'icon' => 'fa fa-book',
+            'title' => 'Notes',
+            'url' => "",
 	    ]
     ]
 ];
