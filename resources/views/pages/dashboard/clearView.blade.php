@@ -28,9 +28,9 @@
 					{!! Form::label('service_id', 'Service:') !!}
 					<select name='service_id'id="service_id" class="form-control">
 						@if (isset($services) && !empty($services) && count($services) >= 1)
-							<option data-name-service='' value='' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' ? '' : 'selected'}}>Select Option...</option>
+							<option data-name-service='' value='' selected>Select Option..</option>
 							@foreach($services as $service)
-								<option data-name-service='{{ $service->name_service }}' value='{{ $service->id }}' {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] == $service->id  ? 'selected' : '' }}>{{ $service->name_service }}</option>
+								<option data-name-service='{{ $service->name_service }}' value='{{ $service->id }}' >{{ $service->name_service }}</option>
 							@endforeach
 						@endif
 					</select>					
@@ -41,28 +41,24 @@
 				<div class="form-group">
 					{!! Form::label('patiente_id', 'Patiente:') !!}
 					<select name='patiente_id' id="patiente_id" class="form-control">
-						@if (isset($dataSearch) && !empty($dataSearch) && $dataSearch['patiente_id'] != '')
-							<option value="{{ $dataSearch['patiente_id'] }}" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['patiente_id'] != ''  ? 'selected' : '' }}>{{ $dataSearch['fullNamePatiente'] }}</option>
-						@else
-							<option value='' selected>Select Option...</option>
-						@endif
+						<option value='' selected>Select Service Option..</option>
 					</select>
 				</div>
 			</div>
 		</div>
 		<!-- Submit Field -->
 		<div class="form-group col-sm-12">
-			<input class="btn btn-primary" type="submit" name="btn_submit" id="btn_submit" value="Search" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] && $dataSearch['patiente_id'] != '' ? '' : 'disabled'}}/>
+			<input class="btn btn-primary" type="submit" name="btn_submit" id="btn_submit" value="Search" disabled/>
 			<input class="btn btn-secondary" type="reset" name="btn_reset" id="btn_reset" value="Clear" />
 		</div>
     </div>
 </div>
 
-<div id="dashboardActives" {{ isset($dataSearch) && !empty($dataSearch) && $dataSearch['service_id'] != '' && $dataSearch['patiente_id'] != '' ? '' : 'hidden'}}>
+<div id="dashboardActives" {{ isset($dataSearch) && !empty($dataSearch) ? '' : 'hidden'}}>
 	@include('pages.dashboard.dashboard-sub-services-actives')
 </div>
 
-<div id="dashboard" hidden>
+<div id="dashboard">
 	@include('pages.dashboard.dashboard-sub-services')
 </div>
 
@@ -76,6 +72,9 @@
 				var url = "/searchPatienteService";
 				var service_id = $('#service_id').val();
 				var token = '{{ csrf_token() }}';
+
+				$('#patiente_id').empty()
+				$('#patiente_id').append('<option value="" selected="selected">Select Option..</option>'); 
 				
 				$.ajax({
 					type: "post",
@@ -86,13 +85,13 @@
 						service_id: service_id
 					},
 					success: function(data) {
-						$('#patiente_id').removeAttr('disabled');
+						//$('#patiente_id').removeAttr('disabled');
 						//$('#service_id').attr('disabled', 'disabled');
 						$('#patiente_id').attr('required', true);
 						var patientes = data['patientes'];
 
 
-						$.each(patientes, function (ind, elem) { 
+						$.each(patientes, function (ind, elem) {
 							$('#patiente_id').append($('<option />', {
 								text: elem['first_name'] + ' ' + elem['last_name'],
 								value: elem['id'],
@@ -109,7 +108,7 @@
 
 		$("#patiente_id").change(function() {
 			$("#patiente_id option:selected").each(function() {
-				$('#btn_submit').removeAttr('disabled');			
+				$('#btn_submit').removeAttr('disabled');	
 			});
 		});
 	</script>
@@ -118,18 +117,19 @@
 
 	<script>
 		$('#btn_submit').click(function() {
-			
+
 			var url = '/searchSubServicesPatiente';
 
 			var service_id = $('#service_id').val();
 			var patiente_id = $('#patiente_id').val();
+
 			//if(patiente_id != '' && patiente_id != null && patiente_id != 'undefined'){
 				//$('#patiente_id').attr('disabled', 'disabled');
 			//}
 			var token = '{{ csrf_token() }}';
 
 			var nameService = $('#service_id').find(':selected').data('name-service');
-
+			
 			$.ajax({
 				type: "post",
 				url: url,
@@ -140,17 +140,19 @@
 					patiente_id: patiente_id
 				},
 				success: function(data) {
-
-					$('#dashboard').removeAttr('hidden');
+					$('#service_id').val('')
+					$('#patiente_id').empty()
+					$('#patiente_id').append('<option value="" selected="selected">Select Service Option..</option>'); 
+					$('#btn_submit').attr('disabled', 'disabled');
 
 					var dataTotal = data['subServices'];
 					var htmlResultados = '';
 					var elementoHtml = $('#resultados');
-					
+						
 					var namePatiente = data['dataPatiente'].first_name + ' ' + data['dataPatiente'].last_name;
 
 					for (var i = 0; i < dataTotal.length; i++) {
-						
+							
 						htmlResultados =
 							'<div class="col-xl-12 col-md-12">\n' +
 								'<div id="bg_color_' + dataTotal[i].id + '" class="widget widget-stats bg-blue">\n' +
@@ -184,13 +186,72 @@
 				if(typeof subServicesActives != 'undefined' && subServicesActives != null && subServicesActives == 1){
 					alert(msjOne + msjTwo);
 				}else{
-					location.reload();
+					$('#service_id').val('')
+					$('#patiente_id').empty()
+					$('#patiente_id').append('<option value="" selected>Select Service Option..</option>'); 
+					$('#btn_submit').attr('disabled', 'disabled');
 				}
 			});
 		});
 	</script>
 
 	<script>
+		function offTime(patiente, service, subService) {
+			GeoPosition();
+
+			var url = '/registerAttentions';
+
+			var idUser = '{{ Auth::user()->id }}';
+			var service_id = service;
+			var patiente_id = patiente;
+			var idSubService = subService;
+			var long = localStorage.getItem('long');
+			var lat = localStorage.getItem('lat');
+			var token = '{{ csrf_token() }}';
+
+			var subServicesActives = localStorage.getItem('subServicesActives');
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					worker_id: idUser,
+					service_id: service_id,
+					patiente_id: patiente_id,
+					sub_service_id: idSubService,
+					lat: lat,
+					long: long
+				},
+				success: function(data) {
+					var dataTotal = data['data'];
+
+					if(dataTotal.status == 1){
+						$('#bg_color_' + subService).removeClass('bg-blue');
+						$('#bg_color_' + subService).addClass('bg-teal');
+
+						if(data['subServicesActives'] == true){
+							localStorage.setItem('subServicesActives', 1);
+						}
+						//stopStart(subService);
+					}else if(dataTotal.status == 2){
+						$('#bg_color_' + subService).removeClass('bg-teal');
+						$('#bg_color_' + subService).addClass('bg-blue');
+
+						if(data['subServicesActives'] == false){
+							localStorage.removeItem('subServicesActives');
+						}
+
+						//stopStart(subService);
+					}		
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
+
 		function runTime(subService) {
 			GeoPosition();
 
@@ -246,9 +307,7 @@
 				}
 			});
 		};
-	</script>
-
-	<script>
+		
 		function GeoPosition() {
 			if (!"geolocation" in navigator) {
 				msjOne = "Your browser does not support location access. Try another one. \n\n";
