@@ -140,9 +140,6 @@
 					patiente_id: patiente_id
 				},
 				success: function(data) {
-					$('#service_id').val('')
-					$('#patiente_id').empty()
-					$('#patiente_id').append('<option value="" selected="selected">Select Service Option..</option>'); 
 					$('#btn_submit').attr('disabled', 'disabled');
 
 					var dataTotal = data['subServices'];
