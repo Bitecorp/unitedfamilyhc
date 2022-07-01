@@ -73,8 +73,7 @@
 				var service_id = $('#service_id').val();
 				var token = '{{ csrf_token() }}';
 
-				$('#patiente_id').empty()
-				$('#patiente_id').append('<option value="" selected="selected">Select Option..</option>'); 
+				$('#patiente_id').empty().append('<option value="" selected="selected">Select Option..</option>');
 				
 				$.ajax({
 					type: "post",
@@ -140,6 +139,9 @@
 					patiente_id: patiente_id
 				},
 				success: function(data) {
+					
+					$('#service_id').val('');
+					$('#patiente_id').empty().append('<option value="" selected>Select Service Option..</option>');
 					$('#btn_submit').attr('disabled', 'disabled');
 
 					var dataTotal = data['subServices'];
@@ -158,7 +160,7 @@
 										'<h4 id="titleSubService_' + dataTotal[i].id + '">' + nameService + ' - ' + dataTotal[i].name_sub_service + ' - ' + namePatiente + '</h4>\n' +
 									'</div>\n' +
 									'<div class="stats-link">\n' +
-										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" onclick="runTime(' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
+										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" onclick="runTime(' + data['dataPatiente'].id + ',' + dataTotal[i].service_id + ',' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
 									'</div>\n' +
 								'</div>\n' +
 							'</div>\n';
@@ -184,8 +186,7 @@
 					alert(msjOne + msjTwo);
 				}else{
 					$('#service_id').val('')
-					$('#patiente_id').empty()
-					$('#patiente_id').append('<option value="" selected>Select Service Option..</option>'); 
+					$('#patiente_id').empty().append('<option value="" selected>Select Service Option..</option>');
 					$('#btn_submit').attr('disabled', 'disabled');
 				}
 			});
@@ -193,7 +194,7 @@
 	</script>
 
 	<script>
-		function offTime(patiente, service, subService) {
+		function runTime(patiente, service, subService) {
 			GeoPosition();
 
 			var url = '/registerAttentions';
@@ -201,62 +202,6 @@
 			var idUser = '{{ Auth::user()->id }}';
 			var service_id = service;
 			var patiente_id = patiente;
-			var idSubService = subService;
-			var long = localStorage.getItem('long');
-			var lat = localStorage.getItem('lat');
-			var token = '{{ csrf_token() }}';
-
-			var subServicesActives = localStorage.getItem('subServicesActives');
-
-			$.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-					_token: token,
-					worker_id: idUser,
-					service_id: service_id,
-					patiente_id: patiente_id,
-					sub_service_id: idSubService,
-					lat: lat,
-					long: long
-				},
-				success: function(data) {
-					var dataTotal = data['data'];
-
-					if(dataTotal.status == 1){
-						$('#bg_color_' + subService).removeClass('bg-blue');
-						$('#bg_color_' + subService).addClass('bg-teal');
-
-						if(data['subServicesActives'] == true){
-							localStorage.setItem('subServicesActives', 1);
-						}
-						//stopStart(subService);
-					}else if(dataTotal.status == 2){
-						$('#bg_color_' + subService).removeClass('bg-teal');
-						$('#bg_color_' + subService).addClass('bg-blue');
-
-						if(data['subServicesActives'] == false){
-							localStorage.removeItem('subServicesActives');
-						}
-
-						//stopStart(subService);
-					}		
-				},
-				error: function (error) { 
-					console.log(error);
-				}
-			});
-		};
-
-		function runTime(subService) {
-			GeoPosition();
-
-			var url = '/registerAttentions';
-
-			var idUser = '{{ Auth::user()->id }}';
-			var service_id = $('#service_id').val();
-			var patiente_id = $('#patiente_id').val();
 			var idSubService = subService;
 			var long = localStorage.getItem('long');
 			var lat = localStorage.getItem('lat');

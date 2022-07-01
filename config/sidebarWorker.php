@@ -27,7 +27,7 @@ return [
         [
             'icon' => 'fa fa-book',
             'title' => 'Notes',
-            'url' => "",
+            'url' => "/notesSubServices",
 	    ]
     ]
 ];

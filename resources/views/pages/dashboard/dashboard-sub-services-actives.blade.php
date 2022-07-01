@@ -10,7 +10,7 @@
                             <h4 id="titleSubService_{{ $dataS['sub_service_id']   }}"> {{ $dataS['service']['name_service'] }} - {{ $dataS['sub_service']['name_sub_service'] }} - {{ $dataS['patiente']['fullNamePatiente'] }} </h4>
                         </div>
                         <div class="stats-link">
-                            <a id="btn_run_{{ $dataS['sub_service_id']   }}" name="btn_run_{{ $dataS['sub_service_id']   }}" onclick="offTime( {{ $dataS["patiente_id"] }}, {{ $dataS["service_id"] }}, {{ $dataS["sub_service_id"] }} );">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>
+                            <a id="btn_run_{{ $dataS['sub_service_id']   }}" name="btn_run_{{ $dataS['sub_service_id']   }}" onclick="runTime( {{ $dataS["patiente_id"] }}, {{ $dataS["service_id"] }}, {{ $dataS["sub_service_id"] }} );">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
