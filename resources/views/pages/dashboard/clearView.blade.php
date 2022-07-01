@@ -159,8 +159,8 @@
 									'<div class="stats-info">\n' +
 										'<h4 id="titleSubService_' + dataTotal[i].id + '">' + nameService + ' - ' + dataTotal[i].name_sub_service + ' - ' + namePatiente + '</h4>\n' +
 									'</div>\n' +
-									'<div class="stats-link">\n' +
-										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" onclick="runTime(' + data['dataPatiente'].id + ',' + dataTotal[i].service_id + ',' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
+									'<div class="stats-link" id="btn_onclick_' + dataTotal[i].id + '">\n' +
+										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" data-status="0" onclick="runTime(' + data['dataPatiente'].id + ',' + dataTotal[i].service_id + ',' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
 									'</div>\n' +
 								'</div>\n' +
 							'</div>\n';
@@ -209,6 +209,15 @@
 
 			var subServicesActives = localStorage.getItem('subServicesActives');
 
+			var valueStatus = $('#btn_run_' + subService).data('status');
+
+			//if(typeof valueStatus != 'undefined' || valueStatus != null || valueStatus != '' && valueStatus != 0 ){
+				//var opcion = confirm("Clicka en Aceptar o Cancelar");
+				//if (opcion == true) {
+					
+				//}
+			//}
+
 			$.ajax({
 				type: "post",
 				url: url,
@@ -229,6 +238,13 @@
 						$('#bg_color_' + subService).removeClass('bg-blue');
 						$('#bg_color_' + subService).addClass('bg-teal');
 
+						$('#btn_run_' + subService).removeAttr( "data-status");
+						$('#btn_run_' + subService).attr("data-status", dataTotal.status);
+
+						$('#btn_run_' + subService).removeAttr( "onclick");
+						var newOnclick = 'alerta(' +patiente + ',' + service + ',' + subService + ')';
+						$('#btn_run_' + subService).attr("onclick", newOnclick);
+
 						if(data['subServicesActives'] == true){
 							localStorage.setItem('subServicesActives', 1);
 						}
@@ -236,6 +252,13 @@
 					}else if(dataTotal.status == 2){
 						$('#bg_color_' + subService).removeClass('bg-teal');
 						$('#bg_color_' + subService).addClass('bg-blue');
+
+						$('#btn_run_' + subService).removeAttr( "data-status");
+						$('#btn_run_' + subService).attr("data-status", 0);
+						
+						$('#btn_run_' + subService).removeAttr( "onclick");
+						var newOnclick = 'runTime(' +patiente + ',' + service + ',' + subService + ')';
+						$('#btn_run_' + subService).attr("onclick", newOnclick);
 
 						if(data['subServicesActives'] == false){
 							localStorage.removeItem('subServicesActives');
@@ -249,6 +272,15 @@
 				}
 			});
 		};
+
+		
+		function alerta(patiente, service, subService){
+
+			var opcion = confirm("Are you sure you want to terminate the service?");
+			if (opcion == true) {
+				runTime(patiente, service, subService);
+			}
+		}
 		
 		function GeoPosition() {
 			if (!"geolocation" in navigator) {

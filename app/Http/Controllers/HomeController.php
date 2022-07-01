@@ -111,7 +111,8 @@ class HomeController extends Controller
                         'sub_service_id' => $val->sub_service_id,
                         'patiente' => array('id' => $val->patiente_id, 'fullNamePatiente' => $dataUserSelect->first_name . ' ' . $dataUserSelect->last_name),
                         'service' => array('id' => $val->service_id, 'name_service' => $dataServiceSelect->name_service),
-                        'sub_service' => array('id' => $val->sub_service_id, 'name_sub_service' => $dataSubServiceSelect->name_sub_service) 
+                        'sub_service' => array('id' => $val->sub_service_id, 'name_sub_service' => $dataSubServiceSelect->name_sub_service),
+                        'status' => $val->status
                     )
                 );
                 array_push($dataPatientes, User::where('id', $val->patiente_id)->first());
