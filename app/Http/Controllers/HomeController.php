@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 use App\Models\RegisterAttentions;
 use DB;
 use Carbon\Carbon;
+use App\Models\NotesSubServicesRegister;
 
 class HomeController extends Controller
 {
@@ -233,6 +234,7 @@ class HomeController extends Controller
         $regExs = RegisterAttentions::where('worker_id', $input['worker_id'])->where('patiente_id', $input['patiente_id'])->where('service_id', $input['service_id'])->where('sub_service_id', $input['sub_service_id'])->where('status', 1)->first();
 
         $idReg = '';
+        $idNote = '';
         if (isset($regExs) && !empty($regExs)) {
             $regUp = RegisterAttentions::find($regExs->id);
 
@@ -248,6 +250,21 @@ class HomeController extends Controller
             $regUp->save();
 
             $idReg = $regExs->id;
+
+            $regNote = new NotesSubServicesRegister;
+
+            $regNote->register_attentions_id = $regExs->id;
+            $regNote->worker_id = $input['worker_id'];
+            $regNote->service_id = $input['service_id'];
+            $regNote->patiente_id = $input['patiente_id'];
+            $regNote->sub_service_id = $input['sub_service_id'];
+            $regNote->note = null;
+            $regNote->firma = null;
+
+            $regNote->save();
+
+            $idnote = $regNote->id;
+
         } else {
             $regAt = new RegisterAttentions;
 
@@ -265,7 +282,10 @@ class HomeController extends Controller
             $idReg = $regAt->id;
         }
 
-        $reg = RegisterAttentions::where('id', $idReg)->first();
+        $reg = RegisterAttentions::find($idReg);
+        if(isset($idNote) && !empty($idNote)){
+            $note = NotesSubServicesRegister::find($idNote);
+        }
 
         $subServicesActive = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get();
 
@@ -276,6 +296,6 @@ class HomeController extends Controller
             $subServicesActives = false;
         }
 
-        return response()->json(['data' => collect($reg), 'subServicesActives' => $subServicesActives]);
+        return response()->json(['data' => $reg, 'subServicesActives' => $subServicesActives, 'note' => isset($note) && !empty($note) ? $note : null]);
     }
 }
