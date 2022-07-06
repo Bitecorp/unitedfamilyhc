@@ -15,7 +15,7 @@
 							</div>
 						</div>
 						<div class="stats-link">
-							<a id="btn_run_{{ $dataS['sub_service_id']   }}" name="btn_run_{{ $dataS['sub_service_id']   }}" data-status="{ $dataS['status'] }}" onclick="viewAlertStopTime( {{ $dataS["patiente_id"] }}, {{ $dataS["service_id"] }}, {{ $dataS["sub_service_id"] }} );">Start Time<i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a id="btn_run_{{ $dataS['sub_service_id']   }}" name="btn_run_{{ $dataS['sub_service_id']   }}" data-status="{ $dataS['status'] }}" onclick="viewAlertStopTime( {{ $dataS["patiente_id"] }}, {{ $dataS["service_id"] }}, {{ $dataS["sub_service_id"] }} );">Stop Time<i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
