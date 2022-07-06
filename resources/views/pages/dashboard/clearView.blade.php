@@ -325,6 +325,11 @@
 						var newOnclick = 'runTime(' + patiente + ',' + service + ',' + subService + ')';
 						$('#btn_run_' + subService).attr("onclick", newOnclick);
 
+						var obj = document.getElementById('boton_' + subService);
+						if (obj){
+							obj.click(); 
+						}
+
 						$('#crono_' + subService).text('');
 						$('#btn_run_' + subService).text('Start Time');
 
@@ -346,11 +351,6 @@
 			var opcion = confirm("Are you sure you want to terminate the service?");
 			if (opcion == true) {
 				runTime(patiente, service, subService);
-
-				var obj = document.getElementById('boton_' + subService);
-				if (obj){
-					obj.click(); 
-				}
 			}
 		}
 		
