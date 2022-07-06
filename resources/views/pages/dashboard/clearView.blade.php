@@ -314,7 +314,6 @@
 							localStorage.setItem('subServicesActives', 1);
 						}
 
-						//stopStart(subService);
 					}else if(dataTotal.status == 2){
 						$('#bg_color_' + subService).removeClass('bg-teal');
 						$('#bg_color_' + subService).addClass('bg-blue');
@@ -326,20 +325,14 @@
 						var newOnclick = 'runTime(' + patiente + ',' + service + ',' + subService + ')';
 						$('#btn_run_' + subService).attr("onclick", newOnclick);
 
-						var obj = document.getElementById('boton_' + subService);
-						if (obj){
-							obj.click(); 
-						}
-
 						$('#crono_' + subService).text('');
 						$('#btn_run_' + subService).text('Start Time');
 
 						if(data['subServicesActives'] == false){
 							localStorage.removeItem('subServicesActives');
 						}
-
-						//stopStart(subService);
-					}		
+					}
+		
 				},
 				error: function (error) { 
 					console.log(error);
@@ -353,6 +346,11 @@
 			var opcion = confirm("Are you sure you want to terminate the service?");
 			if (opcion == true) {
 				runTime(patiente, service, subService);
+
+				var obj = document.getElementById('boton_' + subService);
+				if (obj){
+					obj.click(); 
+				}
 			}
 		}
 		
