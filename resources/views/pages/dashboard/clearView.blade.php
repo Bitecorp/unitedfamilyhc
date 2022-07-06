@@ -6,6 +6,13 @@
 	<link href="/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+
+	<style>
+		.BG_Class {
+			background: inherit;
+			background-color:transparent;
+		}
+	</style>
 @endpush
 
 @section('content')
@@ -146,8 +153,7 @@
 
 					var dataTotal = data['subServices'];
 					var htmlResultados = '';
-					var elementoHtml = $('#resultados');
-						
+					var scriptResultados = '';
 					var namePatiente = data['dataPatiente'].first_name + ' ' + data['dataPatiente'].last_name;
 
 					for (var i = 0; i < dataTotal.length; i++) {
@@ -158,14 +164,70 @@
 									'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 									'<div class="stats-info">\n' +
 										'<h4 id="titleSubService_' + dataTotal[i].id + '">' + nameService + ' - ' + dataTotal[i].name_sub_service + ' - ' + namePatiente + '</h4>\n' +
+										
+										'<div class="crono_wrapper">\n' +
+											'<h2 id="crono_' + dataTotal[i].id + '"></h2>\n' +
+											'<input type="button" value="Empezar" id="boton_' + dataTotal[i].id + '" onclick="empezarDetener_' + dataTotal[i].id + '(this);" hidden>\n' +
+										'</div>\n' +
+									
 									'</div>\n' +
 									'<div class="stats-link" id="btn_onclick_' + dataTotal[i].id + '">\n' +
-										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" data-status="0" onclick="runTime(' + data['dataPatiente'].id + ',' + dataTotal[i].service_id + ',' + dataTotal[i].id + ');">Run Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
+										'<a id="btn_run_' + dataTotal[i].id + '" name="btn_run_' + dataTotal[i].id + '" data-status="0" onclick="runTime(' + data['dataPatiente'].id + ',' + dataTotal[i].service_id + ',' + dataTotal[i].id + ');">Start Time<i class="fa fa-arrow-alt-circle-right"></i></a>\n' +
 									'</div>\n' +
 								'</div>\n' +
 							'</div>\n';
+						$('#resultados').append(htmlResultados);
 
-						elementoHtml.append(htmlResultados);
+						scriptResultados = '<script type="text/javascript">\n'+
+							'var inicio_' + dataTotal[i].id + ' = 0;\n'+
+        					'var timeout_' + dataTotal[i].id + ' = 0;\n'+
+
+							'function empezarDetener_' + dataTotal[i].id + '(elemento){\n'+
+								'if(timeout_' + dataTotal[i].id + ' == 0){\n'+
+									
+									'elemento.value = "Detener";\n'+
+							
+									'inicio_' + dataTotal[i].id + ' = new Date().getTime();\n'+
+							
+									'localStorage.setItem("inicio_' + dataTotal[i].id + '", inicio_' + dataTotal[i].id + ');\n'+
+							
+									'funcionando_' + dataTotal[i].id + '();\n'+
+								'}else{\n'+
+							
+									'elemento.value = "Empezar";\n'+
+									'clearTimeout(timeout_' + dataTotal[i].id + ');\n'+
+							
+									'localStorage.removeItem("inicio_' + dataTotal[i].id + '");\n'+
+									'timeout_' + dataTotal[i].id + ' = 0;\n'+
+								'}\n'+
+							'}\n'+
+
+							'function funcionando_' + dataTotal[i].id + '(){\n'+
+
+								'var actual_' + dataTotal[i].id + ' = new Date().getTime();\n'+
+								'var diff_' + dataTotal[i].id + ' = new Date(actual_' + dataTotal[i].id + '-inicio_' + dataTotal[i].id + ');\n'+
+								'var result_' + dataTotal[i].id + ' = LeadingZero_' + dataTotal[i].id + '(diff_' + dataTotal[i].id + '.getUTCHours())+":"+LeadingZero_' + dataTotal[i].id + '(diff_' + dataTotal[i].id + '.getUTCMinutes())+":"+LeadingZero_' + dataTotal[i].id + '(diff_' + dataTotal[i].id + '.getUTCSeconds());\n'+
+								'$("#crono_' + dataTotal[i].id + '").text(result_' + dataTotal[i].id + ');\n'+
+								'timeout_' + dataTotal[i].id + ' = setTimeout("funcionando_' + dataTotal[i].id + '()",1000);\n'+
+							'}\n'+
+							
+
+							'function LeadingZero_' + dataTotal[i].id + '(Time_' + dataTotal[i].id + '){\n'+
+								'return (Time_' + dataTotal[i].id + ' < 10) ? "0" + Time_' + dataTotal[i].id + ' : + Time_' + dataTotal[i].id + ';\n'+
+							'}\n'+
+							
+							'window.onload = function(){\n'+
+								'if(localStorage.getItem("inicio_' + dataTotal[i].id + '") != null){\n'+
+									'inicio_' + dataTotal[i].id + ' = localStorage.getItem("inicio_' + dataTotal[i].id + '");\n'+
+									'document.getElementById("boton_' + dataTotal[i].id + '").value = "Detener";\n'+
+									'funcionando_' + dataTotal[i].id + '();\n'+
+								'}\n'+
+							'}\n'+
+						'<\/script>\n';
+						
+						$('#resultados').append(scriptResultados);
+						
+
 					};
 				},
 				error: function (error) { 
@@ -174,6 +236,8 @@
 			});
 		});
 	</script>
+
+	
 
 	<script>
 		$(function() {
@@ -211,13 +275,6 @@
 
 			var valueStatus = $('#btn_run_' + subService).data('status');
 
-			//if(typeof valueStatus != 'undefined' || valueStatus != null || valueStatus != '' && valueStatus != 0 ){
-				//var opcion = confirm("Clicka en Aceptar o Cancelar");
-				//if (opcion == true) {
-					
-				//}
-			//}
-
 			$.ajax({
 				type: "post",
 				url: url,
@@ -242,12 +299,21 @@
 						$('#btn_run_' + subService).attr("data-status", dataTotal.status);
 
 						$('#btn_run_' + subService).removeAttr( "onclick");
-						var newOnclick = 'alerta(' +patiente + ',' + service + ',' + subService + ')';
+						var newOnclick = ' viewAlertStopTime(' + patiente + ',' + service + ',' + subService + '); ';
 						$('#btn_run_' + subService).attr("onclick", newOnclick);
+
+						$('#btn_run_' + subService).text('Stop Time');
+
+						var obj = document.getElementById('boton_' + subService);
+						if (obj){
+							obj.click(); 
+						}
+						$('#btn_run_' + subService).text('Stop Time');
 
 						if(data['subServicesActives'] == true){
 							localStorage.setItem('subServicesActives', 1);
 						}
+
 						//stopStart(subService);
 					}else if(dataTotal.status == 2){
 						$('#bg_color_' + subService).removeClass('bg-teal');
@@ -257,8 +323,16 @@
 						$('#btn_run_' + subService).attr("data-status", 0);
 						
 						$('#btn_run_' + subService).removeAttr( "onclick");
-						var newOnclick = 'runTime(' +patiente + ',' + service + ',' + subService + ')';
+						var newOnclick = 'runTime(' + patiente + ',' + service + ',' + subService + ')';
 						$('#btn_run_' + subService).attr("onclick", newOnclick);
+
+						var obj = document.getElementById('boton_' + subService);
+						if (obj){
+							obj.click(); 
+						}
+
+						$('#crono_' + subService).text('');
+						$('#btn_run_' + subService).text('Start Time');
 
 						if(data['subServicesActives'] == false){
 							localStorage.removeItem('subServicesActives');
@@ -274,7 +348,7 @@
 		};
 
 		
-		function alerta(patiente, service, subService){
+		function viewAlertStopTime(patiente, service, subService){
 
 			var opcion = confirm("Are you sure you want to terminate the service?");
 			if (opcion == true) {
@@ -313,36 +387,6 @@
 			// Solicitar
 			navigator.geolocation.getCurrentPosition(onUbicacionConcedida, onErrorDeUbicacion, opcionesDeSolicitud);
 		};
-	</script>
-
-	<script type="text/javascript">
-		//'<h4 id="time_' + dataTotal[i].id + '"></h4>\n' +
-		//'<input type="text" id="minutes_' + dataTotal[i].id + '" value="0" />' +
-		//'<input type="text" id="seconds_' + dataTotal[i].id + '" value="0" />\n' +
-
-		var time; 
-		var on = false; 
-		var seconds = 0; 
-		var minutes = 0;
-
-		function startTime(subService){
-				seconds++;
-				time = setTimeout(startTime(subService),1000);
-				if(seconds > 59)  {seconds = 0; minutes++;}
-				document.getElementById("minutes_" + subService).value = minutes;
-				// Mostar segundos
-				document.getElementById("seconds_" + subService).value = seconds;
-				// Mostar segundos
-		}
-
-		function stopStart(subService){
-				document.getElementById("time_" + subService).innerHTML = !on ? "Stop" : "Start";
-				if(!on){
-					on = true;	startTime();
-				}else{
-					on = false;	clearTimeout(time);
-				}
-		}
 	</script>
 
 
