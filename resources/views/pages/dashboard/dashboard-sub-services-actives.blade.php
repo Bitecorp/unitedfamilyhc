@@ -59,17 +59,21 @@
 					function LeadingZero_{{ $dataS["sub_service_id"] }}(Time_{{ $dataS["sub_service_id"] }}){
 						return (Time_{{ $dataS["sub_service_id"] }} < 10) ? "0" + Time_{{ $dataS["sub_service_id"] }} : + Time_{{ $dataS["sub_service_id"] }};
 					}
-							
-					window.onload = function(){
-						if(localStorage.getItem("inicio_{{ $dataS['sub_service_id'] }}") != null){
-							inicio_{{ $dataS["sub_service_id"] }} = localStorage.getItem("inicio_{{ $dataS['sub_service_id'] }}");
-							document.getElementById("boton_{{ $dataS['sub_service_id'] }}").value = "Detener";
-							funcionando_{{ $dataS["sub_service_id"] }}();
-						}
-					}
 				</script>
                 
 
+			@endforeach			
+		@endif
+
+		@if(isset($dataSearch) && !empty($dataSearch) )	
+			@foreach ($dataSearch as $dataS)
+				<script>
+					if(localStorage.getItem("inicio_{{ $dataS['sub_service_id'] }}") != null){
+						inicio_{{ $dataS["sub_service_id"] }} = localStorage.getItem("inicio_{{ $dataS['sub_service_id'] }}");
+						document.getElementById("boton_{{ $dataS['sub_service_id'] }}").value = "Detener";
+						funcionando_{{ $dataS["sub_service_id"] }}();
+					}
+				</script>
 			@endforeach			
 		@endif
 	</div>
