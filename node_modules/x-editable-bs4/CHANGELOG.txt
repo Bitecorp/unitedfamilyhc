@@ -1,6 +1,14 @@
 X-editable changelog
 =============================
 
+Version 1.5.5 Mar 9, 2022
+----------------------------
+Add bootstrap 5 support
+
+Version 1.5.4 Mar 22, 2019
+----------------------------
+Add bootstrap 4 support
+
 Version 1.5.3 Nov 9, 2015
 ----------------------------
 Working through various PRs to ultimately move dev to master

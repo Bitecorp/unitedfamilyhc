@@ -1,5 +1,6 @@
 @extends('layouts.default')
 
+
 @section('content')
     @include('coreui-templates::common.errors')
     <!-- begin panel -->

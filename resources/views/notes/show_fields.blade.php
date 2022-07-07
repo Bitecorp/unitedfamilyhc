@@ -27,13 +27,17 @@
     <div class="col">
         <div class="form-group">
             {!! Form::label('note', 'Post Attention Note:') !!}
-            {!! Form::textarea('note', $note[0]['note'], ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'rows' => 5, 'readonly' => 'true']) !!}
+            {!! Form::textarea('note', $note[0]['note'], ['class' => 'form-control', 'rows' => 20, 'readonly' => 'true']) !!}
         </div>
     </div>
     <div class="col">
         <div class="form-group">
             {!! Form::label('firma', 'Signature of the Guardian:') !!}
-            {!! Form::textarea('firma', $note[0]['firma'], ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'rows' => 5, 'readonly' => 'true']) !!}
+            <div id='view' class="abs-center" >
+                @if (isset($note[0]['firma']) && !empty($note[0]['firma']))
+                    <img max-height="1000px" width="100%" src="{{ asset('filesUsers/' . $note[0]['firma']) }}">;
+                @endif
+            </div>
         </div>
     </div>
 </div>

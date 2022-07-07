@@ -20,11 +20,11 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.19",
-    "vue": "^2.5.16",
     "popper.js": "^1.12",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.15.2",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "vue": "^2.5.16"
   },
   "dependencies": {
     "@danielfarrell/bootstrap-combobox": "^1.1.8",
@@ -96,6 +96,7 @@
     "pwstrength-bootstrap": "^3.0.4",
     "raphael": "^2.2.8",
     "select2": "^4.0.7",
+    "signature_pad": "^4.0.5",
     "simple-line-icons": "^2.4.1",
     "smartwizard": "^4.3.1",
     "summernote": "^0.8.12",

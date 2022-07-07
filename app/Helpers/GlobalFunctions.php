@@ -5,25 +5,47 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\DataFile;
 
-function createFile($file, $titleFile){
-    $name = $file->getClientOriginalName();
-    $ext  = $file->getClientOriginalExtension();
-    $mime_type = $file->getClientMimeType();
-    $filename = pathinfo($name, PATHINFO_FILENAME);
-    $nameClean = '';
-    $fullName = '';
-    if($titleFile != ''){
-        $nameClean = str_replace(' ', '_', $titleFile);
-        $fullName = $nameClean . "." . $ext;
+function createFile($file, $titleFile, $base64 = false){
+
+    if(!$base64){
+        $ext  = $file->getClientOriginalExtension();
+        $name = $file->getClientOriginalName();
+        $mime_type = $file->getClientMimeType();
+        $filename = pathinfo($name, PATHINFO_FILENAME);
     }else{
-        $nameClean = str_replace(' ', '_', $filename);
-        $fullName = $nameClean . "_" .time() . "." . $ext;
+        $ext  = 'png';
+        $name = $titleFile . '.' . $ext;
+        $mime_type = 'image/png';
     }
 
+    $nameClean = '';
+    $fullName = '';
 
-    $file = Storage::disk('public_files')->put($fullName, file_get_contents($file), 'public');
-    $url  = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
-    $path = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
+    if($titleFile != ''){
+        $nameClean = str_replace(' ', '_', $titleFile);
+        if($base64){
+            $fullName = $nameClean . "_" . time() . "." . $ext;
+        }else{
+            $fullName = $nameClean . "." . $ext;
+        }
+    }else{
+        $nameClean = str_replace(' ', '_', $filename);
+        $fullName = $nameClean . "_" . time() . "." . $ext;
+    }
+
+    if($base64){
+        $image = $file;  // your base64 encoded
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = $fullName;
+        $file = Storage::disk('public_files')->put($imageName, base64_decode($image), 'public');
+        $url  = $imageName /* Storage::disk('public_files')->url($fullName ) */;
+        $path = $imageName  /* Storage::disk('public_files')->url($fullName ) */;
+    }else{
+        $file = Storage::disk('public_files')->put($fullName, file_get_contents($file), 'public');
+        $url  = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
+        $path = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
+    }
 
 /*
     $path = $file->store('public_files');
@@ -42,7 +64,7 @@ function createFile($file, $titleFile){
     /* dd($nameFile[1]); */
 
     $new_file = DataFile::create([
-        'name'      => $fullName,
+        'name'      => $base64 ? $imageName : $fullName,
         'ext'       => $ext,
         'mime_type' => $mime_type,
         'path'      => $path,

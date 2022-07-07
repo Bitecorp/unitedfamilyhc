@@ -41,6 +41,8 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::resource('notesSubServices', App\Http\Controllers\NotesSubServicesRegisterController::class);
 
+Route::post('notesSubService/{idNota}/update', [App\Http\Controllers\NotesSubServicesRegisterController::class, 'update']);
+
 Route::resource('agents', App\Http\Controllers\AgentController::class);
 
 Route::get('/agents/pdf/{id}/{idPdf}', [App\Http\Controllers\AgentController::class, 'getPDF'])->name('agent.pdf');

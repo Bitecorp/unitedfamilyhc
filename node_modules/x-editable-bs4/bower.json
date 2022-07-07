@@ -1,6 +1,12 @@
 {
   "name": "x-editable",
   "main": [
+    "./dist/bootstrap5-editable/css/bootstrap-editable.css",
+    "./dist/bootstrap5-editable/js/bootstrap-editable.min.js",
+
+    "./dist/bootstrap4-editable/css/bootstrap-editable.css",
+    "./dist/bootstrap4-editable/js/bootstrap-editable.min.js",
+
     "./dist/bootstrap3-editable/css/bootstrap-editable.css",
     "./dist/bootstrap3-editable/js/bootstrap-editable.min.js",
 

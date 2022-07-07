@@ -165,6 +165,11 @@ class NotesSubServicesRegisterController extends Controller
     public function update($id, Request $request)
     {
         $input = $request->all();
+
+        $file = $input['firma'];
+        $titleFile = "firma_nota_" . $id;
+        $uploadImage = createFile($file, $titleFile, true);
+
         $regNote = NotesSubServicesRegister::find($id);
 
         $regNote->register_attentions_id = $input['register_attentions_id'];
@@ -173,21 +178,24 @@ class NotesSubServicesRegisterController extends Controller
         $regNote->patiente_id = $input['patiente_id'];
         $regNote->sub_service_id = $input['sub_service_id'];
         $regNote->note = $input['note'];
-        $regNote->firma = $input['firma'];
+        $regNote->firma = $uploadImage;
 
         $regNote->save();
 
         $attentionReg = RegisterAttentions::find($input['register_attentions_id']);
 
-        if(isset($input['note']) && !empty($input['note']) && isset($input['firma']) && !empty($input['firma'])){
+        if(isset($regNote->note) && !empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
             $attentionReg->status = 3;
 
             $attentionReg->save();
         }
 
-        Flash::success('Note updated successfully.');
-
-        return redirect(route('notesSubServices.index'));
+        if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
+            return response()->json(['succes' => true, 'urlImagen' => $regNote->firma]);
+        }else{
+            Flash::success('Note updated successfully.');
+            return redirect(route('notesSubServices.index'));
+        }
     }
 
     /**
