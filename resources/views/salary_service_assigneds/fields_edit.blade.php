@@ -75,7 +75,7 @@
         <!-- unit Id Field -->
         <div class="form-group">
             {!! Form::label('unit_id', 'Unit Of Time:') !!}
-            <select name='unit_id' class="form-control">
+            <select name='unit_id' id='unit_id' class="form-control">
                 <option value='' selected>Select Unit of Time..</option>
                 @foreach($units as $unit)
                     <option value='{{ $unit->id }}' {{ isset($config) && !empty($config) && isset($config->unit_id) && !empty($config->unit_id) && $config->unit_id == $unit->id ? 'selected' : '' }} >{{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minutes' : 'Hour'}}</option>
@@ -103,31 +103,15 @@
 </div>
 
 @push('scripts')
-    <script type="text/javascript">
-        $(function () {
-            $('#date_expedition').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true
-            });
-        });
+    <script> 
 
-        $(function () {
-            $('#date_expired').datetimepicker({
-                format: 'YYYY-MM-DD',
-                useCurrent: true,
-                icons: {
-                    up: "icon-arrow-up-circle icons font-2xl",
-                    down: "icon-arrow-down-circle icons font-2xl"
-                },
-                sideBySide: true
-            });
-        });
-    </script>
+        const getValueInput = () =>{
+            let inputValue = document.getElementById("approved_units").value; 
+            if(unitedAdd != '' && unitedAdd != null && typeof unitedAdd != 'undefined' && typeof unitedAdd != undefined){
+                document.getElementById("unit_id").required = true;
+            }            
+        }
+        
+    </script> 
 @endpush
-
 {!! Form::close() !!}
