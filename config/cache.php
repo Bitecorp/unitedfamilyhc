@@ -13,6 +13,8 @@ return [
     | using this caching library. This connection is used when another is
     | not explicitly specified when executing a given caching function.
     |
+    | Supported: "apc", "array", "database", "file", "memcached", "redis"
+    |
     */
 
     'default' => env('CACHE_DRIVER', 'file'),

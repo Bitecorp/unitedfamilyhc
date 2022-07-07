@@ -33,7 +33,7 @@
 			<li class="nav-header">Navigation</li>
 			@php
 				$currentUrl = (Request::path() != '/') ? '/'. Request::path() : '/';
-
+				
 				function renderSubMenu($value, $currentUrl) {
 					$subMenu = '';
 					$GLOBALS['sub_level'] += 1 ;
@@ -41,17 +41,21 @@
 					$currentLevel = $GLOBALS['sub_level'];
 					foreach ($value as $key => $menu) {
 						$GLOBALS['subparent_level'] = '';
+						
 						$subSubMenu = '';
 						$hasSub = (!empty($menu['sub_menu'])) ? 'has-sub' : '';
 						$hasCaret = (!empty($menu['sub_menu'])) ? '<b class="caret pull-right"></b>' : '';
 						$hasTitle = (!empty($menu['title'])) ? $menu['title'] : '';
 						$hasHighlight = (!empty($menu['highlight'])) ? '<i class="fa fa-paper-plane text-theme m-l-5"></i>' : '';
+						
 						if (!empty($menu['sub_menu'])) {
 							$subSubMenu .= '<ul class="sub-menu">';
 							$subSubMenu .= renderSubMenu($menu['sub_menu'], $currentUrl);
 							$subSubMenu .= '</ul>';
 						}
+						
 						$active = ($currentUrl == $menu['url']) ? 'active' : '';
+						
 						if ($active) {
 							$GLOBALS['parent_active'] = true;
 							$GLOBALS['active'][$GLOBALS['sub_level'] - 1] = true;
@@ -68,8 +72,10 @@
 					}
 					return $subMenu;
 				}
+				
 				foreach (Auth::user()->role_id != 2 ? config('sidebar.menu') : config('sidebarWorker.menu') as $key => $menu) {
 					$GLOBALS['parent_active'] = '';
+					
 					$hasSub = (!empty($menu['sub_menu'])) ? 'has-sub' : '';
 					$hasCaret = (!empty($menu['caret'])) ? '<b class="caret"></b>' : '';
 					$hasIcon = (!empty($menu['icon'])) ? '<i class="'. $menu['icon'] .'"></i>' : '';
