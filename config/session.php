@@ -33,7 +33,7 @@ return [
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
-    'expire_on_close' => false,
+    'expire_on_close' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
     | Session File Location
     |--------------------------------------------------------------------------
     |
-    | When using the native session driver, we need a location where session
+    | When using the native session driver, we need a location where sessioREDIS_QUEUEn
     | files may be stored. A default has been set for you but a different
     | location may be specified. This is only needed for file sessions.
     |
@@ -95,7 +95,7 @@ return [
     | While using one of the framework's cache driven session backends you may
     | list a cache store that should be used for these sessions. This value
     | must match with one of the application's configured cache "stores".
-    |
+    |REDIS_QUEUE
     | Affects: "apc", "dynamodb", "memcached", "redis"
     |
     */
