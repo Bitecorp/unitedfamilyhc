@@ -78,6 +78,7 @@ class ConfigSubServicesPatiente extends Model
         'salary_service_assigned_id',
         'agent_id',
         'code_patiente',
+        'unit_id',
         'approved_units',
         'date_expedition',
         'date_expired'
@@ -93,6 +94,7 @@ class ConfigSubServicesPatiente extends Model
         'salary_service_assigned_id' => 'string',
         'agent_id' => 'string',
         'code_patiente' => 'string',
+        'unit_id' => 'string',
         'approved_units' => 'string',
         'date_expedition' => 'date',
         'date_expired' => 'date'
@@ -107,6 +109,7 @@ class ConfigSubServicesPatiente extends Model
         'salary_service_assigned_id' => 'nullable|string|max:255',
         'agent_id' => 'nullable|string|max:255',
         'code_patiente' => 'nullable|string|max:255',
+        'unit_id' => 'nullable|string|max:255', 
         'approved_units' => 'nullable|string|max:255',
         'date_expedition' => 'date_format:Y-m-d',
         'date_expired' => 'nullable|date_format:Y-m-d|after:date_expedition',

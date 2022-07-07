@@ -14,6 +14,7 @@ use App\Models\SubServices;
 use App\Models\Patiente;
 use App\Models\ConfigSubServicesPatiente;
 use App\Models\User;
+use App\Models\Units;
 use Flash;
 use Response;
 
@@ -94,6 +95,7 @@ class SalaryServiceAssignedsController extends AppBaseController
         $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
         $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
         $user = User::find($salaryServiceAssigneds->user_id);
+        $units = Units::all();
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
@@ -101,7 +103,7 @@ class SalaryServiceAssignedsController extends AppBaseController
             return redirect(route('salaryServiceAssigneds.index'));
         }
 
-        return view('salary_service_assigneds.show')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
+        return view('salary_service_assigneds.show')->with('units', $units)->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
     }
 
     /**
@@ -118,13 +120,14 @@ class SalaryServiceAssignedsController extends AppBaseController
         $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
         $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
         $user = User::find($salaryServiceAssigneds->user_id);
+        $units = Units::all();
 
         if (empty($salaryServiceAssigneds)) {
             Flash::error('Salary Service Assigneds not found');
 
             return redirect(route('salaryServiceAssigneds.index'));
         }
-        return view('salary_service_assigneds.edit')->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
+        return view('salary_service_assigneds.edit')->with('units', $units)->with('salaryServiceAssigneds', $salaryServiceAssigneds)->with('services', $services)->with('agents', $agents)->with('config', $config)->with('user', $user);
     }
 
     /**
