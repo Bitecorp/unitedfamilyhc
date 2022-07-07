@@ -24,7 +24,7 @@ class NotesSubServicesRegisterController extends Controller
     public function index(Request $request)
     {
         //dd(DB::select('SELECT role_id FROM documents_editors GROUP BY role_id'));
-        $allNotes = NotesSubServicesRegister::all();
+        $allNotes = NotesSubServicesRegister::all()->sortByDesc('created_at')->sortByDesc('id')->values();
         
         $notes = [];
         foreach($allNotes as $note){

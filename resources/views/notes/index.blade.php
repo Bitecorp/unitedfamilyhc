@@ -49,7 +49,22 @@
                                         <td>{{ $note['service_id']['nameService'] }}</td>
                                         <td>{{ $note['sub_service_id']['nameSubService'] }}</td>
                                         <td>{{ $note['patiente_id']['fullName'] }}</td>
-                                        <td>{{ $note['status'] == 2 ? 'Pending Notes or Signature' : ($note['status'] == 3 ? 'Full Service' : '')}}</td>
+                                        <td>
+
+                                        @if ($note['status'] == 2)
+                                            @if (($note['firma'] != '' && $note['firma'] != null) && ($note['note'] == '' || $note['note'] == null))
+                                                Pending Notes
+                                            @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] != '' || $note['note'] != null))
+                                                Pending Signature
+                                            @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] == '' || $note['note'] == null))
+                                                Pending Notes and Signature
+                                            @endif
+                                        @elseif ($note['status'] == 3)
+                                            Full Service
+                                        @endif
+                                            
+                                        
+                                        </td>
                                         <td class="with-btn" nowrap>
                                             <div>
                                                 <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
