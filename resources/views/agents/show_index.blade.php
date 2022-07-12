@@ -12,11 +12,11 @@
 ?>
 	<!-- begin nav-tabs -->
 	<ul class="nav nav-tabs nav-tabs-inverse">
-		<li class="nav-item"><a href="#nav-information" data-toggle="tab" class="nav-link {{ $isVisibiliti == false ? 'active' : ''}} "><span class="d-none d-lg-inline m-l-5">Information</span>&nbsp;</a></li>
+		<li class="nav-item"><a href="#nav-information" data-toggle="tab" class="nav-link {{ $isVisibiliti == false ? 'active' : ''}} "><i class="fa fa-address-book fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Information</span>&nbsp;</a></li>
         @if(isset($education))
             @if($education->user_id == $worker->id && !is_null($education->high_school))
-                <li class="nav-item"><a href="#nav-assign-service" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
-                <li class="nav-item"><a href="#nav-documents" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'active' : ''}}"><span class="d-none d-lg-inline m-l-5">Documents</span>&nbsp;</a></li>
+                <li class="nav-item"><a href="#nav-assign-service" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><i class="fa fa-tags fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
+                <li class="nav-item"><a href="#nav-documents" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'active' : ''}}"><i class="fa fa-folder fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Documents</span>&nbsp;</a></li>
             @endif
         @endif
     </ul>

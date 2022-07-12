@@ -46,10 +46,11 @@
             $('#workersForAssign').DataTable( {
                 retrieve: true,
                 paging: true,
-                searching: true
+                searching: true,
+                responsive: true,
+                autoFill: true,
             });
         });
-
         function changeStatus(dato) {
             $('#Switch_' + dato).change(function() {
                 $('#sendForm_' + dato).submit();

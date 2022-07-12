@@ -98,7 +98,9 @@
         $('#tableSalary' + {{ $value->id }}).DataTable( {
             retrieve: true,
             paging: true,
-            searching: true
+            searching: true,
+            responsive: true,
+            autoFill: true,
         });
     });
 </script>

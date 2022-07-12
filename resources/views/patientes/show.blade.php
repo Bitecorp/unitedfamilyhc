@@ -1,8 +1,8 @@
 	<!-- begin nav-tabs -->
 	<ul id="ioniconsTab" class="nav nav-tabs nav-tabs-inverse">
-		<li class="nav-item"><a href="#nav-basic-data" data-toggle="tab" class="nav-link active"><span class="d-none d-lg-inline m-l-5">Basic Data</span>&nbsp;</a></li>
-		<li class="nav-item"><a href="#nav-contact-emergency" data-toggle="tab" class="nav-link"><span class="d-none d-lg-inline m-l-5">Emergency Contact</span>&nbsp;</a></li>
-		<li class="nav-item"><a href="#nav-guardian" data-toggle="tab" class="nav-link"><span class="d-none d-lg-inline m-l-5">Guardian</span>&nbsp;</a></li>
+		<li class="nav-item"><a href="#nav-basic-data" data-toggle="tab" class="nav-link active"><i class="fa fa-address-card fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Basic Data</span>&nbsp;</a></li>
+		<li class="nav-item"><a href="#nav-contact-emergency" data-toggle="tab" class="nav-link"><i class="fa fa-phone fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Emergency Contact</span>&nbsp;</a></li>
+		<li class="nav-item"><a href="#nav-guardian" data-toggle="tab" class="nav-link"><i class="fa fa-male fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Guardian</span>&nbsp;</a></li>
     </ul>
 	<!-- end nav-tabs -->
 

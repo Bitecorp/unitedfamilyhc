@@ -28,6 +28,7 @@
     @endif
 </div>
 @endif
+
 <!-- Submit Field -->
 <div style="margin-top: 20px; margin-bottom: 20px;" class="form-group col-sm-12">
     <a href="{{ route($worker->role_id == 4 ? 'patientes.edit' : 'workers.edit', [$worker->id]) }}" class='btn btn-warning'><i class="fa fa-edit"></i> Edit </a>
