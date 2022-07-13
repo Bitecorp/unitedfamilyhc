@@ -70,7 +70,7 @@
                             <strong>Compani</strong>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            
                                 <div class="col">
                                     <!-- First Name Field -->
                                     <div class="form-group">
@@ -92,9 +92,7 @@
                                         <input type="text" name="apartment_unit " class="form-control" readonly value="{{ $companies['0']->apartment_unit }}" >
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
+                            
                                 <div class="col">
                                     <!-- First Name Field -->
                                     <div class="form-group">
@@ -116,9 +114,7 @@
                                         <input type="text" name="zip_code " class="form-control" readonly value="{{ $companies['0']->zip_code }}" >
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
+                            
                                 <div class="col">
                                     <!-- First Name Field -->
                                     <div class="form-group">
@@ -147,7 +143,6 @@
                                         <input type="email" name="email " class="form-control" readonly value="{{ $companies['0']->email }}" >
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
