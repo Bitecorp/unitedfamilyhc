@@ -60,7 +60,7 @@
 </br>
 
 @if($confirmationIndependent->independent_contractor == 1 && $confirmationIndependent->personalEmpresa == 2)
-    <div class="container-fluid">
+   
         <div class="animated fadeIn">
             
                 <div class="col">
@@ -148,7 +148,7 @@
                 </div>
             
         </div>
-    </div>
+   
 @endif
 
 
