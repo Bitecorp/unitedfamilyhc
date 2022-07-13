@@ -65,7 +65,11 @@
         </div>
         <div class="panel-body">
             {!! Form::open(['route' => 'workers.store']) !!}
-                @include('workers.fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('workers.fields')
+                @else
+                    @include('workers.fields_mobil')
+                @endif 
             {!! Form::close() !!}
         </div>
     </div>

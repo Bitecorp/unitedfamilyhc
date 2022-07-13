@@ -15,7 +15,11 @@
 		<div class="tab-pane fade show active" style="margin-top: 20px;" id="nav-basic-data" >
 			<!-- begin row -->
 			<div>
-                @include('workers.show_fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('workers.show_fields')
+                @else
+                    @include('workers.show_fields_mobil')
+                @endif                
 			</div>
 			<!-- end row -->
 		</div>
@@ -24,7 +28,11 @@
 		<div class="tab-pane fade" style="margin-top: 20px;" id="nav-contact-emergency">
 			<!-- begin row -->
 			<div>
-                @include('contact_emergencies.show_fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('contact_emergencies.show_fields')
+                @else
+                    @include('contact_emergencies.show_fields_mobil')
+                @endif
 			</div>
 			<!-- end row -->
 		</div>
@@ -33,7 +41,11 @@
 		<div class="tab-pane fade" style="margin-top: 20px;" id="nav-job-information">
 			<!-- begin row -->
 			<div>
-                @include('job_informations.show_fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('job_informations.show_fields')
+                @else
+                    @include('job_informations.show_fields_mobil')
+                @endif
 			</div>
 			<!-- end row -->
 		</div>
@@ -42,7 +54,11 @@
 		<div class="tab-pane fade" id="nav-education">
 			<!-- begin row -->
 			<div>
-                @include('education.show_fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('education.show_fields')
+                @else
+                    @include('education.show_fields_mobil')
+                @endif
 			</div>
 			<!-- end row -->
 		</div>
@@ -60,12 +76,20 @@
                                         <i class="fa fa-plus-square-o fa-lg"></i>
                                         <strong>Personales N#1</strong>
                                     </div>
-                                    @include('references_personales.show_fields')
+                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                        @include('references_personales.show_fields')
+                                    @else
+                                        @include('references_personales.show_fields_mobil')
+                                    @endif
                                     <div class="card-header">
                                         <i class="fa fa-plus-square-o fa-lg"></i>
                                         <strong>Personales N# 2</strong>
                                     </div>
-                                    @include('references_personales_twos.show_fields')
+                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                        @include('references_personales_twos.show_fields')
+                                    @else
+                                        @include('references_personales_twos.show_fields_mobil')
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -82,12 +106,20 @@
                                         <i class="fa fa-plus-square-o fa-lg"></i>
                                         <strong>Job N#1</strong>
                                     </div>
-                                    @include('references_jobs.show_fields')
+                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                        @include('references_jobs.show_fields')
+                                    @else
+                                        @include('references_jobs.show_fields_mobil')
+                                    @endif
                                     <div class="card-header">
                                         <i class="fa fa-plus-square-o fa-lg"></i>
                                         <strong>Job N# 2</strong>
                                     </div>
-                                    @include('references_jobs_twos.show_fields')
+                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                        @include('references_jobs_twos.show_fields')
+                                    @else
+                                        @include('references_jobs_twos.show_fields_mobil')
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -102,7 +134,11 @@
 		<div class="tab-pane fade" style="margin-top: 20px;" id="nav-independent-contractor">
 			<!-- begin row -->
 			<div>
-                @include('confirmation_independents.show_fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('confirmation_independents.show_fields')
+                @else
+                    @include('confirmation_independents.show_fields_mobil')
+                @endif
 			</div>
 			<!-- end row -->
 		</div>

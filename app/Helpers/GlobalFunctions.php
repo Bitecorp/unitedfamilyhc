@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\DataFile;
+use Jenssegers\Agent\Agent;
 
 function createFile($file, $titleFile, $base64 = false){
 
