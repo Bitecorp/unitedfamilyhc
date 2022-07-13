@@ -153,7 +153,7 @@
 </div>
 
 <!-- Submit Field -->
-<div class="form-group col-sm-12 pb-4">
+<div class="form-group col-sm-12 pb-4 pl-4 ml-2">
     {!! Form::submit('Next', ['class' => 'btn btn-primary']) !!}
     <?php
         $link = "$_SERVER[REQUEST_URI]";
