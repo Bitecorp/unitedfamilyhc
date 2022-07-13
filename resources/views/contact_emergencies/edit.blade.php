@@ -84,7 +84,11 @@
         </div>
         <div class="panel-body">
             {!! Form::model($contactEmergency, ['route' => ['contactEmergencies.update', $contactEmergency->user_id], 'method' => 'patch']) !!}
-                @include('contact_emergencies.fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('contact_emergencies.fields')
+                @else
+                    @include('contact_emergencies.fields_mobil')
+                @endif
             {!! Form::close() !!}
         </div>
     </div>

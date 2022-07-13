@@ -99,11 +99,19 @@
         @if(isset($companies))
             {!! Form::model($companies) !!}
         @endif
-        @include('companies.fields')
+        @if((new \Jenssegers\Agent\Agent())->isDesktop())
+            @include('companies.fields')
+        @else
+            @include('companies.fields_mobil')
+        @endif
     </div>
 @else
     <div id="formCompanies" name="formCompanies" hidden>
-        @include('companies.fields')
+        @if((new \Jenssegers\Agent\Agent())->isDesktop())
+            @include('companies.fields')
+        @else
+            @include('companies.fields_mobil')
+        @endif
     </div>
 @endif
 

@@ -60,7 +60,11 @@
         </div>
         <div class="panel-body">
             {!! Form::model($referenceJob, ['route' => ['referencesJobs.update', $referenceJob->user_id], 'method' => 'patch']) !!}
-                @include('references_jobs.fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('references_jobs.fields')
+                @else
+                    @include('references_jobs.fields_mobil')
+                @endif
             {!! Form::close() !!}
         </div>
     </div>

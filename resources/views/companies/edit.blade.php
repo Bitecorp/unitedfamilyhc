@@ -12,11 +12,13 @@
                               <strong>Edit Companies</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($companies, ['route' => ['companies.update', $companies->id], 'method' => 'patch']) !!}
-
-                              @include('companies.fields')
-
-                              {!! Form::close() !!}
+                            {!! Form::model($companies, ['route' => ['companies.update', $companies->id], 'method' => 'patch']) !!}
+                                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                    @include('companies.fields')
+                                @else
+                                    @include('companies.fields_mobil')
+                                @endif
+                            {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

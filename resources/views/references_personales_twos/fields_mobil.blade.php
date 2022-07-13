@@ -1,4 +1,4 @@
-<div class="row">
+
     <div class="col">
         <!-- Name Job Field -->
         <div class="form-group">
@@ -20,9 +20,7 @@
             {!! Form::text('phone', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
-</div>
 
-<div class="row">
     <div class="col">
         <!-- Ocupation Field -->
         <div class="form-group">
@@ -37,7 +35,7 @@
             {!! Form::text('time', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
-</div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

@@ -13,9 +13,11 @@
                             </div>
                             <div class="card-body">
                                 {!! Form::open(['route' => 'companies.store']) !!}
-
-                                   @include('companies.fields')
-
+                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                        @include('companies.fields')
+                                    @else
+                                        @include('companies.fields_mobil')
+                                    @endif 
                                 {!! Form::close() !!}
                             </div>
                         </div>
