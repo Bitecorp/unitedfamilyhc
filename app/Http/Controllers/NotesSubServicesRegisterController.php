@@ -11,6 +11,8 @@ use App\Models\User;
 use Flash;
 use Response;
 use Carbon\Carbon;
+use App\Models\ReferencesPersonalesTwo;
+use Auth;
 
 class NotesSubServicesRegisterController extends Controller
 {      
@@ -55,7 +57,15 @@ class NotesSubServicesRegisterController extends Controller
             //dd($note['id']);
         //};
 
-        return view('notes.index')->with('notes', collect($notes));
+        $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
+
+        if(isset($dataFull) && !empty($dataFull)){
+            if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
+                return redirect(route('workers.show', Auth::user()->id));
+            }else{
+                return view('notes.index')->with('notes', collect($notes));
+            }
+        }
     }
 
     /**

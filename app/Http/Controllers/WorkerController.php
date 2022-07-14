@@ -693,6 +693,8 @@ class WorkerController extends AppBaseController
 
         }
 
+        //dd($confirmationIndependent);
+
         return $returnView;
     }
 

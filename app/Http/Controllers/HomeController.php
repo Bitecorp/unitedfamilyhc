@@ -17,6 +17,7 @@ use App\Models\RegisterAttentions;
 use DB;
 use Carbon\Carbon;
 use App\Models\NotesSubServicesRegister;
+use App\Models\ReferencesPersonalesTwo;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,7 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     *confirmationIndependent
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -154,6 +155,15 @@ class HomeController extends Controller
                 ->with('patientesCount', count($patientesCount))
                 ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)));
         } else {
+
+            $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
+
+            if(isset($dataFull) && !empty($dataFull)){
+                if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
+                    return redirect(route('workers.show', Auth::user()->id));
+                }
+            }
+
             return view('pages/dashboard/clearView')
                 ->with('services', isset($services) && !empty($services) ? collect($services) : [])
                 ->with('dataSearch', isset($dataSearch) && !empty($dataSearch) ? collect($dataSearch) : []);
