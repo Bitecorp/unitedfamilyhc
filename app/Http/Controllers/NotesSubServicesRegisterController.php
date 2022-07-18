@@ -175,10 +175,17 @@ class NotesSubServicesRegisterController extends Controller
     public function update($id, Request $request)
     {
         $input = $request->all();
+        $registerNote = NotesSubServicesRegister::where('id', $id)->first();
 
-        $file = $input['firma'];
-        $titleFile = "firma_nota_" . $id;
-        $uploadImage = createFile($file, $titleFile, true);
+        $uploadImage = '';
+
+        if(isset($input['firma']) && !empty($input['firma'])){
+            if($registerNote->firma == '' || $registerNote->firma == null){
+                $file = $input['firma'];
+                $titleFile = "firma_nota_" . $id;
+                $uploadImage = createFile($file, $titleFile, true);
+            }
+        }
 
         $regNote = NotesSubServicesRegister::find($id);
 
@@ -188,7 +195,7 @@ class NotesSubServicesRegisterController extends Controller
         $regNote->patiente_id = $input['patiente_id'];
         $regNote->sub_service_id = $input['sub_service_id'];
         $regNote->note = $input['note'];
-        $regNote->firma = $uploadImage;
+        $regNote->firma = isset($uploadImage) && !empty($uploadImage) ? $uploadImage : ($registerNote->firma != '' &&  $registerNote->firma != null ? $registerNote->firma : null) ;
 
         $regNote->save();
 
@@ -196,15 +203,65 @@ class NotesSubServicesRegisterController extends Controller
 
         if(isset($regNote->note) && !empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
             $attentionReg->status = 3;
-
             $attentionReg->save();
         }
 
-        if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
-            return response()->json(['succes' => true, 'urlImagen' => $regNote->firma]);
+        if(strpos($input['previa_url'], "dashboard")){
+            if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
+                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+            }else{
+                if($attentionReg->status == 2 && !isset($regNote->firma) || !empty($regNote->firma) && isset($regNote->note) && !empty($regNote->note)){
+                    Flash::success('Note Save successfully.');
+
+
+                    $noteData = NotesSubServicesRegister::find($id);
+
+                    $worker = User::find($noteData->worker_id);
+                    $patiente = User::find($noteData->patiente_id);
+                    $service = Service::find($noteData->service_id);
+                    $subService = SubServices::find($noteData->sub_service_id);
+                    $dataStatus = RegisterAttentions::find($noteData->register_attentions_id);
+
+                    $note = [];
+                    $newNote = array( 
+                        "id" => $noteData->id,
+                        "register_attentions_id" => $noteData->register_attentions_id,
+                        "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
+                        "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
+                        "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                        "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
+                        "note" => $noteData->note,
+                        "firma" => $noteData->firma,
+                        "status" => $dataStatus->status,
+                        "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
+                        "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
+                    );
+
+                    array_push($note, $newNote);
+
+                    //$test = collect($note);
+                    //dd($test[0]);
+
+                    return view('notes.edit')->with('note', collect($note))->with('prevUrl', $input['previa_url']);
+                }else if($attentionReg->status == 2 && !isset($regNote->note) || empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
+                    Flash::success('Signature Save successfully.');
+                    return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+                }else if($attentionReg->status == 3){
+                    return redirect(route('home'));
+                }
+            }
         }else{
-            Flash::success('Note updated successfully.');
-            return redirect(route('notesSubServices.index'));
+            if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
+                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+            }else{
+                if($attentionReg->status == 3){
+                    Flash::success('Note Save successfully.');
+                    return redirect(route('notesSubServices.index'));
+                }else{
+                    Flash::success('Note Save successfully.');
+                    return redirect(route('notesSubServices.edit', $id));
+                }
+            }
         }
     }
 

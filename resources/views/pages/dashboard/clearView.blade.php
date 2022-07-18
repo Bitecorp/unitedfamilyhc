@@ -6,13 +6,6 @@
 	<link href="/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
-
-	<style>
-		.BG_Class {
-			background: inherit;
-			background-color:transparent;
-		}
-	</style>
 @endpush
 
 @section('content')
@@ -128,12 +121,7 @@
 
 			var service_id = $('#service_id').val();
 			var patiente_id = $('#patiente_id').val();
-
-			//if(patiente_id != '' && patiente_id != null && patiente_id != 'undefined'){
-				//$('#patiente_id').attr('disabled', 'disabled');
-			//}
 			var token = '{{ csrf_token() }}';
-
 			var nameService = $('#service_id').find(':selected').data('name-service');
 			
 			$.ajax({
@@ -259,90 +247,110 @@
 
 	<script>
 		function runTime(patiente, service, subService) {
-			GeoPosition();
+			if (!"geolocation" in navigator) {
+				msjOne = "Your browser does not support location access. Try another one. \n\n";
+				msjTwo = "Tu navegador no soporta el acceso a la ubicación. Intenta con otro"
+				return alert(msjOne + msjTwo);
+			}else{
+				//Pedir activación de ubicación
+				if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
+					
+					//Si es aceptada guardamos lo latitud y longitud
+					GeoPosition();
 
-			var url = '/registerAttentions';
+					var url = '/registerAttentions';
 
-			var idUser = '{{ Auth::user()->id }}';
-			var service_id = service;
-			var patiente_id = patiente;
-			var idSubService = subService;
-			var long = localStorage.getItem('long');
-			var lat = localStorage.getItem('lat');
-			var token = '{{ csrf_token() }}';
+					var idUser = '{{ Auth::user()->id }}';
+					var service_id = service;
+					var patiente_id = patiente;
+					var idSubService = subService;
+					var long = localStorage.getItem('long');
+					var lat = localStorage.getItem('lat');
+					var token = '{{ csrf_token() }}';
 
-			var subServicesActives = localStorage.getItem('subServicesActives');
+					var subServicesActives = localStorage.getItem('subServicesActives');
 
-			var valueStatus = $('#btn_run_' + subService).data('status');
+					var valueStatus = $('#btn_run_' + subService).data('status');
 
-			$.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-					_token: token,
-					worker_id: idUser,
-					service_id: service_id,
-					patiente_id: patiente_id,
-					sub_service_id: idSubService,
-					lat: lat,
-					long: long
-				},
-				success: function(data) {
-					var dataTotal = data['data'];
+					$.ajax({
+						type: "post",
+						url: url,
+						dataType: 'json',
+						data: {
+							_token: token,
+							worker_id: idUser,
+							service_id: service_id,
+							patiente_id: patiente_id,
+							sub_service_id: idSubService,
+							lat: lat,
+							long: long
+						},
+						success: function(data) {
+							var dataTotal = data['data'];
 
-					if(dataTotal.status == 1){
-						$('#bg_color_' + subService).removeClass('bg-blue');
-						$('#bg_color_' + subService).addClass('bg-teal');
+							if(dataTotal.status == 1){
+								$('#bg_color_' + subService).removeClass('bg-blue');
+								$('#bg_color_' + subService).addClass('bg-teal');
 
-						$('#btn_run_' + subService).removeAttr( "data-status");
-						$('#btn_run_' + subService).attr("data-status", dataTotal.status);
+								$('#btn_run_' + subService).removeAttr( "data-status");
+								$('#btn_run_' + subService).attr("data-status", dataTotal.status);
 
-						$('#btn_run_' + subService).removeAttr( "onclick");
-						var newOnclick = ' viewAlertStopTime(' + patiente + ',' + service + ',' + subService + '); ';
-						$('#btn_run_' + subService).attr("onclick", newOnclick);
+								$('#btn_run_' + subService).removeAttr( "onclick");
+								var newOnclick = ' viewAlertStopTime(' + patiente + ',' + service + ',' + subService + '); ';
+								$('#btn_run_' + subService).attr("onclick", newOnclick);
 
-						$('#btn_run_' + subService).text('Stop Time');
+								$('#btn_run_' + subService).text('Stop Time');
 
-						var obj = document.getElementById('boton_' + subService);
-						if (obj){
-							obj.click(); 
+								var obj = document.getElementById('boton_' + subService);
+								if (obj){
+									obj.click(); 
+								}
+								$('#btn_run_' + subService).text('Stop Time');
+
+								if(data['subServicesActives'] == true){
+									localStorage.setItem('subServicesActives', 1);
+								}
+
+							}else if(dataTotal.status == 2){
+								var dataNote = data['note'];
+
+								$('#bg_color_' + subService).removeClass('bg-teal');
+								$('#bg_color_' + subService).addClass('bg-blue');
+
+								$('#btn_run_' + subService).removeAttr( "data-status");
+								$('#btn_run_' + subService).attr("data-status", 0);
+								
+								$('#btn_run_' + subService).removeAttr( "onclick");
+								var newOnclick = 'runTime(' + patiente + ',' + service + ',' + subService + ')';
+								$('#btn_run_' + subService).attr("onclick", newOnclick);
+
+								var obj = document.getElementById('boton_' + subService);
+								if (obj){
+									obj.click(); 
+								}
+
+								$('#crono_' + subService).text('');
+								$('#btn_run_' + subService).text('Start Time');
+
+								if(data['subServicesActives'] == false){
+									localStorage.removeItem('subServicesActives');
+								}
+
+								window.location.href = '/notesSubServices/'+ dataNote.id +'/edit';
+							}
+				
+						},
+						error: function (error) { 
+							console.log(error);
 						}
-						$('#btn_run_' + subService).text('Stop Time');
-
-						if(data['subServicesActives'] == true){
-							localStorage.setItem('subServicesActives', 1);
-						}
-
-					}else if(dataTotal.status == 2){
-						$('#bg_color_' + subService).removeClass('bg-teal');
-						$('#bg_color_' + subService).addClass('bg-blue');
-
-						$('#btn_run_' + subService).removeAttr( "data-status");
-						$('#btn_run_' + subService).attr("data-status", 0);
-						
-						$('#btn_run_' + subService).removeAttr( "onclick");
-						var newOnclick = 'runTime(' + patiente + ',' + service + ',' + subService + ')';
-						$('#btn_run_' + subService).attr("onclick", newOnclick);
-
-						var obj = document.getElementById('boton_' + subService);
-						if (obj){
-							obj.click(); 
-						}
-
-						$('#crono_' + subService).text('');
-						$('#btn_run_' + subService).text('Start Time');
-
-						if(data['subServicesActives'] == false){
-							localStorage.removeItem('subServicesActives');
-						}
-					}
-		
-				},
-				error: function (error) { 
-					console.log(error);
-				}
-			});
+					});
+				}, function(error) {
+					//Si es rechazada enviamos de error por consola
+					msjOne = "You must allow the location in your browser to continue. \n\n";
+					msjTwo = "Debe permitir que la ubicación en su navegador paracontinuar"
+					return alert(msjOne + msjTwo);
+				});
+			}
 		};
 
 		
@@ -355,12 +363,6 @@
 		}
 		
 		function GeoPosition() {
-			if (!"geolocation" in navigator) {
-				msjOne = "Your browser does not support location access. Try another one. \n\n";
-				msjTwo = "Tu navegador no soporta el acceso a la ubicación. Intenta con otro"
-				return alert(msjOne + msjTwo);
-			}
-
 			const onUbicacionConcedida = (ubicacion) => {
 				console.log("Tengo la ubicación: ", ubicacion);
 				var long = localStorage.getItem('long');

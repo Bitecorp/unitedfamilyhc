@@ -1,5 +1,8 @@
 
-
+<div class="form-group" hidden>
+    {!! Form::label('previa_url', 'previa_url:') !!}
+    <input type="text" id='previa_url' name="previa_url" class="form-control" readonly value="{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl : URL::previous() }}" >
+</div>
 
 <div class="form-group" hidden>
     {!! Form::label('register_attentions_id', 'register_attentions_id:') !!}
@@ -30,7 +33,7 @@
     <div class="col-6">
         <div class="form-group">
             {!! Form::label('note', 'Post Attention Note:') !!}
-            {!! Form::textarea('note', $note[0]['note'], ['class' => 'form-control', 'rows' => 25]) !!}
+            <textarea id="note" name="note" rows="25" class="form-control" {{ isset($note[0]['note']) && !empty($note[0]['note']) ? 'readonly' : '' }}>{{ isset($note[0]['note']) && !empty($note[0]['note']) ? $note[0]['note'] : '' }}</textarea>
         </div>
     </div>
     <div class="col-6">
@@ -44,7 +47,7 @@
 
             </br>
             @if (!isset($note[0]['firma']) || empty($note[0]['firma']))
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" id="btn_modal" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Signature
                 </button>
             @endif
@@ -78,8 +81,13 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::button('<a>Save</a>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
-    <a href="{{ route('notesSubServices.index') }}" class="btn btn-secondary">Cancel</a>
+    @if (strpos(URL::previous(), "dashboard"))
+        {!! Form::button('<a>Save</a>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+        <a href="{{ route('home') }}" class="btn btn-secondary">Back</a>
+    @else
+        {!! Form::button('<a>Save</a>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+        <a href="{{ route('notesSubServices.index') }}" class="btn btn-secondary">Cancel</a>
+    @endif
 </div>
 
 @push('scripts')
@@ -134,7 +142,6 @@ function alerta(){
                 alert('Please, sign before saving!');
                 return false;
             }
-
             let svg = prps.signaturePad.svg();
             //console.log(file);
             //prps.signaturePad.clear();
@@ -155,6 +162,7 @@ function alerta(){
 			var idSubService = "{{ $note[0]['sub_service_id']['id'] }}";
             var note = document.getElementById('note').value;
 			var token = '{{ csrf_token() }}';
+            var previa_url = document.getElementById('previa_url').value;           
 
             $.ajax({
 				type: "post",
@@ -169,11 +177,52 @@ function alerta(){
 					sub_service_id: idSubService,
                     note: note,
                     firma: file,
-                    typeReturn: 'json'
+                    typeReturn: 'json',
+                    previa_url: previa_url
 				},
 				success: function(data) {
-                    location.reload();
 
+                    //localStorage.setItem('prevUrl', data['prevUrl']);
+                    
+                    //setTimeout(function(){
+                        //location.reload();
+                    //}, 500);
+
+                    //var test  = localStorage.getItem('prevUrl');
+                    
+                    $('#btn_modal').attr("hidden", true);
+
+                    var URLdomain = window.location.host;
+                    var protocol = location.protocol;
+                    var urlTotal = protocol + '//' + URLdomain + '/filesUsers/' + data['urlImagen'];
+
+                    document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
+
+					if (obj){
+						obj.click(); 
+					}
+
+                    if(data['prevUrl'].includes('dashboard')){
+                        if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                            $('#note').attr('readonly', true)
+                            setTimeout(function(){
+                                window.location.href = "/dashboard";
+                            }, 1000);
+                           
+                        }
+
+                        //$('#previa_url').empty()
+                        //$('#previa_url').val('');
+                        //$('#previa_url').val("{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl :" + localStorage.getItem('prevUrl') + "}}");
+                    }else{
+                        if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                            $('#note').attr('readonly', true)
+                            setTimeout(function(){
+                                window.location.href = "/notesSubServices";
+                            }, 1000);
+                           
+                        }
+                    }
 
 
                     //alert('SVG logged to console');
