@@ -61,7 +61,7 @@ class NotesSubServicesRegisterController extends Controller
 
         if(isset($dataFull) && !empty($dataFull)){
             if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
-                return redirect(route('workers.show', Auth::user()->id));
+                return redirect(route('workers.edit', Auth::user()->id));
             }else{
                 return view('notes.index')->with('notes', collect($notes));
             }
