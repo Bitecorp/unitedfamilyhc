@@ -68,7 +68,7 @@
                                         <td class="with-btn" nowrap>
                                             <div>
                                                 <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
-                                                @if ($note['status'] == 2)
+                                                @if ($note['status'] == 2 || Auth::user()->role_id == 1)
                                                     <a href="{{ route('notesSubServices.edit', [ $note['id'] ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
                                                 @endif
                                             </div>

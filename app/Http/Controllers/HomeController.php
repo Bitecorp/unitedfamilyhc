@@ -155,7 +155,6 @@ class HomeController extends Controller
                 ->with('patientesCount', count($patientesCount))
                 ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)));
         } else {
-
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
             if(isset($dataFull) && !empty($dataFull)){

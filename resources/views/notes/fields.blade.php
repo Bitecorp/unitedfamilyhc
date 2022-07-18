@@ -33,7 +33,7 @@
     <div class="col-6">
         <div class="form-group">
             {!! Form::label('note', 'Post Attention Note:') !!}
-            <textarea id="note" name="note" rows="25" class="form-control" {{ isset($note[0]['note']) && !empty($note[0]['note']) ? 'readonly' : '' }}>{{ isset($note[0]['note']) && !empty($note[0]['note']) ? $note[0]['note'] : '' }}</textarea>
+            <textarea id="note" name="note" rows="25" class="form-control" {{ isset($note[0]['note']) && !empty($note[0]['note']) && Auth::user()->role_id != 1 ? 'readonly' : '' }}>{{ isset($note[0]['note']) && !empty($note[0]['note']) ? $note[0]['note'] : '' }}</textarea>
         </div>
     </div>
     <div class="col-6">
@@ -41,12 +41,16 @@
             {!! Form::label('firma', 'Signature of the Guardian:') !!}
             <div id='view' class="abs-center" >
                 @if (isset($note[0]['firma']) && !empty($note[0]['firma']))
-                    <img max-height="1000px" width="100%" src="{{ asset('filesUsers/' . $note[0]['firma']) }}">;
+                    <img max-height="1000px" width="100%" src="{{ asset('filesUsers/' . $note[0]['firma']) }}">
                 @endif
             </div>
 
             </br>
             @if (!isset($note[0]['firma']) || empty($note[0]['firma']))
+                <button type="button" id="btn_modal" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Signature
+                </button>
+            @elseif (Auth::user()->role_id == 1)
                 <button type="button" id="btn_modal" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Signature
                 </button>
@@ -182,46 +186,48 @@ function alerta(){
 				},
 				success: function(data) {
 
-                    //localStorage.setItem('prevUrl', data['prevUrl']);
+                    if(data['userAuth'] != 1 || data['userAuth'] != '1' ){
                     
-                    //setTimeout(function(){
-                        //location.reload();
-                    //}, 500);
+                        $('#btn_modal').attr("hidden", true);
 
-                    //var test  = localStorage.getItem('prevUrl');
-                    
-                    $('#btn_modal').attr("hidden", true);
+                        var URLdomain = window.location.host;
+                        var protocol = location.protocol;
+                        var urlTotal = protocol + '//' + URLdomain + '/filesUsers/' + data['urlImagen'];
 
-                    var URLdomain = window.location.host;
-                    var protocol = location.protocol;
-                    var urlTotal = protocol + '//' + URLdomain + '/filesUsers/' + data['urlImagen'];
+                        document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
 
-                    document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
-
-					if (obj){
-						obj.click(); 
-					}
-
-                    if(data['prevUrl'].includes('dashboard')){
-                        if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
-                            $('#note').attr('readonly', true)
-                            setTimeout(function(){
-                                window.location.href = "/dashboard";
-                            }, 1000);
-                           
+                        if (obj){
+                            obj.click(); 
                         }
 
-                        //$('#previa_url').empty()
-                        //$('#previa_url').val('');
-                        //$('#previa_url').val("{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl :" + localStorage.getItem('prevUrl') + "}}");
+                        if(data['prevUrl'].includes('dashboard')){
+                            if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                                $('#note').attr('readonly', true)
+                                setTimeout(function(){
+                                    window.location.href = "/dashboard";
+                                }, 1000);
+                            
+                            }
+
+                            //$('#previa_url').empty()
+                            //$('#previa_url').val('');
+                            //$('#previa_url').val("{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl :" + localStorage.getItem('prevUrl') + "}}");
+                        }else{
+                            if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                                $('#note').attr('readonly', true)
+                                setTimeout(function(){
+                                    window.location.href = "/notesSubServices";
+                                }, 1000);
+                            
+                            }
+                        }
                     }else{
-                        if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
-                            $('#note').attr('readonly', true)
-                            setTimeout(function(){
-                                window.location.href = "/notesSubServices";
-                            }, 1000);
-                           
+                        if (obj){
+                            obj.click(); 
                         }
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 500);
                     }
 
 

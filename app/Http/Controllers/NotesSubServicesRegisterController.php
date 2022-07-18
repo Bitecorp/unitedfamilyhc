@@ -13,6 +13,7 @@ use Response;
 use Carbon\Carbon;
 use App\Models\ReferencesPersonalesTwo;
 use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class NotesSubServicesRegisterController extends Controller
 {      
@@ -26,7 +27,12 @@ class NotesSubServicesRegisterController extends Controller
     public function index(Request $request)
     {
         //dd(DB::select('SELECT role_id FROM documents_editors GROUP BY role_id'));
-        $allNotes = NotesSubServicesRegister::all()->sortByDesc('created_at')->sortByDesc('id')->values();
+        $allNotes = [];
+        if(Auth::user()->role_id == 1){
+            $allNotes = NotesSubServicesRegister::all()->sortByDesc('created_at')->sortByDesc('id')->values();
+        }else{
+            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->get();
+        }
         
         $notes = [];
         foreach($allNotes as $note){
@@ -57,13 +63,17 @@ class NotesSubServicesRegisterController extends Controller
             //dd($note['id']);
         //};
 
-        $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
+        if(Auth::user()->role_id == 1){
+            return view('notes.index')->with('notes', collect($notes));
+        }else{
+            $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
-        if(isset($dataFull) && !empty($dataFull)){
-            if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
-                return redirect(route('workers.edit', Auth::user()->id));
-            }else{
-                return view('notes.index')->with('notes', collect($notes));
+            if(isset($dataFull) && !empty($dataFull)){
+                if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
+                    return redirect(route('workers.edit', Auth::user()->id));
+                }else{
+                    return view('notes.index')->with('notes', collect($notes));
+                }
             }
         }
     }
@@ -180,7 +190,7 @@ class NotesSubServicesRegisterController extends Controller
         $uploadImage = '';
 
         if(isset($input['firma']) && !empty($input['firma'])){
-            if($registerNote->firma == '' || $registerNote->firma == null){
+            if($registerNote->firma == '' || $registerNote->firma == null || strcmp($registerNote->firma, $input['firma']) !== 0){
                 $file = $input['firma'];
                 $titleFile = "firma_nota_" . $id;
                 $uploadImage = createFile($file, $titleFile, true);
@@ -206,9 +216,18 @@ class NotesSubServicesRegisterController extends Controller
             $attentionReg->save();
         }
 
+        if(Auth::user()->role_id == 1){
+            if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
+                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status, 'userAuth' => Auth::user()->role_id]);
+            }else{
+                Flash::success('Update Save successfully.');
+                return redirect(route('notesSubServices.edit', $id));
+            }
+        }
+
         if(strpos($input['previa_url'], "dashboard")){
             if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
-                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status, 'userAuth' => Auth::user()->role_id]);
             }else{
                 if($attentionReg->status == 2 && !isset($regNote->firma) || !empty($regNote->firma) && isset($regNote->note) && !empty($regNote->note)){
                     Flash::success('Note Save successfully.');
@@ -245,14 +264,14 @@ class NotesSubServicesRegisterController extends Controller
                     return view('notes.edit')->with('note', collect($note))->with('prevUrl', $input['previa_url']);
                 }else if($attentionReg->status == 2 && !isset($regNote->note) || empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
                     Flash::success('Signature Save successfully.');
-                    return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+                    return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status, 'userAuth' => Auth::user()->role_id]);
                 }else if($attentionReg->status == 3){
                     return redirect(route('home'));
                 }
             }
         }else{
             if(isset($input['typeReturn']) && !empty($input['typeReturn'] && $input['typeReturn'] == 'json') ){
-                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status]);
+                return response()->json(['succes' => true, 'urlImagen' => $regNote->firma, 'prevUrl' => $input['previa_url'], 'statusAttention' => $attentionReg->status, 'userAuth' => Auth::user()->role_id]);
             }else{
                 if($attentionReg->status == 3){
                     Flash::success('Note Save successfully.');

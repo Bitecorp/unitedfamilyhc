@@ -35,6 +35,11 @@ return [
             'url' => '/patientes',
 	    ],
         [
+            'icon' => 'fa fa-book',
+            'title' => 'Notes',
+            'url' => "/notesSubServices",
+	    ],
+        [
             'icon' => 'fa fa-cogs',
             'title' => 'Settings',
             'url' => 'javascript:;',
