@@ -499,14 +499,6 @@ class WorkerController extends AppBaseController
         $idsSubServices = [];
         $externalDocuments = [];
         $documentsEditors = [];
-        
-        $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
-
-        if(isset($dataFull) && !empty($dataFull)){
-            if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
-                return redirect(route('workers.edit', Auth::user()->id));
-            }
-        }
 
         if(Auth::user()->role_id == 2){
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
