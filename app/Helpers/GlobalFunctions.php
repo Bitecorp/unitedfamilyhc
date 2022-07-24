@@ -6,13 +6,18 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\DataFile;
 use Jenssegers\Agent\Agent;
 
-function createFile($file, $titleFile, $base64 = false){
+function createFile($file, $titleFile, $base64 = false)
+{
 
-    if(!$base64){
+    if (!$base64) {
         $ext  = $file->getClientOriginalExtension();
         $name = $file->getClientOriginalName();
         $mime_type = $file->getClientMimeType();
-    }else{
+
+        if ($mime_type == "application/octet-stream") {
+            return false;
+        }
+    } else {
         $ext  = 'png';
         $name = $titleFile . '.' . $ext;
         $mime_type = 'image/png';
@@ -21,19 +26,19 @@ function createFile($file, $titleFile, $base64 = false){
     $nameClean = '';
     $fullName = '';
 
-    if(isset($titleFile) && !empty($titleFile) && $titleFile != ''){
+    if (isset($titleFile) && !empty($titleFile) && $titleFile != '') {
         $nameClean = str_replace(' ', '_', $titleFile);
-        if($base64){
+        if ($base64) {
             $fullName = $nameClean . "_" . time() . "." . $ext;
-        }else{
+        } else {
             $fullName = $nameClean . "." . $ext;
         }
-    }else{
+    } else {
         $nameClean = str_replace(' ', '_', pathinfo($name, PATHINFO_FILENAME));
         $fullName = $nameClean . "_" . time() . "." . $ext;
     }
 
-    if($base64){
+    if ($base64) {
         $image = $file;  // your base64 encoded
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
@@ -41,13 +46,13 @@ function createFile($file, $titleFile, $base64 = false){
         $file = Storage::disk('public_files')->put($imageName, base64_decode($image), 'public');
         $url  = $imageName /* Storage::disk('public_files')->url($fullName ) */;
         $path = $imageName  /* Storage::disk('public_files')->url($fullName ) */;
-    }else{
+    } else {
         $file = Storage::disk('public_files')->put($fullName, file_get_contents($file), 'public');
         $url  = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
         $path = $fullName  /* Storage::disk('public_files')->url($fullName ) */;
     }
 
-/*
+    /*
     $path = $file->store('public_files');
 
     Storage::setVisibility($path, 'public');
@@ -60,7 +65,7 @@ function createFile($file, $titleFile, $base64 = false){
     }else{
         $url  = $api_url . $url;
     } */
-   /*  $nameFile = explode("/",ltrim($url, "/")); */
+    /*  $nameFile = explode("/",ltrim($url, "/")); */
     /* dd($nameFile[1]); */
 
     $new_file = DataFile::create([
@@ -75,12 +80,13 @@ function createFile($file, $titleFile, $base64 = false){
     return $url;
 }
 
-function deleteFile($url){
+function deleteFile($url)
+{
 
     $file = DataFile::select('id', 'url')->where('url', $url)->first();
 
     if (!empty($file)) {
-        $nameFile = explode("/",ltrim($url, "/"));
+        $nameFile = explode("/", ltrim($url, "/"));
         Storage::disk('public_files')->delete($nameFile[0]);
         DataFile::destroy($file->id);
     }

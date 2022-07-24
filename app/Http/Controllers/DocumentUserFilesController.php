@@ -12,8 +12,7 @@ use App\Models\documentsEditors;
 use App\Models\DocumentUserFiles;
 use App\Models\AlertDocumentsExpired;
 use App\Models\TypeDoc;
-use App\Models\Worker;
-use App\Models\Patiente;
+use App\Models\User;
 use Flash;
 use Response;
 use DB;
@@ -127,7 +126,7 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileCreate($userID, $docID, Request $request)
     {
         $typeDoc = TypeDoc::where('id', $docID)->first();
-        $user = Patiente::find($userID);
+        $user = User::find($userID);
 
         return view('document_user_files.create')->with('docID', $docID)->with('userID', $userID)->with('typeDoc', $typeDoc)->with('user', $user);
     }
@@ -140,7 +139,7 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileUpdate($userID, $fileID, $docID, Request $request)
     {
         $typeDoc = TypeDoc::where('id', $docID)->first();
-        $user = Patiente::find($userID);
+        $user = User::find($userID);
         $file = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('id', $fileID)->first();
         return view('document_user_files.edit')->with('docID', $docID)->with('userID', $userID)->with('documentUserFiles', $file)->with('fileID', $fileID)->with('typeDoc', $typeDoc)->with('user', $user);
     }
@@ -173,7 +172,7 @@ class DocumentUserFilesController extends AppBaseController
     public function docFileUpload($userID, $docID, Request $request)
     {
         $input = $request->all();
-        $user = Patiente::find($userID);
+        $user = User::find($userID);
 
         $documentStatus = DocumentUserFiles::where('user_id', $userID)->where('document_id', $docID)->where('expired', '1')->get();
         if(isset($documentStatus) && !empty($documentStatus)){
@@ -186,6 +185,16 @@ class DocumentUserFilesController extends AppBaseController
         $file = $request->file('file');
         $titleFile = '';
         $uploadImage = createFile($file, $titleFile);
+
+        if(!$uploadImage){
+            Flash::error('Document not validate');
+
+            if(!empty($user) && $user->role_id == 4){
+                return redirect(route('patientes.show', [$userID]) . "?documents");
+            }else{
+                return redirect(route('workers.show', [$userID]) . "?documents");
+            }
+        }
 
         $input['file'] = $uploadImage;
         $input['user_id'] = $userID;
@@ -213,7 +222,7 @@ class DocumentUserFilesController extends AppBaseController
     {
 
         $documentUserFiles = $this->documentUserFilesRepository->find($fileID);
-        $user = Patiente::find($userID);
+        $user = User::find($userID);
 
         if (empty($documentUserFiles)) {
             Flash::error('Document User Files not found');
@@ -245,6 +254,17 @@ class DocumentUserFilesController extends AppBaseController
             $file = $request->file('file');
             $titleFile = '';
             $uploadImage = createFile($file, $titleFile);
+
+            if(!$uploadImage){
+                Flash::error('Document not validate');
+
+                if(!empty($user) && $user->role_id == 4){
+                    return redirect(route('patientes.show', [$userID]) . "?documents");
+                }else{
+                    return redirect(route('workers.show', [$userID]) . "?documents");
+                }
+            }
+        
             $input['file'] = $uploadImage;
             $input['user_id'] = $userID;
             $input['document_id'] = $docID;
@@ -357,7 +377,7 @@ class DocumentUserFilesController extends AppBaseController
 
             Flash::success('Document User Files deleted successfully.');
 
-            $user = Patiente::find($userID);
+            $user = User::find($userID);
 
             if(!empty($user) && $user->role_id == 4){
                 return redirect(route('patientes.show', [$userID]) . "?documents");

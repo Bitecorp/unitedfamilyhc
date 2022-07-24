@@ -72,6 +72,12 @@ class ExternalsDocumentsController extends AppBaseController
         $titleFile = $input['title'];
         $uploadImage = createFile($file, $titleFile);
 
+        if(!$uploadImage){
+            Flash::error('Document not validate');
+
+            return redirect(route('externalsDocuments.index'));
+        }
+
         $input['file'] = $uploadImage;
 
         $externalsDocuments = $this->externalsDocumentsRepository->create($input);
@@ -151,6 +157,13 @@ class ExternalsDocumentsController extends AppBaseController
             $file = $request->file('file');
             $titleFile = $input['title'];
             $uploadImage = createFile($file, $titleFile);
+
+            if(!$uploadImage){
+                Flash::error('Document not validate');
+
+                return redirect(route('externalsDocuments.index'));
+            }
+
             $input['file'] = $uploadImage;
         }
 

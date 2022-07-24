@@ -60,6 +60,12 @@ class ImagesDocumentsController extends AppBaseController
         $titleFile = $input['title'];
         $uploadImage = createFile($file, $titleFile);
 
+        if(!$uploadImage){
+            Flash::error('Document not validate');
+
+            return redirect(route('imagesDocuments.index'));
+        }
+
         $input['file'] = $uploadImage;
 
         $imagesDocuments = $this->imagesDocumentsRepository->create($input);
@@ -134,6 +140,13 @@ class ImagesDocumentsController extends AppBaseController
             $file = $request->file('file');
             $titleFile = $input['title'];
             $uploadImage = createFile($file, $titleFile);
+
+            if(!$uploadImage){
+                Flash::error('Document not validate');
+
+                return redirect(route('imagesDocuments.index'));
+            }
+
             $input['file'] = $uploadImage;
         }
 
