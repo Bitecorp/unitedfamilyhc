@@ -12,7 +12,6 @@ function createFile($file, $titleFile, $base64 = false){
         $ext  = $file->getClientOriginalExtension();
         $name = $file->getClientOriginalName();
         $mime_type = $file->getClientMimeType();
-        $filename = pathinfo($name, PATHINFO_FILENAME);
     }else{
         $ext  = 'png';
         $name = $titleFile . '.' . $ext;
@@ -22,7 +21,7 @@ function createFile($file, $titleFile, $base64 = false){
     $nameClean = '';
     $fullName = '';
 
-    if($titleFile != ''){
+    if(isset($titleFile) && !empty($titleFile) && $titleFile != ''){
         $nameClean = str_replace(' ', '_', $titleFile);
         if($base64){
             $fullName = $nameClean . "_" . time() . "." . $ext;
@@ -30,7 +29,7 @@ function createFile($file, $titleFile, $base64 = false){
             $fullName = $nameClean . "." . $ext;
         }
     }else{
-        $nameClean = str_replace(' ', '_', $filename);
+        $nameClean = str_replace(' ', '_', pathinfo($name, PATHINFO_FILENAME));
         $fullName = $nameClean . "_" . time() . "." . $ext;
     }
 

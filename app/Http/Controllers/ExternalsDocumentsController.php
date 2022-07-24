@@ -147,7 +147,7 @@ class ExternalsDocumentsController extends AppBaseController
         $input = $request->all();
 
         if(isset($input['file'])){
-            $deleteImage = deleteFile($externalsDocuments->file);
+            deleteFile($externalsDocuments->file);
             $file = $request->file('file');
             $titleFile = $input['title'];
             $uploadImage = createFile($file, $titleFile);

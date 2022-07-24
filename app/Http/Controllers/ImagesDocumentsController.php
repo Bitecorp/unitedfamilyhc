@@ -130,7 +130,7 @@ class ImagesDocumentsController extends AppBaseController
         $input = $request->all();
 
         if(isset($input['file'])){
-            $deleteImage = deleteFile($imagesDocuments->file);
+            deleteFile($imagesDocuments->file);
             $file = $request->file('file');
             $titleFile = $input['title'];
             $uploadImage = createFile($file, $titleFile);
