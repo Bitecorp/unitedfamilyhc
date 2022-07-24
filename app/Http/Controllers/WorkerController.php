@@ -63,7 +63,7 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
@@ -183,7 +183,6 @@ class WorkerController extends AppBaseController
 
     public function getPDF($id, $idPdf, Request $request)
     {
-
         $namePdf = documentsEditors::find($idPdf);
 
         $worker = Worker::find($id);
@@ -237,7 +236,7 @@ class WorkerController extends AppBaseController
 
         /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
-		/* return $pdf->stream(str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf'); */
+		return $pdf->stream(str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf');
 	}
 
     /**
