@@ -228,10 +228,10 @@ class WorkerController extends AppBaseController
             'services' => $services,
             'salaryServices' => SalaryServiceAssigneds::where('user_id', $id)->get(),
         ];
-        //if(ob_get_length() > 0) {
-            //ob_clean();
-            //ob_end_flush();
-        //}
+        if(ob_get_length() > 0) {
+            ob_clean();
+            ob_end_flush();
+        }
         $pdf = Pdf::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
         //return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
 
