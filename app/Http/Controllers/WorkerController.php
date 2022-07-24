@@ -63,7 +63,7 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
@@ -232,11 +232,11 @@ class WorkerController extends AppBaseController
             //ob_clean();
             //ob_end_flush();
         //}
-        $pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
-        return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
+        $pdf = Pdf::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
+        //return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
 
         /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
-		/* $pdf = PDF::loadView('pdf/workerPDF'); */
+		/* $pdf = Pdf::loadView('pdf/workerPDF'); */
 		/* return $pdf->stream(str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf'); */
 	}
 
