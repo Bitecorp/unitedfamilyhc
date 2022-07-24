@@ -11,6 +11,8 @@ yarn-error.log
 public/filesUsers
 public/storage
 public/hot
+public/php.ini
+public/.user.ini
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
