@@ -1,3 +1,3 @@
 php artisan infyom:scaffold ConfigSubServicesPatiente --fromTable --tableName=config_sub_services_patientes --save --factory --seeder
 
-sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm composer.lock; npm i -f; composer install; php artisan migrate; php artisan storage:link; composer clearcache; php artisan cache:clear; php artisan view:clear; php artisan route:cache; php artisan config:cache; php artisan optimize; composer dump-autoload --optimize;
+sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm composer.lock; npm i -f; npm run dev; composer install; php artisan migrate; php artisan storage:link; composer clearcache; php artisan cache:clear; php artisan view:clear; php artisan route:cache; php artisan config:cache; php artisan optimize; composer dump-autoload --optimize;
