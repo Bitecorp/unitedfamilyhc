@@ -6,51 +6,95 @@
 
 <div class="form-group" hidden>
     {!! Form::label('register_attentions_id', 'register_attentions_id:') !!}
-    <input type="text" name="register_attentions_id" class="form-control" readonly value="{{ $note[0]['register_attentions_id'] }}" >
+    <input type="text" name="register_attentions_id" class="form-control" readonly value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions_id'] : ''}}" >
 </div>
 
 <div class="form-group" hidden>
     {!! Form::label('worker_id', 'worker_id:') !!}
-    <input type="text" name="worker_id" class="form-control" readonly value="{{ $note[0]['worker_id']['id'] }}" >
+    <input type="text" name="worker_id" class="form-control" readonly value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['worker_id']['id'] : ''}}" >
 </div>
 
 <div class="form-group" hidden>
     {!! Form::label('patiente_id', 'patiente_id:') !!}
-    <input type="text" name="patiente_id" class="form-control" readonly value="{{ $note[0]['patiente_id']['id'] }}" >
+    <input type="text" name="patiente_id" class="form-control" readonly value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['patiente_id']['id'] : ''}}" >
 </div>
 
 <div class="form-group" hidden>
     {!! Form::label('service_id', 'service_id:') !!}
-    <input type="text" name="service_id" class="form-control" readonly value="{{ $note[0]['service_id']['id'] }}" >
+    <input type="text" name="service_id" class="form-control" readonly value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['service_id']['id'] : ''}}" >
 </div>
 
 <div class="form-group" hidden>
     {!! Form::label('sub_service_id', 'sub_service_id:') !!}
-    <input type="text" name="sub_service_id" class="form-control" readonly value="{{ $note[0]['sub_service_id']['id'] }}" >
+    <input type="text" name="sub_service_id" class="form-control" readonly value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['sub_service_id']['id'] : ''}}" >
 </div>
+
+@if(strpos(Request::url(),'/edit') && Auth::user()->role_id == 1)
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('start', 'Start Date/Hora:') !!}
+            <input class="form-control" type="datetime-local" id="end" name="end" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->start : '' }}">
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group" >
+            {!! Form::label('lat_start', 'Latitud Start:') !!}    
+            <input type="text" name="lat_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_start : ''}}" >
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group" >
+            {!! Form::label('long_start', 'Longitud Start:') !!}    
+            <input type="text" name="long_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_start : ''}}" >
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('end', 'End Date/Hora:') !!}
+            <input class="form-control" type="datetime-local" id="end" name="end" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->end : '' }}">
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group" >
+            {!! Form::label('lat_end', 'Latitud End:') !!}    
+            <input type="text" name="lat_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_end : ''}}" >
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="form-group" >
+            {!! Form::label('long_end', 'Longitud End:') !!}    
+            <input type="text" name="long_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_end : ''}}" >
+        </div>
+    </div>
+</div>
+
+@endif
 
 <div class="row">
     <div class="col-6">
         <div class="form-group">
             {!! Form::label('note', 'Post Attention Note:') !!}
-            <textarea id="note" name="note" rows="25" class="form-control" {{ isset($note[0]['note']) && !empty($note[0]['note']) && Auth::user()->role_id != 1 ? 'readonly' : '' }}>{{ isset($note[0]['note']) && !empty($note[0]['note']) ? $note[0]['note'] : '' }}</textarea>
+            <textarea id="note" name="note" rows="25" class="form-control" {{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) && isset($note[0]['note']) && !empty($note[0]['note']) && Auth::user()->role_id != 1 ? 'readonly' : '' }}>{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) && isset($note[0]['note']) && !empty($note[0]['note']) ? $note[0]['note'] : '' }}</textarea>
         </div>
     </div>
     <div class="col-6">
         <div class="form-group">
             {!! Form::label('firma', 'Signature of the Guardian:') !!}
             <div id='view' class="abs-center" >
-                @if (isset($note[0]['firma']) && !empty($note[0]['firma']))
+                @if (isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) && isset($note[0]['firma']) && !empty($note[0]['firma']))
                     <img max-height="1000px" width="100%" src="{{ asset('filesUsers/' . $note[0]['firma']) }}">
                 @endif
             </div>
 
             </br>
-            @if (!isset($note[0]['firma']) || empty($note[0]['firma']))
-                <button type="button" id="btn_modal" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Signature
-                </button>
-            @elseif (Auth::user()->role_id == 1)
+            @if (isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) && !isset($note[0]['firma']) || empty($note[0]['firma']) || Auth::user()->role_id == 1)
                 <button type="button" id="btn_modal" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Signature
                 </button>
@@ -59,8 +103,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -159,11 +201,11 @@ function alerta(){
             var idNota = pathname.split('/')[2];
             var url = '/notesSubService/' + idNota + '/update';
 
-            var register_attentions_id = "{{ $note[0]['register_attentions_id'] }}";
-			var idUser = "{{ $note[0]['worker_id']['id'] }}";
-			var service_id = "{{ $note[0]['service_id']['id'] }}";
-			var patiente_id = "{{ $note[0]['patiente_id']['id'] }}";
-			var idSubService = "{{ $note[0]['sub_service_id']['id'] }}";
+            var register_attentions_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions_id'] : '' }}";
+			var idUser = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['worker_id']['id'] : '' }}";
+			var service_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['service_id']['id'] : '' }}";
+			var patiente_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['patiente_id']['id'] : '' }}";
+			var idSubService = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['sub_service_id']['id'] : '' }}";
             var note = document.getElementById('note').value;
 			var token = '{{ csrf_token() }}';
             var previa_url = document.getElementById('previa_url').value;           

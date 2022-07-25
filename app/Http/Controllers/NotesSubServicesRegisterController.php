@@ -8,6 +8,7 @@ use App\Models\RegisterAttentions;
 use App\Models\SubServices;
 use App\Models\Service;
 use App\Models\User;
+use App\Models\Role;
 use Flash;
 use Response;
 use Carbon\Carbon;
@@ -85,7 +86,13 @@ class NotesSubServicesRegisterController extends Controller
      */
     public function create()
     {
-        //
+        $workers = User::where('role_id', 2)->get();
+        $patientes = User::where('role_id', 4)->get();
+        $roles = Role::all();
+        $services = Service::all();
+        $subServices = SubServices::all();
+
+        return view('notes.create')->with('workers', $workers)->with('patientes', $patientes)->with('roles', $roles)->with('services', $services)->with('subServices', $subServices);
     }
 
     /**
@@ -150,7 +157,7 @@ class NotesSubServicesRegisterController extends Controller
         $patiente = User::find($noteData->patiente_id);
         $service = Service::find($noteData->service_id);
         $subService = SubServices::find($noteData->sub_service_id);
-        $dataStatus = RegisterAttentions::find($noteData->register_attentions_id);
+        $data = RegisterAttentions::find($noteData->register_attentions_id);
 
         $note = [];
         $newNote = array( 
@@ -162,7 +169,8 @@ class NotesSubServicesRegisterController extends Controller
             "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
             "note" => $noteData->note,
             "firma" => $noteData->firma,
-            "status" => $dataStatus->status,
+            "status" => $data->status,
+            "register_attentions" => $data,
             "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
             "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
         );

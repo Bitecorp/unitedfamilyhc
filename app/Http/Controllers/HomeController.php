@@ -18,6 +18,7 @@ use DB;
 use Carbon\Carbon;
 use App\Models\NotesSubServicesRegister;
 use App\Models\ReferencesPersonalesTwo;
+use Flash;
 
 class HomeController extends Controller
 {
@@ -214,9 +215,41 @@ class HomeController extends Controller
         return response()->json(['patientes' => collect($patientes)]);
     }
 
+    public function searchServicesWorker(Request $request)
+    {
+        $input = $request->all();
+        $services = [];
+
+        $servicesAssigneds = ServiceAssigneds::where('user_id', $input['worker_id'])->first();
+
+        if (!empty($servicesAssigneds) && isset($servicesAssigneds)) {
+            foreach (json_decode($servicesAssigneds->services) as $key => $arrayServicesID) {
+                $infoService = Service::where('id', intval($arrayServicesID))->first();
+                if (!empty($infoService) && isset($infoService)) {
+                    array_push($services, $infoService);
+                }
+            }
+        }
+
+        $patientesRelation = PatientesAssignedWorkers::where('worker_id', $input['worker_id'])->get();
+        $patientes = [];
+        if(isset($patientesRelation) && !empty($patientesRelation) && count($patientesRelation) >= 1){
+            foreach($patientesRelation as $patienteRelation){
+                $patiente = User::where('id', $patienteRelation->patiente_id)->first();
+                if(isset($patiente) && !empty($patiente)){
+                    array_push($patientes, $patiente);
+                }
+            }
+        }
+
+        return response()->json(['services' => collect($services), 'patientes' => collect($patientes)]);
+    }
+
     public function searchSubServicesPatiente(Request $request)
     {
         $input = $request->all();
+
+        $workerID = isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id;
 
         $servicesAssignedss = SalaryServiceAssigneds::where('user_id', $input['patiente_id'])->get();
         $dataPatiente = User::where('id', $input['patiente_id'])->first() ?? '';
@@ -224,7 +257,7 @@ class HomeController extends Controller
         $subservices = [];
         if (isset($servicesAssignedss) && !empty($servicesAssignedss) && count($servicesAssignedss) >= 1) {
             foreach ($servicesAssignedss as $servicesAssignedsss) {
-                $itemExist = RegisterAttentions::where('worker_id', Auth::user()->id)->where('service_id', $input['service_id'])->where('patiente_id', $input['patiente_id'])->where('sub_service_id', $servicesAssignedsss->service_id)->where('status', 1)->first();
+                $itemExist = RegisterAttentions::where('worker_id', $workerID)->where('service_id', $input['service_id'])->where('patiente_id', $input['patiente_id'])->where('sub_service_id', $servicesAssignedsss->service_id)->where('status', 1)->first();
                 if (empty($itemExist)) {
                     $service = SubServices::where('id', $servicesAssignedsss->service_id)->first();
                     if (isset($service) && !empty($service)) {
@@ -241,74 +274,13 @@ class HomeController extends Controller
     {
         $input = $request->all();
 
-        $regExs = RegisterAttentions::where('worker_id', $input['worker_id'])->where('patiente_id', $input['patiente_id'])->where('service_id', $input['service_id'])->where('sub_service_id', $input['sub_service_id'])->where('status', 1)->first();
-
-        $idReg = '';
-        if (isset($regExs) && !empty($regExs)) {
-            $regUp = RegisterAttentions::find($regExs->id);
-
-            $regUp->worker_id = $input['worker_id'];
-            $regUp->service_id = $input['service_id'];
-            $regUp->patiente_id = $input['patiente_id'];
-            $regUp->sub_service_id = $input['sub_service_id'];
-            $regUp->lat_end = $input['lat'];
-            $regUp->long_end = $input['long'];
-            $regUp->end = Carbon::now();
-            $regUp->status = 2;
-
-            $regUp->save();
-
-            $idReg = $regExs->id;
-
-            $regNote = new NotesSubServicesRegister;
-
-            $regNote->register_attentions_id = $regExs->id;
-            $regNote->worker_id = $input['worker_id'];
-            $regNote->service_id = $input['service_id'];
-            $regNote->patiente_id = $input['patiente_id'];
-            $regNote->sub_service_id = $input['sub_service_id'];
-            $regNote->note = null;
-            $regNote->firma = null;
-
-            $regNote->save();
-
-        } else {
-            $regAt = new RegisterAttentions;
-
-            $regAt->worker_id = $input['worker_id'];
-            $regAt->service_id = $input['service_id'];
-            $regAt->patiente_id = $input['patiente_id'];
-            $regAt->sub_service_id = $input['sub_service_id'];
-            $regAt->lat_start = $input['lat'];
-            $regAt->long_start = $input['long'];
-            $regAt->start = Carbon::now();
-            $regAt->status = 1;
-
-            $regAt->save();
-
-            $idReg = $regAt->id;
-        }
-
-        $reg = RegisterAttentions::find($idReg);
-
-
-        if(isset($idReg) && !empty($idReg)){
-            $note = NotesSubServicesRegister::where('register_attentions_id', $idReg)->first();
-        }
-
-        $subServicesActive = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get();
-
-        $subServicesActives = false;
-        if (!empty($subServicesActive) && isset($subServicesActive) && count($subServicesActive) >= 1) {
-            $subServicesActives = true;
-        } else {
-            $subServicesActives = false;
-        }
+        $multi = false;
 
         return response()->json([
-            'data' => $reg, 
-            'subServicesActives' => $subServicesActives, 
-            'note' => isset($note) && !empty($note) ? $note : null
-        ]);
+                'msj' => $input
+            ]);
+
+        
+        
     }
 }

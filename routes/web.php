@@ -30,11 +30,13 @@ Auth::routes();
 
 Route::controller(HomeController::class)->group(function () {
 
-    Route::get('/dashboard', 'index')->name('home');
+    Route::get('/dashboard', 'index')->name('home'); 
 
-    Route::post('/searchSubServicesPatiente', 'searchSubServicesPatiente');
+    Route::post('/searchServicesWorker', 'searchServicesWorker');
 
     Route::post('/searchPatienteService', 'searchPatienteService');
+
+    Route::post('/searchSubServicesPatiente', 'searchSubServicesPatiente');
 
     Route::post('/registerAttentions', 'registerAttentions');
 });

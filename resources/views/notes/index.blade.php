@@ -23,6 +23,9 @@
                     </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        @if(Auth::user()->role_id == 1)
+                            <a href="{{ route('notesSubServices.create') }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
+                        @endif
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                     </div>
@@ -35,6 +38,7 @@
                             <thead>
                                 <tr>
                                     <th width="1%"></th>
+                                    <th class="text-nowrap">Worker</th>
                                     <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Sub Service</th>
                                     <th class="text-nowrap">Patiente</th>
@@ -46,6 +50,7 @@
                                 @foreach($notes as $key => $note)
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
+                                        <td>{{ $note['worker_id']['fullName'] }}</td>
                                         <td>{{ $note['service_id']['nameService'] }}</td>
                                         <td>{{ $note['sub_service_id']['nameSubService'] }}</td>
                                         <td>{{ $note['patiente_id']['fullName'] }}</td>
