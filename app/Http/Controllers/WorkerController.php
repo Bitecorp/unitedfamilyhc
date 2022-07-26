@@ -183,6 +183,11 @@ class WorkerController extends AppBaseController
 
     public function getPDF($id, $idPdf, Request $request)
     {
+        if(ob_get_length() > 0) {
+            ob_clean();
+            ob_end_flush();
+        }
+        
         $namePdf = documentsEditors::find($idPdf);
 
         $worker = Worker::find($id);
