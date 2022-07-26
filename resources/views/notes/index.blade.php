@@ -72,10 +72,15 @@
                                         </td>
                                         <td class="with-btn" nowrap>
                                             <div>
-                                                <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
-                                                @if ($note['status'] == 2 || Auth::user()->role_id == 1)
-                                                    <a href="{{ route('notesSubServices.edit', [ $note['id'] ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
-                                                @endif
+                                                {!! Form::open(['route' => ['notesSubServices.destroy', $note['id']], 'method' => 'delete']) !!}
+                                                    <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
+                                                    @if ($note['status'] == 2 || Auth::user()->role_id == 1)
+                                                        <a href="{{ route('notesSubServices.edit', [ $note['id'] ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                                    @endif
+                                                    @if(Auth::user()->role_id == 1)
+                                                        {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('You are about to delete a root record, if the information is not saved all documents attached to this worker will be lost. (Valid Documents and Expired Documents, Signed Contracts, Etc.).')"]) !!}
+                                                    @endif
+                                                {!! Form::close() !!}
                                             </div>
                                         </td>
                                     </tr>

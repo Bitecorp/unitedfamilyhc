@@ -56,21 +56,21 @@
     <div class="col">
         <div class="form-group">
             {!! Form::label('start', 'Start Date/Hora:') !!}
-            <input class="form-control" type="datetime-local" id="end" name="end" value="" required>
+            <input class="form-control" type="datetime-local" id="start" name="start" value="" required>
         </div>
     </div>
 
     <div class="col">
         <div class="form-group" >
             {!! Form::label('lat_start', 'Latitud Start:') !!}    
-            <input type="text" name="lat_start" class="form-control" value="" required>
+            <input type="text" name="lat_start" id="lat_start" class="form-control" value="" required>
         </div>
     </div>
 
     <div class="col">
         <div class="form-group" >
             {!! Form::label('long_start', 'Longitud Start:') !!}    
-            <input type="text" name="long_start" class="form-control" value="" required>
+            <input type="text" name="long_start" id="long_start" class="form-control" value="" required>
         </div>
     </div>
 </div>
@@ -86,14 +86,14 @@
     <div class="col">
         <div class="form-group" >
             {!! Form::label('lat_end', 'Latitud End:') !!}    
-            <input type="text" name="lat_end" class="form-control" value="" required>
+            <input type="text" name="lat_end" id="lat_end" class="form-control" value="" required>
         </div>
     </div>
 
     <div class="col">
         <div class="form-group" >
             {!! Form::label('long_end', 'Longitud End:') !!}    
-            <input type="text" name="long_end" class="form-control" value="" required>
+            <input type="text" name="long_end" id="long_end" class="form-control" value="" required>
         </div>
     </div>
 </div>
@@ -247,13 +247,19 @@
 
         $('#btn_submit').click(function() {
 
-			var url = '/registerAttentions';
+			var url = '/createMultiRegister';
 
 			var worker_id = $('#worker_id').val();
             var service_id = $('#service_id').val();
             var patiente_id = $('#patiente_id').val();
             var sub_service_id = $('#sub_service_id').val();
             var number_of_notes = $('#number_of_notes').val();
+            var start = $('#start').val();
+            var lat_start = $('#lat_start').val();
+            var long_start = $('#long_start').val();
+            var end = $('#end').val();
+            var lat_end = $('#lat_end').val();
+            var long_end = $('#long_end').val();
 			var token = '{{ csrf_token() }}';
 			
 			$.ajax({
@@ -266,12 +272,15 @@
 					patiente_id: patiente_id,
                     worker_id: worker_id,
                     sub_service_id: sub_service_id,
-                    number_of_notes: number_of_notes
+                    number_of_notes: number_of_notes,
+                    start: start,
+                    lat_start: lat_start,
+                    long_start: long_start,
+                    end: end,
+                    lat_end: lat_end,
+                    long_end: long_end
 				},
-                success: function(data) { 
-                    var dat = data['mjs']
-                    console.log(dat);
-                    debugger;
+                success: function(data) {
 
                     let msjOne = 'If you have active services please close them before starting another visit.\n\n';
 				    let msjTwo = 'Posee servicios activos por favor cierrelos antes de iniciar otra visita.';

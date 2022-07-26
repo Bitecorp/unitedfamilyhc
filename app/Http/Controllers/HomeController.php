@@ -274,13 +274,115 @@ class HomeController extends Controller
     {
         $input = $request->all();
 
-        $multi = false;
+        $regExs = RegisterAttentions::where('worker_id', $input['worker_id'])->where('patiente_id', $input['patiente_id'])->where('service_id', $input['service_id'])->where('sub_service_id', $input['sub_service_id'])->where('status', 1)->first();
+        
+
+        $idReg = '';
+        if (isset($regExs) && !empty($regExs)) {
+            $regUp = RegisterAttentions::find($regExs->id);
+
+            $regUp->worker_id = $input['worker_id'];
+            $regUp->service_id = $input['service_id'];
+            $regUp->patiente_id = $input['patiente_id'];
+            $regUp->sub_service_id = $input['sub_service_id'];
+            $regUp->lat_end = $input['lat'];
+            $regUp->long_end = $input['long'];
+            $regUp->end = Carbon::now();
+
+            $regUp->status = 2;
+
+            $regUp->save();
+
+            $idReg = $regExs->id;
+
+            $regNote = new NotesSubServicesRegister;
+
+            $regNote->register_attentions_id = $regExs->id;
+            $regNote->worker_id = $input['worker_id'];
+            $regNote->service_id = $input['service_id'];
+            $regNote->patiente_id = $input['patiente_id'];
+            $regNote->sub_service_id = $input['sub_service_id'];
+            $regNote->note = null;
+            $regNote->firma = null;
+ 
+            $regNote->save();
+
+        } else {
+            $regAt = new RegisterAttentions;
+
+            $regAt->worker_id = $input['worker_id'];
+            $regAt->service_id = $input['service_id'];
+            $regAt->patiente_id = $input['patiente_id'];
+            $regAt->sub_service_id = $input['sub_service_id'];
+            $regAt->lat_start = $input['lat'];
+            $regAt->long_start = $input['long'];
+            $regAt->start = Carbon::now();
+            $regAt->status = 1;
+
+            $regAt->save();
+
+            $idReg = $regAt->id;
+        }
+
+        $reg = RegisterAttentions::find($idReg);
+
+        if(isset($idReg) && !empty($idReg)){
+            $note = NotesSubServicesRegister::where('register_attentions_id', $idReg)->first();
+        }
+
+        $subServicesActive = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get();
+
+        $subServicesActives = false;
+
+        if (!empty($subServicesActive) && isset($subServicesActive) && count($subServicesActive) >= 1) {
+            $subServicesActives = true;
+        } else {
+            $subServicesActives = false;
+        }
 
         return response()->json([
-                'msj' => $input
-            ]);
+            'data' => $reg, 
+            'subServicesActives' => $subServicesActives, 
+            'note' => isset($note) && !empty($note) ? $note : null
+        ]);        
+    }
 
+    public function createMultiRegister(Request $request)
+    {
+        $input = $request->all();
+
+        for($i = 1; $i <= intval($input['number_of_notes']); $i++){
+            $regAt = new RegisterAttentions;
+
+            $regAt->worker_id = $input['worker_id'];
+            $regAt->service_id = $input['service_id'];
+            $regAt->patiente_id = $input['patiente_id'];
+            $regAt->sub_service_id = $input['sub_service_id'];
+            $regAt->lat_start = $input['lat_start'];
+            $regAt->long_start = $input['long_start'];
+            $regAt->start = $input['start'];
+            $regAt->lat_end = $input['lat_end'];
+            $regAt->long_end = $input['long_end'];
+            $regAt->end = $input['end'];
+            $regAt->status = 2;
+
+            $regAt->save();
+
+            $regNote = new NotesSubServicesRegister;
+
+            $regNote->register_attentions_id = $regAt->id;
+            $regNote->worker_id = $input['worker_id'];
+            $regNote->service_id = $input['service_id'];
+            $regNote->patiente_id = $input['patiente_id'];
+            $regNote->sub_service_id = $input['sub_service_id'];
+            $regNote->note = null;
+            $regNote->firma = null;
         
+            $regNote->save();
+        }
         
+        return response()->json([
+                'msj' => true
+        ]);
     }
 }

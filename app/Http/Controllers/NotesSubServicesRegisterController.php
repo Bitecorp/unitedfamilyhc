@@ -41,7 +41,7 @@ class NotesSubServicesRegisterController extends Controller
             $patiente = User::find($note->patiente_id);
             $service = Service::find($note->service_id);
             $subService = SubServices::find($note->sub_service_id);
-            $dataStatus = RegisterAttentions::find($note->register_attentions_id);
+            $data = RegisterAttentions::find($note->register_attentions_id);
 
             $newNote = array( 
                 "id" => $note->id,
@@ -52,7 +52,7 @@ class NotesSubServicesRegisterController extends Controller
                 "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                 "note" => $note->note,
                 "firma" => $note->firma,
-                "status" => $dataStatus->status,
+                "status" => $data->status,
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
@@ -120,7 +120,7 @@ class NotesSubServicesRegisterController extends Controller
         $patiente = User::find($noteData->patiente_id);
         $service = Service::find($noteData->service_id);
         $subService = SubServices::find($noteData->sub_service_id);
-        $dataStatus = RegisterAttentions::find($noteData->register_attentions_id);
+        $data = RegisterAttentions::find($noteData->register_attentions_id);
 
         $note = [];
         $newNote = array( 
@@ -132,7 +132,8 @@ class NotesSubServicesRegisterController extends Controller
             "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
             "note" => $noteData->note,
             "firma" => $noteData->firma,
-            "status" => $dataStatus->status,
+            "status" => $data->status,
+            "register_attentions" => $data,
             "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
             "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
         );
@@ -219,6 +220,21 @@ class NotesSubServicesRegisterController extends Controller
 
         $attentionReg = RegisterAttentions::find($input['register_attentions_id']);
 
+            $updateAt = $attentionReg;
+
+            $updateAt->worker_id = $input['worker_id'];
+            $updateAt->service_id = $input['service_id'];
+            $updateAt->patiente_id = $input['patiente_id'];
+            $updateAt->sub_service_id = $input['sub_service_id'];
+            $updateAt->lat_start = $input['lat_start'];
+            $updateAt->long_start = $input['long_start'];
+            $updateAt->start = $input['start'];
+            $updateAt->lat_end = $input['lat_end'];
+            $updateAt->long_end = $input['long_end'];
+            $updateAt->end = $input['end'];
+
+            $updateAt->save();
+
         if(isset($regNote->note) && !empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
             $attentionReg->status = 3;
             $attentionReg->save();
@@ -247,7 +263,7 @@ class NotesSubServicesRegisterController extends Controller
                     $patiente = User::find($noteData->patiente_id);
                     $service = Service::find($noteData->service_id);
                     $subService = SubServices::find($noteData->sub_service_id);
-                    $dataStatus = RegisterAttentions::find($noteData->register_attentions_id);
+                    $data = RegisterAttentions::find($noteData->register_attentions_id);
 
                     $note = [];
                     $newNote = array( 
@@ -259,7 +275,7 @@ class NotesSubServicesRegisterController extends Controller
                         "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                         "note" => $noteData->note,
                         "firma" => $noteData->firma,
-                        "status" => $dataStatus->status,
+                        "status" => $data->status,
                         "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
                         "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
                     );
@@ -303,6 +319,14 @@ class NotesSubServicesRegisterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $note = $this->roleRepository->find($id);
+
+        if (empty($note)) {
+            Flash::error('Role not found');
+
+            return redirect(route('roles.index'));
+        }
+        //NotesSubServicesRegister
+        //RegisterAttentions
     }
 }

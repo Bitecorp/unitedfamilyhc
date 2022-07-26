@@ -23,6 +23,67 @@
     <input type="text" name="sub_service_id" class="form-control" readonly value="{{ $note[0]['sub_service_id']['id'] }}" >
 </div>
 
+@if(Auth::user()->role_id == 1)
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Data Sub Service
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('start', 'Start Date/Hora:') !!}
+                            <input class="form-control" readonly type="datetime-local" id="start" name="start" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->start : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group" >
+                            {!! Form::label('lat_start', 'Latitud Start:') !!}    
+                            <input type="text" readonly name="lat_start" id="lat_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_start : ''}}" >
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group" >
+                            {!! Form::label('long_start', 'Longitud Start:') !!}    
+                            <input type="text" readonly name="long_start" id="long_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_start : ''}}" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('end', 'End Date/Hora:') !!}
+                            <input class="form-control" readonly type="datetime-local" id="end" name="end" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->end : '' }}">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group" >
+                            {!! Form::label('lat_end', 'Latitud End:') !!}    
+                            <input type="text" readonly name="lat_end" id="lat_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_end : ''}}" >
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group" >
+                            {!! Form::label('long_end', 'Longitud End:') !!}    
+                            <input type="text" readonly name="long_end" id="long_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_end : ''}}" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</br>
+@endif
+
 <div class="row">
     <div class="col">
         <div class="form-group">

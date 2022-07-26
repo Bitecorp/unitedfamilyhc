@@ -39,6 +39,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/searchSubServicesPatiente', 'searchSubServicesPatiente');
 
     Route::post('/registerAttentions', 'registerAttentions');
+
+    Route::post('/createMultiRegister', 'createMultiRegister');
 });
 
 Route::resource('notesSubServices', App\Http\Controllers\NotesSubServicesRegisterController::class);
