@@ -222,6 +222,7 @@ function alerta(){
                 alert('Please, sign before saving!');
                 return false;
             }
+
             let svg = prps.signaturePad.svg();
             //console.log(file);
             //prps.signaturePad.clear();
@@ -242,7 +243,7 @@ function alerta(){
 			var idSubService = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['sub_service_id']['id'] : '' }}";
             var note = document.getElementById('note').value;
 			var token = '{{ csrf_token() }}';
-            var previa_url = document.getElementById('previa_url').value;           
+            var previa_url = document.getElementById('previa_url').value;
 
             $.ajax({
 				type: "post",
@@ -262,8 +263,7 @@ function alerta(){
 				},
 				success: function(data) {
 
-                    if(data['userAuth'] != 1 || data['userAuth'] != '1' ){
-                    
+                    if(data['userAuth'] != 1 || data['userAuth'] != '1'){                    
                         $('#btn_modal').attr("hidden", true);
 
                         var URLdomain = window.location.host;
@@ -297,7 +297,8 @@ function alerta(){
                             
                             }
                         }
-                    }else{
+                    }else if(data['userAuth'] == 1 || data['userAuth'] == '1'){
+
                         if (obj){
                             obj.click(); 
                         }
@@ -305,9 +306,6 @@ function alerta(){
                             window.location.reload();
                         }, 500);
                     }
-
-
-                    //alert('SVG logged to console');
                 },
 				error: function (error) { 
 					console.log(error);

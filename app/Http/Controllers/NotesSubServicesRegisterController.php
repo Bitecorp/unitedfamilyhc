@@ -194,7 +194,8 @@ class NotesSubServicesRegisterController extends Controller
     public function update($id, Request $request)
     {
         $input = $request->all();
-        $registerNote = NotesSubServicesRegister::where('id', $id)->first();
+
+        $registerNote = NotesSubServicesRegister::find($id);
 
         $uploadImage = '';
 
@@ -206,7 +207,7 @@ class NotesSubServicesRegisterController extends Controller
             }
         }
 
-        $regNote = NotesSubServicesRegister::find($id);
+        $regNote = $registerNote;
 
         $regNote->register_attentions_id = $input['register_attentions_id'];
         $regNote->worker_id = $input['worker_id'];
@@ -220,20 +221,26 @@ class NotesSubServicesRegisterController extends Controller
 
         $attentionReg = RegisterAttentions::find($input['register_attentions_id']);
 
+        if(Auth::user()->role_id = 1 && !isset($input['typeReturn']) || empty($input['typeReturn'] || $input['typeReturn'] != 'json')){
+
             $updateAt = $attentionReg;
 
             $updateAt->worker_id = $input['worker_id'];
             $updateAt->service_id = $input['service_id'];
             $updateAt->patiente_id = $input['patiente_id'];
             $updateAt->sub_service_id = $input['sub_service_id'];
-            $updateAt->lat_start = $input['lat_start'];
-            $updateAt->long_start = $input['long_start'];
             $updateAt->start = $input['start'];
+            $updateAt->lat_start = $input['lat_start'];
+            $updateAt->long_start = $input['long_end'];
+            $updateAt->end = $input['end'];
             $updateAt->lat_end = $input['lat_end'];
             $updateAt->long_end = $input['long_end'];
-            $updateAt->end = $input['end'];
 
             $updateAt->save();
+
+            $attentionReg = RegisterAttentions::find($input['register_attentions_id']);
+
+        }
 
         if(isset($regNote->note) && !empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
             $attentionReg->status = 3;
@@ -255,7 +262,6 @@ class NotesSubServicesRegisterController extends Controller
             }else{
                 if($attentionReg->status == 2 && !isset($regNote->firma) || !empty($regNote->firma) && isset($regNote->note) && !empty($regNote->note)){
                     Flash::success('Note Save successfully.');
-
 
                     $noteData = NotesSubServicesRegister::find($id);
 
@@ -281,9 +287,6 @@ class NotesSubServicesRegisterController extends Controller
                     );
 
                     array_push($note, $newNote);
-
-                    //$test = collect($note);
-                    //dd($test[0]);
 
                     return view('notes.edit')->with('note', collect($note))->with('prevUrl', $input['previa_url']);
                 }else if($attentionReg->status == 2 && !isset($regNote->note) || empty($regNote->note) && isset($regNote->firma) && !empty($regNote->firma)){
@@ -319,14 +322,20 @@ class NotesSubServicesRegisterController extends Controller
      */
     public function destroy($id)
     {
-        $note = $this->roleRepository->find($id);
+        $note = NotesSubServicesRegister::find($id);
 
         if (empty($note)) {
-            Flash::error('Role not found');
+            Flash::error('Activity and Note not found');
 
-            return redirect(route('roles.index'));
+            return redirect(route('notesSubServices.index'));
         }
-        //NotesSubServicesRegister
-        //RegisterAttentions
+        
+        $reg = RegisterAttentions::find($note->register_attentions_id);
+        $reg->delete();
+        
+        $note->delete();
+
+        Flash::success('Activity and Note delete successfully');
+        return redirect(route('notesSubServices.index'));
     }
 }
