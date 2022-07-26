@@ -237,7 +237,6 @@ class WorkerController extends AppBaseController
         /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
         $nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
-        sleep(10);
 		return $pdf->stream($nameFileOut);
 	}
 
