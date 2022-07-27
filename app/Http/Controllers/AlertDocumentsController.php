@@ -78,7 +78,10 @@ class AlertDocumentsController extends AppBaseController
         }
 
         foreach($dataDocuments AS $key => $dataDocument){
-            array_push($workers, User::find($dataDocument->user_id));
+            $dataUser = User::find($dataDocument->user_id);
+            if(isset($dataUser) && !empty($dataUser)){
+                array_push($workers, User::find($dataDocument->user_id));
+            }
         }
 
         $confirmationIndependents = ConfirmationIndependent::all();
