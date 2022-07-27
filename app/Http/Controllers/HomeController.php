@@ -149,7 +149,7 @@ class HomeController extends Controller
             //dd($dataS);
         //}
 
-        if (Auth::user()->role_id == 2) {
+        if (Auth::user()->role_id == 1) {
             return view('pages/dashboard/dashboard-v1')
                 ->with('workersCount', count($workersCount))
                 ->with('countDocumentsWorkers', count(collect($workersDocumentsExpireds)))
