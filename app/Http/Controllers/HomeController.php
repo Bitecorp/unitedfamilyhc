@@ -41,16 +41,16 @@ class HomeController extends Controller
     {
         $documentsExpireds = AlertDocumentsExpired::all();
 
-        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get() ?? [];
-        $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get() ?? [];
+        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get();
+        $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
 
         $workersDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
             foreach ($documentsExpireds as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first() ?? '';
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
                 if (isset($dataDocument) && !empty($dataDocument)) {
-                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 2)->where('role_id', 3)->first() ?? '';
-                    if (isset($infoUser) && !empty($infoUser)) {
+                    $infoUser = User::where('id', $dataDocument->user_id)->first();
+                    if (isset($infoUser) && !empty($infoUser) && ($infoUser['role_id'] == 2 || $infoUser['role_id'] == 3)) {
                         array_push($workersDocumentsExpireds, $infoUser);
                     }
                 }
@@ -60,16 +60,15 @@ class HomeController extends Controller
         $patientesDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
             foreach ($documentsExpireds as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first() ?? '';
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
                 if (isset($dataDocument) && !empty($dataDocument)) {
-                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->first() ?? '';
+                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->first();
                     if (isset($infoUser) && !empty($infoUser)) {
                         array_push($patientesDocumentsExpireds, $infoUser);
                     }
                 }
             }
         }
-
 
         $salaryServicesAssigneds = SalaryServiceAssigneds::where('user_id', Auth::user()->id)->get();
 
@@ -96,7 +95,7 @@ class HomeController extends Controller
             }
         }
 
-        $subServicesActives = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get() ?? [];
+        $subServicesActives = RegisterAttentions::where('worker_id', Auth::user()->id)->where('status', 1)->get();
         $dataSearch = [];
         $subservices = [];
         $dataPatientes = [];
