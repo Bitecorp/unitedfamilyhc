@@ -78,9 +78,9 @@ class AlertDocumentsController extends AppBaseController
         }
 
         foreach($dataDocuments AS $key => $dataDocument){
-            $dataUser = User::find($dataDocument->user_id);
+            $dataUser = User::find($dataDocument['user_id']);
             if(isset($dataUser) && !empty($dataUser)){
-                array_push($workers, User::find($dataDocument->user_id));
+                array_push($workers, $dataUser);
             }
         }
 
