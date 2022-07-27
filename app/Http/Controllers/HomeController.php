@@ -143,13 +143,13 @@ class HomeController extends Controller
             }
         }
 
-        //dd(collect($dataPatientes));
+        //dd(count($workersCount), count(collect($workersDocumentsExpireds)), count($patientesCount), count(collect($patientesDocumentsExpireds)));
 
         //foreach(collect($dataSearch) as $key => $dataS){
             //dd($dataS);
         //}
 
-        if (Auth::user()->role_id != 2) {
+        if (Auth::user()->role_id == 2) {
             return view('pages/dashboard/dashboard-v1')
                 ->with('workersCount', count($workersCount))
                 ->with('countDocumentsWorkers', count(collect($workersDocumentsExpireds)))
