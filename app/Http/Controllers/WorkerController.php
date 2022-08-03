@@ -278,9 +278,11 @@ class WorkerController extends AppBaseController
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
 
-    	$view = \View::make('pdf.' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
-        $html = $view->render();
+        $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
+    	$view = \View::make($titleFileOrFile, $arrayData);
+        $html = $view->render();
+        
     	$pdf = new TCPDF;
 
         $title = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y");

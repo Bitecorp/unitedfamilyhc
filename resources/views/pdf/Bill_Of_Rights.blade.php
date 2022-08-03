@@ -56,7 +56,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp;</p>
-<p>{{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</p>
+<p>{!! $worker->first_name !!} {!! isset($worker->mi) ? $worker->mi : "" !!} {!! $worker->last_name !!}</p>
             </body>
         </html>
         
