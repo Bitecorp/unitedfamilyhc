@@ -63,7 +63,6 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use PDF;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
@@ -180,37 +179,6 @@ class WorkerController extends AppBaseController
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);
-    }
-
-    public function getPDFOLD($id, $idPdf, Request $request)
-    {
-        if(ob_get_length() > 0) {
-            ob_end_clean();
-            ob_start();
-            ob_end_flush();
-        }else{
-            ob_start();
-            ob_end_flush();
-        }
-
-        $filename = 'hello_world.pdf';
-
-    	$data = [
-    		'title' => 'Hello worldlllll!'
-    	];
-
-    	$view = \View::make('pdf.sample', $data);
-        $html = $view->render();
-
-    	$pdf = new TCPDF;
-        
-        $pdf::SetTitle('lol');
-        $pdf::AddPage();
-        $pdf::writeHTML($html, true, false, true, false, '');
-
-        $pdf::Output(public_path($filename), 'F');
-
-        return response()->download(public_path($filename));
     }
 
     public function getPDF($id, $idPdf, Request $request)

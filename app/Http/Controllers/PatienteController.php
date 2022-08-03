@@ -65,9 +65,9 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use PDF;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use Elibyy\TCPDF\Facades\TCPDF as TCPDF;
 
 class PatienteController extends AppBaseController
 {
@@ -182,7 +182,17 @@ class PatienteController extends AppBaseController
         ->with('maritalStatus', $maritalStatus);
     }
 
-    public function getPDF($id, $idPdf, Request $request){
+    public function getPDF($id, $idPdf, Request $request)
+    {
+
+        if(ob_get_length() > 0) {
+            ob_end_clean();
+            ob_start();
+            ob_end_flush();
+        }else{
+            ob_start();
+            ob_end_flush();
+        }
 
         $namePdf = documentsEditors::find($idPdf);
 
@@ -223,13 +233,34 @@ class PatienteController extends AppBaseController
             'services' => $services,
             'salaryServices' => SalaryServiceAssigneds::where('user_id', $id)->get(),
         ];
-        /* ob_end_clean(); */
-        $pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
-       /* return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');*/
+        
+        //$pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
+        //return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
 
         /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
-		return $pdf->stream(str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf');
+        //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
+
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y") . '.pdf';
+
+        $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
+
+    	$view = \View::make($titleFileOrFile, $arrayData);
+        $html = $view->render();
+
+    	$pdf = new TCPDF;
+
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y");
+        
+        $pdf::SetTitle($title);
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output($filename);
+
+        //return response()->download(public_path($filename));
+
+		//return $pdf->stream($nameFileOut);
 	}
 
     /**
