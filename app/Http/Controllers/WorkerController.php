@@ -67,6 +67,7 @@ use PDF;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
+use Elibyy\TCPDF\Facades\TCPDF as TCPDF;
 
 class WorkerController extends AppBaseController
 {
@@ -181,8 +182,48 @@ class WorkerController extends AppBaseController
         ->with('maritalStatus', $maritalStatus);
     }
 
+    public function getPDFOLD($id, $idPdf, Request $request)
+    {
+        if(ob_get_length() > 0) {
+            ob_end_clean();
+            ob_start();
+            ob_end_flush();
+        }else{
+            ob_start();
+            ob_end_flush();
+        }
+
+        $filename = 'hello_world.pdf';
+
+    	$data = [
+    		'title' => 'Hello worldlllll!'
+    	];
+
+    	$view = \View::make('pdf.sample', $data);
+        $html = $view->render();
+
+    	$pdf = new TCPDF;
+        
+        $pdf::SetTitle('lol');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output(public_path($filename), 'F');
+
+        return response()->download(public_path($filename));
+    }
+
     public function getPDF($id, $idPdf, Request $request)
     {
+        if(ob_get_length() > 0) {
+            ob_end_clean();
+            ob_start();
+            ob_end_flush();
+        }else{
+            ob_start();
+            ob_end_flush();
+        }
+
         $namePdf = documentsEditors::find($idPdf);
 
         $worker = Worker::find($id);
@@ -227,17 +268,32 @@ class WorkerController extends AppBaseController
             'services' => $services,
             'salaryServices' => SalaryServiceAssigneds::where('user_id', $id)->get(),
         ];
-        if(ob_get_length() > 0) {
-            ob_clean();
-            ob_end_flush();
-        }
-        $pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
+
+        //$pdf = PDF::loadView('pdf/' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
         //return $pdf->download(str_replace(' ', '_', $namePdf->name_document_editor) ."_". $nameFile ."_". date("d/m/Y") . '.pdf');
 
         /* return $pdf->download($worker->first_name . $worker->first_name . '.pdf'); */
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
-        $nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
-		return $pdf->stream($nameFileOut);
+        //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
+
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
+
+    	$view = \View::make('pdf.' . str_replace(' ', '_', $namePdf->name_document_editor), $arrayData);
+        $html = $view->render();
+
+    	$pdf = new TCPDF;
+
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y");
+        
+        $pdf::SetTitle($title);
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output(public_path($filename), 'F');
+
+        return response()->download(public_path($filename));
+
+		//return $pdf->stream($nameFileOut);
 	}
 
     /**
