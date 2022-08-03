@@ -276,24 +276,24 @@ class WorkerController extends AppBaseController
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
         //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
 
-        $filename = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y") . '.pdf';
 
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
-        
+
     	$pdf = new TCPDF;
 
-        $title = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y");
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y");
         
         $pdf::SetTitle($title);
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
 
-        $pdf::Output(public_path($filename), 'F');
+        $pdf::Output($filename);
 
-        return response()->download(public_path($filename));
+        //return response()->download(public_path($filename));
 
 		//return $pdf->stream($nameFileOut);
 	}
