@@ -6,28 +6,6 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-                <style type="text/css">
-                    @page {
-                        margin-top: 1.3in;
-                        margin-left: 0.8in;
-                        margin-right: 0.8in;
-                        margin-bottom: 1in;
-                    }
-                    body {
-                        background-color: rgba(0,0,0,0);
-                    }
-                    body:before {
-                        display: block;
-                        position: fixed;
-                        top: -1in; right: -1in; bottom: -1in; left: -1in;
-                        background-image: url(filesUsers/Background_Plain.jpeg);
-                        background-size: 100% 100%;
-                        background-repeat: no-repeat;
-                        margin: -20px 15px 15px 10px !important;
-                        content: "";
-                        z-index: -1000;
-                    }
-                </style>
                 <title>Bill Of Rights</title>
             </head>
             <body style="margin-top: -25px !important;">
@@ -56,7 +34,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp;</p>
-<p>({ $worker->first_name }} ({ isset($worker->mi) ? $worker->mi : "" }} ({ $worker->last_name }}</p>
+<p>{{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</p>
             </body>
         </html>
         
