@@ -66,7 +66,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
-use Elibyy\TCPDF\Facades\TCPDF as TCPDF;
+use Elibyy\TCPDF\Facades\TCPDF;
+use App\GlobalClass\MyPdf as MYPDF;
 
 class WorkerController extends AppBaseController
 {
@@ -82,7 +83,7 @@ class WorkerController extends AppBaseController
     /** @var  JobInformationRepository */
     private $jobInformationRepository;
 
-     /** @var  EducationRepository */
+    /** @var  EducationRepository */
     private $educationRepository;
 
     /** @var  ContactEmergencyRepository */
@@ -117,8 +118,7 @@ class WorkerController extends AppBaseController
         ReferencesJobsRepository $referencesJobsRepo,
         ReferencesJobsTwoRepository $referencesJobsTwoRepo,
         CompaniesRepository $companiesRepo
-    )
-    {
+    ) {
         $this->workerRepository = $workerRepo;
         $this->jobInformationRepository = $jobInformationRepo;
         $this->educationRepository = $educationRepo;
@@ -170,24 +170,24 @@ class WorkerController extends AppBaseController
         $jobInformations = JobInformation::all();
 
         return view('workers.index')
-        ->with('roles', $roles)
-        ->with('status', $status)
-        ->with('confirmationIndependents', $confirmationIndependents)
-        ->with('contactEmergencies', $contactEmergencies)
-        ->with('jobInformations', $jobInformations)
-        ->with('workers', $workers)
-        ->with('servicesAssigned', $servicesAssigned)
-        ->with('educations', $educations)
-        ->with('maritalStatus', $maritalStatus);
+            ->with('roles', $roles)
+            ->with('status', $status)
+            ->with('confirmationIndependents', $confirmationIndependents)
+            ->with('contactEmergencies', $contactEmergencies)
+            ->with('jobInformations', $jobInformations)
+            ->with('workers', $workers)
+            ->with('servicesAssigned', $servicesAssigned)
+            ->with('educations', $educations)
+            ->with('maritalStatus', $maritalStatus);
     }
 
     public function getPDF($id, $idPdf, Request $request)
     {
-        if(ob_get_length() > 0) {
+        if (ob_get_length() > 0) {
             ob_end_clean();
             ob_start();
             ob_end_flush();
-        }else{
+        } else {
             ob_start();
             ob_end_flush();
         }
@@ -207,10 +207,13 @@ class WorkerController extends AppBaseController
 
         $nameFile = '';
 
-        if($confirmation_independent->independent_contractor == 1 && $confirmation_independent->personalEmpresa == 2){
-            $nameFile = $companie->name;
-        }else{
-            $nameFile = $worker->first_name ."_". $worker->last_name;
+        if ($confirmation_independent->independent_contractor == 1 && $confirmation_independent->personalEmpresa == 2) {
+            $buscar = array (".",",",";",":");    
+            $remplazar = array ("","","","");
+
+            $nameFile = str_replace($buscar, $remplazar, $companie->name);
+        } else {
+            $nameFile = $worker->first_name . "_" . $worker->last_name;
         }
 
         $arrayData = [
@@ -244,27 +247,89 @@ class WorkerController extends AppBaseController
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
         //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
 
-        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y") . '.pdf';
-
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y") . '.pdf';
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y");
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 
-    	$pdf = new TCPDF;
-
-        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y");
+    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         
+        $pdf::SetCreator('TCPDF');
+        $pdf::SetAuthor('UnitedFamilyHC');
         $pdf::SetTitle($title);
+        $pdf::SetSubject($nameFile . '.');
+        $pdf::SetKeywords('TCPDF, PDF');
+
+        $pdf::SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+
+        // set header and footer fonts
+        $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+        // set default monospaced font
+        $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+
+        // set auto page breaks
+        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+
         $pdf::AddPage();
+
+        // Get the current page break margin
+        $bMargin = $pdf::getBreakMargin();
+
+        // Get current auto-page-break mode
+        $auto_page_break = $pdf::getAutoPageBreak();
+
+        // Disable auto-page-break
+        $pdf::SetAutoPageBreak(false, 0);
+
+        // Define the path to the image that you want to use as watermark.
+        $img_file = public_path('filesUsers/Background_Plain.jpeg');
+
+        // Render the image
+        $pdf::Image($img_file, 0, 0, 223, 280, '', '', '', false, 300, '', false, false, 0);
+
+        // Restore the auto-page-break status
+        $pdf::SetAutoPageBreak($auto_page_break, $bMargin);
+
+        // Set the starting point for the page content
+        $pdf::setPageMark(true, 0);
+
+        
+
         $pdf::writeHTML($html, true, false, true, false, '');
+
+
+
+        // Position at 15 mm from bottom
+        $pdf::SetY(-35);
+
+        // Set font
+        $pdf::SetFont('helvetica', 'I', 8);
+
+        // Page number
+        $pdf::Cell(0, 10, 'Page '.$pdf::getAliasNumPage().'/'.$pdf::getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
 
         $pdf::Output($filename);
 
         //return response()->download(public_path($filename));
 
 		//return $pdf->stream($nameFileOut);
-	}
+    }
+
+
 
     /**
      * Show the form for creating a new Worker.
@@ -289,9 +354,9 @@ class WorkerController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        if(empty($serviceAssigned)){
+        if (empty($serviceAssigned)) {
             return view('workers.create')->with('roles', $roles)->with('status', $status)->with('marital_status', $marital_status)->with('titleJobs', $titleJobs)->with('serviceAssigned', $serviceAssigned);
-        }else{
+        } else {
             return view('workers.create')->with('roles', $roles)->with('status', $status)->with('marital_status', $marital_status)->with('titleJobs', $titleJobs);
         }
     }
@@ -312,65 +377,64 @@ class WorkerController extends AppBaseController
 
         $age = Carbon::parse($input['birth_date'])->age;
 
-        if($age < 18){
+        if ($age < 18) {
 
             Flash::error('The Worker cannot be less than 18 years old.');
 
             return redirect(route('workers.create'));
-
-        }else{
+        } else {
             $worker = $this->workerRepository->create($input);
 
             DB::table('contacts_emergencys')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('jobs_information')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('educations')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('confirmations')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('references')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'reference_number' => '1',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('references_jobs')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'reference_number' => '1',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('references')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'reference_number' => '2',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
             DB::table('references_jobs')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
+                'user_id' => $worker->id,
+                'reference_number' => '2',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
 
 
@@ -380,7 +444,6 @@ class WorkerController extends AppBaseController
             Flash::success('Worker saved successfully, your current password is your SSN.');
 
             return view('contact_emergencies.create')->with('workerID', $worker->id)->with('contactEmergency', $contactEmergency);
-
         }
     }
 
@@ -402,61 +465,60 @@ class WorkerController extends AppBaseController
 
         $worker = $this->workerRepository->create($input);
 
-            DB::table('contacts_emergencys')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('contacts_emergencys')->insert([
+            'user_id' => $worker->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('jobs_information')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('jobs_information')->insert([
+            'user_id' => $worker->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('educations')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('educations')->insert([
+            'user_id' => $worker->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('confirmations')->insert([
-                    'user_id' => $worker->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('confirmations')->insert([
+            'user_id' => $worker->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('references')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('references')->insert([
+            'user_id' => $worker->id,
+            'reference_number' => '1',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('references_jobs')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '1',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('references_jobs')->insert([
+            'user_id' => $worker->id,
+            'reference_number' => '1',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('references')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
+        DB::table('references')->insert([
+            'user_id' => $worker->id,
+            'reference_number' => '2',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-            DB::table('references_jobs')->insert([
-                    'user_id' => $worker->id,
-                    'reference_number' => '2',
-                    'created_at' => now(),
-                    'updated_at' => now()
-            ]);
-        
+        DB::table('references_jobs')->insert([
+            'user_id' => $worker->id,
+            'reference_number' => '2',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
         Flash::success('Worker saved successfully.');
         return redirect(route('login'));
-
     }
 
     /**
@@ -486,7 +548,7 @@ class WorkerController extends AppBaseController
 
         $locations = Location::all();
 
-        $documentsEditors = documentsEditors::where('role_id', [2,3])->get();
+        $documentsEditors = documentsEditors::where('role_id', [2, 3])->get();
 
         $worker = $this->workerRepository->find($id);
 
@@ -526,60 +588,60 @@ class WorkerController extends AppBaseController
         $externalDocuments = [];
         $documentsEditors = [];
 
-        if(Auth::user()->role_id == 2){
+        if (Auth::user()->role_id == 2) {
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
-            if(isset($dataFull) && !empty($dataFull)){
-                if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
+            if (isset($dataFull) && !empty($dataFull)) {
+                if (!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)) {
                     return redirect(route('workers.edit', Auth::user()->id));
                 }
             }
         }
 
-        if(!empty($servicesAssingneds)){
+        if (!empty($servicesAssingneds)) {
             $salaryServiceAssigneds = SalaryServiceAssigneds::where('user_id', '=', $id)->get();
 
             $dataServicesAssigneds = array();
-            foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
+            foreach (collect(json_decode($servicesAssingneds->services)) as $key => $value) {
                 array_push($dataServicesAssigneds, DB::table('services')->select('documents')->where('id', $value)->first());
                 array_push($subServices, SubServices::where('service_id', $value)->get());
                 array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
                 array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', $value)->get());
-                $dataMoment = documentsEditors::where('role_id', [2,3])->where('service_id', $value)->get();
-                if(isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1){
-                    array_push($documentsEditors, documentsEditors::where('role_id', [2,3])->where('service_id', $value)->get());
+                $dataMoment = documentsEditors::where('role_id', [2, 3])->where('service_id', $value)->get();
+                if (isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1) {
+                    array_push($documentsEditors, documentsEditors::where('role_id', [2, 3])->where('service_id', $value)->get());
                 }
             }
-            $dataMomen = documentsEditors::where('role_id', [2,3])->where('service_id', 0)->get();
-            if(isset($dataMomen) && !empty($dataMomen) && count($dataMomen) >= 1){
-                array_push($documentsEditors, documentsEditors::where('role_id', [2,3])->where('service_id', 0)->get());
+            $dataMomen = documentsEditors::where('role_id', [2, 3])->where('service_id', 0)->get();
+            if (isset($dataMomen) && !empty($dataMomen) && count($dataMomen) >= 1) {
+                array_push($documentsEditors, documentsEditors::where('role_id', [2, 3])->where('service_id', 0)->get());
             }
             array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', 0)->get());
 
             $dataListFiles = array();
-            foreach($dataServicesAssigneds as $key => $values){
-                foreach(json_decode($values->documents) as $key => $value){
-                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->where('role_id', [2,3])->first();
-                    if(isset($consult)){
+            foreach ($dataServicesAssigneds as $key => $values) {
+                foreach (json_decode($values->documents) as $key => $value) {
+                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->where('role_id', [2, 3])->first();
+                    if (isset($consult)) {
                         array_push($dataListFiles, $consult);
                     }
                 }
             }
 
-           // dd($dataListFiles);
+            // dd($dataListFiles);
 
             $dataListFilesClear = array();
-            foreach(collect($dataListFiles) as $key => $val){
+            foreach (collect($dataListFiles) as $key => $val) {
                 array_push($dataListFilesClear, $val->id);
             }
 
             $documentUserFilesFoo = array();
-            foreach(array_unique($dataListFilesClear) as $key => $valID){
-                foreach(collect(json_decode($servicesAssingneds->services)) as $keyS => $valueS){
+            foreach (array_unique($dataListFilesClear) as $key => $valID) {
+                foreach (collect(json_decode($servicesAssingneds->services)) as $keyS => $valueS) {
                     $test = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->first();
-                    if(!empty($test)){
-                        foreach(collect(json_decode($servicesAssingneds->services)) as $key => $value){
-                            if($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0'){
+                    if (!empty($test)) {
+                        foreach (collect(json_decode($servicesAssingneds->services)) as $key => $value) {
+                            if ($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0') {
                                 array_push($documentUserFilesFoo,  DB::table('type_docs')->select('id')->where('id', $valID)->first());
                             }
                         }
@@ -588,13 +650,13 @@ class WorkerController extends AppBaseController
             }
 
             $documentUserFilesFo = array();
-            foreach(collect($documentUserFilesFoo) as $key => $val){
+            foreach (collect($documentUserFilesFoo) as $key => $val) {
                 array_push($documentUserFilesFo, $val->id);
             }
 
             $documentUserFiles = array();
-            foreach(array_unique($documentUserFilesFo) as $key => $valID){
-                array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->where('role_id', [2,3])->first());
+            foreach (array_unique($documentUserFilesFo) as $key => $valID) {
+                array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->where('role_id', [2, 3])->first());
             }
 
             //dd($documentUserFiles);
@@ -604,17 +666,17 @@ class WorkerController extends AppBaseController
             $filesUploadsExpired = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', '<>', 0)->orderBy('created_at', 'DESC')->get());
 
             $documentUserFilesUpload = array();
-            foreach($filesUploads AS $key => $value){
+            foreach ($filesUploads as $key => $value) {
                 array_push($documentUserFilesUpload, DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $value->document_id)->first());
             }
 
             $documentUserFilesIDsA = array();
-            foreach($documentUserFiles AS $key => $value){
+            foreach ($documentUserFiles as $key => $value) {
                 array_push($documentUserFilesIDsA, $value->id);
             }
 
             $documentUserFilesIDsU = array();
-            foreach($documentUserFilesUpload AS $key => $value){
+            foreach ($documentUserFilesUpload as $key => $value) {
                 array_push($documentUserFilesIDsU, $value->id);
             }
 
@@ -623,21 +685,21 @@ class WorkerController extends AppBaseController
 
             $arrayData = '';
 
-            if(!empty($idDIffOne) || !empty($idDIffTwo)){
-                if(!empty($idDIffOne) && count($idDIffOne) >= 1){
+            if (!empty($idDIffOne) || !empty($idDIffTwo)) {
+                if (!empty($idDIffOne) && count($idDIffOne) >= 1) {
                     $arrayData = $idDIffOne;
-                }elseif(!empty($idDIffTwo) && count($idDIffTwo) >= 1){
+                } elseif (!empty($idDIffTwo) && count($idDIffTwo) >= 1) {
                     $arrayData = $idDIffTwo;
-                }elseif(!empty($idDIffOne) && count($idDIffOne) >= 1 && !empty($idDIffTwo) && count($idDIffTwo) >= 1){
-                    $arrayData = array_unique(array_merge($idDIffOne , $idDIffTwo));
+                } elseif (!empty($idDIffOne) && count($idDIffOne) >= 1 && !empty($idDIffTwo) && count($idDIffTwo) >= 1) {
+                    $arrayData = array_unique(array_merge($idDIffOne, $idDIffTwo));
                 }
             }
 
             $documentUserFilesDinst = array();
-            if(!empty($arrayData) && count($arrayData) >= 1){
-                foreach($arrayData AS $key => $value){
+            if (!empty($arrayData) && count($arrayData) >= 1) {
+                foreach ($arrayData as $key => $value) {
                     $valConsult = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $value)->first();
-                    if(!empty($valConsult)){
+                    if (!empty($valConsult)) {
                         array_push($documentUserFilesDinst, $valConsult);
                     }
                 }
@@ -647,22 +709,22 @@ class WorkerController extends AppBaseController
 
             $data = [];
 
-            foreach($collections as $collection){
+            foreach ($collections as $collection) {
                 array_push($data, DB::table('services')->select('id', 'name_service')->where('id', $collection)->first());
             }
 
             $servicesDist = DB::table('services')->select('id', 'name_service')->get();
 
-            foreach($collections as $collection){
-                foreach($services as $key => $service){
-                    if($service->id == $collection){
+            foreach ($collections as $collection) {
+                foreach ($services as $key => $service) {
+                    if ($service->id == $collection) {
                         unset($servicesDist[$key]);
                     }
                 }
             }
 
 
-           //dd($salaryServiceAssigneds);
+            //dd($salaryServiceAssigneds);
             $returnView = view('workers.show_index')
                 ->with('roles', $roles)
                 ->with('status', $status)
@@ -695,8 +757,7 @@ class WorkerController extends AppBaseController
                 ->with('filesUploadsExpired', !empty($filesUploadsExpired)  ? $filesUploadsExpired : null)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
                 ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
-
-        }else{
+        } else {
 
             $returnView = view('workers.show_index')
                 ->with('roles', $roles)
@@ -727,7 +788,6 @@ class WorkerController extends AppBaseController
                 ->with('maritalStatus', $maritalStatus)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
                 ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
-
         }
 
         //dd($confirmationIndependent);
@@ -779,15 +839,15 @@ class WorkerController extends AppBaseController
         }
 
         return view('workers.edit')
-        ->with('roles', $roles)
-        ->with('status', $status)
-        ->with('confirmationIndependent', $confirmationIndependent)
-        ->with('contactEmergency', $contactEmergency)
-        ->with('jobInformation', $jobInformation)
-        ->with('worker', $worker)
-        ->with('education', $education)
-        ->with('marital_status', $marital_status)
-        ->with('titleJobs', $titleJobs);
+            ->with('roles', $roles)
+            ->with('status', $status)
+            ->with('confirmationIndependent', $confirmationIndependent)
+            ->with('contactEmergency', $contactEmergency)
+            ->with('jobInformation', $jobInformation)
+            ->with('worker', $worker)
+            ->with('education', $education)
+            ->with('marital_status', $marital_status)
+            ->with('titleJobs', $titleJobs);
     }
 
     /**
@@ -912,13 +972,13 @@ class WorkerController extends AppBaseController
         $this->confirmationIndependentRepository->delete($confirmationIndependentID->id);
         $this->contactEmergencyRepository->delete($contactEmergencyID->id);
         $this->jobInformationRepository->delete($jobInformationID->id);
-        foreach($referencePersonalsID as $referencePersonalID){
+        foreach ($referencePersonalsID as $referencePersonalID) {
             $this->referencesPersonalesRepository->delete($referencePersonalID->id);
         }
-        foreach($referenceJobsID as $referenceJobID){
+        foreach ($referenceJobsID as $referenceJobID) {
             $this->referencesJobsRepository->delete($referenceJobID->id);
         }
-        if(!empty($companiesID->id)){
+        if (!empty($companiesID->id)) {
             $this->companiesRepository->delete($companiesID->id);
         }
 

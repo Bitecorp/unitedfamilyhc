@@ -244,7 +244,7 @@ class AgentController extends AppBaseController
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
         //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
 
-        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y") . '.pdf';
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y") . '.pdf';
 
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
@@ -253,9 +253,15 @@ class AgentController extends AppBaseController
 
     	$pdf = new TCPDF;
 
-        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y");
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y");
         
         $pdf::SetTitle($title);
+
+        $pdf::SetCreator('TCPDF');
+        $pdf::SetAuthor('UnitedFamilyHC');
+        $pdf::SetSubject($nameFile . '.');
+        $pdf::SetKeywords('TCPDF, PDF');
+
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
 

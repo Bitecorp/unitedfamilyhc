@@ -193,6 +193,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
+        App\Providers\MyPdfServiceProvider::class,
 
     ],
 
