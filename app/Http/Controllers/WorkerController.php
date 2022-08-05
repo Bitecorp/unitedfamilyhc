@@ -369,6 +369,8 @@ class WorkerController extends AppBaseController
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
+        dd($pdf);
+
         $pdf->Output($filename, 'I');
 
         //return response()->download(public_path($filename));
