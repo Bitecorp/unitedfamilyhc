@@ -78,14 +78,7 @@ class MyPdf extends \TCPDF
 
     public function Header()
     {
-            if ($this->headerCallback != null && is_callable($this->headerCallback)) {
-                $cb = $this->headerCallback;
-                $cb($this);
-            } else {
-                //if (Config::get('tcpdf.use_original_header')) {
-                    //parent::Header();
-                //}
-                if (Config::get('tcpdf.use_original_header')) {
+            if (Config::get('tcpdf.use_original_header')) {
                     // Get the current page break margin
                     $bMargin = $this->getBreakMargin();
 
@@ -106,52 +99,17 @@ class MyPdf extends \TCPDF
                     // set the starting point for the page content
                     $this->setPageMark();
                 }
-            }
     }
 
     public function Footer()
     {
-        if ($this->footerCallback != null && is_callable($this->footerCallback)) {
-            $cb = $this->footerCallback;
-            $cb($this);
-        } else {
-            //if (Config::get('tcpdf.use_original_footer')) {
-                //parent::Footer();
-            //}
-            if (Config::get('tcpdf.use_original_footer')) {
+        if (Config::get('tcpdf.use_original_footer')) {
                 // Set font
                 $this->SetFont('helvetica', 'I', 8);
 
                 // Page number
                 $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
             }
-        }
-    }
-
-    public function setHeaderCallback($callback)
-    {
-        $this->headerCallback = $callback;
-    }
-
-    public function setFooterCallback($callback)
-    {
-        $this->footerCallback = $callback;
-    }
-
-    public function addTOC($page = '', $numbersfont = '', $filler = '.', $toc_name = 'TOC', $style = '', $color = array(0, 0, 0))
-    {
-        // sort bookmarks before generating the TOC
-        parent::sortBookmarks();
-
-        parent::addTOC($page, $numbersfont, $filler, $toc_name, $style, $color);
-    }
-
-    public function addHTMLTOC($page = '', $toc_name = 'TOC', $templates = array(), $correct_align = true, $style = '', $color = array(0, 0, 0))
-    {
-        // sort bookmarks before generating the TOC
-        parent::sortBookmarks();
-
-        parent::addHTMLTOC($page, $toc_name, $templates, $correct_align, $style, $color);
     }
 }
 
@@ -368,8 +326,6 @@ class WorkerController extends AppBaseController
         $pdf->AddPage();
 
         $pdf->writeHTML($html, true, false, true, false, '');
-
-        dd($pdf);
 
         $pdf->Output($filename, 'I');
 
