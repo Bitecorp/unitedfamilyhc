@@ -262,7 +262,7 @@ class WorkerController extends AppBaseController
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 
-    	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
         //dd(Config::get('tcpdf.use_original_header'), Config::get('tcpdf.image_background'), $pdf);
         
