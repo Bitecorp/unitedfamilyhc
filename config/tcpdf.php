@@ -2,37 +2,38 @@
 return [
     'page_format'           => 'A4',
     'page_orientation'      => 'P',
-    'page_units'            => 'mm',
     'unicode'               => true,
     'encoding'              => 'UTF-8',
     'font_directory'        => '',
-    'image_directory'       => '',
-    'tcpdf_throw_exception' => false,
+    'image_directory'       => 'https://app.unitedfamilyhc.com/',
+    'image_background'      => '',
+    'tcpdf_throw_exception' => true,
     'use_fpdi'              => false,
-    'use_original_header'   => false,
-    'use_original_footer'   => false,
-    'pdfa'                  => false, // Options: false, 1, 3
+    'use_original_header'   => true,
+    'use_original_footer'   => true,
+    'pdfa'                  => true, 
+    // Options: false, 1, 3
 
     // See more info at the tcpdf_config.php file in TCPDF (if you do not set this here, TCPDF will use it default)
     // https://raw.githubusercontent.com/tecnickcom/TCPDF/master/config/tcpdf_config.php
 
-    //    'path_main'           => '', // K_PATH_MAIN
-    //    'path_url'            => '', // K_PATH_URL
-    //    'header_logo'         => '', // PDF_HEADER_LOGO
-    //    'header_logo_width'   => '', // PDF_HEADER_LOGO_WIDTH
+    'path_main'           => '', // K_PATH_MAIN
+    'path_url'            => '', // K_PATH_URL
+    'header_logo'         => '', // PDF_HEADER_LOGO
+    'header_logo_width'   => '0', // PDF_HEADER_LOGO_WIDTH
     //    'path_cache'          => '', // K_PATH_CACHE
     //    'blank_image'         => '', // K_BLANK_IMAGE
-    //    'creator'             => '', // PDF_CREATOR
-    //    'author'              => '', // PDF_AUTHOR
-    //    'header_title'        => '', // PDF_HEADER_TITLE
-    //    'header_string'       => '', // PDF_HEADER_STRING
-    //    'page_units'          => '', // PDF_UNIT
-    //    'margin_header'       => '', // PDF_MARGIN_HEADER
-    //    'margin_footer'       => '', // PDF_MARGIN_FOOTER
-    //    'margin_top'          => '', // PDF_MARGIN_TOP
-    //    'margin_bottom'       => '', // PDF_MARGIN_BOTTOM
-    //    'margin_left'         => '', // PDF_MARGIN_LEFT
-    //    'margin_right'        => '', // PDF_MARGIN_RIGHT
+    'creator'             => 'TCPDF', // PDF_CREATOR
+    'author'              => 'UNITED FAMILY HEALTHCARE INC.', // PDF_AUTHOR
+    'header_title'        => 'Document Create for UNITED FAMILY HEALTHCARE INC.', // PDF_HEADER_TITLE
+    'header_string'       => 'by UNITED FAMILY HEALTHCARE INC. - unitedfamilyhc.com', // PDF_HEADER_STRING
+    'page_units'          => 'mm', // PDF_UNIT
+    'margin_header'       => '5', // PDF_MARGIN_HEADER
+    'margin_footer'       => '15', // PDF_MARGIN_FOOTER
+    'margin_top'          => '27', // PDF_MARGIN_TOP
+    'margin_bottom'       => '22', // PDF_MARGIN_BOTTOM
+    'margin_left'         => '17', // PDF_MARGIN_LEFT
+    'margin_right'        => '15', // PDF_MARGIN_RIGHT
     //    'font_name_main'      => '', // PDF_FONT_NAME_MAIN
     //    'font_size_main'      => '', // PDF_FONT_SIZE_MAIN
     //    'font_name_data'      => '', // PDF_FONT_NAME_DATA
@@ -44,6 +45,6 @@ return [
     //    'title_magnification' => '', // K_TITLE_MAGNIFICATION
     //    'small_ratio'         => '', // K_SMALL_RATIO
     //    'thai_topchars'       => '', // K_THAI_TOPCHARS
-    //    'tcpdf_calls_in_html' => '', // K_TCPDF_CALLS_IN_HTML
-    //    'timezone'            => '', // K_TIMEZONE
+    'tcpdf_calls_in_html' => true, // K_TCPDF_CALLS_IN_HTML
+    'timezone'            => 'UTC', // K_TIMEZONE
 ];

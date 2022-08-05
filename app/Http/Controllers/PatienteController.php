@@ -67,7 +67,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
-use Elibyy\TCPDF\Facades\TCPDF as TCPDF;
+use Elibyy\TCPDF\Facades\TCPDF;
+use App\GlobalClass\MyPdf as MYPDF;
+
+use Illuminate\Support\Facades\Config;
 
 class PatienteController extends AppBaseController
 {
@@ -241,22 +244,41 @@ class PatienteController extends AppBaseController
 		/* $pdf = PDF::loadView('pdf/workerPDF'); */
         //$nameFileOut = str_replace(' ', '_', $namePdf->name_document_editor) ."_". str_replace(' ', '_', $nameFile) ."_". date("d/m/Y") . '.pdf';
 
-        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y") . '.pdf';
-
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y") . '.pdf';
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y");
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
+
+        if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
+            Config::set('tcpdf.image_background', $namePdf->backgroundImg);
+        }else{
+            Config::set('tcpdf.use_original_header', false);
+        }
 
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 
-    	$pdf = new TCPDF;
-
-        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . date("d/m/Y");
+    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         
-        $pdf::SetTitle($title);
+        $pdf::SetCreator(PDF_CREATOR);
+        $pdf::SetAuthor(PDF_AUTHOR);
+        $pdf::SetTitle(!empty($title) ? $title : PDF_HEADER_TITLE);
+        $pdf::SetSubject($nameFile . '.');
+        $pdf::SetKeywords('TCPDF, PDF');
+
+        // set margins
+        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
+        $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+
         $pdf::AddPage();
+
         $pdf::writeHTML($html, true, false, true, false, '');
 
-        $pdf::Output($filename);
+        $pdf::Output($filename, 'I');
 
         //return response()->download(public_path($filename));
 

@@ -78,7 +78,7 @@ class documentsEditorsController extends AppBaseController
         }
 
         $backgroundImg = '';
-        if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
+       /* if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
             $backgroundImg = '
                 <style type="text/css">
                     @page {
@@ -102,7 +102,7 @@ class documentsEditorsController extends AppBaseController
                         z-index: -1000;
                     }
                 </style>';
-        }
+        }*/
 
         $initHTML = '
         <!DOCTYPE html>
@@ -224,7 +224,7 @@ class documentsEditorsController extends AppBaseController
         }
 
         $backgroundImg = '';
-        if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
+        /*if($input['backgroundImg'] != '' && $input['backgroundImg'] != null){
             $backgroundImg = '
                 <style type="text/css">
                     @page {
@@ -248,7 +248,7 @@ class documentsEditorsController extends AppBaseController
                         z-index: -1000;
                     }
                 </style>';
-        }
+        }*/
 
         $initHTML = '
         <!DOCTYPE html>

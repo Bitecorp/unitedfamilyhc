@@ -69,6 +69,8 @@ use Auth;
 use Elibyy\TCPDF\Facades\TCPDF;
 use App\GlobalClass\MyPdf as MYPDF;
 
+use Illuminate\Support\Facades\Config;
+
 class WorkerController extends AppBaseController
 {
     /** @var  StatuRepository */
@@ -251,78 +253,37 @@ class WorkerController extends AppBaseController
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y");
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
+        if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
+            Config::set('tcpdf.image_background', $namePdf->backgroundImg);
+        }else{
+            Config::set('tcpdf.use_original_header', false);
+        }
+
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 
     	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         
-        $pdf::SetCreator('TCPDF');
-        $pdf::SetAuthor('UnitedFamilyHC');
-        $pdf::SetTitle($title);
+        $pdf::SetCreator(PDF_CREATOR);
+        $pdf::SetAuthor(PDF_AUTHOR);
+        $pdf::SetTitle(!empty($title) ? $title : PDF_HEADER_TITLE);
         $pdf::SetSubject($nameFile . '.');
         $pdf::SetKeywords('TCPDF, PDF');
 
-        $pdf::SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-
-        // set header and footer fonts
-        $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-        // set default monospaced font
-        $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
         // set margins
-        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
         $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
         $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
-
 
         // set auto page breaks
         $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
-        // set image scale factor
-        $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-
 
         $pdf::AddPage();
 
-        // Get the current page break margin
-        $bMargin = $pdf::getBreakMargin();
-
-        // Get current auto-page-break mode
-        $auto_page_break = $pdf::getAutoPageBreak();
-
-        // Disable auto-page-break
-        $pdf::SetAutoPageBreak(false, 0);
-
-        // Define the path to the image that you want to use as watermark.
-        $img_file = public_path('filesUsers/Background_Plain.jpeg');
-
-        // Render the image
-        $pdf::Image($img_file, 0, 0, 223, 280, '', '', '', false, 300, '', false, false, 0);
-
-        // Restore the auto-page-break status
-        $pdf::SetAutoPageBreak($auto_page_break, $bMargin);
-
-        // Set the starting point for the page content
-        $pdf::setPageMark(true, 0);
-
-        
-
         $pdf::writeHTML($html, true, false, true, false, '');
 
-
-
-        // Position at 15 mm from bottom
-        $pdf::SetY(-35);
-
-        // Set font
-        $pdf::SetFont('helvetica', 'I', 8);
-
-        // Page number
-        $pdf::Cell(0, 10, 'Page '.$pdf::getAliasNumPage().'/'.$pdf::getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
-
-        $pdf::Output($filename);
+        $pdf::Output($filename, 'I');
 
         //return response()->download(public_path($filename));
 
