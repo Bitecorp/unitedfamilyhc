@@ -66,9 +66,93 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Elibyy\TCPDF\Facades\TCPDF;
-use App\GlobalClass\MyPdf as MYPDF;
 
 use Illuminate\Support\Facades\Config;
+
+class MyPdf extends \TCPDF
+{
+    protected $headerCallback;
+
+    protected $footerCallback;
+
+    public function Header()
+    {
+            if ($this->headerCallback != null && is_callable($this->headerCallback)) {
+                $cb = $this->headerCallback;
+                $cb($this);
+            } else {
+                //if (Config::get('tcpdf.use_original_header')) {
+                    //parent::Header();
+                //}
+                if (Config::get('tcpdf.use_original_header')) {
+                    // Get the current page break margin
+                    $bMargin = $this->getBreakMargin();
+
+                    // Get current auto-page-break mode
+                    $auto_page_break = $this->AutoPageBreak;
+
+                    // Disable auto-page-break
+                    $this->SetAutoPageBreak(false, 0);
+
+                    // Define the path to the image that you want to use as watermark.
+                    $img_file = Config::get('tcpdf.image_background');
+                    // Render the image
+                    $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
+
+                    // Restore the auto-page-break status
+                    $this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+                    // set the starting point for the page content
+                    $this->setPageMark();
+                }
+            }
+    }
+
+    public function Footer()
+    {
+        if ($this->footerCallback != null && is_callable($this->footerCallback)) {
+            $cb = $this->footerCallback;
+            $cb($this);
+        } else {
+            //if (Config::get('tcpdf.use_original_footer')) {
+                //parent::Footer();
+            //}
+            if (Config::get('tcpdf.use_original_footer')) {
+                // Set font
+                $this->SetFont('helvetica', 'I', 8);
+
+                // Page number
+                $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+            }
+        }
+    }
+
+    public function setHeaderCallback($callback)
+    {
+        $this->headerCallback = $callback;
+    }
+
+    public function setFooterCallback($callback)
+    {
+        $this->footerCallback = $callback;
+    }
+
+    public function addTOC($page = '', $numbersfont = '', $filler = '.', $toc_name = 'TOC', $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addTOC($page, $numbersfont, $filler, $toc_name, $style, $color);
+    }
+
+    public function addHTMLTOC($page = '', $toc_name = 'TOC', $templates = array(), $correct_align = true, $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addHTMLTOC($page, $toc_name, $templates, $correct_align, $style, $color);
+    }
+}
 
 
 class AgentController extends AppBaseController
@@ -252,7 +336,7 @@ class AgentController extends AppBaseController
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
         if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
-            Config::set('tcpdf.image_background', $namePdf->backgroundImg);
+            Config::set('tcpdf.image_background', public_path($namePdf->backgroundImg));
         }else{
             Config::set('tcpdf.use_original_header', false);
         }
@@ -260,28 +344,30 @@ class AgentController extends AppBaseController
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 
-    	$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    	$pdf = new MyPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+        //dd(Config::get('tcpdf.use_original_header'), Config::get('tcpdf.image_background'), $pdf);
         
-        $pdf::SetCreator(PDF_CREATOR);
-        $pdf::SetAuthor(PDF_AUTHOR);
-        $pdf::SetTitle(!empty($title) ? $title : PDF_HEADER_TITLE);
-        $pdf::SetSubject($nameFile . '.');
-        $pdf::SetKeywords('TCPDF, PDF');
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor(PDF_AUTHOR);
+        $pdf->SetTitle(!empty($title) ? $title : PDF_HEADER_TITLE);
+        $pdf->SetSubject($nameFile . '.');
+        $pdf->SetKeywords('TCPDF, PDF');
 
         // set margins
-        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
-        $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
         // set auto page breaks
-        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 
-        $pdf::AddPage();
+        $pdf->AddPage();
 
-        $pdf::writeHTML($html, true, false, true, false, '');
+        $pdf->writeHTML($html, true, false, true, false, '');
 
-        $pdf::Output($filename, 'I');
+        $pdf->Output($filename, 'I');
 
         //return response()->download(public_path($filename));
 
