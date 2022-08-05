@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Config;
 class MYPDF extends TCPDF {
     //Page header
     public function Header() {
-        // Get the current page break margin
+       // Get the current page break margin
         $bMargin = $this->getBreakMargin();
 
         // Get current auto-page-break mode
@@ -17,8 +17,7 @@ class MYPDF extends TCPDF {
         $this->SetAutoPageBreak(false, 0);
 
         // Define the path to the image that you want to use as watermark.
-        $img_file = K_PATH_IMAGES . Config::get('tcpdf.image_background');
-                
+        $img_file = Config::get('tcpdf.image_background');
         // Render the image
         $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
 
