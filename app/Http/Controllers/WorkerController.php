@@ -254,7 +254,7 @@ class WorkerController extends AppBaseController
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
         if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
-            Config::set('tcpdf.image_background', $namePdf->backgroundImg);
+            Config::set('tcpdf.image_background', K_PATH_IMAGES . $namePdf->backgroundImg);
         }else{
             Config::set('tcpdf.use_original_header', false);
         }
