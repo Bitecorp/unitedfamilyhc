@@ -7,11 +7,11 @@ return [
     'font_directory'        => '',
     'image_directory'       => env('APP_URL').'/',
     'image_background'      => '',
-    'tcpdf_throw_exception' => true,
+    'tcpdf_throw_exception' => false,
     'use_fpdi'              => false,
     'use_original_header'   => true,
     'use_original_footer'   => true,
-    'pdfa'                  => true, 
+    'pdfa'                  => false, 
     // Options: false, 1, 3
 
     // See more info at the tcpdf_config.php file in TCPDF (if you do not set this here, TCPDF will use it default)
