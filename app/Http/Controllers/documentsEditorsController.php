@@ -133,7 +133,7 @@ class documentsEditorsController extends AppBaseController
         $fonts = '"Arial, Helvetica, sans-serif", "bold"';
         $contentReplace = str_replace('<fonts>', $fonts, $contentReplace);
         $urlReplace = public_path();
-        $contentReplace = str_replace('../../../../', $urlReplace, $contentReplace);
+        $contentReplace = str_replace('../../../../', '/' . $urlReplace, $contentReplace);
 
         $fileCreate = fopen('../resources/views/pdf/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
         fwrite($fileCreate, $initHTML);
@@ -280,7 +280,7 @@ class documentsEditorsController extends AppBaseController
         $fonts = '"Arial, Helvetica, sans-serif", "bold"';
         $contentReplace = str_replace('<fonts>', $fonts, $contentReplace);
         $urlReplace = public_path();
-        $contentReplace = str_replace('../../../../', $urlReplace, $contentReplace);
+        $contentReplace = str_replace('../../../../', '/' . $urlReplace, $contentReplace);
 
         $fileCreate = fopen('../resources/views/pdf/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
         fwrite($fileCreate, $initHTML);
