@@ -254,7 +254,6 @@ class WorkerController extends AppBaseController
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
 
         if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
-            Config::set('tcpdf.use_original_header', false);
             Config::set('tcpdf.image_background', $namePdf->backgroundImg);
         }else{
             Config::set('tcpdf.use_original_header', false);
@@ -265,7 +264,7 @@ class WorkerController extends AppBaseController
 
     	$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-        //dd(Config::get('tcpdf.use_original_header'), Config::get('tcpdf.image_background'), $pdf);
+        dd(Config::get('tcpdf.use_original_header'), Config::get('tcpdf.image_background'), $pdf);
         
         $pdf::SetCreator(PDF_CREATOR);
         $pdf::SetAuthor(PDF_AUTHOR);
