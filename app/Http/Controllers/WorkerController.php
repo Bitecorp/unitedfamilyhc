@@ -336,7 +336,6 @@ class WorkerController extends AppBaseController
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d/m/Y");
         $titleFileOrFile = 'pdf.' . str_replace(' ', '_', $namePdf->name_document_editor);
-        dd(public_path());
 
         if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
             Config::set('tcpdf.image_background', public_path($namePdf->backgroundImg));
