@@ -1,10 +1,10 @@
 <?php
-namespace App\GlobalClass;
+namespace App\Globalclass;
 
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 
-class MYPDF extends TCPDF
+class MyPdf extends \TCPDF
 {
     protected $headerCallback;
 
@@ -12,35 +12,35 @@ class MYPDF extends TCPDF
 
     public function Header()
     {
-        if ($this->headerCallback != null && is_callable($this->headerCallback)) {
-            $cb = $this->headerCallback;
-            $cb($this);
-        } else {
-            //if (Config::get('tcpdf.use_original_header')) {
-                //parent::Header();
-            //}
-            if (Config::get('tcpdf.use_original_header')) {
-                // Get the current page break margin
-                $bMargin = $this->getBreakMargin();
+            if ($this->headerCallback != null && is_callable($this->headerCallback)) {
+                $cb = $this->headerCallback;
+                $cb($this);
+            } else {
+                //if (Config::get('tcpdf.use_original_header')) {
+                    //parent::Header();
+                //}
+                if (Config::get('tcpdf.use_original_header')) {
+                    // Get the current page break margin
+                    $bMargin = $this->getBreakMargin();
 
-                // Get current auto-page-break mode
-                $auto_page_break = $this->AutoPageBreak;
+                    // Get current auto-page-break mode
+                    $auto_page_break = $this->AutoPageBreak;
 
-                // Disable auto-page-break
-                $this->SetAutoPageBreak(false, 0);
+                    // Disable auto-page-break
+                    $this->SetAutoPageBreak(false, 0);
 
-                // Define the path to the image that you want to use as watermark.
-                $img_file = Config::get('tcpdf.image_background');
-                // Render the image
-                $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
+                    // Define the path to the image that you want to use as watermark.
+                    $img_file = Config::get('tcpdf.image_background');
+                    // Render the image
+                    $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
 
-                // Restore the auto-page-break status
-                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                    // Restore the auto-page-break status
+                    $this->SetAutoPageBreak($auto_page_break, $bMargin);
 
-                // set the starting point for the page content
-                $this->setPageMark();
+                    // set the starting point for the page content
+                    $this->setPageMark();
+                }
             }
-        }
     }
 
     public function Footer()

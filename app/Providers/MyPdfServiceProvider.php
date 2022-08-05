@@ -14,7 +14,7 @@ class MyPdfServiceProvider extends ServiceProvider
     public function register()
     {
         //registramos la clase
-         \App::bind('MyPdf');
+         \App::bind('App\Globalclass\Mypdf::class');
     }
 
     /**

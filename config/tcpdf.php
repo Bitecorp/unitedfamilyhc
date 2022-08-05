@@ -5,7 +5,7 @@ return [
     'unicode'               => true,
     'encoding'              => 'UTF-8',
     'font_directory'        => '',
-    'image_directory'       => env('APP_URL').'/',
+    'image_directory'       => 'https://app.unitedfamilyhc.com/',
     'image_background'      => '',
     'tcpdf_throw_exception' => false,
     'use_fpdi'              => false,
