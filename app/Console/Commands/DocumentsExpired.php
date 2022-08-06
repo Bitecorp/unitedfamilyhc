@@ -52,7 +52,12 @@ class DocumentsExpired extends Command
                     $dataA = Carbon::parse($dateActual);
                     $dataAA = Carbon::parse($dateActual)->addMonth(1);
                     $dataE = Carbon::parse($document->date_expired);
-                    if($dataE->toDateString() == $dataAA->toDateString() || $dataE->toDateString() == $dataA->toDateString() || $dataE->toDateString() < $dataA->toDateString() ){
+                    if(
+                        $dataE->toDateString() == $dataAA->toDateString() || 
+                        $dataE->toDateString() == $dataA->toDateString() || 
+                        $dataE->toDateString() < $dataA->toDateString() ||  
+                        ($dataE->toDateString() > $dataA->toDateString() && $dataE->toDateString() < $dataAA->toDateString())    
+                    ){
                         $alert = new AlertDocumentsExpired();
                         $alert->document_user_file_id = $document->id;
                         $alert->save();
