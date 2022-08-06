@@ -6,7 +6,6 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-                
                 <title>Policies and Procedures APD</title>
             </head>
             <body style="margin-top: -25px !important;">
@@ -45,7 +44,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp; &nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
+<p>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp; &nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
 <p>{{ $supervisor->first_name }} {{ $supervisor->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</p>
             </body>
         </html>
