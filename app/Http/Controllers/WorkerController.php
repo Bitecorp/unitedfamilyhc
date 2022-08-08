@@ -343,6 +343,10 @@ class WorkerController extends AppBaseController
             Config::set('tcpdf.use_original_header', false);
         }
 
+        if(isset($namePdf->paginate) && !empty($namePdf->paginate) && ($namePdf->paginate == 1 || $namePdf->paginate == true)){
+            Config::set('tcpdf.use_original_footer', true);
+        }
+
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 

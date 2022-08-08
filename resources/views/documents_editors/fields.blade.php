@@ -7,46 +7,64 @@
 
 <div class="row">
     <div class="col">
+
         <div class="row">
             <div class="col">
-                 <!-- Name Document Editor Field -->
-                <div class="form-group">
-                    {!! Form::label('name_document_editor', 'Name Document Editor:') !!}
-                    {!! Form::text('name_document_editor', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
+                <div class="col">
+                    <!-- Name Document Editor Field -->
+                    <div class="form-group">
+                        {!! Form::label('name_document_editor', 'Name Document Editor:') !!}
+                        {!! Form::text('name_document_editor', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
+                    </div>
                 </div>
-            </div>
+            <div>
             <div class="col">
-                 <!-- Name Document Editor Field -->
-                <div class="form-group">
-                    {!! Form::label('backgroundImg', 'Background Image:') !!}
-                    {!! Form::text('backgroundImg', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-                </div>
-            </div>
-            <div class="col">
-                <!-- Role Id Field -->
-                <div class="form-group">
-                    {!! Form::label('role_id', 'Document For:') !!}
-                    <select name='role_id' class="form-control">
-                        @foreach($roles as $role)
-                            @if(!empty($role))
-                                <option value='{{ $role->id }}' {{ isset($documentsEditors) && isset($documentsEditors->role_id) && $documentsEditors->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <!-- Service Id Field -->
-                <div class="form-group">
-                    {!! Form::label('service_id', 'Service:') !!}
-                    <select name='service_id' class="form-control">
-                        <option value='0' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == 0 ? 'selected' : '' }} >ALL</option>
-                        @foreach($services as $service)
-                            @if(!empty($service))
-                                <option value='{{ $service->id }}' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <!-- Name Document Editor Field -->
+                        <div class="form-group">
+                            {!! Form::label('backgroundImg', 'Background Image:') !!}
+                            {!! Form::text('backgroundImg', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Role Id Field -->
+                        <div class="form-group">
+                            {!! Form::label('role_id', 'Document For:') !!}
+                            <select name='role_id' class="form-control">
+                                @foreach($roles as $role)
+                                    @if(!empty($role))
+                                        <option value='{{ $role->id }}' {{ isset($documentsEditors) && isset($documentsEditors->role_id) && $documentsEditors->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Service Id Field -->
+                        <div class="form-group">
+                            {!! Form::label('service_id', 'Service:') !!}
+                            <select name='service_id' class="form-control">
+                                <option value='0' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == 0 ? 'selected' : '' }} >ALL</option>
+                                @foreach($services as $service)
+                                    @if(!empty($service))
+                                        <option value='{{ $service->id }}' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Service Id Field -->
+                        <div class="form-group">
+                            {!! Form::label('paginate', 'Paginate:') !!}
+                            </br>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="paginate" id="paginate" {{ isset($documentsEditors) && isset($documentsEditors->paginate) && $documentsEditors->paginate == true ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="paginate"></label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

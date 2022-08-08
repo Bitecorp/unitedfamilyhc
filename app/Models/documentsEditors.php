@@ -58,7 +58,8 @@ class documentsEditors extends Model
         'backgroundImg',
         'pagination',
         'content',
-        'service_id'
+        'service_id',
+        'paginate'
     ];
 
     /**
@@ -72,7 +73,8 @@ class documentsEditors extends Model
         'backgroundImg' => 'string',
         'role_id' => 'string',
         'content' => 'string',
-        'service_id' => 'string'
+        'service_id' => 'string',
+        'paginate' => 'boolean'
     ];
 
     /**
@@ -87,6 +89,7 @@ class documentsEditors extends Model
         'role_id' => 'nullable|string|max:255',
         'service_id' => 'nullable|string|max:255',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'paginate' => 'nullable|boolean',
     ];
 }

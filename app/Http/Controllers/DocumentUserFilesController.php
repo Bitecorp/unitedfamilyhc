@@ -112,9 +112,8 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function create($id)
+    public function create()
     {
-
         return view('document_user_files.create');
     }
 
@@ -123,7 +122,7 @@ class DocumentUserFilesController extends AppBaseController
      *
      * @return Response
      */
-    public function docFileCreate($userID, $docID, Request $request)
+    public function docFileCreate($userID, $docID)
     {
         $typeDoc = TypeDoc::where('id', $docID)->first();
         $user = User::find($userID);

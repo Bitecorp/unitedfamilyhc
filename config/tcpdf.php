@@ -10,7 +10,7 @@ return [
     'tcpdf_throw_exception' => false,
     'use_fpdi'              => false,
     'use_original_header'   => true,
-    'use_original_footer'   => true,
+    'use_original_footer'   => false,
     'pdfa'                  => false, 
     // Options: false, 1, 3
 

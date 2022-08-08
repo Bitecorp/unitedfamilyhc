@@ -71,6 +71,12 @@ class documentsEditorsController extends AppBaseController
     {
         $input = $request->all();
 
+        if(isset($input['paginate'])){
+            $input['paginate'] = true;
+        }else{
+            $input['paginate'] = false;
+        }
+
         $pathfolderStorage = '../resources/views/pdf';
 
         if (!is_dir($pathfolderStorage)) {
@@ -217,6 +223,12 @@ class documentsEditorsController extends AppBaseController
         unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
 
         $input = $request->all();
+
+        if(isset($input['paginate'])){
+            $input['paginate'] = true;
+        }else{
+            $input['paginate'] = false;
+        }
 
         $pathfolderStorage = '../resources/views/pdf';
 
