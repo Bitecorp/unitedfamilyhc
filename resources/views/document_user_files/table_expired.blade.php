@@ -73,7 +73,8 @@
             paging: true,
             searching: true,
             responsive: true,
-            autoFill: true
+            autoFill: true,
+            order: [[3, 'desc']],
         });
     });
 </script>

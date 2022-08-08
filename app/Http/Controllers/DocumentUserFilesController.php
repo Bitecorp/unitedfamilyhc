@@ -102,7 +102,10 @@ class DocumentUserFilesController extends AppBaseController
             array_push($documentUserFilesDinst, DB::table('type_docs')->select('id', 'name_doc')->where('id', $value)->first());
         }
 
-        return view('document_user_files.index')->with('documentUserFiles', collect($documentUserFiles))->with('userID', $id)->with('filesUploads', !empty($filesUploads) ? $filesUploads : '')->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : '')
+        return view('document_user_files.index')
+            ->with('documentUserFiles', collect($documentUserFiles))
+            ->with('userID', $id)->with('filesUploads', !empty($filesUploads) ? $filesUploads : '')
+            ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : '')
             ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : '')
             ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : '');
     }
