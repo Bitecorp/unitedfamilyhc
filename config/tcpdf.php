@@ -30,9 +30,9 @@ return [
     'page_units'          => 'mm', // PDF_UNIT
     'margin_header'       => '5', // PDF_MARGIN_HEADER
     'margin_footer'       => '15', // PDF_MARGIN_FOOTER
-    'margin_top'          => '27', // PDF_MARGIN_TOP
+    'margin_top'          => '15', // PDF_MARGIN_TOP
     'margin_bottom'       => '22', // PDF_MARGIN_BOTTOM
-    'margin_left'         => '17', // PDF_MARGIN_LEFT
+    'margin_left'         => '15', // PDF_MARGIN_LEFT
     'margin_right'        => '15', // PDF_MARGIN_RIGHT
     //    'font_name_main'      => '', // PDF_FONT_NAME_MAIN
     //    'font_size_main'      => '', // PDF_FONT_SIZE_MAIN
