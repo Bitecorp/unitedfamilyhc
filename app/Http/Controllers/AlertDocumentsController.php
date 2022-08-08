@@ -171,7 +171,7 @@ class AlertDocumentsController extends AppBaseController
                         }
                     }
                 }
-                Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $infoDocs));
+                Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $arrayDocs));
             }
         }
 

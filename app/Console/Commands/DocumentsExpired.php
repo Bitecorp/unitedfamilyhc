@@ -76,18 +76,20 @@ class DocumentsExpired extends Command
                 $dataDocument = DocumentUserFiles::where('id', $dataAlert->document_user_file_id)->first() ?? '';
                 if(isset($dataDocument) && !empty($dataDocument)){
                     $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 2)->where('role_id', 3)->first() ?? '';
+                    $arrayDocs = [];
                     if(isset($infoUser) && !empty($infoUser)){
                         $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
                         if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
                             foreach($documentsUser AS $documentUser){
-                                $infoDocs = TypeDoc::where('id', $documentUser->document_id)->first() ?? '';
+                                $infoDocs = TypeDoc::find($documentUser->document_id);
                                 if(isset($infoDocs) && !empty($infoDocs)){
-                                    Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $infoDocs));
+                                    array_push($arrayDocs, $infoDocs);
                                     AlertDocumentsExpired::where('id', $dataAlert->id)->update(['send_email' => 1]);
                                 }
                             }
                         }
                     }
+                    Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $arrayDocs));
                 }
 
             }
