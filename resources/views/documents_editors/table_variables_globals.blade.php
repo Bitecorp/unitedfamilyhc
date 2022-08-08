@@ -35,8 +35,8 @@
 
 @push('scripts')
 <script>
-    &#36;(function () {
-        &#36;('#tableVariablesGlobals').DataTable( {
+    $(function () {
+        $('#tableVariablesGlobals').DataTable( {
             ordering: true,
             retrieve: true,
             paging: true,
