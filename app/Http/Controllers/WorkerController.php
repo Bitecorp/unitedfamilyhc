@@ -119,6 +119,7 @@ class MyPdf extends \TCPDF
                 //parent::Footer();
             //}
             if (Config::get('tcpdf.use_original_footer')) {
+                $this->setX(150);
                 // Set font
                 $this->SetFont('helvetica', 'I', 8);
 
