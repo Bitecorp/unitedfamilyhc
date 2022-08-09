@@ -9,8 +9,8 @@
                 <title>Documents Check List APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <h1 style="text-align: center;"><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;">APPLICATION DOCUMENTS CHECK LIST</span></h1>
-<p style="text-align: center;">&nbsp;</p>
+        <h1 style="text-align: center;">&nbsp;</h1>
+<h1 style="text-align: center;"><span style="font-family: 'book antiqua', palatino, serif; font-size: 14pt;">APPLICATION DOCUMENTS CHECK LIST</span></h1>
 <h3><span style="font-family: 'book antiqua', palatino, serif;"><strong><u>DOCUMENTS REQUIRED:</u></strong></span></h3>
 <ul>
 <li><span style="font-family: 'book antiqua', palatino, serif;">Driver License</span></li>

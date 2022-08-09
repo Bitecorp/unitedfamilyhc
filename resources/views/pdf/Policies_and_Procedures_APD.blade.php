@@ -9,9 +9,9 @@
                 <title>Policies and Procedures APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p style="text-align: center;"><span style="font-size: 12pt;"><strong>POLICIES AND PROCEDURES</strong></span></p>
+        <p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;"><span style="font-size: 12pt;"><strong>POLICIES AND PROCEDURES</strong></span></p>
 <p style="text-align: center;"><span style="font-size: 12pt;">Medicaid Waiver Provider</span></p>
-<p style="text-align: center;">&nbsp;</p>
 <p>United Family Health Care Agency provider for HCBS waiver will make known to all staff members and clients the following Policy and Procedures Statement:</p>
 <ol>
 <li>Recipients of services and guardians must be treated with respect. Staff will refer to the recipient always in a respectful manner and will always pay attention and listen when the recipient speak to you.</li>
@@ -30,6 +30,9 @@
 <li>All staff members will protect the receipt&rsquo;s right of choice. It shall always be made clear to the clients that they have the right to choose providers and supports. The client has the right to a person-centered Support Plan and Implementation Plan that meets the client&rsquo;s personal goals and aspirations. Clients must participate in decision taking with respect to his or her life. Recipients must always have free access to his or her properties.</li>
 <li>All staff members have the obligation to watch and promote health, safety and wellbeing of our recipients. The provider will assure the safety in the environment that surrounds each recipient and will record each periodical assessment. United Family Health Care and its staff will not administer medications to the clients.</li>
 <li>All staff members will be instructed periodically as how-to asses for safety in the recipients&rsquo; surroundings. United Family Health Care will ensure that its staff has appropriate training.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="6">
 <li>United Family Health Care policy is to instruct each staff member in as to his or her duties obligations and rights upon hiring for employment, and to record such instruction.</li>
 <li>United Family Health Care will conduct a fingerprint background check for each staff member, assuring to comply with moral and social conduct required by law for his or her employment with APD.</li>
 <li>United Family Health Care will assure and keep records of training for each staff member to assure compliance with existing requirements.</li>

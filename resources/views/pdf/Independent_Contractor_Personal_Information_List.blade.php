@@ -6,12 +6,11 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-               
                 <title>Independent Contractor Personal Information List</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <h1 style="text-align: center;"><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;">INDEPENDENT CONTRACTOR INFORMATION</span></h1>
-<p>&nbsp;</p>
+        <h1 style="text-align: center;">&nbsp;</h1>
+<h1 style="text-align: center;"><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;">INDEPENDENT CONTRACTOR INFORMATION</span></h1>
 <table style="border-collapse: collapse; width: 100%; height: 34px;" border="1">
 <tbody>
 <tr style="height: 34px;">
@@ -55,8 +54,6 @@
 </tbody>
 </table>
 <p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><strong>HIGH SCHOOL:</strong> {{ $education->high_school }}</span><br /><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><strong>COLLEGE/UNIVERSITY:</strong> {{ isset($education->college_university) ? $education->college_university : "" }}</span></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

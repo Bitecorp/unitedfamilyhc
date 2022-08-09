@@ -9,7 +9,8 @@
                 <title>Bill Of Rights</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p style="text-align: center;"><strong>BILL OF RIGHTS FOR PERSONS WITH DISABILITIES</strong></p>
+        <p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;"><strong>BILL OF RIGHTS FOR PERSONS WITH DISABILITIES</strong></p>
 <p><strong>&nbsp;</strong></p>
 <p>&nbsp;Chapter 393 of the Florida Statutes says that you have the right:</p>
 <ol>

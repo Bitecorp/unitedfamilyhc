@@ -6,7 +6,6 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-                
                 <title>WELCOME PACK APD</title>
             </head>
             <body style="margin-top: -25px !important;">
@@ -28,10 +27,9 @@
 <li>Contact your physician</li>
 </ul>
 <p>UNITED FAMILY HEALTH CARE, INC. is required by law to maintain privacy of your protected health information (PHI) and maintains compliance with all HIPPA requirements regarding privacy of your PHI. The agency may use and disclose your PHI only as required under the guidelines of HIPPA. You have the right with respect to your PHI and should direct any questions or complaints concerning your PHI to your agency&rsquo;s privacy officer at (786) 747-8002.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p style="text-align: right;">WISHING YOU GOOD HEALTH FROM</p>
 <p style="text-align: right;"><strong>UNITED FAMILY HEALTH CARE, INC.</strong></p>
+<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">PERSON CENTERED APPROACH TO SERVICE DELIVERY SYSTEM</h3>
 <p>&nbsp;</p>
 <p>As a provider of waiver service, United Family Health Care Inc. is committed to assisting individuals in achieving their desired outcomes. To do so, United Family Health Care Inc. &nbsp;will spend as much time as necessary with the individual to determine what those outcomes are like all of us, people with disabilities may change their outcomes or their priorities over time. United Family Health Care Inc. &nbsp;will continue to assess their progress toward achievement of these outcomes and will make changes to my services as needed. At times, individuals receive a variety of services. The role of United Family Health Care Inc. is to coordinate services, to the best of their ability, with other service providers to reduce disruption with the person. Furthermore, it is the responsibility of United Family Health Care Inc. to learn the individual's priority outcomes and ensure that United Family Health Care Inc. is geared toward the achievement of these outcomes as indicated on the support plan.</p>
@@ -39,7 +37,9 @@
 <p>United Family Health Care Inc. is committed to the principle that individuals should drive the services by choosing their providers and what supports will be provided. If United Family Health Care Inc. becomes aware of service needs outside of the scope of United Family Health Care Inc. work, United Family Health Care Inc. will assist that person in advocating on their behalf to the support coordinator.</p>
 <p>To facilitate the personal outcome progress, United Family Health Care Inc. will involve the individual from initial assessment to development and implementation of their plan. United Family Health Care Inc. is committed to the principle of person-centered planning and, as such, support the individual in choosing who will attend all planning meetings, and in being actively involved in discussing whether supports and services are adequately meeting his/her needs. If invited, United Family Health Care Inc. will also attend the annual support plan meeting, if possible, and make myself available to the support coordinator and other circle of support members as needed.</p>
 <p>United Family Health Care Inc. will ensure that United Family Health Care Inc. follows up on any recommendations of my services as indicated in person centered review reports if notified of these recommendations by the support coordinator. This acknowledges that the policy related to the personal outcome process will be explained to the individual/guardian.</p>
-<p>United Family Health Care Inc. embraces the principle of person-centered planning. United Family Health Care Inc. strongly believes the individual should drive the service delivery and is fully involved in all aspects of planning and implementation of services. United Family Health Care Inc. will implement this policy through the following activities:</p>
+<p>United Family Health Care Inc. embraces the principle of person-centered planning. United Family Health Care Inc. strongly believes the individual should drive the service delivery and is</p>
+<p>&nbsp;</p>
+<p>fully involved in all aspects of planning and implementation of services. United Family Health Care Inc. will implement this policy through the following activities:</p>
 <p>Fully involving the individual in the assessment process by asking the individual about their capacities, needs and desires.</p>
 <p>Obtaining permission from the individual before gathering any other information for assessment purposes through other means (staff interviews, review of record, etc.)</p>
 <p>Ensuring the individual is fully involved in the development of the implementation plan and that the plan is signed by the individual before implemented.</p>
@@ -54,14 +54,11 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p><strong>&nbsp;</strong></p>
-<h3 style="text-align: center;"><span style="font-size: 14pt;"><strong>OUTCOMES MEASUREMENT SYSTEM.</strong></span></h3>
+<h3 style="text-align: center;"><span style="font-size: 18pt;"><strong>OUTCOMES MEASUREMENT SYSTEM.</strong></span></h3>
 <p><strong>&nbsp;</strong></p>
 <p><span style="font-size: 12pt;">United Family Health Care Inc. promotes self-sufficiency and productivity of the individual serves. In order to determine if services are being provided in the defined manner, an outcome measurement system has been established for the service outcomes of each service.</span></p>
 <p>&nbsp;</p>
@@ -83,7 +80,6 @@
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <p>&nbsp;&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 <h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;"><span style="font-size: 18pt;">MEDICATION ADMINISTRATION / SAFE HANDLING OF MEDICATIONS</span></h3>
 <p>&nbsp;</p>
@@ -100,7 +96,6 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -123,11 +118,10 @@
 <p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
-<h2 style="text-align: center;"><strong>&nbsp;</strong><strong>Confidentiality / Agency Use of Records / Authority to Make Entries</strong></h2>
+<h2 style="text-align: center;"><strong>&nbsp;</strong></h2>
+<h2 style="text-align: center;"><strong>Confidentiality / Agency Use of Records / Authority to Make Entries</strong></h2>
 <p>All clinical records and the contents thereof are confidential and will be protected from loss and unauthorized use. Patient/client clinical records will be maintained in a secure location and Current electronic client/patient records in an appropriate secure manner as to maintain the integrity of the client/patient data through routine backups on or off site. The Agency (with pertinent information maintained in the patient's/client's residence as indicated) and will be available to administrative, service delivery and clerical staff who require the use of records in the performance of Agency services or their job requirements. Such staff may use the records and make entries pertinent to the performance of their job.</p>
 <p>Billing records will be maintained in the Agency and will be available to administrative, financial and clerical staff that requires the use of records in the performance of Agency services or their job requirements. Such staff may use the records and make entries pertinent to the performance of their job.</p>
 <p>Records will be made available to properly authorized state and Federal Agency staff and accreditation representatives for the purpose of Agency audits and certification, licensure and accreditation reviews.</p>
@@ -146,6 +140,9 @@
 <li>Clinical staff should only have access to information on those clients to which they are actively providing care and service, such as primary nurses, on-call, relief, etc.</li>
 <li>Office staff should only have access to information on those clients they are actively providing service to, such as working on bills, following up on complaints, etc.</li>
 <li>Access to records for individuals from outside the organization, such as surveyors, reviewers, consultants, etc. will be approved by the Administrator and/or Director of Nursing on a per occurrence basis providing they have appropriate identification.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="2">
 <li>Any Agency committee may review the clinical record at meetings as requested by the Administrator or Director of Nursing.</li>
 <li>Any release of information contained in the clinical record other than that required by law must be authorized in writing by the client.</li>
 <li>Review of the clinical record for the purposes of performance improvement activities and clinical record review will be conducted according to Agency policy.</li>
@@ -154,15 +151,7 @@
 <p>Records and information pertaining to persons with HIV/AIDS shall be handled in accordance with state laws and the Agency policies.</p>
 <p>Non-confidential information or "non-privileged" information can be released under appropriate</p>
 <p>circumstances without requiring the patient/client&rsquo;s written authorization. The reason for the "need to know" should always be considered. Certain identification data obtained on admission is considered "nonprivileged" which means that this data may be given without violating the patient/client&rsquo;s right to privacy or the patient/physician privilege.</p>
-<div>This data Includes:</div>
-<div>Name of patient/client</div>
-<div>Verification of hospitalization</div>
-<div>Address of residence given on admission</div>
-<div>Name of attending physician</div>
-<div>Sex, age, and occupation of the patient/client</div>
-<div>Names of relatives/friends given on admission</div>
-<div>Date of admission and discharge</div>
-<p>&nbsp;</p>
+<div>This data Includes:<br />Name of patient/client<br />Verification of hospitalization<br />Address of residence given on admission<br />Name of attending physician<br />Sex, age, and occupation of the patient/client<br />Names of relatives/friends given on admission<br />Date of admission and discharge</div>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -209,7 +198,7 @@
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <h2 style="text-align: center;">ABUSE REPORTING CONTACT LIST</h2>
-<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://app.unitedfamilyhc.com/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
 <p><strong>&nbsp;</strong></p>
 <p><strong>There are four ways to make a report:</strong></p>
 <div>By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)</div>

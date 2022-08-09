@@ -6,13 +6,13 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-               
                 <title>Independent Contractor Agreement APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p style="text-align: center;"><strong>UNITED FAMILY HEALTH CARE INC.</strong></p>
-<p style="text-align: center;"><strong>INDEPENDENT CONTRACTOR AGREEMENT</strong></p>
-<p style="text-align: center;"><strong>HOME HEALTH AIDE (HHA)</strong></p>
+        <p style="text-align: center;">&nbsp;</p>
+<h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>UNITED FAMILY HEALTH CARE INC.</strong></span></h3>
+<h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>INDEPENDENT CONTRACTOR AGREEMENT</strong></span></h3>
+<h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>HOME HEALTH AIDE (HHA)</strong></span></h3>
 <p>This agreement is made and entered into this day _ _ _ _ _ _ _ _ _ _ _ _ _ _ _, by and between UNITED FAMILY HEALTH CARE INC. A Florida corporation, And {{ $worker->first_name }}&nbsp; {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }} , S.S # {{ $worker->ssn }}, a Florida resident at: {{ $worker->street_addres }}.</p>
 <p>WITNESSETH:</p>
 <p>WHEREAS, UNITED FAMILY HEALTH CARE, Inc. Is licensed by the state Florida to provide Home Health Services in Miami-Dade County, Florida.</p>
@@ -26,6 +26,7 @@
 <ol start="2">
 <li><u></u><strong>COMPENSATION</strong>. UNITED FAMILY HEALTH CARE will pay the STAFF for Home Health Aide services rendered in accordance with the Independent Contractor Agreement pursuant to the mutually agreed Fee Scheduled. UNITED FAMILY HEALTH CARE will not pay mileage to the STAFF. On a weekly basis, the STAFF shall bill UNITED FAMILY HEALTH CARE for home health services rendered to UNITED FAMILY HEALTH CARE patients during the proceeding one (1) week. UNITED FAMILY HEALTH CARE will pay the STAFF for services previously billed within UNITED FAMILY HEALTH CARE pay scheduled on a bi-weekly basis.</li>
 </ol>
+<p>&nbsp;</p>
 <ol start="3">
 <li><strong><u>POLICIES AND PROCEDURES. </u></strong>The STAFF will conform to all UNITED FAMILY HEALTH CARE policies, including personnel qualifications, State and Federal Regulation and accreditation organization standards. The STAFF will conform to all Medicaid Conditions of Participation applicable to the personal care/home health aide services. The STAFF will provide home health care services in accordance with the patient&rsquo;s support plan/plan of care. The STAFF will notify UNITED FAMILY HEALTH CARE if there is a changed in the patient&rsquo;s conditions. The STAFF shall maintain at least 12 in-service hours per calendar year. The scheduled for the STAFF to provide services will be determined by client&rsquo;s/caregiver needs and availability and it should conform to the written prior authorization.</li>
 </ol>
@@ -50,21 +51,21 @@
 <ol start="10">
 <li><u></u> <strong><u>SEVERABILITY.</u></strong> The illegality, invalidity or unenforceability of any provision of this Independent Contractor Agreement shall not affect the legality, validity or enforceability of any other provision of this Independent Contractor Agreement.</li>
 </ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <ol start="11">
 <li><strong><u>DECLINATION OF WORKERS COMPENSATION INSURANCE.</u></strong> Because the STAFF is an independent contractor (440.02(13)(d)1., Florida Statutes), and not an employee, of UNITED FAMILY HEALTH CARE, UNITED FAMILY HEALTH CARE will not provide workers compensation coverage to the STAFF. The STAFF hereby declines workers compensation coverage at the expense of UBNITED FAMILY HEALTH CARE.</li>
 </ol>
-<ol start="12">
-<li><strong><u>NO WITHHOLDING OF TAXES.</u></strong> Because the STAFF is an independent contractor, works for other agencies and not exclusively for UNITED FAMILY HEALTH CARE, STAFF is therefore not an employee of UNITED FAMILY HALTH CARE, and UNITED will not withhold federal income and social security taxes from its payments to the STAFF for home health aide services rendered to UNITED FAMIILY HEALTH CARE, patients. Moreover, because the STAFF is an independent contractor, and not an employee, of UNITED FAMILY HEALTH CARE, UNITED will not match the STAFF&rsquo;s social security tax payments to the United States Government.</li>
-</ol>
 <ol start="13">
+<li><strong><u>NO WITHHOLDING OF TAXES.</u></strong> Because the STAFF is an independent contractor, works for other agencies and not exclusively for UNITED FAMILY HEALTH CARE, STAFF is therefore not an employee of UNITED FAMILY HALTH CARE, and UNITED will not withhold federal income and social security taxes from its payments to the STAFF for home health aide services rendered to UNITED FAMIILY HEALTH CARE, patients. Moreover, because the STAFF is an independent contractor, and not an employee, of UNITED FAMILY HEALTH CARE, UNITED will not match the STAFF&rsquo;s social security tax payments to the United States Government.</li>
 <li><u></u> <strong><u>TERM.</u></strong> This Independent Contractor Agreement shall be in effect from_ _ _ _ _ _ _ _ _ _ _ _ _ _ _, until _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ and, unless terminated by UNITED FAMILY HEALTH CARE or the STAFF, shall automatically renew itself for additional one (1) year periods. UNITED and the STAFF is each entitled to terminate this (ICA) by affording fifteen (15) days written notice to the other party.</li>
 </ol>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>UNITED FAMILY HEALTH CARE, Inc., a Florida corporation:</strong></p>
 <p>Date: ___/___/____</p>
 <p><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></p>
-<div>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
 <div>Kenia Chin, Administrator &amp; CEO&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</div>
             </body>
         </html>
