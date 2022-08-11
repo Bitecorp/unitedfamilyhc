@@ -183,20 +183,26 @@ class SubServicesController extends AppBaseController
         $service = Service::find($subServices->service_id);
         $units = Units::all();
         $tasks = [];
-        foreach(json_decode($subServices->config_validate) as $idTask){
-            $taskAssigned = TaskSubServices::find($idTask);
-            if(isset($taskAssigned) && !empty($taskAssigned)){
-                $taskAssigned['assigned'] = true;
-                array_push($tasks, $taskAssigned);
+        if(isset($subServices->config_validate) && !empty($subServices->config_validate)){
+            foreach(json_decode($subServices->config_validate) as $idTask){
+                $taskAssigned = TaskSubServices::find($idTask);
+                if(isset($taskAssigned) && !empty($taskAssigned)){
+                    $taskAssigned['assigned'] = true;
+                    array_push($tasks, $taskAssigned);
+                }
             }
-        }
 
-        $taskNotAssigneds = TaskSubServices::whereNotIn('id', json_decode($subServices->config_validate))->get();
-        if(isset($taskNotAssigneds) && !empty($taskNotAssigneds)){
-            foreach($taskNotAssigneds as $taskNotAssigned){
-                $taskNotAssigned['assigned'] = false;
-                array_push($tasks, $taskNotAssigned);
+            $taskNotAssigneds = TaskSubServices::whereNotIn('id', json_decode($subServices->config_validate))->get();
+            if(isset($taskNotAssigneds) && !empty($taskNotAssigneds)){
+                foreach($taskNotAssigneds as $taskNotAssigned){
+                    $taskNotAssigned['assigned'] = false;
+                    array_push($tasks, $taskNotAssigned);
+                }
             }
+        }else{
+
+            $tasks = TaskSubServices::all();
+        
         }
 
         return view('sub_services.edit')->with('subServices', $subServices)->with('service', $service)->with('units', $units)->with('tasks', collect($tasks));
