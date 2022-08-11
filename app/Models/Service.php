@@ -54,7 +54,8 @@ class Service extends Model
 
     public $fillable = [
         'name_service',
-        'documents'
+        'documents',
+        'num_prov'
     ];
 
     /**
@@ -65,7 +66,8 @@ class Service extends Model
     protected $casts = [
         'id' => 'integer',
         'name_service' => 'string',
-        'documents' => 'string'
+        'documents' => 'string',
+        'num_prov'
     ];
 
     /**
@@ -75,6 +77,7 @@ class Service extends Model
      */
     public static $rules = [
         'name_service' => 'required|unique:services|string|max:255',
+        'num_prov' => 'nullable|string|max:255',
         'documents' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
