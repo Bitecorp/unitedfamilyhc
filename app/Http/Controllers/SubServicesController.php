@@ -16,6 +16,7 @@ use App\Models\SalaryServiceAssigneds;
 use App\Models\Units;
 use App\Models\Patiente;
 use App\Models\ConfigSubServicesPatiente;
+use App\Models\TaskSubServices;
 
 class SubServicesController extends AppBaseController
 {
@@ -69,9 +70,11 @@ class SubServicesController extends AppBaseController
     {
         $units = Units::all();
         $service = Service::where('id', $idService)->first();
+        $tasks = TaskSubServices::all();
         return view('sub_services.create')
             ->with('service', $service)
-            ->with('units', $units);
+            ->with('units', $units)
+            ->with('tasks', $tasks);
     }
 
     /**
@@ -90,6 +93,8 @@ class SubServicesController extends AppBaseController
         }else{
             $data['type_salary'] = false;
         }
+
+        $data['config_validate'] = json_encode($data['config_validate']);
 
         $subServices = $this->subServicesRepository->create($data);
 
@@ -168,8 +173,6 @@ class SubServicesController extends AppBaseController
     public function edit($id)
     {
         $subServices = $this->subServicesRepository->find($id);
-        $service = Service::where('id', $subServices->service_id)->first();
-        $units = Units::all();
 
         if (empty($subServices)) {
             Flash::error('Sub Services not found');
@@ -177,7 +180,26 @@ class SubServicesController extends AppBaseController
             return redirect(route('subServices.index'));
         }
 
-        return view('sub_services.edit')->with('subServices', $subServices)->with('service', $service)->with('units', $units);
+        $service = Service::find($subServices->service_id);
+        $units = Units::all();
+        $tasks = [];
+        foreach(json_decode($subServices->config_validate) as $idTask){
+            $taskAssigned = TaskSubServices::find($idTask);
+            if(isset($taskAssigned) && !empty($taskAssigned)){
+                $taskAssigned['assigned'] = true;
+                array_push($tasks, $taskAssigned);
+            }
+        }
+
+        $taskNotAssigneds = TaskSubServices::whereNotIn('id', json_decode($subServices->config_validate))->get();
+        if(isset($taskNotAssigneds) && !empty($taskNotAssigneds)){
+            foreach($taskNotAssigneds as $taskNotAssigned){
+                $taskNotAssigned['assigned'] = false;
+                array_push($tasks, $taskNotAssigned);
+            }
+        }
+
+        return view('sub_services.edit')->with('subServices', $subServices)->with('service', $service)->with('units', $units)->with('tasks', collect($tasks));
     }
 
     /**
@@ -209,6 +231,8 @@ class SubServicesController extends AppBaseController
             $data['unit_worker_payment_id'] = NULL;
             $data['unit_customer_id'] = NULL;
         }
+
+        $data['config_validate'] = json_encode($data['config_validate']);
 
         $subServices = $this->subServicesRepository->update($data, $id);
 

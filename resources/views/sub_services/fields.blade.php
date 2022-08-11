@@ -22,11 +22,35 @@
             </div>
         </div>
     </div>
-    <div class="col" hidden>
-        <!-- Config Validate Field -->
+</div>
+
+<div class="row">
+    <div class="col">
+        <!-- Name Sub Service Field -->
         <div class="form-group">
-            {!! Form::label('config_validate', 'Config Validate:') !!}
-            {!! Form::text('config_validate', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            {!! Form::label('frequency', 'Frequency:') !!}
+            {!! Form::text('frequency', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('billin_code', 'Billin Code:') !!}
+            {!! Form::text('billin_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('aditional_one', 'Aditional One:') !!}
+            {!! Form::text('aditional_one', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('aditional_two', 'Aditional Two:') !!}
+            {!! Form::text('aditional_two', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
     </div>
 </div>
@@ -66,12 +90,27 @@
             {!! Form::label('unit_worker_payment', 'Unit Customer:') !!}
             <select name='unit_worker_payment_id' id='unit_worker_payment_id' class="form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
                 <option value='' {{ isset($subServices) && isset($subServices->unit_worker_payment_id) && !empty($subServices->unit_worker_payment_id)  ? 'selected' : '' }} >Select Option</option>
-                @foreach($units as $unit)
-                    @if(!empty($unit))
-                        <option value='{{ $unit->id }}' {{ isset($subServices) && isset($subServices->unit_worker_payment_id) && $subServices->unit_worker_payment_id == $unit->id ? 'selected' : '' }}> {{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minute' : 'Hour' }} </option>
-                    @endif
-                @endforeach
+                @if(isset($units) && !empty($units))
+                    @foreach($units as $unit)
+                        @if(isset($unit) && !empty($unit))
+                            <option value='{{ $unit->id }}' {{ isset($subServices) && isset($subServices->unit_worker_payment_id) && $subServices->unit_worker_payment_id == $unit->id ? 'selected' : '' }}> {{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minute' : 'Hour' }} </option>
+                        @endif
+                    @endforeach
+                @endif
             </select>
+        </div>
+    </div>
+    <div class="col">
+        <!-- Documents Field -->
+        <div class="form-group">
+            {!! Form::label('config_validate', 'Tasks:') !!}
+            <select class="form-control" name='config_validate[]' multiple="multiple">
+                @if(!empty($tasks))
+                    @foreach($tasks as $task)
+                       <option value='{{ $task->id }}' {{ isset($task->assigned) &&  !empty($task->assigned) && $task->assigned == true ? 'selected' : '' }}>{{ $task->name_task }}</option>
+                    @endforeach
+                @endif
+            </select>           
         </div>
     </div>
 </div>
