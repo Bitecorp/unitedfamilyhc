@@ -15,7 +15,8 @@
             </div>
         </div>
     </div>
-    <div class="col">
+
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('customer_payment', 'Customer Billing:') !!}
             {!! Form::text('customer_payment', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
