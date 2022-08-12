@@ -454,6 +454,7 @@ class HomeController extends Controller
                 }
             }
 
+            //dd($arrayFinal);
             return response()->json([
                 'data' => $arrayFinal,
                 'msj' => "data encontrada",

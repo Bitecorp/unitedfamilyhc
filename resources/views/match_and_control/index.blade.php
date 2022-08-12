@@ -120,7 +120,36 @@
 						for (var i = 0; i < dataFull.length; i++) {
 							if(paid == 1){
 			
-								//
+								var dataW = 
+									'<div class="col-xl-12 col-md-12">\n' +
+										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-teal">\n' +
+											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+											'<div class="stats-info">\n' +
+												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
+												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
+												
+											'</div>\n' +
+										'</div>\n' +
+									'</div>\n';
+
+								var dataP = 
+									'<div class="col-xl-12 col-md-12">\n' +
+										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-teal">\n' +
+											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+											'<div class="stats-info">\n' +
+												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
+												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
+											'</div>\n' +
+										'</div>\n' +
+									'</div>\n';
+
+								htmlResultados =
+									'<tr id="tr_' + dataFull[i].id + '">\n' +
+										'<td>' + dataW + '</td>\n' +
+										'<td>' + dataP + '</td>\n' +
+									'</tr>\n';
+								
+								$('#resultados').append(htmlResultados);
 
 							}else if(paid == 0){
 
@@ -129,19 +158,21 @@
 										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
-												'<h4 id="titleSubService_' + dataFull[i].id + '">' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
+												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
+												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
 												
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
 
-								var dataW = 
+								var dataP = 
 									'<div class="col-xl-12 col-md-12">\n' +
 										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
-												'<h4 id="titleSubService_' + dataFull[i].id + '">' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
-												
+												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
+												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
+
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
@@ -149,10 +180,10 @@
 								htmlResultados =
 									'<tr id="tr_' + dataFull[i].id + '">\n' +
 										'<td>' + dataW + '</td>\n' +
-										'<td>' + dataW + '</td>\n' +
+										'<td>' + dataP + '</td>\n' +
 									'</tr>\n';
+								
 								$('#resultados').append(htmlResultados);
-
 							}
 						
 						};
