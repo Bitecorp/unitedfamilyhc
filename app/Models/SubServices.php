@@ -70,11 +70,7 @@ class SubServices extends Model
         'config_validate',
         'unit_worker_payment_id',
         'worker_payment',
-        'unit_customer_id',
-        'frequency',
-        'billin_code',
-        'aditional_one',
-        'aditional_two'
+        'unit_customer_id'
     ];
 
     /**
@@ -91,11 +87,7 @@ class SubServices extends Model
         'config_validate' => 'string',
         'unit_worker_payment_id' => 'string',
         'worker_payment' => 'string',
-        'unit_customer_id' => 'string',
-        'frequency' => 'string',
-        'billin_code' => 'string',
-        'aditional_one' => 'string',
-        'aditional_two' => 'string'
+        'unit_customer_id' => 'string'
         
     ];
 
@@ -113,10 +105,6 @@ class SubServices extends Model
         'unit_worker_payment_id' => 'nullable|string|max:255',
         'worker_payment' => 'required|string|max:255',
         'unit_customer_id' => 'nullable|string|max:255',
-        'frequency' => 'nullable|string|max:255',
-        'billin_code' => 'nullable|string|max:255',
-        'aditional_one' => 'nullable|string|max:255',
-        'aditional_two' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];
