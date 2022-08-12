@@ -84,7 +84,7 @@
 </div>
 
 <div class="row">
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <!-- agent Id Field -->
         <div class="form-group">
             {!! Form::label('agent_id', 'Agent:') !!}
@@ -96,14 +96,14 @@
             </select>
         </div>
     </div>
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <!-- Date Expedition Field -->
-        <div class="form-group">
+        <div class="form-group" >
             {!! Form::label('date_expedition', 'Date Expedition:') !!}
             <input type="date" placeholder="YYYY-MM-DD" name="date_expedition" id="date_expedition" class="form-control" value="{{ isset($config) && !empty($config) && isset($config->date_expedition) && !empty($config->date_expedition) ? date_format($config->date_expedition, 'Y-m-d') : '' }}">
         </div>
     </div>
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <!-- Date Expired Field -->
         <div class="form-group">
             {!! Form::label('date_expired', 'Date Expired:') !!}
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('approved_units', 'Approved Units:') !!}
             <input type="text" name="approved_units" id="approved_units" class="form-control" value="{{ isset($config) && !empty($config) && isset($config->approved_units) && !empty($config->approved_units) ? $config->approved_units : '' }}">
