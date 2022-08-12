@@ -117,6 +117,12 @@
 
 						$('#resultados').empty();
 
+						if(dataFull == '' || dataFull.length == 0 || data['success'] == false){
+							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
+							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
+							alert(msjOne + msjTwo);
+						}
+
 						var htmlResultados = '';
 
 						for (var i = 0; i < dataFull.length; i++) {
