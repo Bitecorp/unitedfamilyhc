@@ -42,6 +42,8 @@
                                     <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Sub Service</th>
                                     <th class="text-nowrap">Patiente</th>
+                                    <th class="text-nowrap">In</th>
+                                    <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
@@ -54,6 +56,8 @@
                                         <td>{{ $note['service_id']['nameService'] }}</td>
                                         <td>{{ $note['sub_service_id']['nameSubService'] }}</td>
                                         <td>{{ $note['patiente_id']['fullName'] }}</td>
+                                        <td>{{ $note['start'] }}</td>
+                                        <td>{{ $note['end'] }}</td>
                                         <td>
 
                                         @if ($note['status'] == 2)
