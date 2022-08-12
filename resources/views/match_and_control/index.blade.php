@@ -115,6 +115,8 @@
 							dataFull[indice].sub_service_id = JSON.parse(dataFull[indice].sub_service_id);
 						});
 
+						$('#resultados').empty();
+
 						var htmlResultados = '';
 
 						for (var i = 0; i < dataFull.length; i++) {
