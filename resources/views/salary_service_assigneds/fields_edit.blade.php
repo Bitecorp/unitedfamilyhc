@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('code_patiente', 'Code Patiente:') !!}
             <input type="text" name="code_patiente" id="code_patiente" class="form-control" value="{{ isset($config) && !empty($config) && isset($config->code_patiente) && !empty($config->code_patiente) ? $config->code_patiente : '' }}">
