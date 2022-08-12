@@ -30,7 +30,11 @@ Auth::routes();
 
 Route::controller(HomeController::class)->group(function () {
 
-    Route::get('/dashboard', 'index')->name('home'); 
+    Route::get('/dashboard', 'index')->name('home');
+    
+    Route::get('/matchAndControl', 'matchAndControlFilter');
+    
+    Route::post('/matchAndControl', 'matchAndControlSearch'); 
 
     Route::post('/searchServicesWorker', 'searchServicesWorker');
 

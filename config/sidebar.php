@@ -40,6 +40,12 @@ return [
             'url' => "/notesSubServices",
 	    ],
         [
+            'icon' => 'fa fa-random',
+            'title' => 'Match and Control',
+            'url' => "/matchAndControl",
+	    ],
+        
+        [
             'icon' => 'fa fa-cogs',
             'title' => 'Settings',
             'url' => 'javascript:;',

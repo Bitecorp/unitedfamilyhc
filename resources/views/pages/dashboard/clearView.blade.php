@@ -1,7 +1,5 @@
 @extends('layouts.default')
 
-@section('title', 'Dashboard V')
-
 @push('css')
 	<link href="/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />

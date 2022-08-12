@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use App\Models\NotesSubServicesRegister;
 use App\Models\ReferencesPersonalesTwo;
 use Flash;
+use DataTime;
 
 class HomeController extends Controller
 {
@@ -383,5 +384,88 @@ class HomeController extends Controller
         return response()->json([
                 'msj' => true
         ]);
+    }
+
+    public function matchAndControlFilter ()
+    {
+        $services = Service::all();
+        return view('match_and_control.index')->with('services', $services);
+    
+    }
+
+    public function matchAndControlSearch (Request $request)
+    {
+        $filters = $request->all();
+
+        $desde = $filters['desde'] . ' 00:00:01';
+        $hasta = $filters['hasta'] . ' 11:59:59';
+
+        $registerAttentions = [];
+        if($filters['service_id'] == 'all'){
+            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+        }else{
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+        }   
+        
+        
+        $registerAttentionss = [];
+        if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
+            foreach($registerAttentions as $registerAttention){
+                //$registerAttention->worker_id = User::find($registerAttention->worker_id);
+                //$registerAttention->patiente_id = User::find($registerAttention->patiente_id);
+                //$registerAttention->service_id = Service::find($registerAttention->service_id);
+                //$registerAttention->sub_service_id = SubServices::find($registerAttention->sub_service_id);
+
+                $timeAttention = $registerAttention->start->diff($registerAttention->end);                
+                $registerAttention->time_attention = $timeAttention->format('%H:%i:%s');
+                array_push($registerAttentionss, $registerAttention);
+                //dd($registerAttention);
+            }
+
+            $arrayCollect = collect($registerAttentionss);
+            $arraySum = [];
+            foreach($arrayCollect as $keyI => $registerAttention){
+                foreach($arrayCollect as $key => $registerAttent){
+                    if(
+                        $registerAttention->worker_id == $registerAttent->worker_id && 
+                        $registerAttention->patiente_id == $registerAttent->patiente_id &&
+                        $registerAttention->service_id == $registerAttent->service_id &&
+                        $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
+                        $registerAttention->id != $registerAttent->id &&
+                        $key > $keyI
+                    ){
+                        $registerAttention->time_attention = date('H:i:s', strtotime($registerAttention->time_attention) + strtotime($registerAttent->time_attention));
+                        unset($arrayCollect[$key]);
+                        array_push($arraySum, $registerAttention);
+                    }
+                }
+            }
+
+            $arraySumClean = collect($arraySum)->unique();
+
+            $arrayFinal = [];
+            if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
+                foreach($arraySumClean as $arraySumC){
+                    $arraySumC->worker_id = User::find($arraySumC->worker_id);
+                    $arraySumC->patiente_id = User::find($arraySumC->patiente_id);
+                    $arraySumC->service_id = Service::find($arraySumC->service_id);
+                    $arraySumC->sub_service_id = SubServices::find($arraySumC->sub_service_id);
+                    array_push($arrayFinal, $arraySumC);
+                }
+            }
+
+            return response()->json([
+                'data' => $arrayFinal,
+                'msj' => "data encontrada",
+                'success' => true
+            ]); 
+
+        }else{
+            return response()->json([
+                'data' => [],
+                'msj' => "data no encontrada",
+                'success' => false
+            ]); 
+        }
     }
 }
