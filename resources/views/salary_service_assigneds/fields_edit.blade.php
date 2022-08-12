@@ -77,19 +77,6 @@
         </div>
     </div>
 
-    <div class="col">
-        <!-- unit Id Field -->
-        <div class="form-group">
-            {!! Form::label('unit_id', 'Unit Of Time:') !!}
-            <select name='unit_id' id='unit_id' class="form-control">
-                <option value='' selected>Select Unit of Time..</option>
-                @foreach($units as $unit)
-                    <option value='{{ $unit->id }}' {{ isset($config) && !empty($config) && isset($config->unit_id) && !empty($config->unit_id) && $config->unit_id == $unit->id ? 'selected' : '' }} >{{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minutes' : 'Hour'}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('code_patiente', 'Code Patient:') !!}
