@@ -67,7 +67,13 @@ class SalaryServiceAssigneds extends Model
         'service_id',
         'type_salary',
         'salary',
-        'customer_payment'
+        'customer_payment',
+        'frequency',
+        'billin_code',
+        'aditional_one',
+        'aditional_two',
+        'aditional_three',
+        'aditional_four'
     ];
 
     /**
@@ -81,7 +87,13 @@ class SalaryServiceAssigneds extends Model
         'service_id' => 'string',
         'type_salary' => 'boolean',
         'salary' => 'string',
-        'customer_payment' => 'string'
+        'customer_payment' => 'string',
+        'frequency' => 'string',
+        'billin_code' => 'string',
+        'aditional_one' => 'string',
+        'aditional_two' => 'string',
+        'aditional_three' => 'string',
+        'aditional_four' => 'string'
     ];
 
     /**
@@ -95,6 +107,12 @@ class SalaryServiceAssigneds extends Model
         'type_salary' => 'nullable|boolean',
         'salary' => 'nullable|string|max:255',
         'customer_payment' => 'nullable|string|max:255',
+        'frequency' => 'nullable|string|max:255',
+        'billin_code' => 'nullable|string|max:255',
+        'aditional_one' => 'nullable|string|max:255',
+        'aditional_two' => 'nullable|string|max:255',
+        'aditional_three' => 'nullable|string|max:255',
+        'aditional_four' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

@@ -24,37 +24,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('frequency', 'Frequency:') !!}
-            {!! Form::text('frequency', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('billin_code', 'Billin Code:') !!}
-            {!! Form::text('billin_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('aditional_one', 'Aditional One:') !!}
-            {!! Form::text('aditional_one', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('aditional_two', 'Aditional Two:') !!}
-            {!! Form::text('aditional_two', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-</div>
-
 <div class="row" >
     <div class="col">
         <!-- Price Sub Service Field -->
