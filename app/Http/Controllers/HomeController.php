@@ -405,7 +405,7 @@ class HomeController extends Controller
             $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
         }else{
             $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
-        }   
+        }
         
         
         $registerAttentionss = [];
@@ -424,21 +424,25 @@ class HomeController extends Controller
 
             $arrayCollect = collect($registerAttentionss);
             $arraySum = [];
-            foreach($arrayCollect as $keyI => $registerAttention){
-                foreach($arrayCollect as $key => $registerAttent){
-                    if(
-                        $registerAttention->worker_id == $registerAttent->worker_id && 
-                        $registerAttention->patiente_id == $registerAttent->patiente_id &&
-                        $registerAttention->service_id == $registerAttent->service_id &&
-                        $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
-                        $registerAttention->id != $registerAttent->id &&
-                        $key > $keyI
-                    ){
-                        $registerAttention->time_attention = date('H:i:s', strtotime($registerAttention->time_attention) + strtotime($registerAttent->time_attention));
-                        unset($arrayCollect[$key]);
-                        array_push($arraySum, $registerAttention);
+            if(count($arrayCollect) > 1){
+                foreach($arrayCollect as $keyI => $registerAttention){
+                    foreach($arrayCollect as $key => $registerAttent){
+                        if(
+                            $registerAttention->worker_id == $registerAttent->worker_id && 
+                            $registerAttention->patiente_id == $registerAttent->patiente_id &&
+                            $registerAttention->service_id == $registerAttent->service_id &&
+                            $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
+                            $registerAttention->id != $registerAttent->id &&
+                            $key > $keyI
+                        ){
+                            $registerAttention->time_attention = date('H:i:s', strtotime($registerAttention->time_attention) + strtotime($registerAttent->time_attention));
+                            unset($arrayCollect[$key]);
+                            array_push($arraySum, $registerAttention);
+                        }
                     }
                 }
+            }else{
+                $arraySum = $registerAttentionss;
             }
 
             $arraySumClean = collect($arraySum)->unique();
@@ -454,9 +458,8 @@ class HomeController extends Controller
                 }
             }
 
-            //dd($arrayFinal);
             return response()->json([
-                'data' => $arrayFinal,
+                'data' => collect($arrayFinal),
                 'msj' => "data encontrada",
                 'success' => true
             ]); 
