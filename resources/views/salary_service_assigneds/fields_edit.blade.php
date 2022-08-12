@@ -30,59 +30,6 @@
     </div>
 </div>
 
-<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('frequency', 'Frequency:') !!}
-            {!! Form::text('frequency', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('billin_code', 'Billin Code:') !!}
-            {!! Form::text('billin_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('aditional_one', 'Aditional One:') !!}
-            {!! Form::text('aditional_one', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-    <div class="col">
-        <!-- Name Sub Service Field -->
-        <div class="form-group">
-            {!! Form::label('aditional_two', 'Aditional Two:') !!}
-            {!! Form::text('aditional_two', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-</div>
-
-<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
-    <div class="col">
-        <div class="form-group">
-            {!! Form::label('note', 'Aditional Three:') !!}
-            <textarea id="note" name="aditional_three" rows="25" class="form-control" >{{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->aditional_three ? $salaryServiceAssigneds->aditional_three : '' }}</textarea>
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            {!! Form::label('note', 'Aditional Four:') !!}
-            <textarea id="note" name="aditional_four" rows="25" class="form-control"  >{{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->aditional_four ? $salaryServiceAssigneds->aditional_four : '' }}</textarea>
-        </div>
-    </div>
-</div>
-
-<div class="col" hidden>
-    <div class="form-group">
-        {!! Form::label('user_id', 'User ID:') !!}
-        {!! Form::text('user_id', $salaryServiceAssigneds->user_id,['class' => 'form-control','maxlength' => 255]) !!}
-    </div>
-</div>
-
 <div class="row">
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <!-- agent Id Field -->
@@ -136,6 +83,59 @@
             {!! Form::label('code_patiente', 'Code Patiente:') !!}
             <input type="text" name="code_patiente" id="code_patiente" class="form-control" value="{{ isset($config) && !empty($config) && isset($config->code_patiente) && !empty($config->code_patiente) ? $config->code_patiente : '' }}">
         </div>
+    </div>
+</div>
+
+<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('frequency', 'Frequency:') !!}
+            {!! Form::text('frequency', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('billin_code', 'Billin Code:') !!}
+            {!! Form::text('billin_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('aditional_one', 'Aditional One:') !!}
+            {!! Form::text('aditional_one', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    <div class="col">
+        <!-- Name Sub Service Field -->
+        <div class="form-group">
+            {!! Form::label('aditional_two', 'Aditional Two:') !!}
+            {!! Form::text('aditional_two', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+</div>
+
+<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('note', 'Aditional Three:') !!}
+            <textarea id="note" name="aditional_three" rows="25" class="form-control" >{{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->aditional_three ? $salaryServiceAssigneds->aditional_three : '' }}</textarea>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('note', 'Aditional Four:') !!}
+            <textarea id="note" name="aditional_four" rows="25" class="form-control"  >{{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->aditional_four ? $salaryServiceAssigneds->aditional_four : '' }}</textarea>
+        </div>
+    </div>
+</div>
+
+<div class="col" hidden>
+    <div class="form-group">
+        {!! Form::label('user_id', 'User ID:') !!}
+        {!! Form::text('user_id', $salaryServiceAssigneds->user_id,['class' => 'form-control','maxlength' => 255]) !!}
     </div>
 </div>
 
