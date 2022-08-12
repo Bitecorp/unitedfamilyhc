@@ -99,7 +99,6 @@
             retrieve: true,
             paging: true,
             searching: true,
-            responsive: true,
             autoFill: true,
         });
     });

@@ -103,18 +103,18 @@ class SubServicesController extends AppBaseController
         return redirect(route('subServices.list', [$data['service_id']]));
     }
 
-    public function assignSubService($userId, $subServiceId, Request $request){
-        $data = $request->all();
-        $subService = SubServices::where('id', $subServiceId)->first();
+    public function assignSubService($userId, $subServiceId){
+
+        $subService = SubServices::find($subServiceId);
 
         $exist = SalaryServiceAssigneds::where('service_id', $subServiceId)->where('user_id', $userId)->first();
 
-        $dataUser = Patiente::where('id', $userId)->first();
+        $dataUser = Patiente::find($userId);
 
         if(!empty($exist)){
             $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $exist->id)->first();
             if(isset($config) && !empty($config)){
-                $configSubServicesPatiente = $this->configSubServicesPatienteRepository->delete($config->id);
+                $this->configSubServicesPatienteRepository->delete($config->id);
             }
 
             $flight = SalaryServiceAssigneds::find($exist->id);
@@ -124,15 +124,15 @@ class SubServicesController extends AppBaseController
             $saveData->user_id = $userId;
             $saveData->service_id = $subServiceId;
             $saveData->type_salary = $subService->type_salary;
-            $saveData->customer_payment = $subService->price_sub_service;
-            $saveData->salary = $subService->worker_payment;
+            $saveData->customer_payment = NULL;
+            $saveData->salary = NULL;
             $saveData->created_at = now();
             $saveData->updated_at = now();
             $saveData->save();
 
             $input['salary_service_assigned_id'] = $saveData->id;
 
-            $configSubServicesPatiente = $this->configSubServicesPatienteRepository->create($input);
+            $this->configSubServicesPatienteRepository->create($input);
 
         }
 

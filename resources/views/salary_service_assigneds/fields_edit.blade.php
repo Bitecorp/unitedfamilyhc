@@ -19,19 +19,19 @@
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('customer_payment', 'Customer Billing:') !!}
-            {!! Form::text('customer_payment', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+            <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '' }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
         </div>
     </div>
     <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('salary', 'Worker Payment:') !!}
-            {!! Form::text('salary', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+            <input type="text" name="salary" id="salary" class="form-control" value="{{ isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? $services->worker_payment : '' }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
         </div>
     </div>
 </div>
 
 <div class="row">
-     <div class="col">
+     <div class="col" id="show_unit_id">
         <!-- unit Id Field -->
         <div class="form-group">
             {!! Form::label('unit_id', 'Unit Of Time:') !!}
@@ -151,12 +151,29 @@
 @push('scripts')
     <script> 
 
-        const getValueInput = () =>{
-            let inputValue = document.getElementById("approved_units").value; 
+        $("#approved_units").change(function() {
+            let unitedAdd = document.getElementById("approved_units").value; 
             if(unitedAdd != '' && unitedAdd != null && typeof unitedAdd != 'undefined' && typeof unitedAdd != undefined){
                 document.getElementById("unit_id").required = true;
             }            
-        }
+        });
+
+        $("#customer_payment").change(function() {
+            let customer_payment= document.getElementById("customer_payment").value; 
+            if(customer_payment != '' && customer_payment != null && typeof customer_payment != 'undefined' && typeof customer_payment != undefined && $('#type_salary').prop('checked')){
+                document.getElementById("unit_id").required = true;
+            }            
+        });
+
+        $("#type_salary").change(function() {
+            if( $('#type_salary').prop('checked') ) {
+                $('#show_unit_id').removeAttr('hidden');
+                $('#unit_id').attr('required', true);
+            }else{
+                $('#unit_id').removeAttr('required');
+                $('#show_unit_id').attr('hidden', true);
+            }           
+        });
         
     </script> 
 @endpush

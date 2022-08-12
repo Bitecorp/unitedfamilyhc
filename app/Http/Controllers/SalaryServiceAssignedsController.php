@@ -116,8 +116,8 @@ class SalaryServiceAssignedsController extends AppBaseController
     public function edit($id)
     {
         $agents = User::where('role_id', 5)->get();
-        $salaryServiceAssigneds = SalaryServiceAssigneds::where('id', $id)->first();
-        $services = SubServices::where('id', $salaryServiceAssigneds->service_id)->first();
+        $salaryServiceAssigneds = SalaryServiceAssigneds::find($id);
+        $services = SubServices::find($salaryServiceAssigneds->service_id);
         $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $id)->first();
         $user = User::find($salaryServiceAssigneds->user_id);
         $units = Units::all();
@@ -157,6 +157,14 @@ class SalaryServiceAssignedsController extends AppBaseController
             $data['type_salary'] = true;
         }else{
             $data['type_salary'] = false;
+        }
+
+        if($serviceName->price_sub_service == $data['customer_payment']){
+            $data['customer_payment'] = NULL;
+        }
+
+        if($serviceName->worker_payment == $data['salary']){
+            $data['salary'] = NULL;
         }
 
         $data['created_at'] = now();
