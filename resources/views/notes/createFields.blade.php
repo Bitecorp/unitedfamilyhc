@@ -281,11 +281,6 @@
                     long_end: long_end
 				},
                 success: function(data) {
-
-                    let msjOne = 'If you have active services please close them before starting another visit.\n\n';
-				    let msjTwo = 'Posee servicios activos por favor cierrelos antes de iniciar otra visita.';
-                    //alert(msjOne + msjTwo);
-
                     window.location.href = '/notesSubServices';
                 },
 				error: function (error) { 
