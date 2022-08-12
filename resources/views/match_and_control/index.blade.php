@@ -79,7 +79,7 @@
 			</div>
 
 			<div id="dashboard">
-				@include('pages.dashboard.dashboard-sub-services')
+				@include('pages.dashboard.dashboard-sub-services-mac')
 			</div>
 @endsection
 
@@ -124,7 +124,7 @@
 
 							}else if(paid == 0){
 
-								htmlResultados =
+								var dataW = 
 									'<div class="col-xl-12 col-md-12">\n' +
 										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
@@ -134,6 +134,23 @@
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
+
+								var dataW = 
+									'<div class="col-xl-12 col-md-12">\n' +
+										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
+											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+											'<div class="stats-info">\n' +
+												'<h4 id="titleSubService_' + dataFull[i].id + '">' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
+												
+											'</div>\n' +
+										'</div>\n' +
+									'</div>\n';
+
+								htmlResultados =
+									'<tr id="tr_' + dataFull[i].id + '">\n' +
+										'<td>' + dataW + '</td>\n' +
+										'<td>' + dataW + '</td>\n' +
+									'</tr>\n';
 								$('#resultados').append(htmlResultados);
 
 							}
