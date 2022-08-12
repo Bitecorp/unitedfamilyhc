@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-2">
         <div class="form-group">
-            {!! Form::label('num_prov', 'Supplier Number:') !!}
+            {!! Form::label('num_prov', 'Provider Number:') !!}
             {!! Form::text('num_prov', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
     </div>
