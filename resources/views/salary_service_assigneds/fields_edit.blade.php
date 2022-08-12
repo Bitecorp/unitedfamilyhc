@@ -22,7 +22,7 @@
             {!! Form::text('customer_payment', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
-    <div class="col">
+    <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('salary', 'Worker Payment:') !!}
             {!! Form::text('salary', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
     <div class="col">
         <!-- Name Sub Service Field -->
         <div class="form-group">
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
     <div class="col">
         <div class="form-group">
             {!! Form::label('note', 'Aditional Three:') !!}
