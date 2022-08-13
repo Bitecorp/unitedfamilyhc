@@ -457,7 +457,7 @@ class HomeController extends Controller
                     array_push($arrayFinal, $arraySumC);
                 }
             }
-
+            
             return response()->json([
                 'data' => collect($arrayFinal),
                 'msj' => "data encontrada",
