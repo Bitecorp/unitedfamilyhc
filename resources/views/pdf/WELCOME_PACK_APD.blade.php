@@ -30,8 +30,8 @@
 <p style="text-align: right;">WISHING YOU GOOD HEALTH FROM</p>
 <p style="text-align: right;"><strong>UNITED FAMILY HEALTH CARE, INC.</strong></p>
 <h3 style="text-align: center;">&nbsp;</h3>
+<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">PERSON CENTERED APPROACH TO SERVICE DELIVERY SYSTEM</h3>
-<p>&nbsp;</p>
 <p>As a provider of waiver service, United Family Health Care Inc. is committed to assisting individuals in achieving their desired outcomes. To do so, United Family Health Care Inc. &nbsp;will spend as much time as necessary with the individual to determine what those outcomes are like all of us, people with disabilities may change their outcomes or their priorities over time. United Family Health Care Inc. &nbsp;will continue to assess their progress toward achievement of these outcomes and will make changes to my services as needed. At times, individuals receive a variety of services. The role of United Family Health Care Inc. is to coordinate services, to the best of their ability, with other service providers to reduce disruption with the person. Furthermore, it is the responsibility of United Family Health Care Inc. to learn the individual's priority outcomes and ensure that United Family Health Care Inc. is geared toward the achievement of these outcomes as indicated on the support plan.</p>
 <p>From time to time, individuals may become dissatisfied with the services United Family Health Care Inc. When United Family Health Care Inc. first begins providing services and annually thereafter, United Family Health Care Inc. tells each individual that United Family Health Care Inc. wants to work out any differences and United Family Health Care Inc. will review the grievance procedure with them. Should they be concerned about their perceived lack of progress in outcomes United Family Health Care Inc. will help them achieve more success through modifications to the implementation plan.</p>
 <p>United Family Health Care Inc. is committed to the principle that individuals should drive the services by choosing their providers and what supports will be provided. If United Family Health Care Inc. becomes aware of service needs outside of the scope of United Family Health Care Inc. work, United Family Health Care Inc. will assist that person in advocating on their behalf to the support coordinator.</p>
@@ -142,7 +142,7 @@
 <li>Access to records for individuals from outside the organization, such as surveyors, reviewers, consultants, etc. will be approved by the Administrator and/or Director of Nursing on a per occurrence basis providing they have appropriate identification.</li>
 </ol>
 <p>&nbsp;</p>
-<ol start="2">
+<ol start="5">
 <li>Any Agency committee may review the clinical record at meetings as requested by the Administrator or Director of Nursing.</li>
 <li>Any release of information contained in the clinical record other than that required by law must be authorized in writing by the client.</li>
 <li>Review of the clinical record for the purposes of performance improvement activities and clinical record review will be conducted according to Agency policy.</li>
@@ -157,6 +157,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <p>&nbsp;</p>
@@ -166,14 +167,8 @@
 <p><strong>&nbsp;</strong>All Medicaid providers, including their staff, contracted staff and volunteers, must comply with HIPPA privacy requirements. As a provider of services, I understand that any information I have regarding a person must be kept confidential. Before providing information, either verbally or in writing, I will include, I will complete consent for information for the individual/guardian to sign.</p>
 <p>This consent will include specific information to be provided, to whom the information will be provided. Furthermore, I understand that no information about the individual may be publicity displayed without express consents from the individual/guardian.</p>
 <p>All records will be maintained and stored inside the agency in secured setting, under locked key for a period of the least 5 years.</p>
-<p>&nbsp;</p>
 <p><strong>Medical and Financial record Custodians:</strong></p>
-<div><strong>Title:</strong> Owner/President</div>
-<div><strong>Name:</strong> Kenia Chin G.</div>
-<div><strong>Address:</strong> 2210 NW 92 Ave Suite E4</div>
-<div>Miami, FL 33172</div>
-<div><strong>Phone:</strong> 786-747-8002</div>
-<p>&nbsp;</p>
+<p><br /><strong>Title:</strong> Owner/President<br /><strong>Name:</strong> Kenia Chin G.<br /><strong>Address:</strong> 2210 NW 92 Ave Suite E4 Miami, FL 33172<br /><strong>Phone:</strong> 786-747-8002</p>
 <p>In the event of fire, flooding, robbery or natural disaster the agency will immediately contact the Police Department (911), APD / Support and Individual / Parent / Guardian / Caregiver to notify of the situation.</p>
 <p>This policy related to Confidential and Storage of records will be review with the Individual on an annual basis or more frequently as needed.</p>
 <p>This Acknowledges that the policy related to confidential and storage of records has been fully explained to the individual / guardian.</p>
@@ -184,6 +179,7 @@
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
+<h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;">ABUSE REPORTING POLICY</h2>
 <p>Abuse is defined as any willful act or threatened act that causes or is likely to cause significant impairment to a vulnerable adult or child&rsquo;s physical/mental or emotional health.</p>
 <p><strong>Neglect </strong>is defined as the failure or omission on the part of the caregiver to provide the care, supervision and services necessary to maintain the physical and mental health of the vulnerable adult, or child including but not limited to: food, clothing, medicine, shelter, supervision and medical services that a prudent person would consider essential for the well-being of a vulnerable adult or child. The term neglect also means the family of a caregiver to make a reasonable effort to protect a vulnerable adult of child from abuse, neglect or exploitation by others. Neglect is repeated conduct or a single incident of carelessness, which produces or could reasonably be expected to result in serious physical or psychological injury or substantial risk of death.</p>
@@ -193,27 +189,18 @@
 <p>United Family Health Care Inc. will provide training on abuse, neglect and exploitation to individuals receiving services and/or their guardians annually and provide them with the abuse registry number Any person served by me has the right to report abusive practices. The Abuse number will be conspicuously located at each phone, and Family Care Services, INC. will facilitate reporting should a particular wish to place a call to the abuse registry.</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
+<h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;">ABUSE REPORTING CONTACT LIST</h2>
 <p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
 <p><strong>&nbsp;</strong></p>
-<p><strong>There are four ways to make a report:</strong></p>
-<div>By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)</div>
-<div>By Fax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&shy;800&shy;914&shy;0004</div>
-<div>By TDD: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&shy;800&shy;453&shy;5145&nbsp;&nbsp;</div>
-<div>Web Reporting&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://reportabuse.dcf.state.fl.us">http://reportabuse.dcf.state.fl.us</a></div>
-<div>&nbsp;</div>
-<p>EMERGENCY<strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>911</strong></p>
+<p><strong>There are four ways to make a report:</strong><br /><br />By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)<br />By Fax:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&shy;800&shy;914&shy;0004<br />By TDD:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1&shy;800&shy;453&shy;5145&nbsp;&nbsp;<br />Web Reporting:&nbsp; &nbsp; &nbsp; &nbsp;<a href="http://reportabuse.dcf.state.fl.us">http://reportabuse.dcf.state.fl.us</a><br /><br />EMERGENCY<strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>911</strong></p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
-<div>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Phone: <strong>____________________________</strong></div>
-<div>&nbsp;</div>
+<div><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></div>
+<div>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Phone:<strong>________________________</strong><br /><br /></div>
 <h3 style="text-align: center;">THE BILL OF RIGHTS FOR PERSONS WITH DEVELOPMENTAL DISABILITIES</h3>
 <p>Chapter 393 of the Florida Statutes says that you have the right:</p>
 <ol>
@@ -242,6 +229,9 @@
 <li>Confidentiality and privacy of all information contained in the client/patient record and of Protected Health Information.</li>
 <li>To information necessary to refuse treatment within the confines of the law and to be informed of the consequences</li>
 <li>To treatment with utmost dignity and respect by all agency representatives, regardless of the patient's chosen lifestyle, cultural mores, political, religious, ethical beliefs, having or not having executed an advance directive and source of payment without regard to race, creed, color, sex, age or handicap.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="12">
 <li>To have his/her property and person treated with respect, consideration and recognition of client/patient dignity and individually.</li>
 <li>To receive and access services consistently and in a timely manner from the agency to his/her request for service.</li>
 <li>To be admitted for service only if the agency has the ability to provide safe professional care at the level of intensity needed and to be informed of the agency's limitations.</li>
@@ -271,6 +261,9 @@
 <li>To privacy to maintain his/her personal dignity and respect.</li>
 <li>To know that the agency has liability insurance sufficient for the needs of the agency.</li>
 <li>To be advised that the agency complies with Subpart 1 of 42 CFR 489 and receive a copy of the organization's written policies and procedures regarding advance directives, including a description of an individual's right under applicable state law.</li>
+</ol>
+<p>&nbsp;</p>
+<ol start="34">
 <li>To receive advance directives information prior to or at the time of the first home visit, as long as the information is furnished before care is provided and to know that the Hotline number 1-888-419-3456 may be used to lodge complaints regarding the implementation of the Advance Directive requirement.</li>
 <li>To voice grievances regarding treatment or care that is (or fails to be) furnished, or regarding the lack of respect of property or recommend changes in policy, staff, or service/care without restraint, interference, coercion, discrimination, or reprisal.</li>
 <li>To be advised of the toll-free home health agency hot-line for the State of Florida and the purpose of the hotline to receive complaints or questions about the organization. The State of Florida Home Health Hotline Number is 1-888-419-3456. The number is operated 8AM to 5PM daily to receive complaints or questions about local Home Health Agencies. You may also register complaints in writing to:</li>
@@ -282,18 +275,16 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
-<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">UNDERSTANDING OF THE BILL OF RIGHT</h3>
@@ -311,18 +302,14 @@
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">CHOICE AND EMPOWERMENT</h3>
-<p>&nbsp;</p>
 <p>As a provider, I recognize the need for individuals to be encouraged to make their own decision. I view individuals I serve and their families as partners in meeting the person&rsquo;s service needs. I am committed to creating opportunities for individuals to make choices throughout the services I provide.</p>
 <p>The choice making ability of each individual served by me will be reviewed at the time of the first meeting with the person, throughout the support plan year, and annually thereafter during the individual&rsquo;s support plan meeting. Training will be provided in those areas that are identified as needed.</p>
 <p>The individual is encouraged to identify his/her choices and needs and to share them with me. Through meetings with the person, and other individuals they wish to invite, priority outcomes are determined. An implementation plan is developed within 30 days of beginning a new service and within 30 days of the effective date of the service authorization for ongoing services. This plan directly relates with the stated outcomes from the support plan for the service I provide. The implementation plan will include specific plans of how to assist the person in meeting their stated outcomes as well as those that ensure health and safety. The implementation plan may be changed throughout the support plan year as personal outcomes are met, the person&rsquo;s preferences change, or if a different approach should be used to ensure achievement of the outcome.</p>
 <p>All individuals receiving services are expected to fully be participated in the community training activities and are given chances to choose where they would like to go, what they would like to purchase, etc.</p>
 <p>I fully inform individuals that they have a right to due process should they be unhappy with the services being provided and have the right to choose a new provider should we not able to work out any problems between us. A person&rsquo;s ability to make choices as described in this policy will be reviewed with the person each year.</p>
 <p>This policy related to choice and empowerment has been fully explained to the individual/guardian.</p>
-<p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -330,9 +317,8 @@
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <h2 style="text-align: center;">&nbsp;</h2>
+<h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;"><strong>KEY HOUSE AUTHORIZATION FORM</strong></h2>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <div style="text-align: center;">I, {{ $guardianPatiente->first_name }} {{ isset($guardianPatiente->mi) ? $guardianPatiente->mi : "" }} {{ $guardianPatiente->last_name }}, give my concern to,________________________ to keep</div>
@@ -350,9 +336,9 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 style="text-align: center;">AGREEMENT TO RENDER SERVICES</h2>
@@ -371,14 +357,13 @@
 <p style="text-align: center;">that rendered services to Individual&rsquo;s with Developmental Disabilities</p>
 <p style="text-align: center;">with the objective to promote health and safety based on their Choice and Rights. **</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
+<h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;"><span style="font-size: 18pt;">ZERO TOLERANCE</span></h2>
 <p>&nbsp;</p>
 <ol style="list-style-type: lower-alpha;">
@@ -390,7 +375,6 @@
 <ol style="list-style-type: lower-alpha;">
 <li>Client-on-Client Sexual Abuse: Known or suspected sexual abuse between two individuals with developmental disabilities must also be reported immediately to the Central Abuse Hotline at 1-800-96-ABUSE (1-800-962-2873), so that an investigation will occur in order to determine whether or not the sexual abuse was the result of inadequate supervision or neglect on the part of a service provider or caregiver. The incident must also be reported immediately to the District or Regional Developmental Disabilities Program Office to ensure the continued health and safety of the individuals involved.</li>
 </ol>
-<p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -399,7 +383,6 @@
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <p><strong>&nbsp;</strong></p>
 <h2 style="text-align: center;"><strong>HIPPA POLICY</strong></h2>
-<p>&nbsp;</p>
 <p>United Family Health Care Inc. has the following abides by the HIPPA laws of privacy and confidentiality for our clients as well as for our employees. All employees will receive training on our HIPPA policies upon hiring and an updated training will be given yearly. If any policy is added, the training shall be immediately. United Family Health Care Inc. understands the right of our clients and employees for dignity, respect, and confidentiality.</p>
 <p>At no time under any circumstances shall any information, medical, personal or of any nature, about our clients or employees shall be given to anyone without by any person other than the administration. The United Family Health Care Inc. administration will only give information if there is a proper consent form signed by the client, guardian and employee. The consents for release of information will only be valid for a year. Your company reserves the right to withhold any information from being released if it finds it necessary to consult again with the client, guardian, family member or employee.</p>
 <p>The full names of our clients and employees shall not be displayed in the open at any time. The last name and first name initial shall be the only way displayed.</p>
@@ -408,90 +391,59 @@
 <p>All personal and medical information of the clients as well as of the employees shall be kept in a locked cabin and the administration shall hold the key.</p>
 <p>Any employee who knowingly or otherwise violates this policy will be terminated immediately.</p>
 <p>By my signature, I agree to hold in strictest confidence all information of the Individual and United Family Health Care Inc.</p>
-<p>&nbsp;</p>
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<strong>&nbsp;</strong></p>
+<h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;"><strong>HIPAA COMPLIANCE PATIENT CONSENT FORM</strong></h2>
 <div>By signing this form, you consent to our use and disclosure of your protected healthcare information and potentially anonymous usage in a publication.</div>
 <div>You have the right to revoke this consent in writing, signed by you.</div>
 <div>However, such a revocation will not be retroactive.</div>
 <p><strong>By signing this form, I understand that:</strong></p>
-<table style="width: 647px; margin-left: auto; margin-right: auto; height: 329px;" width="647">
+<table style="height: 597px; width: 410px; border-style: solid; margin-left: auto; margin-right: auto;" border="1">
 <tbody>
-<tr style="height: 46px;">
-<td style="border-style: solid; text-align: center; height: 46px; width: 540.539px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; text-align: center; height: 46px; width: 40.4375px;">
-<p><strong>Yes</strong></p>
-</td>
-<td style="border-style: solid; text-align: center; height: 46px; width: 44.0234px;">
-<p><strong>No</strong></p>
-</td>
+<tr>
+<td style="width: 278.406px;">&nbsp;</td>
+<td style="width: 52.2812px;"><strong><span style="font-size: 10pt;">YES</span></strong></td>
+<td style="width: 57.3125px;"><strong><span style="font-size: 10pt;">NO</span></strong></td>
 </tr>
-<tr style="height: 74px;">
-<td style="border-style: solid; height: 74px; width: 540.539px;">
-<div>May we phone, email, or send a text to you to confirm appointments or other information?</div>
-<div><span style="color: #999999; font-size: 8pt;">&iquest;Podemos llamarlo por tel&eacute;fono, enviarle un correo electr&oacute;nico o enviarle un mensaje de texto para confirmar citas u otra informaci&oacute;n?</span></div>
+<tr>
+<td style="width: 278.406px;">
+<p><span style="font-size: 10pt;">May we phone, email, or send a text to you to confirm appointments or other information?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos llamarlo por tel&eacute;fono, enviarle un correo electr&oacute;nico o enviarle un mensaje de texto para confirmar citas u otra informaci&oacute;n?</span></p>
 </td>
-<td style="border-style: solid; height: 74px; width: 40.4375px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; height: 74px; width: 44.0234px;">
-<p>&nbsp;</p>
-</td>
+<td style="width: 52.2812px;">&nbsp;</td>
+<td style="width: 57.3125px;">&nbsp;</td>
 </tr>
-<tr style="height: 47px;">
-<td style="border-style: solid; height: 47px; width: 540.539px;">
-<div>May we leave a message on your answering machine at home or on your cell phone?</div>
-<div><span style="color: #999999; font-size: 8pt;">&iquest;Podemos dejar un mensaje en su contestador autom&aacute;tico en casa o en su tel&eacute;fono celular?</span></div>
+<tr>
+<td style="width: 278.406px;">
+<p><span style="font-size: 10pt;">May we leave a message on your answering machine at home or on your cell phone?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos dejar un mensaje en su contestador autom&aacute;tico en casa o en su tel&eacute;fono celular?</span></p>
 </td>
-<td style="border-style: solid; height: 47px; width: 40.4375px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; height: 47px; width: 44.0234px;">
-<p>&nbsp;</p>
-</td>
+<td style="width: 52.2812px;">&nbsp;</td>
+<td style="width: 57.3125px;">&nbsp;</td>
 </tr>
-<tr style="height: 67px;">
-<td style="border-style: solid; height: 67px; width: 540.539px;">
-<div>May we use photos and videos for use in our advertising campaigns or health information content?</div>
-<div><span style="color: #999999; font-size: 8pt;">&iquest;Podemos usar fotos y videos para usar en nuestras campa&ntilde;as publicitarias o contenido de informaci&oacute;n de salud?</span></div>
+<tr>
+<td style="width: 278.406px;">
+<p><span style="font-size: 10pt;">May we use photos and videos for use in our advertising campaigns or health information content?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos usar fotos y videos para usar en nuestras campa&ntilde;as publicitarias o contenido de informaci&oacute;n de salud?</span></p>
 </td>
-<td style="border-style: solid; height: 67px; width: 40.4375px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; height: 67px; width: 44.0234px;">
-<p>&nbsp;</p>
-</td>
+<td style="width: 52.2812px;">&nbsp;</td>
+<td style="width: 57.3125px;">&nbsp;</td>
 </tr>
-<tr style="height: 58px;">
-<td style="border-style: solid; height: 58px; width: 540.539px;">
-<div>May we mention the didactic advances that the patient shows thanks to our teaching techniques?</div>
-<div><span style="color: #999999; font-size: 8pt;">&iquest;Podemos mencionar los avances did&aacute;cticos que muestra el paciente gracias a nuestras t&eacute;cnicas de ense&ntilde;anza?</span></div>
+<tr>
+<td style="width: 278.406px;">
+<p><span style="font-size: 10pt;">May we mention the didactic advances that the patient shows thanks to our teaching techniques?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos mencionar los avances did&aacute;cticos que muestra el paciente gracias a nuestras t&eacute;cnicas de ense&ntilde;anza?</span></p>
 </td>
-<td style="border-style: solid; height: 58px; width: 40.4375px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; height: 58px; width: 44.0234px;">
-<p>&nbsp;</p>
-</td>
+<td style="width: 52.2812px;">&nbsp;</td>
+<td style="width: 57.3125px;">&nbsp;</td>
 </tr>
-<tr style="height: 37px;">
-<td style="border-style: solid; height: 37px; width: 540.539px;">
-<div>May we discuss your medical condition with any member of your family?</div>
-<div><span style="color: #999999; font-size: 8pt;">&iquest;Podemos discutir su condici&oacute;n m&eacute;dica con cualquier miembro de su familia?</span></div>
+<tr>
+<td style="width: 278.406px;">
+<p><span style="font-size: 10pt;">May we discuss your medical condition with any member of your family?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos discutir su condici&oacute;n m&eacute;dica con cualquier miembro de su familia?</span></p>
 </td>
-<td style="border-style: solid; height: 37px; width: 40.4375px;">
-<p>&nbsp;</p>
-</td>
-<td style="border-style: solid; height: 37px; width: 44.0234px;">
-<p>&nbsp;</p>
-</td>
+<td style="width: 52.2812px;">&nbsp;</td>
+<td style="width: 57.3125px;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
