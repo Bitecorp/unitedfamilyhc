@@ -331,9 +331,10 @@ class NotesSubServicesRegisterController extends Controller
             return redirect(route('notesSubServices.index'));
         }
         
-        $reg = RegisterAttentions::find($note->register_attentions_id);
-        $reg->delete();
-        
+            $reg = RegisterAttentions::find($note->register_attentions_id);
+            $reg->delete();
+            
+        deleteFile($note->firma);
         $note->delete();
 
         Flash::success('Activity and Note delete successfully');
