@@ -196,10 +196,14 @@
 <h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;">ABUSE REPORTING CONTACT LIST</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
 =======
 <p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
 >>>>>>> 52547f6e (correccion de documentos)
+=======
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
+>>>>>>> 7384d9bd4 (correccion de documento)
 <p><strong>&nbsp;</strong></p>
 <p><strong>There are four ways to make a report:</strong><br /><br />By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)<br />By Fax:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&shy;800&shy;914&shy;0004<br />By TDD:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1&shy;800&shy;453&shy;5145&nbsp;&nbsp;<br />Web Reporting:&nbsp; &nbsp; &nbsp; &nbsp;<a href="http://reportabuse.dcf.state.fl.us">http://reportabuse.dcf.state.fl.us</a><br /><br />EMERGENCY<strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>911</strong></p>
 <p>Date: ___/ ___/ 202_</p>
