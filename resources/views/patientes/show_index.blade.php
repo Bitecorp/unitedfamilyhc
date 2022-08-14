@@ -67,8 +67,7 @@
                 <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'assignWorker' ? 'show active' : ''}}" id="nav-assign-worker">
                     <!-- begin row -->
                     <div>
-                        @include('patientes.table_workerAssign')
-                        
+                        @include('patientes.table_workerAssign')                        
                     </div>
                     <!-- end row -->
                 </div>

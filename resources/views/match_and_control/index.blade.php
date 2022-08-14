@@ -31,11 +31,11 @@
 						<div class="col">
 							<!-- Role Id Field -->
 							<div class="form-group">
-								{!! Form::label('paid', 'Paid ?:') !!}
+								{!! Form::label('paid', 'Status Pay:') !!}
 								<select name='paid' id="paid" class="form-control" required="true">
 									<option value='' selected>Select Option..</option>
 									<option value='1' >Yes</option>
-									<option value='0' >Not</option>
+									<option value='0' >No</option>
 								</select>
 							</div>
 						</div>

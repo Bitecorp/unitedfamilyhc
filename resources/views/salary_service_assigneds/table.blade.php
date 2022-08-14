@@ -9,8 +9,13 @@
                         <th class="text-nowrap">Name Sub Service</th>
                         <th class="text-nowrap">Assigned</th>
                         <th class="text-nowrap">Type Salary</th>
-                        <th class="text-nowrap">Customer Billing</th>
-                        <th class="text-nowrap">Worker Payment</th>
+                        <th class="text-nowrap">
+                            @if (strpos(Request::url(), 'workers'))
+                                Worker Payment
+                            @elseif (strpos(Request::url(), 'patientes'))
+                                Customer Billing
+                            @endif
+                        </th>
                         <th class="text-nowrap">Action</th>
                     </tr>
                 </thead>
@@ -47,33 +52,36 @@
                                                 @endforeach
                                             @endif
                                         </td>
+
+
                                         <td>
-                                            @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
-                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                    @if($subService->id == $salaryServiceAssigned->service_id)
-                                                        {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
-                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
-                                                    @if($subService->id == $salaryServiceAssigned->service_id)
-                                                        {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                            <td class="with-btn" nowrap>
+                                            @if (strpos(Request::url(), 'workers'))
                                                 @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
                                                     @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                         @if($subService->id == $salaryServiceAssigned->service_id)
-                                                            <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigned->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
+                                                            {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $
                                                         @endif
                                                     @endforeach
                                                 @endif
-                                            </td>
+                                            @elseif (strpos(Request::url(), 'patientes'))
+                                                @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
+                                                    @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                        @if($subService->id == $salaryServiceAssigned->service_id)
+                                                            {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endif
+                                        </td>
+                                        <td class="with-btn" nowrap>
+                                            @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
+                                                @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
+                                                    @if($subService->id == $salaryServiceAssigned->service_id)
+                                                        <a href="{{ route('salaryServiceAssigneds.edit', [$salaryServiceAssigned->id]) }}" class='btn btn-sm btn-info'><i class="fa fa-edit"></i> Add/Edit Salary </a>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endif
                             @endforeach
