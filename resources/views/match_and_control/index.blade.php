@@ -129,24 +129,27 @@
 							if(paid == 1){
 			
 								var dataW = 
-									'<div class="col-xl-12 col-md-12">\n' +
-										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-teal">\n' +
+									'<div class="col-xl-6 col-md-6">\n' +
+										'<div class="widget widget-stats bg-teal">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
 												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
-												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
-												
+												'<h4>Unit of: ' + dataFull[i].unidad_time_worker + ' ' + dataFull[i].unidad_type_worker + ' - Unit value: ' + dataFull[i].unit_value_worker + '</h4>\n' +
+												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount to be paid: ' + dataFull[i].mont_pay + ' $ (USD) </h4>\n' +												
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
 
 								var dataP = 
-									'<div class="col-xl-12 col-md-12">\n' +
-										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-teal">\n' +
+									'<div class="col-xl-6 col-md-6">\n' +
+										'<div class="widget widget-stats bg-teal">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
 												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
-												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
+												'<h4>Unit of: ' + dataFull[i].unidad_time_patiente + ' ' + dataFull[i].unidad_type_patiente + ' - Unit value: ' + dataFull[i].unid_cob_patiente + '</h4>\n' +
+												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount receivable: ' + dataFull[i].mont_cob + ' $ (USD) </h4>\n' +
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
@@ -162,25 +165,27 @@
 							}else if(paid == 0){
 
 								var dataW = 
-									'<div class="col-xl-12 col-md-12">\n' +
-										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
+									'<div class="col-xl-6 col-md-6">\n' +
+										'<div class="widget widget-stats bg-red">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
 												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
-												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
-												
+												'<h4>Unit of: ' + dataFull[i].unidad_time_worker + ' ' + dataFull[i].unidad_type_worker + ' - Unit value: ' + dataFull[i].unit_value_worker + '</h4>\n' +
+												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount to be paid: ' + dataFull[i].mont_pay + ' $ (USD) </h4>\n' +
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
 
 								var dataP = 
-									'<div class="col-xl-12 col-md-12">\n' +
-										'<div id="bg_color_' + dataFull[i].id + '" class="widget widget-stats bg-red">\n' +
+									'<div class="col-xl-6 col-md-6">\n' +
+										'<div class="widget widget-stats bg-red">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
-												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
-												'<h4>Time ' + dataFull[i].time_attention + '</h4>\n' +
-
+												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name + '</h4>\n' +
+												'<h4>Unit of: ' + dataFull[i].unidad_time_patiente + ' ' + dataFull[i].unidad_type_patiente + ' - Unit value: ' + dataFull[i].unit_value_patiente + '</h4>\n' +
+												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount receivable: ' + dataFull[i].mont_cob + ' $ (USD) </h4>\n' +
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
