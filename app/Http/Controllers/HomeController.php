@@ -400,7 +400,7 @@ class HomeController extends Controller
         $filters = $request->all();
 
         $desde = $filters['desde'] . ' 00:00:01';
-        $hasta = $filters['hasta'] . ' 11:59:59';
+        $hasta = $filters['hasta'] . ' 23:59:59';
 
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
@@ -418,8 +418,23 @@ class HomeController extends Controller
                 //$registerAttention->service_id = Service::find($registerAttention->service_id);
                 //$registerAttention->sub_service_id = SubServices::find($registerAttention->sub_service_id);
 
-                $timeAttention = $registerAttention->start->diff($registerAttention->end);                
-                $registerAttention->time_attention = $timeAttention->format('%H:%i:%s');
+                $timeAttention = $registerAttention->start->diff($registerAttention->end);
+                $times = explode(":", $timeAttention->format('%H:%i:%s'));
+
+                if($times[0] < 10){
+                    $times[0] = str_split($times[0])[1];
+                }
+
+                if($times[1] < 10){
+                    $times[1] = '0' . $times[1];
+                }
+
+                if($times[2] < 10){
+                    $times[2] = '0' . $times[2];
+                }
+                
+                $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
                 array_push($registerAttentionss, $registerAttention);
                 //dd($registerAttention);
             }
@@ -434,18 +449,19 @@ class HomeController extends Controller
                             $registerAttention->patiente_id == $registerAttent->patiente_id &&
                             $registerAttention->service_id == $registerAttent->service_id &&
                             $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
-                            $registerAttention->id != $registerAttent->id &&
-                            $key > $keyI
+                            $keyI < $key
                         ){
-                            $registerAttention->time_attention = date('H:i:s', strtotime($registerAttention->time_attention) + strtotime($registerAttent->time_attention));
-                            unset($arrayCollect[$key]);
+                            $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);  // date('H:i:s', strtotime($registerAttention->time_attention) + strtotime($registerAttent->time_attention));
                             array_push($arraySum, $registerAttention);
+                            unset($arrayCollect[$key]);
                         }
                     }
                 }
             }else{
                 $arraySum = $registerAttentionss;
             }
+
+
 
             $arraySumClean = collect($arraySum)->unique();
 

@@ -93,3 +93,32 @@ function deleteFile($url)
 
     return true;
 }
+
+function sumaFechasTiempos ($fechaOne, $fechaTwo)
+{
+    $fechaOne = explode(":", $fechaOne);
+    $fechaTwo = explode(":", $fechaTwo);
+
+    $sh = intval($fechaOne[0]) + intval($fechaTwo[0]);
+    $sm = intval($fechaOne[1]) + intval($fechaTwo[1]);
+    $ss = intval($fechaOne[2]) + intval($fechaTwo[2]);
+
+    $sumaTimes = $sh . ':' . $sm . ':' . $ss;
+
+    $times = explode(":", $sumaTimes);
+
+    if($times[0] < 10){
+        $times[0] = str_split($times[0])[1];
+    }
+
+    if($times[1] < 10){
+        $times[1] = '0' . $times[1];
+    }
+
+    if($times[2] < 10){
+        $times[2] = '0' . $times[2];
+    }
+
+    $timeU = $times[0] . ':' . $times[1] . ':' . $times[2];
+    return $timeU;
+}
