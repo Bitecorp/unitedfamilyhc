@@ -9,9 +9,7 @@
                 <title>WELCOME PACK APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2 style="text-align: center;"><span style="font-size: 18pt;">WELCOME TO</span></h2>
+        <h2 style="text-align: center;"><span style="font-size: 18pt;">WELCOME TO</span></h2>
 <h2 style="text-align: center;"><span style="font-size: 18pt;">UNITED FAMILY HEALTH CARE INC.</span></h2>
 <p>&nbsp;</p>
 <p>The caregivers from UNITED FAMILY HEALTH CARE, INC. Have been carefully selected to ensure your security and quality of care. Our agency is committed to quality. Our trained professional staff is promise to you that we meet and demand the highest standards of qualify in home care.</p>
@@ -195,15 +193,7 @@
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;">ABUSE REPORTING CONTACT LIST</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
 <p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
-=======
-<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
->>>>>>> 52547f6e (correccion de documentos)
-=======
-<p><img style="display: block; margin-left: auto; margin-right: auto;" src="/home/unitedfamilyhc/public_html/app/public/home/unitedfamilyhc/public_html/app/public/filesUsers/ABUSE_NEGLECT.png" alt="" width="634" height="421" /></p>
->>>>>>> 7384d9bd4 (correccion de documento)
 <p><strong>&nbsp;</strong></p>
 <p><strong>There are four ways to make a report:</strong><br /><br />By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)<br />By Fax:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&shy;800&shy;914&shy;0004<br />By TDD:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1&shy;800&shy;453&shy;5145&nbsp;&nbsp;<br />Web Reporting:&nbsp; &nbsp; &nbsp; &nbsp;<a href="http://reportabuse.dcf.state.fl.us">http://reportabuse.dcf.state.fl.us</a><br /><br />EMERGENCY<strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>911</strong></p>
 <p>Date: ___/ ___/ 202_</p>
@@ -409,345 +399,244 @@
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<strong>&nbsp;</strong></p>
 <h2 style="text-align: center;">&nbsp;</h2>
 <h2 style="text-align: center;"><strong>HIPAA COMPLIANCE PATIENT CONSENT FORM</strong></h2>
-<div>By signing this form, you consent to our use and disclosure of your protected healthcare information and potentially anonymous usage in a publication.</div>
-<div>You have the right to revoke this consent in writing, signed by you.</div>
-<div>However, such a revocation will not be retroactive.</div>
+<p>By signing this form, you consent to our use and disclosure of your protected healthcare information and potentially anonymous usage in a publication.<br />You have the right to revoke this consent in writing, signed by you.<br />However, such a revocation will not be retroactive.</p>
 <p><strong>By signing this form, I understand that:</strong></p>
-<div style="text-align: center !important;">
-<table style="height: 206px; width: 534px; border-style: solid; margin-left: auto; margin-right: auto;" border="2">
+<table style="height: 302px; width: 534px; border-style: solid; margin-left: auto; margin-right: auto;" border="2">
 <tbody>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 32px;">&nbsp;</td>
-<td style="width: 56.6016px; height: 32px;"><strong><span style="font-size: 10pt;">YES</span></strong></td>
-<td style="width: 55.2344px; height: 32px;"><strong><span style="font-size: 10pt;">NO</span></strong></td>
+<td style="width: 398.414px; height: 32px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 32px;"><strong><span style="font-size: 10pt;">YES</span></strong></td>
+<td style="width: 55.1016px; height: 32px;"><strong><span style="font-size: 10pt;">NO</span></strong></td>
 </tr>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 54px;">
+<td style="width: 398.414px; height: 54px;">
 <p><span style="font-size: 10pt;">May we phone, email, or send a text to you to confirm appointments or other information?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos llamarlo por tel&eacute;fono, enviarle un correo electr&oacute;nico o enviarle un mensaje de texto para confirmar citas u otra informaci&oacute;n?</span></p>
 </td>
-<td style="width: 56.6016px; height: 54px;">&nbsp;</td>
-<td style="width: 55.2344px; height: 54px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 54px;">&nbsp;</td>
+<td style="width: 55.1016px; height: 54px;">&nbsp;</td>
 </tr>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 54px;">
+<td style="width: 398.414px; height: 54px;">
 <p><span style="font-size: 10pt;">May we leave a message on your answering machine at home or on your cell phone?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos dejar un mensaje en su contestador autom&aacute;tico en casa o en su tel&eacute;fono celular?</span></p>
 </td>
-<td style="width: 56.6016px; height: 54px;">&nbsp;</td>
-<td style="width: 55.2344px; height: 54px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 54px;">&nbsp;</td>
+<td style="width: 55.1016px; height: 54px;">&nbsp;</td>
 </tr>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 54px;">
+<td style="width: 398.414px; height: 54px;">
 <p><span style="font-size: 10pt;">May we use photos and videos for use in our advertising campaigns or health information content?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos usar fotos y videos para usar en nuestras campa&ntilde;as publicitarias o contenido de informaci&oacute;n de salud?</span></p>
 </td>
-<td style="width: 56.6016px; height: 54px;">&nbsp;</td>
-<td style="width: 55.2344px; height: 54px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 54px;">&nbsp;</td>
+<td style="width: 55.1016px; height: 54px;">&nbsp;</td>
 </tr>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 54px;">
+<td style="width: 398.414px; height: 54px;">
 <p><span style="font-size: 10pt;">May we mention the didactic advances that the patient shows thanks to our teaching techniques?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos mencionar los avances did&aacute;cticos que muestra el paciente gracias a nuestras t&eacute;cnicas de ense&ntilde;anza?</span></p>
 </td>
-<td style="width: 56.6016px; height: 54px;">&nbsp;</td>
-<td style="width: 55.2344px; height: 54px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 54px;">&nbsp;</td>
+<td style="width: 55.1016px; height: 54px;">&nbsp;</td>
 </tr>
 <tr style="text-align: left;">
-<td style="width: 399.688px; height: 54px;">
+<td style="width: 398.414px; height: 54px;">
 <p><span style="font-size: 10pt;">May we discuss your medical condition with any member of your family?</span><span style="color: #999999; font-size: 8pt;">&iquest;Podemos discutir su condici&oacute;n m&eacute;dica con cualquier miembro de su familia?</span></p>
 </td>
-<td style="width: 56.6016px; height: 54px;">&nbsp;</td>
-<td style="width: 55.2344px; height: 54px;">&nbsp;</td>
+<td style="width: 56.4844px; height: 54px;">&nbsp;</td>
+<td style="width: 55.1016px; height: 54px;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div style="text-align: right;"><span style="color: #999999;">* Select Yes or No using an X</span></div>
-<div>The patient has the right to revoke this consent in writing at any time and all full disclosures will then cease.</div>
-<p>&nbsp;</p>
-<div>This consent was signed by: ____________________________________________</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (PRINT NAME PLEASE)</div>
-<p>Date: ___/ ___/ 202_</p>
+<p style="text-align: right;"><span style="color: #999999;">* Select Yes or No using an X</span></p>
+<p><br />The patient has the right to revoke this consent in writing at any time and all full disclosures will then cease.<br />This consent was signed by: ____________________________________________<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (PRINT NAME PLEASE)<br />Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
+<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;">PERSONAL CARE AND WAIVER DESCRIPTION OF SERVICE TRANSPORTATION POLICY</h3>
-<p>Personal Care Services is for recipients under the age of 21 who have a medical condition or disability that substantially limits their ability to perform their ADLs or IADLs and for whom the parents or legal guardians are unable or unavailable to provide this care.</p>
-<p>Personal care services provide medically necessary assistance with activities of daily living (ADL) and age-appropriate instrumental activities of daily living (ADL) that enable the recipient to accomplish tasks that they would normally be able to do for themselves if they did not have a medical condition or disability and when the recipient has a cognitive impairment that prevents knowing when or how to carry out the personal care task and when the recipient&rsquo;s parents or legal guardian is unable to provide services.</p>
-<div>ADLS include:</div>
-<div>Eating (oral feedings and fluid intake);</div>
-<div>Bathing</div>
-<div>Dressing</div>
-<div>Toileting</div>
-<div>Transferring</div>
-<div>Maintaining continence (examples include taking care of a catheter or colostomy bag or changing a disposable incontinence product when the recipient is unable to control his bowel or bladder functions).</div>
-<div>&nbsp;</div>
-<div>IADLs (when necessary for the recipient to function independently) include:</div>
-<div>Personal hygiene</div>
-<div>Light housework</div>
-<div>Laundry</div>
-<div>Meal preparation</div>
-<p>Is my understanding that my staff cannot provide transportation services to recipients under 21 years old while providing Personal Care Services.</p>
-<p>If the recipient has Medicaid Waiver, transportation is allowed while providing any of the following services: Personal Support, Life Skills and/or Respite Care. These services will provide access to the community-based activities that are likely to result in an increase ability to access community resources. These services are designed to encourage community integration and to assist in maintaining a recipient&rsquo;s own home and property as a clean, sanitary and safe environment.</p>
+<p>Personal Care Services is for recipients under the age of 21 who have a medical condition or disability that substantially limits their ability to perform their ADLs or IADLs and for whom the parents or legal guardians are unable or unavailable to provide this care.<br /><br />Personal care services provide medically necessary assistance with activities of daily living (ADL) and age-appropriate instrumental activities of daily living (ADL) that enable the recipient to accomplish tasks that they would normally be able to do for themselves if they did not have a medical condition or disability and when the recipient has a cognitive impairment that prevents knowing when or how to carry out the personal care task and when the recipient&rsquo;s parents or legal guardian is unable to provide services.<br /><br />ADLS include:<br />Eating (oral feedings and fluid intake);<br />Bathing<br />Dressing<br />Toileting<br />Transferring<br />Maintaining continence (examples include taking care of a catheter or colostomy bag or changing a disposable incontinence product when the recipient is unable to control his bowel or bladder functions).<br /><br />IADLs (when necessary for the recipient to function independently) include:<br />Personal hygiene<br />Light housework<br />Laundry<br />Meal preparation<br />Is my understanding that my staff cannot provide transportation services to recipients under 21 years old while providing Personal Care Services.<br /><br />If the recipient has Medicaid Waiver, transportation is allowed while providing any of the following services: Personal Support, Life Skills and/or Respite Care. These services will provide access to the community-based activities that are likely to result in an increase ability to access community resources. These services are designed to encourage community integration and to assist in maintaining a recipient&rsquo;s own home and property as a clean, sanitary and safe environment.</p>
 <p>Date: ___/ ___/ 202_</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
-<div style="text-align: center;"><span style="font-size: 18pt;"><strong>CHOICES AND PREFERENCES</strong></span></div>
-<div style="text-align: center;"><span style="color: #999999;">(Human Values Along with ethical and professional values)</span></div>
-<p>It is important to know that an individual with a developmental disability values the same things in life as everyone else. Just like everyone, people with disabilities value:</p>
-<table style="width: 671px; margin-left: auto; margin-right: auto;">
+<p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;"><span style="font-size: 18pt;"><strong>CHOICES AND PREFERENCES</strong></span><br /><span style="color: #999999;">(Human Values Along with ethical and professional values)</span><br /><span style="font-size: 10pt;">It is important to know that an individual with a developmental disability values the same things in life as everyone else. Just like everyone, people with disabilities value:</span></p>
+<table style="border-collapse: collapse; width: 100%; height: 234px;" border="1">
 <tbody>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Love</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div>Ability to exercise rights</div>
-</td>
-</tr>
-<tr style="height: 14px;">
-<td style="width: 334.938px; height: 14px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Amor</span></div>
-</td>
-<td style="width: 320.062px; height: 14px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Capacidad para ejercer derechos</span></div>
-</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Love</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Amor</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Friendship</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div>Meaningful employment</div>
-</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Friendship</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Amistad</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Amistad</span></div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Empleo significativo</span></div>
-</td>
+<td style="width: 50%; height: 18px;">B<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">eing respected and treated with dignity</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Ser respetado y tratado con dignidad.</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Being respected and treated with dignity</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div>Intimate relationships</div>
-</td>
-</tr>
-<tr style="height: 28px;">
-<td style="width: 334.938px; height: 10px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Ser respetado y tratado con dignidad.</span></div>
-</td>
-<td style="width: 320.062px; height: 10px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Relaciones &iacute;ntimas</span></div>
-</td>
+<td style="width: 50%; height: 18px;">A<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">ccessing information to make choices</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Acceder a informaci&oacute;n para tomar decisiones</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Accessing information to make choices</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div>Remaining connected with family</div>
-</td>
+<td style="width: 50%; height: 18px;">S<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">afe place to live</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Lugar seguro para vivir</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Acceder a informaci&oacute;n para tomar decisiones</span></div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Permanecer conectado con la familia</span></div>
-</td>
+<td style="width: 50%; height: 18px;">C<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">ommunity participation and civic responsibilities</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Participaci&oacute;n comunitaria y responsabilidades c&iacute;vicas</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Safe place to live</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div>Advocacy and support to pursue life choices</div>
-</td>
+<td style="width: 50%; height: 18px;">F<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">reedom from poverty and abuse</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Libertad de pobreza y abuso</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Lugar seguro para vivir</span></div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Promoci&oacute;n y apoyo para buscar opciones de vida.</span></div>
-</td>
+<td style="width: 50%; height: 18px;">A<span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">bility to exercise rights</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Capacidad para ejercer derechos</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 10px; border-style: none;">
-<div>Community participation and civic responsibilities</div>
-</td>
-<td style="width: 320.062px; height: 10px; border-style: none;">
-<div>Learning opportunities and the ability to grow personally</div>
-</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Meaningful employment</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Empleo significativo</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 10px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Participaci&oacute;n comunitaria y responsabilidades c&iacute;vicas</span></div>
-</td>
-<td style="width: 320.062px; height: 10px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Oportunidades de aprendizaje y capacidad para crecer personalmente.</span></div>
-</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Learning opportunities and the ability to grow personally</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Oportunidades de aprendizaje y capacidad para crecer personalmente.</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div>Freedom from poverty and abuse</div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">&nbsp;</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Intimate relationships</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Relaciones &iacute;ntimas</span></td>
 </tr>
 <tr style="height: 18px;">
-<td style="width: 334.938px; height: 18px; border-style: none;">
-<div><span style="color: #999999; font-size: 8pt;">Libertad de pobreza y abuso</span></div>
-</td>
-<td style="width: 320.062px; height: 18px; border-style: none;">&nbsp;</td>
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Remaining connected with family</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Permanecer conectado con la familia</span></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 50%; height: 18px;"><span style="font-family: helvetica, arial, sans-serif; font-size: 10pt;">Advocacy and support to pursue life choices</span></td>
+<td style="width: 50%; height: 18px;"><span style="color: #999999; font-family: helvetica, arial, sans-serif; font-size: 8pt;">Promoci&oacute;n y apoyo para buscar opciones de vida.</span></td>
 </tr>
 </tbody>
 </table>
-<div><strong>Promoting Choice:</strong></div>
-<div>Ensure that individuals make their own choices as much as possible.</div>
-<div>Decisions related Visit Places</div>
-<div>Decisions related Clothing</div>
-<div>Decisions related Communication</div>
-<div>Decisions related Entertaining</div>
-<div>Activities to engage in, or health and dietary decisions.</div>
-<div><strong>Ensure that individuals have enough information to understand their options and the potential impact of their decisions.</strong></div>
-<div><span style="color: #999999; font-size: 8pt;">Asegurarse de que las personas tengan suficiente informaci&oacute;n para comprender sus opciones y el impacto potencial de sus decisiones.</span></div>
-<div>This is known as &ldquo;informed choice.&rdquo; (See Document Attached, Preference and Choice with Service Log Form)</div>
-<div><span style="color: #999999; font-size: 8pt;">Esto se conoce como "elecci&oacute;n informada". (Ver documento adjunto, preferencia y elecci&oacute;n Junto al formulario de registro de servicio)</span></div>
-<div><strong>Promoting Self-Advocacy:</strong></div>
-<div>Is to help individuals be self-advocates. Self-advocacy includes</div>
-<div>speaking up for oneself, making decisions, and exercising one&rsquo;s own rights.</div>
-<p>I {{ $guardianPatiente->first_name }} {{ isset($guardianPatiente->mi) ? $guardianPatiente->mi : "" }} {{ $guardianPatiente->last_name }}, have been informed and educated regarding These rights and I feel free to ask United Family Health Care inc. About any questions.</p>
-<div>Date: ___/ ___/ 202__</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>Signature (Client/Parent&rsquo;s/Guardian): _________________________________</div>
-<div>&nbsp;</div>
+<p><span style="font-size: 10pt;"><strong>Promoting Choice:</strong></span><br /><span style="font-size: 10pt;">Ensure that individuals make their own choices as much as possible.</span><br /><span style="font-size: 10pt;">Decisions related Visit Places</span><br /><span style="font-size: 10pt;">Decisions related Clothing</span><br /><span style="font-size: 10pt;">Decisions related Communication</span><br /><span style="font-size: 10pt;">Decisions related Entertaining</span><br /><span style="font-size: 10pt;">Activities to engage in, or health and dietary decisions.</span><br /><span style="font-size: 10pt;"><strong>Ensure that individuals have enough information to understand their options and the potential impact of their decisions.</strong></span><br /><span style="color: #999999; font-size: 8pt;">Asegurarse de que las personas tengan suficiente informaci&oacute;n para comprender sus opciones y el impacto potencial de sus decisiones.</span><br /><span style="font-size: 10pt;">This is known as &ldquo;informed choice.&rdquo; (See Document Attached, Preference and Choice with Service Log Form)</span><br /><span style="color: #999999; font-size: 8pt;">Esto se conoce como "elecci&oacute;n informada". (Ver documento adjunto, preferencia y elecci&oacute;n Junto al formulario de registro de servicio)</span><br /><span style="font-size: 10pt;"><strong>Promoting Self-Advocacy:</strong></span><br /><span style="font-size: 10pt;">Is to help individuals be self-advocates. Self-advocacy includes</span><br /><span style="font-size: 10pt;">speaking up for oneself, making decisions, and exercising one&rsquo;s own rights.</span><br /><span style="font-size: 10pt;">I {{ $guardianPatiente->first_name }} {{ isset($guardianPatiente->mi) ? $guardianPatiente->mi : "" }} {{ $guardianPatiente->last_name }}, have been informed and educated regarding These rights and I feel free to ask United Family Health Care inc. About any questions.</span><br /><span style="font-size: 10pt;">Date: ___/ ___/ 202__</span><br /><br /><br /><br /><br /><br /><br /><span style="font-size: 10pt;">Signature (Client/Parent&rsquo;s/Guardian): _________________________________</span><br /><br /></p>
 <div style="text-align: center;"><span style="font-size: 14pt;"><strong>BEHAVIOR OBSERVATION CHECKLIST</strong></span></div>
 <div style="text-align: center;"><span style="color: #999999;">(LISTA DE VERIFICACI&Oacute;N DE OBSERVACI&Oacute;N DEL COMPORTAMIENTO)</span></div>
 <p>Client Name: {{ $fullNamePatiente }} {{ isset($patiente->mi) ? $patiente->mi : "" }} {{ $patiente->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
-<table style="width: 578px; margin-left: auto; margin-right: auto; height: 295px;" width="647">
+<table style="height: 189px; width: 510px; margin-left: auto; margin-right: auto; border-style: solid;" width="510">
 <tbody>
 <tr style="height: 46px;">
-<td style="border-style: solid; text-align: center; height: 10px; width: 249.164px;">
+<td style="border-style: solid; height: 10px; width: 260.523px;">
 <p><strong>BEHAVIOR OBSERVED</strong></p>
 </td>
-<td style="border-style: solid; text-align: center; height: 10px; width: 58.1016px;">
+<td style="border-style: solid; height: 10px; width: 36.0781px;">
 <p><strong>YES</strong></p>
 </td>
-<td style="border-style: solid; text-align: center; height: 10px; width: 52.0938px;">
+<td style="border-style: solid; height: 10px; width: 40.0859px;">
 <p><strong>NO</strong></p>
 </td>
-<td style="border-style: solid; text-align: center; height: 10px; width: 190.641px;">
+<td style="border-style: solid; height: 10px; width: 145.312px;">
 <p><strong>COMMENTS</strong></p>
 </td>
 </tr>
 <tr style="height: 31px;">
-<td style="border-style: solid; height: 10px; width: 249.164px;"><span style="font-size: 10pt;"><strong>Attentive <span style="color: #999999; font-size: 8pt;">/</span></strong></span><span style="color: #999999; font-size: 8pt;">Atent@</span></td>
-<td style="border-style: solid; height: 10px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><span style="font-size: 10pt;"><strong>Attentive <span style="color: #999999; font-size: 8pt;">/</span></strong></span><span style="color: #999999; font-size: 8pt;">Atent@</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 11px;">
-<td style="border-style: solid; height: 11px; width: 249.164px;"><strong>Cooperative <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Cooperativ@</span></td>
-<td style="border-style: solid; height: 11px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 11px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 11px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Cooperative</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Cooperativ@</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 22px; width: 249.164px;"><strong>Demanding <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Exigente</span></td>
-<td style="border-style: solid; height: 22px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 22px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 22px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 14px; width: 260.523px;"><strong><span style="font-size: 10pt;">Demanding</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Exigente</span></td>
+<td style="border-style: solid; height: 14px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 14px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 14px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 20px; width: 249.164px;"><strong>Dependent <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Dependiente</span></td>
-<td style="border-style: solid; height: 20px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 20px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 20px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 12px; width: 260.523px;"><strong><span style="font-size: 10pt;">Dependent</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Dependiente</span></td>
+<td style="border-style: solid; height: 12px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 12px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 12px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 26px; width: 249.164px;"><strong>Following Instruction <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Siguie las instrucci&oacute;nes</span></td>
-<td style="border-style: solid; height: 26px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 26px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 26px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Following Instruction</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Siguie las instrucci&oacute;nes</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 22px; width: 249.164px;"><strong>Helping Others <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Ayuda a otros</span></td>
-<td style="border-style: solid; height: 22px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 22px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 22px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Helping Others</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Ayuda a otros</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 18px; width: 249.164px;"><strong>Participating <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Participativ@</span></td>
-<td style="border-style: solid; height: 18px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Participating</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Participativ@</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 20px; width: 249.164px;"><strong>Inappropriate <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Inapropiad@</span></td>
-<td style="border-style: solid; height: 20px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 20px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 20px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Inappropriate</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Inapropiad@</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 19px; width: 249.164px;"><strong>Independent <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Independiente</span></td>
-<td style="border-style: solid; height: 19px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 19px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 19px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Independent</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Independiente</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 12px; width: 249.164px;"><strong>Recalls Routine <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Recuerda la rutina</span></td>
-<td style="border-style: solid; height: 12px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 12px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 12px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Recalls Routine</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Recuerda la rutina</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 35px; width: 249.164px;"><strong>Initiative Activities <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Actividades de iniciativa</span></td>
-<td style="border-style: solid; height: 35px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 35px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 35px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 13px; width: 260.523px;"><strong><span style="font-size: 10pt;">Initiative Activities</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Actividades de iniciativa</span></td>
+<td style="border-style: solid; height: 13px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 13px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 13px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 17px; width: 249.164px;"><strong>Making Choices <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Toma de decisiones</span></td>
-<td style="border-style: solid; height: 17px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 17px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 17px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Making Choices <span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Toma de decisiones</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 11px; width: 249.164px;"><strong>Requesting Help <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Solicita ayuda</span></td>
-<td style="border-style: solid; height: 11px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 11px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 11px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Requesting Help</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">Solicita ayuda</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 10px; width: 249.164px;"><strong>Uncooperative <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">No cooperativo</span></td>
-<td style="border-style: solid; height: 10px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Uncooperative <span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">No cooperativo</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 12px; width: 249.164px;"><strong>Unsafe Activities</strong><span style="color: #999999; font-size: 8pt;">Actividades inseguras</span></td>
-<td style="border-style: solid; height: 12px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 12px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 12px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><span style="font-size: 10pt;"><strong>Unsafe Activities <span style="color: #999999; font-size: 8pt;">/</span></strong></span><span style="color: #999999; font-size: 8pt;">Actividades inseguras</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 10px; width: 249.164px;"><strong>Using Appropriate Manners</strong><span style="color: #999999; font-size: 8pt;">Usar modales apropiados</span></td>
-<td style="border-style: solid; height: 10px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><span style="font-size: 10pt;"><strong><span style="font-size: 10pt;">Using Appropriate Manners</span> <span style="color: #999999; font-size: 8pt;">/</span></strong></span><span style="color: #999999; font-size: 8pt;">Usar modales apropiados</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 <tr style="height: 46px;">
-<td style="border-style: solid; height: 10px; width: 249.164px;"><strong>Waiting <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">A la espera</span></td>
-<td style="border-style: solid; height: 10px; width: 58.1016px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 52.0938px;">&nbsp;</td>
-<td style="border-style: solid; height: 10px; width: 190.641px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 260.523px;"><strong><span style="font-size: 10pt;">Waiting</span> <span style="font-size: 10pt;"><span style="color: #999999; font-size: 8pt;">/</span></span></strong><span style="color: #999999; font-size: 8pt;">A la espera</span></td>
+<td style="border-style: solid; height: 10px; width: 36.0781px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 40.0859px;">&nbsp;</td>
+<td style="border-style: solid; height: 10px; width: 145.312px;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
