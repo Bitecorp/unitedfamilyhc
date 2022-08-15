@@ -490,7 +490,7 @@ class HomeController extends Controller
                         $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
 
                         $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
-                        $arraySumC->unidad_type_worker =  $dataUnidadWorker->type_unidad == 0 ? 'Minutos' : 'Horas';
+                        $arraySumC->unidad_type_worker =  $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
                         //$arraySumC->unidad_type_time_worker = $arraySumC->unidad_time_worker + ' ' + $arraySumC->unidad_type_worker;
 
                         $unidadesPorPagar = '';
@@ -531,18 +531,18 @@ class HomeController extends Controller
                                     $dataUnidadConfig = Units::find($dataConfig->unit_id);
                                     if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
                                         $arraySumC->unidad_time_patiente = $dataUnidadConfig->time;
-                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
                                         $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
                                     }
                                 }else{
                                     $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
                                     $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
-                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
                                 }
                             }else{
                                 $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
                                 $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
-                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
                             }
                         }
 
@@ -689,7 +689,7 @@ class HomeController extends Controller
                         $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
 
                         $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
-                        $arraySumC->unidad_type_worker =  $dataUnidadWorker->type_unidad == 0 ? 'Minutos' : 'Horas';
+                        $arraySumC->unidad_type_worker =  $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
                         //$arraySumC->unidad_type_time_worker = $arraySumC->unidad_time_worker + ' ' + $arraySumC->unidad_type_worker;
 
                         $unidadesPorPagar = '';
@@ -730,18 +730,18 @@ class HomeController extends Controller
                                     $dataUnidadConfig = Units::find($dataConfig->unit_id);
                                     if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
                                         $arraySumC->unidad_time_patiente = $dataUnidadConfig->time;
-                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
                                         $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
                                     }
                                 }else{
                                     $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
                                     $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
-                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
                                 }
                             }else{
                                 $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
                                 $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
-                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutos' : 'Horas';
+                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
                             }
                         }
 
