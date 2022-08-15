@@ -19,7 +19,6 @@
                         Filters
                     </h4>
                     <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                     </div>
@@ -78,7 +77,7 @@
 				<!-- end panel-body -->
 			</div>
 
-			<div id="dashboard">
+			<div class="row" id="dashboard">
 				@include('pages.dashboard.dashboard-sub-services-mac')
 			</div>
 @endsection
@@ -107,99 +106,78 @@
 						hasta: dateHasta
 					},
 					success: function(data) {
-						var dataFull = data['data'];
-						dataFull.forEach(function(valor, indice, array) {
-							dataFull[indice].worker_id = JSON.parse(dataFull[indice].worker_id);
-							dataFull[indice].patiente_id = JSON.parse(dataFull[indice].patiente_id);
-							dataFull[indice].service_id = JSON.parse(dataFull[indice].service_id);
-							dataFull[indice].sub_service_id = JSON.parse(dataFull[indice].sub_service_id);
+						var dataFullW = data['dataW'];
+						var dataFullP = data['dataP'];
+						dataFullW.forEach(function(valor, indice, array) {
+							dataFullW[indice].worker_id = JSON.parse(dataFullW[indice].worker_id);
+							dataFullW[indice].patiente_id = JSON.parse(dataFullW[indice].patiente_id);
+							dataFullW[indice].service_id = JSON.parse(dataFullW[indice].service_id);
+							dataFullW[indice].sub_service_id = JSON.parse(dataFullW[indice].sub_service_id);
+						});
+
+						dataFullP.forEach(function(valor, indice, array) {
+							dataFullP[indice].worker_id = JSON.parse(dataFullP[indice].worker_id);
+							dataFullP[indice].patiente_id = JSON.parse(dataFullP[indice].patiente_id);
+							dataFullP[indice].service_id = JSON.parse(dataFullP[indice].service_id);
+							dataFullP[indice].sub_service_id = JSON.parse(dataFullP[indice].sub_service_id);
 						});
 
 						$('#resultados').empty();
 
-						if(dataFull == '' || dataFull.length == 0 || data['success'] == false){
+						if(dataFullW == '' || dataFullW.length == 0 && dataFullP == '' || dataFullP.length == 0 || data['success'] == false){
 							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
 							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
 							alert(msjOne + msjTwo);
 						}
 
 						var htmlResultados = '';
+						var colBG = ''
 
-						for (var i = 0; i < dataFull.length; i++) {
-							if(paid == 1){
-			
-								var dataW = 
-									'<div class="col-xl-6 col-md-6">\n' +
-										'<div class="widget widget-stats bg-teal">\n' +
-											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
-											'<div class="stats-info">\n' +
-												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
-												'<h4>Unit of: ' + dataFull[i].unidad_time_worker + ' ' + dataFull[i].unidad_type_worker + ' - Unit value: ' + dataFull[i].unit_value_worker + '</h4>\n' +
-												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
-												'<h4>Amount to be paid: ' + dataFull[i].mont_pay + ' $ (USD) </h4>\n' +												
-											'</div>\n' +
-										'</div>\n' +
-									'</div>\n';
+						if(paid == 1){
+							colBG = 'bg-teal';
+						}else if(paid == 0){
+							colBG = 'bg-red';
+						}
 
-								var dataP = 
-									'<div class="col-xl-6 col-md-6">\n' +
-										'<div class="widget widget-stats bg-teal">\n' +
-											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
-											'<div class="stats-info">\n' +
-												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name +'</h4>\n' +
-												'<h4>Unit of: ' + dataFull[i].unidad_time_patiente + ' ' + dataFull[i].unidad_type_patiente + ' - Unit value: ' + dataFull[i].unid_cob_patiente + '</h4>\n' +
-												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
-												'<h4>Amount receivable: ' + dataFull[i].mont_cob + ' $ (USD) </h4>\n' +
-											'</div>\n' +
-										'</div>\n' +
-									'</div>\n';
-
-								htmlResultados =
-									'<tr id="tr_' + dataFull[i].id + '">\n' +
-										'<td>' + dataW + '</td>\n' +
-										'<td>' + dataP + '</td>\n' +
-									'</tr>\n';
-								
-								$('#resultados').append(htmlResultados);
-
-							}else if(paid == 0){
+						var arrayW = [];
+						for (var i = 0; i < dataFullW.length; i++) {							
 
 								var dataW = 
 									'<div class="col-xl-6 col-md-6">\n' +
-										'<div class="widget widget-stats bg-red">\n' +
+										'<div class="widget widget-stats ' + colBG + '">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 											'<div class="stats-info">\n' +
-												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].worker_id.first_name + ' ' + dataFull[i].worker_id.last_name +'</h4>\n' +
-												'<h4>Unit of: ' + dataFull[i].unidad_time_worker + ' ' + dataFull[i].unidad_type_worker + ' - Unit value: ' + dataFull[i].unit_value_worker + '</h4>\n' +
-												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
-												'<h4>Amount to be paid: ' + dataFull[i].mont_pay + ' $ (USD) </h4>\n' +
+												'<h4>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + ' - ' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name +'</h4>\n' +
+												'<h4>Unit of: ' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - Unit value: ' + dataFullW[i].unit_value_worker + '</h4>\n' +
+												'<h4>Time: ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount to be paid: ' + dataFullW[i].mont_pay + ' $ (USD) </h4>\n' +												
 											'</div>\n' +
 										'</div>\n' +
 									'</div>\n';
-
-								var dataP = 
-									'<div class="col-xl-6 col-md-6">\n' +
-										'<div class="widget widget-stats bg-red">\n' +
-											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
-											'<div class="stats-info">\n' +
-												'<h4>' + dataFull[i].service_id.name_service + ' - ' + dataFull[i].sub_service_id.name_sub_service + ' - ' + dataFull[i].patiente_id.first_name + ' ' + dataFull[i].patiente_id.last_name + '</h4>\n' +
-												'<h4>Unit of: ' + dataFull[i].unidad_time_patiente + ' ' + dataFull[i].unidad_type_patiente + ' - Unit value: ' + dataFull[i].unit_value_patiente + '</h4>\n' +
-												'<h4>Time: ' + dataFull[i].time_attention + ' = ' + dataFull[i].unid_pay_worker + ' units </h4>\n' +
-												'<h4>Amount receivable: ' + dataFull[i].mont_cob + ' $ (USD) </h4>\n' +
-											'</div>\n' +
-										'</div>\n' +
-									'</div>\n';
-
-								htmlResultados =
-									'<tr id="tr_' + dataFull[i].id + '">\n' +
-										'<td>' + dataW + '</td>\n' +
-										'<td>' + dataP + '</td>\n' +
-									'</tr>\n';
-								
 									
-								$('#resultados').append(htmlResultados);
-							}
-						
+							htmlResultados = dataW;
+									
+							$('#resulWor').append(htmlResultados);
+						};
+
+						for (var i = 0; i < dataFullP.length; i++) {
+			
+								var dataP = 
+									'<div class="col-xl-6 col-md-6">\n' +
+										'<div class="widget widget-stats ' + colBG + '">\n' +
+											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+											'<div class="stats-info">\n' +
+												'<h4>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + ' - ' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name +'</h4>\n' +
+												'<h4>Unit of: ' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - Unit value: ' + dataFullP[i].unit_value_worker + '</h4>\n' +
+												'<h4>Time: ' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + ' units </h4>\n' +
+												'<h4>Amount receivable: ' + dataFullP[i].mont_pay + ' $ (USD) </h4>\n' +												
+											'</div>\n' +
+										'</div>\n' +
+									'</div>\n';
+
+							htmlResultados = dataP;
+									
+							$('#resulPat').append(htmlResultados)
 						};
 					},
 					error: function (error) { 
