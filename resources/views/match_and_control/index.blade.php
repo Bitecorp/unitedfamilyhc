@@ -178,11 +178,8 @@
 							htmlResultados = dataP;
 									
 							$('#resulPat').append(htmlResultados)
-						};
 
-						for (var i = 0; i < dataFullP.length; i++) {
-			
-								var dataC = 
+							var dataC = 
 									'<div class="col-xl-6 col-md-6">\n' +
 										'<div class="widget widget-stats ' + colBG + '">\n' +
 											'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
@@ -199,8 +196,10 @@
 
 							htmlResultados = dataC;
 									
-							$('#resulComp').append(htmlResultados)
+							$('#resulPat').append(htmlResultados)
 						};
+
+						
 					},
 					error: function (error) { 
 						console.log(error);
