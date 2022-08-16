@@ -179,7 +179,7 @@
 
 							htmlResultados = dataP;
 									
-							$('#resulComp').append(htmlResultados)
+							$('#resulPat').append(htmlResultados)
 						};
 
 						for (var i = 0; i < dataFullP.length; i++) {
@@ -199,7 +199,7 @@
 
 							htmlResultados = dataC;
 									
-							$('#resulPat').append(htmlResultados)
+							$('#resulComp').append(htmlResultados)
 						};
 					},
 					error: function (error) { 
