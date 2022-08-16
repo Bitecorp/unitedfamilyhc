@@ -168,9 +168,9 @@
         $("#type_salary").change(function() {
             if( $('#type_salary').prop('checked') ) {
                 $('#show_unit_id').removeAttr('hidden');
-                $('#unit_id').attr('required', true);
+                //$('#unit_id').attr('required', true);
             }else{
-                $('#unit_id').removeAttr('required');
+               // $('#unit_id').removeAttr('required');
                 $('#show_unit_id').attr('hidden', true);
             }           
         });
