@@ -12,12 +12,11 @@
         <div class="form-group">
             {!! Form::label('title', 'Title:') !!}
             <select name='title' class="form-control">
+                <option value='' selected>Selecciona una opción</option>
                 @foreach($titleJobs as $titleJob)
-                @if(empty($jobInformation))
-                <option value='{{ $titleJob->id }}'>{{ $titleJob->name_job }}</option>
-                @else
-                <option value='{{ $titleJob->id }}' {{ $jobInformation->title == $titleJob->id ? 'selected' : '' }}>{{ $titleJob->name_job }}</option>
-                @endif
+                    @if(!empty($jobInformation))
+                        <option value='{{ $titleJob->id }}' {{ $jobInformation->title == $titleJob->id ? 'selected' : '' }}>{{ $titleJob->name_job }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -27,12 +26,10 @@
         <div class="form-group">
             {!! Form::label('supervisor', 'Manager:') !!}
             <select id='supervisor' name='supervisor' class="form-control" onchange='cambioOpciones();' required>
-                <option value=''>Selecciona una opción</option>
+                <option value='' selected>Selecciona una opción</option>
                 @foreach($workers as $manager)
-                    @if ($manager->role_id == 1 || $manager->role_id == 3)
-                        @if(empty($jobInformation))
-                            <option value='{{ $manager->home_phone }}'>{{ $manager->first_name }} {{ $manager->last_name }}</option>
-                        @else
+                    @if ($manager->role_id == 3)
+                        @if(!empty($jobInformation))
                             <option value='{{ $manager->home_phone }}' {{ $jobInformation->supervisor == $manager->id ? 'selected' : '' }}>{{ $manager->first_name }} {{ $manager->last_name }}</option>
                         @endif
                     @endif
@@ -54,11 +51,9 @@
             <select id='work_name_location' name='work_name_location' class="form-control" required>
                 <option value=''>Selecciona una opción</option>
                 @foreach($locations as $location)
-                @if(empty($jobInformation))
-                <option value='{{ $location->id }}'>{{ $location->name_location }}</option>
-                @else
-                <option value='{{ $location->id }}' {{ $jobInformation->work_name_location  == $location->id ? 'selected' : '' }}>{{ $location->name_location }}</option>
-                @endif
+                    @if(!empty($jobInformation))
+                        <option value='{{ $location->id }}' {{ $jobInformation->work_name_location  == $location->id ? 'selected' : '' }}>{{ $location->name_location }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>

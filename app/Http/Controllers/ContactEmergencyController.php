@@ -23,6 +23,7 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class ContactEmergencyController extends AppBaseController
 {
@@ -200,6 +201,13 @@ class ContactEmergencyController extends AppBaseController
 
             $jobInformationID = DB::table('jobs_information')->select('id')->where('user_id', '=', $id)->first();
             $jobInformation = $this->jobInformationRepository->find($jobInformationID->id);
+
+            if(isset($jobInformation) && !empty($jobInformation)){
+                $dataSupervisor = User::find($jobInformation->supervisor);
+                if(isset($dataSupervisor ) && !empty($dataSupervisor )){
+                    $jobInformation->work_phone = $dataSupervisor->home_phone;
+                }
+            }
 
             $locations = DB::table('locations')->select('id', 'name_location')->get();
 

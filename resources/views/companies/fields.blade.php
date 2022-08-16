@@ -31,7 +31,7 @@ if($confirmationIndependent->independent_contractor == 1 && $confirmationIndepen
                 <!-- Apartment Unit Field -->
                 <div class="form-group">
                     {!! Form::label('apartment_unit', 'Apartment Unit:') !!}
-                    {!! Form::text('apartment_unit', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => $required]) !!}
+                    {!! Form::text('apartment_unit', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@ if($confirmationIndependent->independent_contractor == 1 && $confirmationIndepen
                 <!-- Alternate Phone Field -->
                 <div class="form-group">
                     {!! Form::label('alternate_phone', 'Alternate Phone:') !!}
-                    {!! Form::text('alternate_phone', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => $required]) !!}
+                    {!! Form::text('alternate_phone', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
                 </div>
             </div>
             <div class="col">
