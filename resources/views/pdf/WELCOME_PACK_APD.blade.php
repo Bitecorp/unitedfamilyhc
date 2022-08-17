@@ -517,260 +517,259 @@
 </tbody>
 </table>
 <p><span style="font-size: 10pt;"><strong>Promoting Choice:</strong></span><br /><span style="font-size: 10pt;">Ensure that individuals make their own choices as much as possible.</span><br /><span style="font-size: 10pt;">Decisions related Visit Places</span><br /><span style="font-size: 10pt;">Decisions related Clothing</span><br /><span style="font-size: 10pt;">Decisions related Communication</span><br /><span style="font-size: 10pt;">Decisions related Entertaining</span><br /><span style="font-size: 10pt;">Activities to engage in, or health and dietary decisions.</span><br /><span style="font-size: 10pt;"><strong>Ensure that individuals have enough information to understand their options and the potential impact of their decisions.</strong></span><br /><span style="color: #999999; font-size: 8pt;">Asegurarse de que las personas tengan suficiente informaci&oacute;n para comprender sus opciones y el impacto potencial de sus decisiones.</span><br /><span style="font-size: 10pt;">This is known as &ldquo;informed choice.&rdquo; (See Document Attached, Preference and Choice with Service Log Form)</span><br /><span style="color: #999999; font-size: 8pt;">Esto se conoce como "elecci&oacute;n informada". (Ver documento adjunto, preferencia y elecci&oacute;n Junto al formulario de registro de servicio)</span><br /><span style="font-size: 10pt;"><strong>Promoting Self-Advocacy:</strong></span><br /><span style="font-size: 10pt;">Is to help individuals be self-advocates. Self-advocacy includes</span><br /><span style="font-size: 10pt;">speaking up for oneself, making decisions, and exercising one&rsquo;s own rights.</span><br /><span style="font-size: 10pt;">I {{ $guardianPatiente->first_name }} {{ isset($guardianPatiente->mi) ? $guardianPatiente->mi : "" }} {{ $guardianPatiente->last_name }}, have been informed and educated regarding These rights and I feel free to ask United Family Health Care inc. About any questions.</span><br /><span style="font-size: 10pt;">Date: ___/ ___/ 202__</span><br /><br /><br /><br /><br /><br /><br /><span style="font-size: 10pt;">Signature (Client/Parent&rsquo;s/Guardian): _________________________________</span><br /><br /></p>
-<div style="text-align: center;"><span style="font-size: 14pt;"><strong>BEHAVIOR OBSERVATION CHECKLIST</strong></span></div>
-<div style="text-align: center;"><span style="color: #999999;">(LISTA DE VERIFICACI&Oacute;N DE OBSERVACI&Oacute;N DEL COMPORTAMIENTO)</span></div>
-<p>Client Name: {{ $fullNamePatiente }} {{ isset($patiente->mi) ? $patiente->mi : "" }} {{ $patiente->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
-<table style="height: 465px; border-style: double; width: 279px; margin-left: auto; margin-right: auto;" border="1" width="296">
+<p style="text-align: center;"><span style="font-size: 14pt;"><strong>BEHAVIOR OBSERVATION CHECKLIST</strong></span><br /><span style="color: #999999;">(LISTA DE VERIFICACI&Oacute;N DE OBSERVACI&Oacute;N DEL COMPORTAMIENTO)</span></p>
+<div style="text-align: left;">Client Name: {{ $fullNamePatiente }} {{ isset($patiente->mi) ? $patiente->mi : "" }} {{ $patiente->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+<table style="height: 195px; border-style: double; width: 416px; margin-left: auto; margin-right: auto;" border="1" width="416">
 <tbody>
 <tr style="height: 24px;">
-<td style="width: 113.758px; text-align: center; height: 24px;">
+<td style="width: 162.805px; text-align: center; height: 24px;">
 <div><strong>BEHAVIOR OBSERVED</strong></div>
 </td>
-<td style="width: 29.8281px; text-align: center; height: 24px;">
+<td style="width: 35.1875px; text-align: center; height: 24px;">
 <div><strong>YES</strong></div>
 </td>
-<td style="width: 23.7578px; text-align: center; height: 24px;">
+<td style="width: 34.1875px; text-align: center; height: 24px;">
 <div><strong>NO</strong></div>
 </td>
-<td style="width: 89.4766px; text-align: center; height: 24px;">
+<td style="width: 155.82px; text-align: center; height: 24px;">
 <div><strong>COMMENTS</strong></div>
 </td>
 </tr>
 <tr style="height: 10px;">
-<td style="width: 113.758px; height: 10px;">
-<div><strong>Attentive<br /></strong>Atent@</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Attentive</span><br /></strong>Atent@</span></div>
 </td>
-<td style="width: 29.8281px; height: 10px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 10px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 10px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 27px;">
-<td style="width: 113.758px; height: 27px;">
-<div><strong>Cooperative<br /></strong>Cooperativ@</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Cooperative</span><br /></strong>Cooperativ@</span></div>
 </td>
-<td style="width: 29.8281px; height: 27px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 27px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 27px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 25px;">
-<td style="width: 113.758px; height: 25px;">
-<div><strong>Demanding<br /></strong>Exigente</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Demanding</span><br /></strong>Exigente</span></div>
 </td>
-<td style="width: 29.8281px; height: 25px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 25px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 25px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 42px;">
-<td style="width: 113.758px; height: 42px;">
-<div><strong>Dependent<br /></strong>Dependiente</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Dependent</span><br /></strong>Dependiente</span></div>
 </td>
-<td style="width: 29.8281px; height: 42px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 42px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 42px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 36px;">
-<td style="width: 113.758px; height: 36px;">
-<div><strong>Following Instruction<br /></strong>Siguie las instrucci&oacute;nes</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Following Instruction<br /></strong></span>Siguie las instrucci&oacute;nes</span></div>
 </td>
-<td style="width: 29.8281px; height: 36px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 36px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 36px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 41px;">
-<td style="width: 113.758px; height: 41px;">
-<div><strong>Helping Others<br /></strong>Ayuda a otros</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Helping Others<br /></strong></span>Ayuda a otros</span></div>
 </td>
-<td style="width: 29.8281px; height: 41px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 41px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 41px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 22px;">
-<td style="width: 113.758px; height: 22px;">
-<div><strong>Participating<br /></strong>Participativ@</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Participating</span><br /></strong>Participativ@</span></div>
 </td>
-<td style="width: 29.8281px; height: 22px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 22px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 22px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 28px;">
-<td style="width: 113.758px; height: 28px;">
-<div><strong>Inappropriate<br /></strong>Inapropiad@</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Inappropriate</span><br /></strong>Inapropiad@</span></div>
 </td>
-<td style="width: 29.8281px; height: 28px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 28px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 28px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 31px;">
-<td style="width: 113.758px; height: 31px;">
-<div><strong>Independent<br /></strong>Independiente</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Independent<br /></strong></span>Independiente</span></div>
 </td>
-<td style="width: 29.8281px; height: 31px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 31px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 31px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 33px;">
-<td style="width: 113.758px; height: 33px;">
-<div><strong>Recalls Routine<br /></strong>Recuerda la rutina</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Recalls Routine<br /></strong></span>Recuerda la rutina</span></div>
 </td>
-<td style="width: 29.8281px; height: 33px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 33px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 33px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 41px;">
-<td style="width: 113.758px; height: 41px;">
-<div><strong>Initiative Activities<br /></strong>Actividades de iniciativa</div>
+<td style="width: 162.805px; height: 11px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Initiative Activities<br /></strong></span>Actividades de iniciativa</span></div>
 </td>
-<td style="width: 29.8281px; height: 41px;">
+<td style="width: 35.1875px; height: 11px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 41px;">
+<td style="width: 34.1875px; height: 11px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 41px;">
+<td style="width: 155.82px; height: 11px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 10px;">
-<td style="width: 113.758px; height: 10px;">
-<div><strong>Making Choices<br /></strong>Toma de decisiones</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Making Choices<br /></strong></span>Toma de decisiones</span></div>
 </td>
-<td style="width: 29.8281px; height: 10px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 10px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 10px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 15px;">
-<td style="width: 113.758px; height: 15px;">
-<div><strong>Requesting Help<br /></strong>Solicita ayuda</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Requesting Help<br /></strong></span>Solicita ayuda</span></div>
 </td>
-<td style="width: 29.8281px; height: 15px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 15px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 15px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 19px;">
-<td style="width: 113.758px; height: 19px;">
-<div><strong>Uncooperative<br /></strong>No cooperativo</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Uncooperative</span><br /></strong>No cooperativo</span></div>
 </td>
-<td style="width: 29.8281px; height: 19px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 19px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 19px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 23px;">
-<td style="width: 113.758px; height: 23px;">
-<div><strong>Unsafe Activities<br /></strong>Actividades inseguras</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Unsafe Activities<br /></strong></span>Actividades inseguras</span></div>
 </td>
-<td style="width: 29.8281px; height: 23px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 23px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 23px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 25px;">
-<td style="width: 113.758px; height: 25px;">
-<div><strong>Using Appropriate Manners<br /></strong>Usar modales apropiados</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><span style="font-size: 10pt;"><strong>Using Appropriate Manners<br /></strong></span>Usar modales apropiados</span></div>
 </td>
-<td style="width: 29.8281px; height: 25px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 25px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 25px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
 <tr style="height: 13px;">
-<td style="width: 113.758px; height: 13px;">
-<div><strong>Waiting<br /></strong>A la espera</div>
+<td style="width: 162.805px; height: 10px;">
+<div><span style="font-size: 8pt;"><strong><span style="font-size: 10pt;">Waiting</span><br /></strong>A la espera</span></div>
 </td>
-<td style="width: 29.8281px; height: 13px;">
+<td style="width: 35.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 23.7578px; height: 13px;">
+<td style="width: 34.1875px; height: 10px;">
 <div>&nbsp;</div>
 </td>
-<td style="width: 89.4766px; height: 13px;">
+<td style="width: 155.82px; height: 10px;">
 <div>&nbsp;</div>
 </td>
 </tr>
