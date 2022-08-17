@@ -106,8 +106,21 @@
 						hasta: dateHasta
 					},
 					success: function(data) {
+
+						if(data['success'] == false){
+							$('#resulWor').empty();
+							$('#resulPat').empty();
+
+							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
+							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
+							alert(msjOne + msjTwo);
+						}
+
 						var dataFullW = data['dataW'];
 						var dataFullP = data['dataP'];
+
+						$('#resulWor').empty();
+						$('#resulPat').empty();
 
 						dataFullW.forEach(function(valor, indice, array) {
 							dataFullW[indice].worker_id = JSON.parse(dataFullW[indice].worker_id);
@@ -122,18 +135,6 @@
 							dataFullP[indice].service_id = JSON.parse(dataFullP[indice].service_id);
 							dataFullP[indice].sub_service_id = JSON.parse(dataFullP[indice].sub_service_id);
 						});
-
-						//console.log(dataFullW);
-						//console.log(dataFullP);
-						//debugger;
-
-						$('#resultados').empty();
-
-						if(dataFullW == '' || dataFullW.length == 0 && dataFullP == '' || dataFullP.length == 0 || data['success'] == false){
-							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
-							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
-							alert(msjOne + msjTwo);
-						}
 
 						var htmlResultados = '';
 						var colBG = ''

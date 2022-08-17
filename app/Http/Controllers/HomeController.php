@@ -451,8 +451,6 @@ class HomeController extends Controller
                             array_push($arraySum, $registerAttention);
                             unset($arrayCollect[$key]);                      
                         }
-
-
                     }
                 }
             }else{
@@ -647,7 +645,6 @@ class HomeController extends Controller
                             array_push($arraySum, $registerAttention);
                             unset($arrayCollect[$key]);                            
                         }
-                        
                     }
                 }
             }else{
