@@ -408,6 +408,8 @@ class HomeController extends Controller
         }else{
             $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
         }
+
+        //dd($registerAttentions);
         
         
         $registerAttentionss = [];
@@ -432,7 +434,6 @@ class HomeController extends Controller
                 $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
 
                 array_push($registerAttentionss, $registerAttention);
-                //dd($registerAttention);
             }
 
             $arrayCollect = collect($registerAttentionss);
@@ -444,8 +445,7 @@ class HomeController extends Controller
                             $registerAttention->worker_id == $registerAttent->worker_id && 
                             $registerAttention->patiente_id == $registerAttent->patiente_id &&
                             $registerAttention->service_id == $registerAttent->service_id &&
-                            $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
-                            $keyI < $key
+                            $registerAttention->sub_service_id == $registerAttent->sub_service_id
                         ){
                             $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                             array_push($arraySum, $registerAttention);
@@ -458,7 +458,6 @@ class HomeController extends Controller
             }else{
                 $arraySum = $registerAttentionss;
             }
-
 
             $arraySumClean = collect($arraySum)->unique();
 
@@ -632,10 +631,9 @@ class HomeController extends Controller
                 $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
 
                 array_push($registerAttentionss, $registerAttention);
-                //dd($registerAttention);
             }
 
-            $arrayCollect = collect($registerAttentionss);
+            $arrayCollect = collect($registerAttentionss);            
             $arraySum = [];
             if(count($arrayCollect) > 1){
                 foreach($arrayCollect as $keyI => $registerAttention){
@@ -643,8 +641,7 @@ class HomeController extends Controller
                         if(
                             $registerAttention->patiente_id == $registerAttent->patiente_id &&
                             $registerAttention->service_id == $registerAttent->service_id &&
-                            $registerAttention->sub_service_id == $registerAttent->sub_service_id &&
-                            $keyI < $key
+                            $registerAttention->sub_service_id == $registerAttent->sub_service_id
                         ){
                             $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                             array_push($arraySum, $registerAttention);

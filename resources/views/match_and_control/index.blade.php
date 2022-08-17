@@ -108,6 +108,7 @@
 					success: function(data) {
 						var dataFullW = data['dataW'];
 						var dataFullP = data['dataP'];
+
 						dataFullW.forEach(function(valor, indice, array) {
 							dataFullW[indice].worker_id = JSON.parse(dataFullW[indice].worker_id);
 							dataFullW[indice].patiente_id = JSON.parse(dataFullW[indice].patiente_id);
@@ -121,6 +122,10 @@
 							dataFullP[indice].service_id = JSON.parse(dataFullP[indice].service_id);
 							dataFullP[indice].sub_service_id = JSON.parse(dataFullP[indice].sub_service_id);
 						});
+
+						//console.log(dataFullW);
+						//console.log(dataFullP);
+						//debugger;
 
 						$('#resultados').empty();
 
