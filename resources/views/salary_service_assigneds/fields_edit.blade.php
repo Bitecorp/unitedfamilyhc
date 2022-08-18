@@ -19,13 +19,13 @@
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('customer_payment', 'Customer Billing:') !!}
-            <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '' }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
+            <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? $salaryServiceAssigneds->customer_payment : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '') }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
         </div>
     </div>
     <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('salary', 'Worker Payment:') !!}
-            <input type="text" name="salary" id="salary" class="form-control" value="{{ isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? $services->worker_payment : '' }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
+            <input type="text" name="salary" id="salary" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? $salaryServiceAssigneds->salary : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? $services->worker_payment : '') }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
         </div>
     </div>
 </div>
