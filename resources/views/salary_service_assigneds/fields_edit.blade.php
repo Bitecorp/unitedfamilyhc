@@ -38,7 +38,9 @@
             <select name='unit_id' id='unit_id' class="form-control">
                 <option value='' selected>Select Unit of Time..</option>
                 @foreach($units as $unit)
-                    <option value='{{ $unit->id }}' {{ isset($config) && !empty($config) && isset($config->unit_id) && !empty($config->unit_id) && $config->unit_id == $unit->id ? 'selected' : '' }} >{{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minutes' : 'Hour'}}</option>
+                    <option value='{{ $unit->id }}' 
+                    {{ isset($config) && !empty($config) && isset($config->unit_id) && !empty($config->unit_id) && $config->unit_id == $unit->id ? 'selected' : 
+                        (isset($services) && $services->unit_customer_id == $unit->id ? 'selected' : '') }} >{{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minutes' : 'Hour'}}</option>
                 @endforeach
             </select>
         </div>
