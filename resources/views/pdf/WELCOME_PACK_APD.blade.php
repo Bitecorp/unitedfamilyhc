@@ -1171,17 +1171,9 @@
 <p>1.- UNITED FAMILY HEALTH CARE INC<strong>.</strong> Is available 24/7. You can contact us at (786)747-8002, after office hours and on weekends, our answering services will be accessible for non-emergency purposes. The agency will return your call and will visit the client if is necessary.</p>
 <p>2.- In case of a serious medical emergency, client should be taken to the hospital, UNITED FAMILY HEALTH CARE INC. Does not operate as an emergency service, therefore valuable time may be lost by contacting the Agency for a serious emergency.</p>
 <p>3.- Emergency service number is <strong>911</strong></p>
-<div><span style="font-size: 10pt;">4.- <strong>Name of close relative: </strong>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp;</span></div>
-<div><span style="font-size: 10pt;"><strong>Address:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span></div>
-<div><span style="font-size: 10pt;"><strong>Telephone: _ _ _ _ _ _ _ _ _ _ _ _</strong></span></div>
-<div><span style="font-size: 10pt;"><strong>Relationship to Client:</strong>&nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span></div>
-<div><span style="font-size: 10pt;">5.- <strong>Doctor&rsquo;s Name</strong>: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<strong>Telephone</strong>: _ _ _ _ _ _ _ _ _ _ _</span></div>
-<div><span style="font-size: 10pt;"><strong>Address</strong>: _ _ _&nbsp; _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ &nbsp;_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; _</span></div>
+<div><span style="font-size: 11pt;">4.- <strong>Name of close relative: </strong>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </span><br /><span style="font-size: 11pt;"><strong>Address:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Telephone: _ _ _ _ _ _ _ _ _ _ _ _</strong></span><br /><span style="font-size: 11pt;"><strong>Relationship to Client:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;">5.- <strong>Doctor&rsquo;s Name</strong>: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<strong>Telephone</strong>: _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Address</strong>: _ _ _&nbsp; _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ &nbsp;_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; _</span></div>
 <p>6.- In the event of a Hurricane or other natural disaster I plan to take the following action:</p>
-<div>Remain in the Home</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to a local shelter</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evacuate to safe area (Remember to call Agency with the new location)</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to relative/Other location</div>
+<div>Remain in the Home<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to a local shelter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evacuate to safe area (Remember to call Agency with the new location)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to relative/Other location</div>
 <div>A copy of this document was left and explained to Client/Caregiver on:</div>
 <div>Date: ___/ ___/ 202_</div>
 <p>&nbsp;</p>
