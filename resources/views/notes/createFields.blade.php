@@ -281,7 +281,7 @@
                     long_end: long_end
 				},
                 success: function(data) {
-                    window.location.href = '/notesSubServices';
+                    location.href = '/notesSubServices';
                 },
 				error: function (error) { 
 					console.log(error);

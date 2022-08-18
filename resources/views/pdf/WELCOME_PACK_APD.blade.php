@@ -1171,15 +1171,12 @@
 <p>1.- UNITED FAMILY HEALTH CARE INC<strong>.</strong> Is available 24/7. You can contact us at (786)747-8002, after office hours and on weekends, our answering services will be accessible for non-emergency purposes. The agency will return your call and will visit the client if is necessary.</p>
 <p>2.- In case of a serious medical emergency, client should be taken to the hospital, UNITED FAMILY HEALTH CARE INC. Does not operate as an emergency service, therefore valuable time may be lost by contacting the Agency for a serious emergency.</p>
 <p>3.- Emergency service number is <strong>911</strong></p>
-<div><span style="font-size: 11pt;">4.- <strong>Name of close relative: </strong>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </span><br /><span style="font-size: 11pt;"><strong>Address:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Telephone: _ _ _ _ _ _ _ _ _ _ _ _</strong></span><br /><span style="font-size: 11pt;"><strong>Relationship to Client:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;">5.- <strong>Doctor&rsquo;s Name</strong>: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<strong>Telephone</strong>: _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Address</strong>: _ _ _&nbsp; _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ &nbsp;_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; _</span></div>
-<p>6.- In the event of a Hurricane or other natural disaster I plan to take the following action:</p>
-<div>Remain in the Home<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to a local shelter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evacuate to safe area (Remember to call Agency with the new location)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to relative/Other location</div>
-<div>A copy of this document was left and explained to Client/Caregiver on:</div>
-<div>Date: ___/ ___/ 202_</div>
+<div><span style="font-size: 11pt;">4.- <strong>Name of close relative: </strong>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </span><br /><span style="font-size: 11pt;"><strong>Address:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Telephone: _ _ _ _ _ _ _ _ _ _ _ _</strong></span><br /><span style="font-size: 11pt;"><strong>Relationship to Client:</strong> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;">5.- <strong>Doctor&rsquo;s Name</strong>: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<strong>Telephone</strong>: _ _ _ _ _ _ _ _ _ _ _</span><br /><span style="font-size: 11pt;"><strong>Address</strong>: _ _ _&nbsp; _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ &nbsp;_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; _</span><br />6.- In the event of a Hurricane or other natural disaster I plan to take the following action:<br />Remain in the Home<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to a local shelter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evacuate to safe area (Remember to call Agency with the new location)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Go to relative/Other location<br /><br />A copy of this document was left and explained to Client/Caregiver on:<br />Date: ___/ ___/ 202_</div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<strong>&nbsp;</strong></p>
+<h3 style="text-align: center;">&nbsp;</h3>
 <h3 style="text-align: center;"><strong>EMERGENCY PLAN INFORMED CONSENT</strong></h3>
 <p>This information is provided to you as a quick reference source in case of an emergency/disaster before approaching or occurring.</p>
 <p>As part of the Emergency Plan that United Family Health Care Inc. Has approved by the Florida Department of Health and renewed annually, withing the steps the Agency takes when an emergency or a disaster occurs, the Agency contacts consumers/caregivers to inform them the activation of the Plan and from that very moment begins an unfolding of actions among which is to confirm if consumers will be going to a shelter, local hospital or remain home.</p>
@@ -1194,134 +1191,133 @@
 <div>Date: ___/ ___/ 202_</div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<strong>&nbsp;</strong></p>
+<div style="text-align: center;">&nbsp;</div>
 <div style="text-align: center;"><span style="font-size: 14pt;"><strong>SAFETY CHECK LIST</strong></span></div>
 <div>&nbsp;</div>
-<table style="width: 550px; margin-left: auto; margin-right: auto; height: 540px;" width="672">
+<table style="height: 414px; width: 525px;" border="1">
 <tbody>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px; text-align: left;"><strong><span style="font-size: 10pt;">ITEMS TO CHECK:</span></strong></td>
-<td style="border-style: solid; text-align: center; height: 18px; width: 86.1562px;">
+<td style="height: 18px; width: 398.336px; text-align: center;"><strong>ITEMS TO CHECK:</strong></td>
+<td style="height: 18px; width: 55.7891px; text-align: center;">
 <div><strong>YES</strong></div>
 </td>
-<td style="border-style: solid; text-align: center; height: 18px; width: 90.1875px;">
+<td style="height: 18px; width: 48.875px; text-align: center;">
 <div><strong>NO</strong></div>
 </td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">1 Fire Extinguisher / Extinguidor de Fuego</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">1 Fire Extinguisher / Extinguidor de Fuego</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">2 Smoke detectors / Detector de Humo</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">2 Smoke detectors / Detector de Humo</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">3 Emergency Exit Visible / Salida de Emergencia Visible</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">3 Emergency Exit Visible / Salida de Emergencia Visible</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">4 Hurricane Shutters / Contraventana de Huracan</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
-</tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">5 EvacuationPian For Emergency / Plan de Evacuacion para Emergencia</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">4 Hurricane Shutters / Contraventana de Huracan</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">6 Exit door without Fence / Puerta de Salida sin Rejas</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
-</tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">7 Gate of Emergency(windows)/Salida de Emergencia para Las Ventanas</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">5 EvacuationPian For Emergency / Plan de Evacuacion para Emergencia</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">8 First Aid Box/ Caja de Primer Auxilio</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">6 Exit door without Fence / Puerta de Salida sin Rejas</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">9 Emergency equip or supplies/Suministros para una Emergencia</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
-</tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">10 Medical Supplies in good condition/Suminitros Medicos en buenas condiciones</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
-</tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">11 Furniture, Chairs etc in good condition / Muebles, Sillas en buenas condiciones. NED &amp; KR WNO</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">7 Gate of Emergency(windows)/Salida de Emergencia para Las Ventanas</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">12 Apropiate Bedding / Cama Apropiada.</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">8 First Aid Box/ Caja de Primer Auxilio</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">13 Ceiling in good condition / Techo en buenas Cond</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">9 Emergency equip or supplies/Suministros para una Emergencia</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">14 Adequate Kitchen / Cocina Apropiada</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">10 Medical Supplies in good condition/Suminitros Medicos en buenas condiciones</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">15 Floor in good condition / Piso en buenas condiciones</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
-</tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">16 Outlets working properly / Tomas de Corrientes trabajando apropiadamente</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">11 Furniture, Chairs etc in good condition / Muebles, Sillas en buenas condiciones. NED &amp; KR WNO</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">17 Apropiate Ventilation / Ventilaci&oacute;n Apropiada</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">12 Apropiate Bedding / Cama Apropiada.</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">18 Electrical Appliances and Equipment / Equipos El&eacute;ctricos</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">13 Ceiling in good condition / Techo en buenas Cond</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">19 Client area organized / &Aacute;rea organizada del cliente</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">14 Adequate Kitchen / Cocina Apropiada</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 <tr style="height: 18px;">
-<td style="border-style: solid; height: 18px; width: 351.656px;"><span style="font-size: 10pt;">20 Lights working properly / Luces Trabajando apropiadamente</span></td>
-<td style="border-style: solid; height: 18px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 18px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">15 Floor in good condition / Piso en buenas condiciones</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;"><span style="font-size: 10pt;">21 Doors &amp; Locks working properly / Puertas y Seguros trabajando apropiadamente</span></td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">16 Outlets working properly / Tomas de Corrientes trabajando apropiadamente</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
-<tr style="height: 36px;">
-<td style="border-style: solid; height: 36px; width: 351.656px;">
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">17 Apropiate Ventilation / Ventilaci&oacute;n Apropiada</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">18 Electrical Appliances and Equipment / Equipos El&eacute;ctricos</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">19 Client area organized / &Aacute;rea organizada del cliente</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">20 Lights working properly / Luces Trabajando apropiadamente</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;"><span style="font-size: 10pt;">21 Doors &amp; Locks working properly / Puertas y Seguros trabajando apropiadamente</span></td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="height: 18px; width: 398.336px;">
 <div><span style="font-size: 10pt;">22 Flammable Substances Safely Stored / Substancias Inflamable guardadas seguras</span></div>
 </td>
-<td style="border-style: solid; height: 36px; width: 86.1562px;">&nbsp;</td>
-<td style="border-style: solid; height: 36px; width: 90.1875px;">&nbsp;</td>
+<td style="height: 18px; width: 55.7891px;">&nbsp;</td>
+<td style="height: 18px; width: 48.875px;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -1332,149 +1328,151 @@
 <div>&nbsp;</div>
 <div><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></div>
 <div>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<strong>&nbsp;</strong></div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">&nbsp;</div>
 <div style="text-align: center;"><span style="font-size: 14pt;"><strong>Annual Medical Appointments Log</strong></span></div>
 <div>Client Name: {{ $fullNamePatiente }} {{ isset($patiente->mi) ? $patiente->mi : "" }} {{ $patiente->last_name }}&nbsp; &nbsp;&nbsp;</div>
-<table style="width: 717px; margin-left: auto; margin-right: auto;" width="959">
+<table style="height: 378px; width: 569px;" border="1">
 <tbody>
-<tr>
-<td style="width: 223.469px; text-align: center; border-style: solid;">&nbsp;</td>
-<td style="width: 204.078px; text-align: center; border-style: solid;"><span style="font-size: 10pt;"><strong>Physician Name</strong></span></td>
-<td style="width: 74.0938px; text-align: center; border-style: solid;"><span style="font-size: 10pt;"><strong>Last Visit</strong></span></td>
-<td style="width: 77.875px; text-align: center; border-style: solid;"><span style="font-size: 10pt;"><strong>Next Visit</strong></span></td>
-<td style="width: 103.484px; text-align: center; border-style: solid;"><span style="font-size: 10pt;"><strong>Other Information</strong></span></td>
+<tr style="height: 36px;">
+<td style="width: 198.727px; height: 36px; text-align: center;">&nbsp;</td>
+<td style="width: 108.398px; height: 36px; text-align: center;"><span style="font-size: 10pt;"><strong>Physician Name</strong></span></td>
+<td style="width: 63.2422px; height: 36px; text-align: center;"><span style="font-size: 10pt;"><strong>Last Visit</strong></span></td>
+<td style="width: 60.2266px; height: 36px; text-align: center;"><span style="font-size: 10pt;"><strong>Next Visit</strong></span></td>
+<td style="width: 104.406px; height: 36px; text-align: center;"><span style="font-size: 10pt;"><strong>Other Information</strong></span></td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">PRIMARY PHYSICIAN</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">PRIMARY PHYSICIAN</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OPTOMETRIST/OPTHAM</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OPTOMETRIST/OPTHAM</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">NEUROLOGIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">NEUROLOGIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">GYNECOLOGIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">GYNECOLOGIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">PSYCOLOGIST/PSYCHIAT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">PSYCOLOGIST/PSYCHIAT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">PODIATRIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">PODIATRIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">DERMATOLOGIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">DERMATOLOGIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">ENDOCRINOLOGIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">ENDOCRINOLOGIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">GASTROENTEROLOGIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">GASTROENTEROLOGIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">DENTIST</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">DENTIST</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">ANNUAL PHYSICIAL</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">ANNUAL PHYSICIAL</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">ANNUAL LABS/X-RAY</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">ANNUAL LABS/X-RAY</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">ANNUAL PSYCHIATRIC FORM</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">ANNUAL PSYCHIATRIC FORM</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">ANNUAL NEUROLOGICAL FORM</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">ANNUAL NEUROLOGICAL FORM</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
-<tr>
-<td style="width: 223.469px; border-style: solid;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
-<td style="width: 204.078px; border-style: solid;">&nbsp;</td>
-<td style="width: 74.0938px; border-style: solid;">&nbsp;</td>
-<td style="width: 77.875px; border-style: solid;">&nbsp;</td>
-<td style="width: 103.484px; border-style: solid;">&nbsp;</td>
+<tr style="height: 18px;">
+<td style="width: 198.727px; height: 18px;"><span style="font-size: 10pt;">OTHER DOCTOR VISIT</span></td>
+<td style="width: 108.398px; height: 18px;">&nbsp;</td>
+<td style="width: 63.2422px; height: 18px;">&nbsp;</td>
+<td style="width: 60.2266px; height: 18px;">&nbsp;</td>
+<td style="width: 104.406px; height: 18px;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
