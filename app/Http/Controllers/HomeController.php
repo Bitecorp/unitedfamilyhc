@@ -457,7 +457,7 @@ class HomeController extends Controller
                         }
                     }elseif(count($count) == 1){
                         foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
-                            $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                            //$registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                             array_push($arraySum, $registerAttention);
                             unset($arrayCollect[$key]);  
                         }
@@ -664,7 +664,7 @@ class HomeController extends Controller
                         }
                     }elseif(count($count) == 1){
                         foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
-                            $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                            //$registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                             array_push($arraySum, $registerAttention);
                             unset($arrayCollect[$key]);  
                         }
