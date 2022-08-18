@@ -52,8 +52,8 @@ class NotesSubServicesRegisterController extends Controller
                 "note" => $note->note,
                 "firma" => $note->firma,
                 "status" => $data->status,
-                "start" => Carbon::createFromFormat('Y-m-d H:i:s', $data->start)->format('m-d-Y'),
-                "end" => Carbon::createFromFormat('Y-m-d H:i:s', $data->end)->format('m-d-Y'),
+                "start" => date('m-d-Y h:i:s A', strtotime($data->start)),
+                "end" => date('m-d-Y h:i:s A', strtotime($data->end)),
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
