@@ -73,11 +73,14 @@
 				</div>
 				<!-- end panel-body -->
 			</div>
+
 			@if (strpos(Request::url(), 'matchAndControl'))
 				<div class="row">
 					@include('pages.dashboard.dashboard-sub-services-mac')
 				</div>
-			@elseif (strpos(Request::url(), 'manageBillAndPay')
+			@endif
+			
+			@if(strpos(Request::url(), 'manageBillAndPay'))
 				<div>
 					@include('pages.dashboard.dashboard-sub-services-mac-contable')
 				</div>
