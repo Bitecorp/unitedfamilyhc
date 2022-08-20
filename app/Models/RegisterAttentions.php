@@ -26,7 +26,8 @@ class RegisterAttentions extends Model
         'lat_end',
         'long_end',
         'status',
-        'paid'
+        'paid',
+        'collected'
     ];
 
     /**
@@ -47,7 +48,8 @@ class RegisterAttentions extends Model
         'lat_end' => 'string',
         'long_end' => 'string',
         'status' => 'string',
-        'paid' => 'boolean'
+        'paid' => 'boolean',
+        'collected' => 'boolean'
     ];
 
     /**
@@ -68,6 +70,7 @@ class RegisterAttentions extends Model
         'long_end' => 'nullable|string|max:255',
         'status' => 'nullable|string|max:255',
         'paid' => 'nullable|boolean',
+        'collected' => 'nullable|boolean',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

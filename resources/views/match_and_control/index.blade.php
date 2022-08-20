@@ -109,6 +109,21 @@
         });
     </script>
 
+	<script>
+		$(function() {
+			$('#btn_reset').click(function() {
+				$('#service_id').val('all');
+				$('#paid').val('');
+				$('#desde').val('');
+				$('#hasta').val('');
+				$('#resulWor').empty();
+				$('#resulPat').empty();
+				$('#resulWorTab').empty();
+				$('#resulPatTab').empty();
+			});
+		});
+	</script>
+
     <script>
 		$('#btn_submit').click(function() {
 
@@ -148,14 +163,17 @@
 						var htmlResultados = '';
 						var colBG = '';
 						var checkCheck = '';
+						var block = '';
 						
 
 						if(paid == 1){
 							colBG = 'bg-teal';
 							checkCheck = 'checked';
+							block = 'readonly';
 						}else if(paid == 0){
 							colBG = 'bg-red';
 							checkCheck = '';
+							block = '';
 						}
 
 						var dataFullW = data['dataW'];
@@ -185,8 +203,8 @@
 
 								var check =
 								'<div class="custom-control custom-switch">\n' +
-                                    '<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dateDesde + ',' + dateHasta + ',' + dataFullW[i].status + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
-                                    '<label class="custom-control-label" for="Switch_' + dataFullW[i].id + '"></label>\n' +
+                                    '<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + block + '>\n' +
+                                    '<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
                                 '</div>\n';
 
 								var dataW = 
@@ -211,8 +229,8 @@
 
 								var check =
 								'<div class="custom-control custom-switch">\n' +
-                                    '<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].worker_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dateDesde + ',' + dateHasta + ',' + dataFullP[i].status + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
-                                    '<label class="custom-control-label" for="Switch_' + dataFullP[i].id + '"></label>\n' +
+                                    '<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + block + '>\n' +
+                                    '<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
                                 '</div>\n';
 								
 								var dataP = 
@@ -295,6 +313,84 @@
 				alert(msjOne + msjTwo);
 			}
 		});
+	</script>
+
+	<script>
+		function cobrar(idPatiente, idService, idSubService, status, paid) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/cobrarPatiente";
+
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service = idSubService;
+			var status = status;
+			var paid = paid;
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service,
+					fecha_desde: dateDesde,
+					fecha_hasta: dateHasta,
+					status: status,
+					paid: paid,
+				},
+				success: function(data) {
+
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
+	</script>
+
+	<script>
+		function pagar(idPatiente, idWorker, idService, idSubService, status, paid) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/pagarWorker";
+
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service = idSubService;
+			var status = status;
+			var paid = paid;
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					patiente_id: idPatiente,
+					worker_id: worker_id,
+					service_id: service_id,
+					sub_service_id: idSubService,
+					fecha_desde: dateDesde,
+					fecha_hasta: dateHasta,
+					status: status,
+					paid: paid
+				},
+				success: function(data) {
+					
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
 	</script>
 @endpush
 

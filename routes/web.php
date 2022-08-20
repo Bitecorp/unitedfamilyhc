@@ -38,6 +38,10 @@ Route::controller(HomeController::class)->group(function () {
     
     Route::post('/matchAndControl', 'matchAndControlSearch'); 
 
+    Route::post('/cobrarPatiente', 'cobrar');
+
+    Route::post('/pagarWorker', 'pagar'); 
+
     Route::post('/searchServicesWorker', 'searchServicesWorker');
 
     Route::post('/searchPatienteService', 'searchPatienteService');
