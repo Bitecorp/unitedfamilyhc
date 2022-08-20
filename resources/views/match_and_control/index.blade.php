@@ -107,6 +107,11 @@
 
     <script>
 		$('#btn_submit').click(function() {
+
+			$('#resulWor').empty();
+			$('#resulPat').empty();
+			$('#resulWorTab').empty();
+			$('#resulPatTab').empty();
 			
 			var url = "/matchAndControl";
 			var service_id = $('#service_id').val();
@@ -131,14 +136,22 @@
 					success: function(data) {
 
 						if(data['success'] == false){
-							$('#resulWor').empty();
-							$('#resulPat').empty();
-							$('#resulWorTab').empty();
-							$('#resulPatTab').empty();
-
 							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
 							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
 							alert(msjOne + msjTwo);
+						}
+
+						var htmlResultados = '';
+						var colBG = '';
+						var checkCheck = '';
+						
+
+						if(paid == 1){
+							colBG = 'bg-teal';
+							checkCheck = 'checked';
+						}else if(paid == 0){
+							colBG = 'bg-red';
+							checkCheck = '';
 						}
 
 						var dataFullW = data['dataW'];
@@ -166,8 +179,15 @@
 
 							for (var i = 0; i < dataFullW.length; i++) {
 
+								var check =
+								'<div class="custom-control custom-switch">\n' +
+                                    '<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dateDesde + ',' + dateHasta + ',' + dataFullW[i].status + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
+                                    '<label class="custom-control-label" for="Switch_' + dataFullW[i].id + '"></label>\n' +
+                                '</div>\n';
+
 								var dataW = 
 									'<tr>\n' +
+										'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
 										'<td>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</td>\n' +
 										'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
 										'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
@@ -175,7 +195,7 @@
 										'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
 										'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
 										'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
-										'<td> lol </td>\n' +
+										'<td>' + check + '</td>\n' +
 									'</tr>\n';
 
 								htmlResultados = dataW;
@@ -184,16 +204,23 @@
 							};
 
 							for (var i = 0; i < dataFullP.length; i++) {
+
+								var check =
+								'<div class="custom-control custom-switch">\n' +
+                                    '<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].worker_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dateDesde + ',' + dateHasta + ',' + dataFullP[i].status + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
+                                    '<label class="custom-control-label" for="Switch_' + dataFullP[i].id + '"></label>\n' +
+                                '</div>\n';
 								
 								var dataP = 
 									'<tr>\n' +
+									'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
 										'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
 										'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
 										'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
 										'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
 										'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
 										'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
-										'<td> lol </td>\n' +
+										'<td>' + check + '</td>\n' +
 									'</tr>\n';
 
 								htmlResultados = dataP;
@@ -205,15 +232,6 @@
 
 							$('#resulWor').empty();
 							$('#resulPat').empty();
-
-							var htmlResultados = '';
-							var colBG = ''
-
-							if(paid == 1){
-								colBG = 'bg-teal';
-							}else if(paid == 0){
-								colBG = 'bg-red';
-							}
 
 							var arrayW = [];
 							for (var i = 0; i < dataFullW.length; i++) {							
