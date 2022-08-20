@@ -140,6 +140,9 @@
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 
+			var urlActualMAC = '{{ strpos(Request::url(), "matchAndControl") }}';
+			var urlActualBYP = '{{ strpos(Request::url(), "manageBillAndPay") }}';
+
 			if(service_id != '' && paid != '' && dateDesde != '' && dateHasta != ''){
 				$.ajax({
 					type: "post",
@@ -169,7 +172,7 @@
 						if(paid == 1){
 							colBG = 'bg-teal';
 							checkCheck = 'checked';
-							block = 'readonly';
+							block = ' disabled readonly';
 						}else if(paid == 0){
 							colBG = 'bg-red';
 							checkCheck = '';
@@ -193,7 +196,7 @@
 							dataFullP[indice].sub_service_id = JSON.parse(dataFullP[indice].sub_service_id);
 						});
 
-						if(roleUser == 1){
+						if(urlActualBYP){
 
 							$('#resulWorTab').empty();
 							$('#resulPatTab').empty();
@@ -250,7 +253,7 @@
 								$('#resulPatTab').append(htmlResultados);
 							};
 
-						}else{
+						}else if(urlActualMAC){
 
 							$('#resulWor').empty();
 							$('#resulPat').empty();
@@ -344,8 +347,8 @@
 					paid: paid,
 				},
 				success: function(data) {
-					var obj = document.getElementById('#btn_submit');
-					if(data['success'] == false){
+					var obj = document.getElementById('btn_submit');
+					if(data['success'] == true){
 						if (obj){
 							obj.click(); 
 						}
@@ -389,8 +392,8 @@
 					paid: paid
 				},
 				success: function(data) {
-					var obj = document.getElementById('#btn_submit');
-					if(data['success'] == false){
+					var obj = document.getElementById('btn_submit');
+					if(data['success'] == true){
 						if (obj){
 							obj.click(); 
 						}

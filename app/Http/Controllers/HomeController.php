@@ -636,9 +636,9 @@ class HomeController extends Controller
 
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('collected', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
         }
         
         
