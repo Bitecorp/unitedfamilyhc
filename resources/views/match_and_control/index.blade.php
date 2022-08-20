@@ -160,12 +160,11 @@
 
 						if(roleUser == 1){
 
+							$('#resulWorTab').empty();
+							$('#resulPatTab').empty();
 							var htmlResultados = '';
 
 							for (var i = 0; i < dataFullW.length; i++) {
-
-								$('#resulWorTab').empty();
-								$('#resulPatTab').empty();
 
 								var dataW = 
 									'<tr>\n' +
@@ -175,7 +174,7 @@
 										'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
 										'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
 										'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
-										'<td>' + dataFullW[i].mont_pay + '$ (USD)' + + '</td>\n' +
+										'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
 										'<td> lol </td>\n' +
 									'</tr>\n';
 
