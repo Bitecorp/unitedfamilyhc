@@ -352,7 +352,10 @@
 						if (obj){
 							obj.click(); 
 						}
-					}	
+					}
+					let msjOne = 'Execution of collection carried out satisfactoril.\n\n';
+					let msjTwo = 'Ejecucion de cobro efectuada de forma satisfactoria.';
+					alert(msjOne + msjTwo);
 				},
 				error: function (error) { 
 					console.log(error);
@@ -397,7 +400,10 @@
 						if (obj){
 							obj.click(); 
 						}
-					}				
+					}		
+					let msjOne = 'Execution of payment satisfactorily complete.\n\n';
+					let msjTwo = 'Ejecucion de pago efectuada de forma satisfactoria.';
+					alert(msjOne + msjTwo);		
 				},
 				error: function (error) { 
 					console.log(error);
