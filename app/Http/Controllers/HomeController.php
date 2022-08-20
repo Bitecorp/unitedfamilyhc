@@ -865,6 +865,12 @@ class HomeController extends Controller
             
             $flight->save();
         }
+
+        return response()->json([
+            'data' => [],
+            'msj' => "data actualizada",
+            'success' => true
+        ]); 
     }
 
     public function pagar(Request $request)
@@ -891,5 +897,11 @@ class HomeController extends Controller
             
             $flight->save();
         }
+
+        return response()->json([
+            'data' => [],
+            'msj' => "data actualizada",
+            'success' => true
+        ]); 
     }
 }

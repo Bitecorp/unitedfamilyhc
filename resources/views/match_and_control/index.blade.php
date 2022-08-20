@@ -344,7 +344,12 @@
 					paid: paid,
 				},
 				success: function(data) {
-
+					var obj = document.getElementById('#btn_submit');
+					if(data['success'] == false){
+						if (obj){
+							obj.click(); 
+						}
+					}	
 				},
 				error: function (error) { 
 					console.log(error);
@@ -384,7 +389,12 @@
 					paid: paid
 				},
 				success: function(data) {
-					
+					var obj = document.getElementById('#btn_submit');
+					if(data['success'] == false){
+						if (obj){
+							obj.click(); 
+						}
+					}				
 				},
 				error: function (error) { 
 					console.log(error);
