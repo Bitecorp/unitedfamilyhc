@@ -33,6 +33,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('home');
     
     Route::get('/matchAndControl', 'matchAndControlFilter');
+
+    Route::get('/manageBillAndPay', 'matchAndControlFilter');
     
     Route::post('/matchAndControl', 'matchAndControlSearch'); 
 

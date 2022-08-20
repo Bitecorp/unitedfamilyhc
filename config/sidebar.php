@@ -42,8 +42,19 @@ return [
         [
             'icon' => 'fa fa-random',
             'title' => 'Match and Control',
-            'url' => "/matchAndControl",
-	    ],
+            'url' => 'javascript:;',
+            'caret' => true,
+            'sub_menu' => [
+                [
+                    'url' => '/matchAndControl',
+                    'title' => 'Dashboard'
+                ],
+                [
+                    'url' => '/manageBillAndPay',
+                    'title' => 'Manage Bill & Pay'
+                ],
+            ]
+        ],
         
         [
             'icon' => 'fa fa-cogs',
