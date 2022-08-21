@@ -157,12 +157,6 @@
 					},
 					success: function(data) {
 
-						if(data['success'] == false){
-							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
-							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
-							alert(msjOne + msjTwo);
-						}
-
 						var htmlResultados = '';
 						var colBG = '';
 						var checkCheck = '';
@@ -181,6 +175,12 @@
 
 						var dataFullW = data['dataW'];
 						var dataFullP = data['dataP'];
+
+						if(dataFullW.length < 1 && dataFullP.length < 1){
+							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
+							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
+							alert(msjOne + msjTwo);
+						}
 
 						dataFullW.forEach(function(valor, indice, array) {
 							dataFullW[indice].worker_id = JSON.parse(dataFullW[indice].worker_id);
@@ -202,107 +202,113 @@
 							$('#resulPatTab').empty();
 							var htmlResultados = '';
 
-							for (var i = 0; i < dataFullW.length; i++) {
+							if(dataFullW.length >= 1){
+								for (var i = 0; i < dataFullW.length; i++) {
 
-								var check =
-								'<div class="custom-control custom-switch">\n' +
-                                    '<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + block + '>\n' +
-                                    '<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
-                                '</div>\n';
+									var check =
+									'<div class="custom-control custom-switch">\n' +
+										'<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + block + '>\n' +
+										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
+									'</div>\n';
 
-								var dataW = 
-									'<tr>\n' +
+									var dataW = 
+										'<tr>\n' +
+											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
+											'<td>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</td>\n' +
+											'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
+											'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
+											'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
+											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
+											'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
+											'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
+											'<td>' + check + '</td>\n' +
+										'</tr>\n';
+
+									htmlResultados = dataW;
+											
+									$('#resulWorTab').append(htmlResultados);
+								};
+							}
+
+							if(dataFullP.length >= 1){
+								for (var i = 0; i < dataFullP.length; i++) {
+
+									var check =
+									'<div class="custom-control custom-switch">\n' +
+										'<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + block + '>\n' +
+										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
+									'</div>\n';
+									
+									var dataP = 
+										'<tr>\n' +
 										'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
-										'<td>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</td>\n' +
-										'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
-										'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
-										'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
-										'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
-										'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
-										'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
-										'<td>' + check + '</td>\n' +
-									'</tr>\n';
+											'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
+											'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
+											'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
+											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
+											'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
+											'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
+											'<td>' + check + '</td>\n' +
+										'</tr>\n';
 
-								htmlResultados = dataW;
-										
-								$('#resulWorTab').append(htmlResultados);
-							};
-
-							for (var i = 0; i < dataFullP.length; i++) {
-
-								var check =
-								'<div class="custom-control custom-switch">\n' +
-                                    '<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + block + '>\n' +
-                                    '<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
-                                '</div>\n';
-								
-								var dataP = 
-									'<tr>\n' +
-									'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
-										'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
-										'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
-										'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
-										'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
-										'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
-										'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
-										'<td>' + check + '</td>\n' +
-									'</tr>\n';
-
-								htmlResultados = dataP;
-										
-								$('#resulPatTab').append(htmlResultados);
-							};
+									htmlResultados = dataP;
+											
+									$('#resulPatTab').append(htmlResultados);
+								};
+							}
 
 						}else if(urlActualMAC){
 
 							$('#resulWor').empty();
 							$('#resulPat').empty();
 
-							var arrayW = [];
-							for (var i = 0; i < dataFullW.length; i++) {							
+							if(dataFullW.length >= 1){
+								for (var i = 0; i < dataFullW.length; i++) {							
 
-									var dataW = 
-										'<div class="col-xl-6 col-md-6">\n' +
-											'<div class="widget widget-stats ' + colBG + '">\n' +
-												'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
-												'<div class="stats-info">\n' +
-													'<h4>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</h4>\n' +
-													'<h4>WK: ' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h4>\n' +
-													'<h4>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</h4>\n' +
-													'<h4>Unit of: ' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - Unit value: ' + dataFullW[i].unit_value_worker + '$ (USD)</h4>\n' +
-													'<h4>Time: ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + ' units </h4>\n' +
-													'<h4>Amount to be paid: ' + dataFullW[i].mont_pay + '$ (USD) </h4>\n' +												
+										var dataW = 
+											'<div class="col-xl-6 col-md-6">\n' +
+												'<div class="widget widget-stats ' + colBG + '">\n' +
+													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+													'<div class="stats-info">\n' +
+														'<h4>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</h4>\n' +
+														'<h4>WK: ' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h4>\n' +
+														'<h4>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</h4>\n' +
+														'<h4>Unit of: ' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - Unit value: ' + dataFullW[i].unit_value_worker + '$ (USD)</h4>\n' +
+														'<h4>Time: ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + ' units </h4>\n' +
+														'<h4>Amount to be paid: ' + dataFullW[i].mont_pay + '$ (USD) </h4>\n' +												
+													'</div>\n' +
 												'</div>\n' +
-											'</div>\n' +
-										'</div>\n';
-										
-								htmlResultados = dataW;
-										
-								$('#resulWor').append(htmlResultados);
-							};
+											'</div>\n';
+											
+									htmlResultados = dataW;
+											
+									$('#resulWor').append(htmlResultados);
+								};
+							}
 
-							for (var i = 0; i < dataFullP.length; i++) {
-				
-									var dataP = 
-										'<div class="col-xl-6 col-md-6">\n' +
-											'<div class="widget widget-stats ' + colBG + '">\n' +
-												'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
-												'<div class="stats-info">\n' +
-													'<h4>'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</h4>\n' +
-													'<h4>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</h4>\n' +
-													'<h4>Unit of: ' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - Unit value: ' + dataFullP[i].unit_value_patiente + '$ (USD)</h4>\n' +
-													'<h4>Time: ' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + ' units </h4>\n' +
-													'<h4>Amount receivable: ' + dataFullP[i].mont_cob + '$ (USD) </h4>\n' +
-													'<h4>Amount to be paid: ' + dataFullP[i].mont_pay + '$ (USD) </h4>\n' +
-													'<h4>Company profit: ' + dataFullP[i].ganancia_empresa +  '$ (USD) </h4>\n' +	
+							if(dataFullP.length >= 1){
+								for (var i = 0; i < dataFullP.length; i++) {				
+										var dataP = 
+											'<div class="col-xl-6 col-md-6">\n' +
+												'<div class="widget widget-stats ' + colBG + '">\n' +
+													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
+													'<div class="stats-info">\n' +
+														'<h4>'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</h4>\n' +
+														'<h4>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</h4>\n' +
+														'<h4>Unit of: ' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - Unit value: ' + dataFullP[i].unit_value_patiente + '$ (USD)</h4>\n' +
+														'<h4>Time: ' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + ' units </h4>\n' +
+														'<h4>Amount receivable: ' + dataFullP[i].mont_cob + '$ (USD) </h4>\n' +
+														'<h4>Amount to be paid: ' + dataFullP[i].mont_pay + '$ (USD) </h4>\n' +
+														'<h4>Company profit: ' + dataFullP[i].ganancia_empresa +  '$ (USD) </h4>\n' +	
+													'</div>\n' +
 												'</div>\n' +
-											'</div>\n' +
-										'</div>\n';
+											'</div>\n';
 
-								htmlResultados = dataP;
+									htmlResultados = dataP;
 										
-								$('#resulPat').append(htmlResultados)
-							};
+									$('#resulPat').append(htmlResultados)
+								};
+							}
 						}
 						
 					},
@@ -353,8 +359,8 @@
 							obj.click(); 
 						}
 					}
-					let msjOne = 'Execution of collection carried out satisfactoril.\n\n';
-					let msjTwo = 'Ejecucion de cobro efectuada de forma satisfactoria.';
+					let msjOne = 'The payment process was carried out successfully.\n\n';
+					let msjTwo = 'El proceso cobro fue realizado con exito.';
 					alert(msjOne + msjTwo);
 				},
 				error: function (error) { 
@@ -401,8 +407,8 @@
 							obj.click(); 
 						}
 					}		
-					let msjOne = 'Execution of payment satisfactorily complete.\n\n';
-					let msjTwo = 'Ejecucion de pago efectuada de forma satisfactoria.';
+					let msjOne = 'The billing process was carried out successfully.\n\n';
+					let msjTwo = 'El proceso pago fue realizado con exito.';
 					alert(msjOne + msjTwo);		
 				},
 				error: function (error) { 

@@ -608,8 +608,6 @@ class HomeController extends Controller
             
 
             $dataPatiente = $this->matchAndControlSearchPatientes($request);
-
-            //dd($dataPatiente);
             
             return response()->json([
                 'dataW' => collect($arrayFinal),
@@ -619,10 +617,13 @@ class HomeController extends Controller
             ]); 
 
         }else{
+            $dataPatiente = $this->matchAndControlSearchPatientes($request);
+
             return response()->json([
-                'data' => [],
+                'dataW' => [],
+                'dataP' => $dataPatiente,
                 'msj' => "data no encontrada",
-                'success' => false
+                'success' => true
             ]); 
         }
     }
