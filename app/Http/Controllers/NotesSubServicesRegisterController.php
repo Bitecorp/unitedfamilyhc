@@ -15,6 +15,9 @@ use Carbon\Carbon;
 use App\Models\ReferencesPersonalesTwo;
 use Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use App\Models\SalaryServiceAssigneds;
+use App\Models\Units;
+use App\Models\ConfigSubServicesPatiente;
 
 class NotesSubServicesRegisterController extends Controller
 {      
@@ -42,6 +45,23 @@ class NotesSubServicesRegisterController extends Controller
             $subService = SubServices::find($note->sub_service_id);
             $data = RegisterAttentions::find($note->register_attentions_id);
 
+                $timeAttention = $data->start->diff($data->end);
+                $times = explode(":", $timeAttention->format('%H:%i:%s'));
+
+                if($times[0] < 10){
+                    $times[0] = str_split($times[0])[1];
+                }
+
+                if($times[1] < 10){
+                    $times[1] = '0' . $times[1];
+                }
+
+                if($times[2] < 10){
+                    $times[2] = '0' . $times[2];
+                }
+                
+                $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
             $newNote = array( 
                 "id" => $note->id,
                 "register_attentions_id" => $note->register_attentions_id,
@@ -54,9 +74,62 @@ class NotesSubServicesRegisterController extends Controller
                 "status" => $data->status,
                 "start" => date('m-d-Y h:i:s A', strtotime($data->start)),
                 "end" => date('m-d-Y h:i:s A', strtotime($data->end)),
+                "time_attention" => $data->time_attention,
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
+
+            $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $worker->id)->first();
+
+            if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
+                if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
+                    $dataPagosWorker->salary = $subService->worker_payment;
+                    $newNote['unit_value_worker'] = $dataPagosWorker->salary;
+                }else{
+                    $newNote['unit_value_worker'] = $dataPagosWorker->salary;
+                }
+
+                $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataPagosWorker->id)->first();
+                                    
+                if(isset($dataConfig) && !empty($dataConfig)){
+                    if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                        $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                        if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                            $newNote['unidad_time_worker'] = $dataUnidadConfig->time;
+                            $newNote['unidad_type_worker'] = $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $newNote['unidad_type_worker_int'] = $dataUnidadConfig->type_unidad;
+                        }
+                    }else{
+                        $dataUnidadWorker = Units::find($subService->unit_worker_payment_id);
+                        $newNote['unidad_time_worker'] = $dataUnidadWorker->time;
+                        $newNote['unidad_type_worker'] = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                        $newNote['unidad_type_worker_int'] = $dataUnidadWorker->type_unidad;
+                    }
+                }else{
+                    $dataUnidadWorker = Units::find($subService->unit_worker_payment_id);
+                    $newNote['unidad_time_worker'] = $dataUnidadWorker->time;
+                    $newNote['unidad_type_worker'] = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                    $newNote['unidad_type_worker_int'] = $dataUnidadWorker->type_unidad;
+                }
+
+                $unidadesPorPagar = '';
+                $times = explode(":", $newNote['time_attention']);
+                if($newNote['unidad_type_worker_int'] == 0){
+                    $unidH = ($times[0] * 60) / $newNote['unidad_time_worker'];
+                    $unidM = $times[1] / $newNote['unidad_time_worker'];
+
+                    $calc = $unidH + $unidM;
+                    $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+
+                }else{
+                    $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_worker'];
+                    $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                }
+                                    
+                $newNote['unid_pay_worker'] = $unidadesPorPagar;
+                $calcPay = $newNote['unid_pay_worker'] * $dataPagosWorker->salary;
+                $newNote['mont_pay'] = number_format((float)$calcPay, 2, '.', '');                        
+            }
 
             array_push($notes, $newNote);
         }
@@ -286,6 +359,9 @@ class NotesSubServicesRegisterController extends Controller
                         "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
                         "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
                     );
+
+
+
 
                     array_push($note, $newNote);
 
