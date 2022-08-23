@@ -45,6 +45,7 @@
                                     <th class="text-nowrap">In</th>
                                     <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Quantity of units</th>
+                                    <th class="text-nowrap">Amount to be paid</th>
                                     <th class="text-nowrap">Status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
@@ -60,6 +61,7 @@
                                         <td>{{ $note['start'] }}</td>
                                         <td>{{ $note['end'] }}</td>
                                         <td>{{ $note['unid_pay_worker'] }}</td>
+                                        <td>{{ $note['mont_pay'] }}$ (USD)</td>
                                         <td>
 
                                         @if ($note['status'] == 2)
