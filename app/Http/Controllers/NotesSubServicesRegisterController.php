@@ -131,6 +131,65 @@ class NotesSubServicesRegisterController extends Controller
                 $newNote['mont_pay'] = number_format((float)$calcPay, 2, '.', '');                        
             }
 
+            $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $patiente->id)->first();
+
+            if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
+                if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                    $dataCobroPatiente->customer_payment = $subService->price_sub_service;
+                    $newNote['unit_value_patiente'] = $subService->price_sub_service;
+                }else{
+                    $newNote['unit_value_patiente'] = $dataCobroPatiente->customer_payment;
+                }
+                                        
+                $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataCobroPatiente->id)->first();
+                if(isset($dataConfig) && !empty($dataConfig)){
+                    if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                        $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                            if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                $newNote['unidad_time_patiente'] = $dataUnidadConfig->time;
+                                $newNote['unidad_type_patiente'] =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
+                                $newNote['unidad_type_patiente_int'] = $dataUnidadConfig->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadPatiente = Units::find($subService->unit_customer_id);
+                            $newNote['unidad_time_patiente'] = $dataUnidadPatiente->time;
+                            $newNote['unidad_type_patiente'] =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $newNote['unidad_type_patiente_int'] = $dataUnidadPatiente->type_unidad;
+                        }
+                    }else{
+                        $dataUnidadPatiente = Units::find($subService->unit_customer_id);
+                        $newNote['unidad_time_patiente'] = $dataUnidadPatiente->time;
+                        $newNote['unidad_type_patiente'] =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                        $newNote['unidad_type_patiente_int'] = $dataUnidadPatiente->type_unidad;
+                    }
+
+                    $unidadesPorCobrar = '';
+                    $times = explode(":", $newNote['time_attention']);
+                    if($newNote['unidad_type_patiente_int'] == 0){
+                        if($newNote['unidad_time_patiente'] != 0){
+                            $unidH = ($times[0] * 60) / $newNote['unidad_time_patiente'];
+                        }
+                        if($newNote['unidad_time_patiente'] != 0){
+                            $unidM = $times[1] / $newNote['unidad_time_patiente'];
+                        }
+
+                        $calc = $unidH + $unidM;
+                        $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+
+                    }else{
+                        $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_patiente'];
+                        $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                    }
+                                    
+                $newNote['unid_cob_patiente'] = $unidadesPorCobrar;
+                $calcCob = $newNote['unid_cob_patiente'] * $dataCobroPatiente->customer_payment;
+                $newNote['mont_cob'] = number_format((float)$calcCob, 2, '.', '');
+            }
+
+            $calcGan = $newNote['mont_cob'] - $newNote['mont_pay'];
+            $newNote['ganancia_empresa'] = number_format((float)$calcGan, 2, '.', '');
+
             array_push($notes, $newNote);
         }
 

@@ -45,7 +45,13 @@
                                     <th class="text-nowrap">In</th>
                                     <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Quantity of units</th>
-                                    <th class="text-nowrap">Amount to be paid</th>
+                                    <th class="text-nowrap">
+                                        @if(Auth::user()->role_id == 1)
+                                            Amount to collect
+                                        @else
+                                            to be paid
+                                        @endif 
+                                    </th> 
                                     <th class="text-nowrap">Status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
@@ -61,7 +67,13 @@
                                         <td>{{ $note['start'] }}</td>
                                         <td>{{ $note['end'] }}</td>
                                         <td>{{ $note['unid_pay_worker'] }} of {{ $note['unidad_time_worker'] }} {{ $note['unidad_type_worker'] }}</td>
-                                        <td>x {{ $note['unit_value_worker'] }} = {{ $note['mont_pay'] }}$ (USD)</td>
+                                        <td>
+                                            @if(Auth::user()->role_id == 1)
+                                                x {{ $note['unit_value_patiente'] }} = {{ $note['mont_cob'] }}$ (USD)
+                                            @else
+                                                x {{ $note['unit_value_worker'] }} = {{ $note['mont_pay'] }}$ (USD)
+                                            @endif                                        
+                                        </td>
                                         <td>
 
                                         @if ($note['status'] == 2)

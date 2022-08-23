@@ -96,8 +96,8 @@ function deleteFile($url)
 
 function sumaFechasTiempos ($fechaOne, $fechaTwo)
 {
-    $fechaOne = explode(":", $fechaOne);
-    $fechaTwo = explode(":", $fechaTwo);
+    $fechaOne = explode(':', $fechaOne);
+    $fechaTwo = explode(':', $fechaTwo);
 
     $sh = intval($fechaOne[0]) + intval($fechaTwo[0]);
     $sm = intval($fechaOne[1]) + intval($fechaTwo[1]);
