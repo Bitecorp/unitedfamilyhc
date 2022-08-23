@@ -60,8 +60,8 @@
                                         <td>{{ $note['patiente_id']['fullName'] }}</td>
                                         <td>{{ $note['start'] }}</td>
                                         <td>{{ $note['end'] }}</td>
-                                        <td>{{ $note['unid_pay_worker'] }}</td>
-                                        <td>{{ $note['mont_pay'] }}$ (USD)</td>
+                                        <td>{{ $note['unid_pay_worker'] }} of {{ $note['unidad_time_worker'] }} {{ $note['unidad_type_worker'] }}</td>
+                                        <td>x {{ $note['unit_value_worker'] }} = {{ $note['mont_pay'] }}$ (USD)</td>
                                         <td>
 
                                         @if ($note['status'] == 2)
