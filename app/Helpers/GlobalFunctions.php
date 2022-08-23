@@ -108,7 +108,12 @@ function sumaFechasTiempos ($fechaOne, $fechaTwo)
     $times = explode(':', $sumaTimes);
 
     if($times[0] < 10){
-        $times[0] = $times[0];
+        $dataSplit = str_split($times[0])[1];
+        if(isset($dataSplit) && !empty($dataSplit)){
+            $times[0] = $dataSplit;
+        }else{
+            $times[0] = $times[0];
+        }
     }
 
     if($times[1] < 10){
