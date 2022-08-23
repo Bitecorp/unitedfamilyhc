@@ -105,7 +105,7 @@ function sumaFechasTiempos ($fechaOne, $fechaTwo)
 
     $sumaTimes = $sh . ':' . $sm . ':' . $ss;
 
-    $times = explode(":", $sumaTimes);
+    $times = explode(':', $sumaTimes);
 
     if($times[0] < 10){
         $times[0] = str_split($times[0])[1];
