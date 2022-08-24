@@ -39,9 +39,9 @@
                                                 @endif
                                                 <td>
                                                     @if ($documentUserFile->document_certificate == 0)
-                                                        DOCUMENT
+                                                        Document
                                                     @elseif ($documentUserFile->document_certificate == 1)
-                                                        CERTIFICATE
+                                                        Certificate
                                                     @elseif ($documentUserFile->document_certificate == 2)
                                                         Personal Documents
                                                     @elseif ($documentUserFile->document_certificate == 3)
