@@ -46,7 +46,7 @@ class ServiceController extends AppBaseController
      */
     public function create()
     {
-        $docs = DB::table('type_docs')->select('id', 'name_doc')->get();
+        $docs = DB::table('type_docs')->get();
 
         return view('services.create')->with('docs', $docs);
     }
@@ -107,20 +107,20 @@ class ServiceController extends AppBaseController
             return redirect(route('services.index'));
         }
 
-        $docs = DB::table('type_docs')->select('id', 'name_doc')->get();
+        $docs = DB::table('type_docs')->get();
 
         $collections = collect(json_decode($service->documents));
 
         $data = [];
 
         foreach($collections as $collection){
-            $valData = DB::table('type_docs')->select('id', 'name_doc')->where('id', $collection)->first();
+            $valData = DB::table('type_docs')->where('id', $collection)->first();
             if(isset($valData) && !empty($valData)){
                 array_push($data, $valData);
             }
         }
 
-        $docDist = DB::table('type_docs')->select('id', 'name_doc')->get(); /* unset($flowers[1]); */
+        $docDist = DB::table('type_docs')->get(); /* unset($flowers[1]); */
 
         foreach($collections as $collection){
             foreach($docs as $key => $doc){

@@ -690,7 +690,7 @@ class WorkerController extends AppBaseController
             $documentUserFilesFoo = array();
             foreach (array_unique($dataListFilesClear) as $key => $valID) {
                 foreach (collect(json_decode($servicesAssingneds->services)) as $keyS => $valueS) {
-                    $test = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->first();
+                    $test = DB::table('type_docs')->where('id', $valID)->first();
                     if (!empty($test)) {
                         foreach (collect(json_decode($servicesAssingneds->services)) as $key => $value) {
                             if ($test->service_id == $value || $test->service_id == 0 || $test->service_id == '0') {
@@ -708,7 +708,7 @@ class WorkerController extends AppBaseController
 
             $documentUserFiles = array();
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
-                array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $valID)->where('role_id', [2, 3])->first());
+                array_push($documentUserFiles,  DB::table('type_docs')->where('id', $valID)->where('role_id', [2, 3])->first());
             }
 
             //dd($documentUserFiles);
@@ -719,7 +719,8 @@ class WorkerController extends AppBaseController
 
             $documentUserFilesUpload = array();
             foreach ($filesUploads as $key => $value) {
-                array_push($documentUserFilesUpload, DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $value->document_id)->first());
+                //dd(DB::table('type_docs')->where('id', $value->document_id)->first());
+                array_push($documentUserFilesUpload, DB::table('type_docs')->where('id', $value->document_id)->first());
             }
 
             $documentUserFilesIDsA = array();
@@ -750,7 +751,7 @@ class WorkerController extends AppBaseController
             $documentUserFilesDinst = array();
             if (!empty($arrayData) && count($arrayData) >= 1) {
                 foreach ($arrayData as $key => $value) {
-                    $valConsult = DB::table('type_docs')->select('id', 'name_doc', 'service_id', 'role_id')->where('id', $value)->first();
+                    $valConsult = DB::table('type_docs')->where('id', $value)->first();
                     if (!empty($valConsult)) {
                         array_push($documentUserFilesDinst, $valConsult);
                     }
@@ -778,6 +779,7 @@ class WorkerController extends AppBaseController
 
             //dd($salaryServiceAssigneds);
             $returnView = view('workers.show_index')
+                ->with('typeDocs', $typeDoc)
                 ->with('roles', $roles)
                 ->with('status', $status)
                 ->with('titleJobs', $titleJobs)
@@ -812,6 +814,7 @@ class WorkerController extends AppBaseController
         } else {
 
             $returnView = view('workers.show_index')
+                ->with('typeDocs', $typeDoc)
                 ->with('roles', $roles)
                 ->with('status', $status)
                 ->with('titleJobs', $titleJobs)

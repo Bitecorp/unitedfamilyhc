@@ -12,6 +12,7 @@
                                     <th>Document</th>
                                     <th>Date Expedition</th>
                                     <th>Date Expired</th>
+                                    <th>Expired document status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -22,10 +23,17 @@
                                             @if(count(array($filesUploads)) >= 1)
                                                 @foreach($filesUploadsExpired as $key => $filesUpload)
                                                     @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired >= 1)
-                                                        <tr>
-                                                            <td>{{ $documentUserFile->name_doc }}</td>
-                                                            <td> {{ $filesUpload->date_expedition }}</td>
-                                                            <td> {{ $filesUpload->date_expired }}</td>
+                                                        <tr bgcolor={{ $filesUpload->expired == 2 || $filesUpload->expired == '2' ? '#E8F0FE' : '' }}>
+                                                            <td> {{ $documentUserFile->name_doc }} </td>
+                                                            <td> {{ $filesUpload->date_expedition }} </td>
+                                                            <td> {{ $filesUpload->date_expired }} </td>
+                                                            <td> 
+                                                                @if ($filesUpload->expired == 2 || $filesUpload->expired == '2')
+                                                                    File updated
+                                                                @else
+                                                                    Waiting for update file
+                                                                @endif
+                                                            </td>
                                                             <td class="with-btn" nowrap>
                                                                 <a onclick="vieFileExpired('{{ $filesUpload->file }}');" class='btn btn-sm btn-primary' style="color: #FFF;"><i class="fa fa-eye"></i> Show </a>
                                                             </td>
@@ -68,13 +76,16 @@
 </script>
 <script>
     $(function () {
+        var table = $('#tableDocumentsExpired').DataTable();
+
         $('#tableDocumentsExpired').DataTable( {
             retrieve: true,
             paging: true,
             searching: true,
-            responsive: true,
             autoFill: true,
-            order: [[3, 'desc']],
+            order: [
+                [1, 'DESC']
+            ],
         });
     });
 </script>

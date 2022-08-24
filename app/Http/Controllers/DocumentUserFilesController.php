@@ -74,15 +74,15 @@ class DocumentUserFilesController extends AppBaseController
 
         $documentUserFiles = [];
         foreach(array_unique($dataListFilesClear) as $key => $valID){
-            array_push($documentUserFiles,  DB::table('type_docs')->select('id', 'name_doc')->where('id', $valID)->first());
+            array_push($documentUserFiles,  DB::table('type_docs')->where('id', $valID)->first());
         }
 
         /* $documentUserFiles = collect($documentUserFiles); */
-        $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file')->where('user_id', $id)->get());
+        $filesUploads = collect(DB::table('document_user_files')->where('user_id', $id)->orderBy('date_expired','desc')->get());
 
         $documentUserFilesUpload = array();
         foreach($filesUploads AS $key => $value){
-            array_push($documentUserFilesUpload, DB::table('type_docs')->select('id', 'name_doc')->where('id', $value->document_id)->first());
+            array_push($documentUserFilesUpload, DB::table('type_docs')->where('id', $value->document_id)->first());
         }
 
         $documentUserFilesIDsA = array();
@@ -99,7 +99,7 @@ class DocumentUserFilesController extends AppBaseController
 
         $documentUserFilesDinst = array();
         foreach($idDIff AS $key => $value){
-            array_push($documentUserFilesDinst, DB::table('type_docs')->select('id', 'name_doc')->where('id', $value)->first());
+            array_push($documentUserFilesDinst, DB::table('type_docs')->where('id', $value)->first());
         }
 
         return view('document_user_files.index')

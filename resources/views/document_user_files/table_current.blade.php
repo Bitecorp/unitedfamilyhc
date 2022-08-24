@@ -11,6 +11,7 @@
                                     <th>Document</th>
                                     <th>Date Expedition</th>
                                     <th>Date Expired</th>
+                                    <th>Type</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,19 @@
                                                         @endforeach
                                                     </td>
                                                 @endif
+                                                <td>
+                                                    @if ($documentUserFile->document_certificate == 0)
+                                                        DOCUMENT
+                                                    @elseif ($documentUserFile->document_certificate == 1)
+                                                        CERTIFICATE
+                                                    @elseif ($documentUserFile->document_certificate == 2)
+                                                        Personal Documents
+                                                    @elseif ($documentUserFile->document_certificate == 3)
+                                                        Agreements
+                                                    @elseif ($documentUserFile->document_certificate == 4)
+                                                        Others
+                                                    @endif
+                                                </td>
 
                                                 <td class="with-btn" nowrap>
                                                     @if(count(array($filesUploads)) >= 1)
@@ -108,8 +122,7 @@
             retrieve: true,
             paging: true,
             searching: true,
-            responsive: true,
-            autoFill: true
+            autoFill: true,
         });
     });
 </script>

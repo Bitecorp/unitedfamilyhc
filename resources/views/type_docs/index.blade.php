@@ -44,7 +44,19 @@
                                     <tr>
                                         <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $typeDoc->name_doc }}</td>
-                                        <td>{{ $typeDoc->document_certificate == '0' ? 'DOCUMENT' : 'CERTIFICATE'}}</td>
+                                        <td>
+                                            @if ($typeDoc->document_certificate == '0')
+                                                DOCUMENT
+                                            @elseif ($typeDoc->document_certificate == '1')
+                                                CERTIFICATE
+                                            @elseif ($typeDoc->document_certificate == '2')
+                                                Personal Documents
+                                            @elseif ($typeDoc->document_certificate == '3')
+                                                Agreements
+                                            @elseif ($typeDoc->document_certificate == '4')
+                                                Others
+                                            @endif
+                                        </td>
                                         <td>{{ $typeDoc->expired == '0' ? 'NOT EXPIRED' : 'EXPIRED'}}</td>
                                         <td>
                                             @foreach($roles as $role)

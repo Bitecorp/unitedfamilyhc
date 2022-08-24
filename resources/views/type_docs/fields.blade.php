@@ -1,7 +1,10 @@
 <?php
     $options = [
+        '3' => 'Agreements',
+        '1' => 'Certificate',
         '0' => 'Document',
-        '1' => 'Certificate'
+        '2' => 'Personal Documents',
+        '4' => 'Others'
     ];
 
     $selected = isset($typeDoc) && isset($typeDoc->document_certificate) ? $typeDoc->document_certificate : 0;
