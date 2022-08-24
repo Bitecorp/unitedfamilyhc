@@ -23,7 +23,7 @@
                                             @if(count(array($filesUploads)) >= 1)
                                                 @foreach($filesUploadsExpired as $key => $filesUpload)
                                                     @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired >= 1)
-                                                        <tr bgcolor={{ $filesUpload->expired == 2 || $filesUpload->expired == '2' ? '#E8F0FE' : '' }}>
+                                                        <tr>
                                                             <td> {{ $documentUserFile->name_doc }} </td>
                                                             <td> {{ $filesUpload->date_expedition }} </td>
                                                             <td> {{ $filesUpload->date_expired }} </td>
