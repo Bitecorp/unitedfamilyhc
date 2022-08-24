@@ -40,6 +40,7 @@
                     <tr data-id='{{ $worker->id }}' id="data_{{ $worker->id }}">
                         <td>{{ $worker->first_name }} {{ $worker->last_name }}</td>
                         <td>{{ $worker->home_phone }}</td>
+                        <td>{{ $worker->countExpired }}</td>
                         <td {{ isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'patientes' ? 'hidden' : ''}}>{{ $worker->email }}</td>
                         @foreach($roles as $role)
                             @if($worker->role_id == $role->id)
