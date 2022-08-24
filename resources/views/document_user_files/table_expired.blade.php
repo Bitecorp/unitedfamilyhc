@@ -76,8 +76,6 @@
 </script>
 <script>
     $(function () {
-        var table = $('#tableDocumentsExpired').DataTable();
-
         $('#tableDocumentsExpired').DataTable( {
             retrieve: true,
             paging: true,
