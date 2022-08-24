@@ -161,16 +161,19 @@
 						var colBG = '';
 						var checkCheck = '';
 						var block = '';
+						var revertir = '';
 						
 
 						if(paid == 1){
 							colBG = 'bg-teal';
 							checkCheck = 'checked';
 							block = ' disabled readonly';
+							revertir = 'revertir';
 						}else if(paid == 0){
 							colBG = 'bg-red';
 							checkCheck = '';
 							block = '';
+							revertir = 'revertit';
 						}
 
 						var dataFullW = data['dataW'];
@@ -207,7 +210,7 @@
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + block + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -235,7 +238,7 @@
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + block + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
 									'</div>\n';
 									
@@ -371,6 +374,52 @@
 	</script>
 
 	<script>
+		function revertircobrar(idPatiente, idService, idSubService, status, paid) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/revertirCobrarPatiente";
+
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service = idSubService;
+			var status = status;
+			var paid = paid;
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service,
+					fecha_desde: dateDesde,
+					fecha_hasta: dateHasta,
+					status: status,
+					paid: paid,
+				},
+				success: function(data) {
+					var obj = document.getElementById('btn_submit');
+					if(data['success'] == true){
+						if (obj){
+							obj.click(); 
+						}
+					}
+					let msjOne = 'The payment process was reversed out successfully.\n\n';
+					let msjTwo = 'El proceso cobro fue revertido con exito.';
+					alert(msjOne + msjTwo);
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
+	</script>
+
+	<script>
 		function pagar(idPatiente, idWorker, idService, idSubService, status, paid) {
 			var dateDesde = $('#desde').val() + ' 00:00:00';
 			var dateHasta = $('#hasta').val() + ' 23:59:59';
@@ -409,6 +458,54 @@
 					}		
 					let msjOne = 'The billing process was carried out successfully.\n\n';
 					let msjTwo = 'El proceso pago fue realizado con exito.';
+					alert(msjOne + msjTwo);		
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
+	</script>
+
+	<script>
+		function revertirpagar(idPatiente, idWorker, idService, idSubService, status, paid) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/revertirPagarWorker";
+
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service = idSubService;
+			var status = status;
+			var paid = paid;
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					patiente_id: idPatiente,
+					worker_id: worker_id,
+					service_id: service_id,
+					sub_service_id: idSubService,
+					fecha_desde: dateDesde,
+					fecha_hasta: dateHasta,
+					status: status,
+					paid: paid
+				},
+				success: function(data) {
+					var obj = document.getElementById('btn_submit');
+					if(data['success'] == true){
+						if (obj){
+							obj.click(); 
+						}
+					}		
+					let msjOne = 'The billing process was reversed out successfully.\n\n';
+					let msjTwo = 'El proceso pago fue revertido con exito.';
 					alert(msjOne + msjTwo);		
 				},
 				error: function (error) { 

@@ -847,10 +847,9 @@ class HomeController extends Controller
     {
         $filters = $request->all();
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 0)->get();
+            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 0)->get();
         }else{
             $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', $filters['paid'])
                 ->where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
@@ -878,11 +877,40 @@ class HomeController extends Controller
     {
         $filters = $request->all();
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 1)->get();
+            $registerAttentions = RegisterAttentions::where('paid', 0)->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->get();
         }else{
             $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', $filters['paid'])
+                ->where('paid', 0)
                 ->where('worker_id', $filters['worker_id'])
+                ->where('patiente_id', $filters['patiente_id'])
+                ->where('service_id', $filters['service_id'])
+                ->where('sub_service_id', $filters['sub_service_id'])
+                ->where('start', '>=', $filters['fecha_desde'])
+                ->where('end', '<=', $filters['fecha_hasta'])->get();
+        }
+
+        foreach(collect($registerAttentions)->unique() as $key => $reg){
+            $flight = RegisterAttentions::find($reg->id);
+ 
+            $flight->paid = true;
+            
+            $flight->save();
+        }
+
+        return response()->json([
+            'data' => [],
+            'msj' => "data actualizada",
+            'success' => true
+        ]); 
+    }
+
+    public function revertirCobrar(Request $request)
+    {
+        $filters = $request->all();
+        if($filters['service_id'] == 'all'){
+            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 1)->get();
+        }else{
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
                 ->where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
@@ -894,7 +922,38 @@ class HomeController extends Controller
         foreach(collect($registerAttentions)->unique() as $key => $reg){
             $flight = RegisterAttentions::find($reg->id);
  
-            $flight->paid = true;
+            $flight->collected = false;
+            
+            $flight->save();
+        }
+
+        return response()->json([
+            'data' => [],
+            'msj' => "data actualizada",
+            'success' => true
+        ]); 
+    }
+
+    public function revertirPagar(Request $request)
+    {
+        $filters = $request->all();
+        if($filters['service_id'] == 'all'){
+            $registerAttentions = RegisterAttentions::where('paid', 1)->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->get();
+        }else{
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                ->where('paid', 1)
+                ->where('worker_id', $filters['worker_id'])
+                ->where('patiente_id', $filters['patiente_id'])
+                ->where('service_id', $filters['service_id'])
+                ->where('sub_service_id', $filters['sub_service_id'])
+                ->where('start', '>=', $filters['fecha_desde'])
+                ->where('end', '<=', $filters['fecha_hasta'])->get();
+        }
+
+        foreach(collect($registerAttentions)->unique() as $key => $reg){
+            $flight = RegisterAttentions::find($reg->id);
+ 
+            $flight->paid = false;
             
             $flight->save();
         }
