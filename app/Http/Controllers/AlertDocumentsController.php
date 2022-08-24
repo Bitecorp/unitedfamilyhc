@@ -82,6 +82,7 @@ class AlertDocumentsController extends AppBaseController
                 $dataUser = User::find($dataDocument['user_id']);
             }
             if(isset($dataUser) && !empty($dataUser)){
+                $dataUser->countExpired = count(DocumentUserFiles::where('user_id', $dataUser->id)->where('expired', 1)->get());
                 array_push($workers, $dataUser);
             }
         }
@@ -100,7 +101,7 @@ class AlertDocumentsController extends AppBaseController
         ->with('confirmationIndependents', $confirmationIndependents)
         ->with('contactEmergencies', $contactEmergencies)
         ->with('jobInformations', $jobInformations)
-        ->with('workers', array_unique($workers))
+        ->with('workers', collect($workers)->unique())
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);

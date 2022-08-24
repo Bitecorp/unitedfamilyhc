@@ -5,6 +5,7 @@
             <th class="text-nowrap">Home Phone</th>
             <th class="text-nowrap" {{ isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'patientes' ? 'hidden' : ''}}>Email</th>
             <th class="text-nowrap" {{ isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'patientes' ? 'hidden' : ''}}>Role</th>
+            <th class="text-nowrap">Number of expired</th>
             <th class="text-nowrap">Action</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
                                 <td>{{ $role->name_role }}</td>
                             @endif
                         @endforeach 
+                        <td>{{ $worker->countExpired }}</td>
                         <td class="with-btn" nowrap>
                             @if($worker->id > 1 )
                                 <a href="{{ route('workers.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show User </a>
