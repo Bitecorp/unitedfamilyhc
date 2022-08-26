@@ -37,6 +37,8 @@
 					</div>
 					<!-- end panel-body -->
 				</div>
+				<div id="resulPatMod">
+				</div>
 
 
 				<div class="panel panel-inverse">
@@ -74,6 +76,8 @@
 						</div>
 					</div>
 					<!-- end panel-body -->
+				</div>
+				<div id="resulWorMod">
 				</div>
 
 		

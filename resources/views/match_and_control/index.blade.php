@@ -119,6 +119,7 @@
 				$('#resulWor').empty();
 				$('#resulPat').empty();
 				$('#resulWorTab').empty();
+				$('#resulWorMod').empty();
 				$('#resulPatTab').empty();
 			});
 		});
@@ -130,6 +131,7 @@
 			$('#resulWor').empty();
 			$('#resulPat').empty();
 			$('#resulWorTab').empty();
+			$('#resulWorMod').empty();
 			$('#resulPatTab').empty();
 			
 			var url = "/matchAndControl";
@@ -202,6 +204,7 @@
 						if(urlActualBYP){
 
 							$('#resulWorTab').empty();
+							$('#resulWorMod').empty();
 							$('#resulPatTab').empty();
 							var htmlResultados = '';
 
@@ -214,6 +217,65 @@
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
+									
+									var btnModal = '';
+									if(dataFullW[i].independent_contractor.independent_contractor == 1 || dataFullW[i].independent_contractor.independent_contractor == '1'){
+
+										btnModal =
+											'<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ dataFullW[i].worker_id.id +'">\n'+
+												'Generate 1099\n' +
+											'</button>\n';
+
+										var valueInvoice = '';
+										if(dataFullW[i].invoice_number != '' && typeof dataFullW[i].invoice_number != 'undefined'){
+											valueInvoice = dataFullW[i].invoice_number;
+										}
+
+										var eftorCheck = '';
+										if(dataFullW[i].eftor_check != '' && typeof dataFullW[i].eftor_check != 'undefined'){
+											eftorCheck = dataFullW[i].eftor_check;
+										}
+
+										var modal = 
+										'<div class="modal fade" id="exampleModal_'+ dataFullW[i].worker_id.id +'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+											'<div class="modal-dialog modal-lg">\n' +
+												'<div class="modal-content">\n' +
+													'<div class="modal-header">\n' +
+														'<h5 class="modal-title" id="exampleModalLabel_'+ dataFullW[i].worker_id.id +'">Data to generate 1099 to the worker ' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</h5>\n' +
+														'<button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
+															'<span aria-hidden="true">&times;</span>\n' +
+														'</button>\n' +
+													'</div>\n' +
+													'<div class="modal-body">\n' +
+														'<form role="form">\n' +
+														'<div class="row">\n' +
+															'<div class="col">\n' +
+																'<div class="form-group">\n' +
+																	'{!! Form::label("eftor_check", "Eftor Check:") !!}\n' +
+																	'<input type="text" class="form-control" name="eftor_check" id="eftor_check" value="' + eftorCheck + '" required>\n' +
+																'</div>\n' +
+															'</div>\n' +
+															'<div class="col">\n' +
+																'<div class="form-group">\n' +
+																	'{!! Form::label("invoice_number", "Invoice Number:") !!}\n' +
+																	'<input type="text" class="form-control" name="invoice_number" id="invoice_number" value="' + valueInvoice + '">\n' +
+																'</div>\n' +
+															'</div>\n' +
+														'</div>\n' +
+														'</form>\n' +
+
+
+													'</div>\n' +
+													'<div class="modal-footer">\n' +
+														'<button type="button" id="btn_close_'+ dataFullW[i].worker_id.id +'" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' +
+														'<button type="button" onclick="saveData(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ')" id="btn_save_'+ dataFullW[i].worker_id.id +'" class="btn btn-primary">Save</button>\n' +
+													'</div>\n' +
+												'</div>\n' +
+											'</div>\n' +
+										'</div>\n';
+
+									}
+
 									var dataW = 
 										'<tr>\n' +
 											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
@@ -224,12 +286,15 @@
 											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
 											'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
 											'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
-											'<td>' + check + '</td>\n' +
+											'<td class="with-btn" nowrap>\n'
+												+ check + btnModal +
+											'</td>\n'
 										'</tr>\n';
 
 									htmlResultados = dataW;
 											
 									$('#resulWorTab').append(htmlResultados);
+									$('#resulWorMod').append(modal);
 								};
 							}
 
@@ -244,14 +309,16 @@
 									
 									var dataP = 
 										'<tr>\n' +
-										'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
+											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
 											'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
 											'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
 											'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
 											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
 											'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
 											'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
-											'<td>' + check + '</td>\n' +
+											'<td class="with-btn" nowrap>\n'
+												+ check +
+											'</td>\n' +
 										'</tr>\n';
 
 									htmlResultados = dataP;
@@ -325,6 +392,63 @@
 				alert(msjOne + msjTwo);
 			}
 		});
+	</script>
+
+	<script>
+		function saveData(idPatiente, idWorker, idService, idSubService, status, paid) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/generateDocumentOfPai";
+
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service = idSubService;
+			var status = status;
+			var paid = paid;
+
+			var eftor_check = $('#eftor_check').val();
+			var invoice_number = $('#invoice_number').val();
+
+
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					patiente_id: idPatiente,
+					worker_id: worker_id,
+					service_id: service_id,
+					sub_service_id: idSubService,
+					fecha_desde: dateDesde,
+					fecha_hasta: dateHasta,
+					status: status,
+					paid: paid,
+					eftor_check: eftor_check,
+					invoice_number: invoice_number
+				},
+				success: function(data) {
+					var obj = document.getElementById('btn_close_' + worker_id);
+					if(data['success'] == true){
+						if (obj){
+							obj.click(); 
+						}
+					}		
+					let msjOne = 'The billing process was carried out successfully.\n\n';
+					let msjTwo = 'El proceso pago fue realizado con exito.';
+					alert(msjOne + msjTwo);		
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+
+
+		};
 	</script>
 
 	<script>

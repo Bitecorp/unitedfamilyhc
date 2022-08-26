@@ -44,7 +44,9 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/revertirCobrarPatiente', 'revertirCobrar');
 
-    Route::post('/revertirPagarWorker', 'revertirPagar'); 
+    Route::post('/revertirPagarWorker', 'revertirPagar');
+    
+    Route::post('/generateDocumentOfPai', 'generateDocumentOfPay');
 
     Route::post('/searchServicesWorker', 'searchServicesWorker');
 

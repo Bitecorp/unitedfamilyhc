@@ -22,6 +22,8 @@ use Flash;
 use DataTime;
 use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
+use App\Models\GenerateDocuments1099;
+use App\Models\ConfirmationIndependent;
 
 class HomeController extends Controller
 {
@@ -476,6 +478,11 @@ class HomeController extends Controller
                     $dataWorker = User::find($arraySumC->worker_id);
                     $arraySumC->worker_id = $dataWorker;
 
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
+
                     $dataPatiente = User::find($arraySumC->patiente_id);
                     $arraySumC->patiente_id = $dataPatiente;
 
@@ -706,6 +713,11 @@ class HomeController extends Controller
                 foreach($arraySumClean as $arraySumC){
                     $dataWorker = User::find($arraySumC->worker_id);
                     $arraySumC->worker_id = $dataWorker;
+
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
 
                     $dataPatiente = User::find($arraySumC->patiente_id);
                     $arraySumC->patiente_id = $dataPatiente;
@@ -963,5 +975,28 @@ class HomeController extends Controller
             'msj' => "data actualizada",
             'success' => true
         ]); 
+    }
+
+    public function generateDocumentOfPay(Request $request)
+    {
+
+        $flight = new GenerateDocuments1099;
+        
+        $flight->worker_id = $request['worker_id'];
+        $flight->patiente_id = $request['patiente_id'];
+        $flight->service_id = $request['service_id'];
+        $flight->sub_service_id = $request['sub_service_id'];
+        $flight->from = $request['fecha_desde'];
+        $flight->to = $request['fecha_hasta'];
+        $flight->eftor_check = $request['eftor_check'];
+        $flight->invoice_number = $request['invoice_number'];
+ 
+        $flight->save();
+
+        return response()->json([
+            'data' => [],
+            'msj' => "documento generado",
+            'success' => true
+        ]);
     }
 }
