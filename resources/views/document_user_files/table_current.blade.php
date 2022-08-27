@@ -123,6 +123,15 @@
             paging: true,
             searching: true,
             autoFill: true,
+            columnDefs: [
+                { 
+                    orderable: false, 
+                    targets: 0
+                }
+            ],
+            order: [
+                [3, 'asc']
+            ]
         });
     });
 </script>

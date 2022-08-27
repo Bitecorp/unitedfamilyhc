@@ -81,9 +81,15 @@
             paging: true,
             searching: true,
             autoFill: true,
-            order: [
-                [1, 'DESC']
+            columnDefs: [
+                { 
+                    orderable: false, 
+                    targets: 0
+                }
             ],
+            order: [
+                [3, 'desc']
+            ]
         });
     });
 </script>

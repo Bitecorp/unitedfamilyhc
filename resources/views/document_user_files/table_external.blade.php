@@ -37,7 +37,8 @@
             $('#tableDocumentsExternals').DataTable( {
                 retrieve: true,
                 paging: true,
-                searching: true
+                searching: true,
+                autoFill: true,
             });
         });
     </script>
