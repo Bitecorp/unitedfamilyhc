@@ -21,7 +21,11 @@
         </div>
         <div class="panel-body">
             {!! Form::model($documentsEditors, ['route' => ['documentsEditors.update', $documentsEditors->id], 'method' => 'patch']) !!}
-                @include('documents_editors.fields')
+                @if (strpos(Request::url(), "documentsEditors"))
+                    @include('documents_editors.fields_documents')
+                @elseif (strpos(Request::url(), "templatesEditors"))
+                    @include('documents_editors.fields_templates')
+                @endif
             {!! Form::close() !!}
         </div>
     </div>

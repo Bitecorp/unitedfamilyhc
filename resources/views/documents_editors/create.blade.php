@@ -21,7 +21,11 @@
         </div>
         <div class="panel-body">
             {!! Form::open(['route' => 'documentsEditors.store']) !!}
-                @include('documents_editors.fields')
+                @if (strpos(Request::url(), "documentsEditors"))
+                    @include('documents_editors.fields_documents')
+                @elseif (strpos(Request::url(), "templatesEditors"))
+                    @include('documents_editors.fields_templates')
+                @endif
             {!! Form::close() !!}
         </div>
     </div>

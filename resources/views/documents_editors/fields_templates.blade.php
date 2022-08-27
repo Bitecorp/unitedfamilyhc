@@ -14,15 +14,6 @@
     ];
 
     $selected = isset($documentsEditors) && isset($documentsEditors->type_template) ? $documentsEditors->type_template : 0;
-
-    $valUrl = strpos(Request::url(), "documentsEditors") ? 'documents' : (strpos(Request::url(), "templatesEditors") ? 'templates' : null);
-
-    $hidenForDoc = strpos(Request::url(), "documentsEditors") ? 'hidden' : '' ;
-
-    $hidenForTem = strpos(Request::url(), "templatesEditors") ? 'hidden' : '' ;
-
-    $urlCancel = strpos(Request::url(), "documentsEditors") ? route('documentsEditors.index') : (strpos(Request::url(), "templatesEditors") ? route('templatesEditors.index') : null);
-
 ?>
 
 <div class="row">
@@ -47,34 +38,7 @@
                             {!! Form::text('backgroundImg', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
                         </div>
                     </div>
-                    <div class="col" {{ $hidenForTem }}>
-                        <!-- Role Id Field -->
-                        <div class="form-group">
-                            {!! Form::label('role_id', 'Document For:') !!}
-                            <select name='role_id' class="form-control">
-                                @foreach($roles as $role)
-                                    @if(!empty($role))
-                                        <option value='{{ $role->id }}' {{ isset($documentsEditors) && isset($documentsEditors->role_id) && $documentsEditors->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col" {{ $hidenForTem }}>
-                        <!-- Service Id Field -->
-                        <div class="form-group">
-                            {!! Form::label('service_id', 'Service:') !!}
-                            <select name='service_id' class="form-control">
-                                <option value='0' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == 0 ? 'selected' : '' }} >ALL</option>
-                                @foreach($services as $service)
-                                    @if(!empty($service))
-                                        <option value='{{ $service->id }}' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == $service->id ? 'selected' : '' }} >{{ $service->name_service }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col" {{ $hidenForDoc }}>
+                    <div class="col">
                         <div class="form-group">
                             {!! Form::label('type_template', 'Type:') !!}
                             {!! Form::select('type_template', $options, $selected, ['class'=>'form-control']) !!}
@@ -151,15 +115,15 @@
     </div>
 </div>
 
-<div class="form-group" hidden>
+<div class="form-group" >
     {!! Form::label('url', 'Url:') !!}
-    {!! Form::text('url', $valUrl, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
+    {!! Form::text('url', 'templates', ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
 </div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ $urlCancel }}" class="btn btn-secondary">Cancel</a>
+    <a href="{{ route('templatesEditors.index') }}" class="btn btn-secondary">Cancel</a>
 </div>
 
 @push('scripts')
