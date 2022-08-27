@@ -115,7 +115,7 @@
     </div>
 </div>
 
-<div class="form-group" >
+<div class="form-group" hidden>
     {!! Form::label('url', 'Url:') !!}
     {!! Form::text('url', 'templates', ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
 </div>

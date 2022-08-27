@@ -49,9 +49,6 @@ class documentsEditors extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-
-
     public $fillable = [
         'name_document_editor',
         'role_id',
@@ -59,7 +56,9 @@ class documentsEditors extends Model
         'pagination',
         'content',
         'service_id',
-        'paginate'
+        'paginate',
+        'isTemplate',
+        'type_template'
     ];
 
     /**
@@ -74,7 +73,9 @@ class documentsEditors extends Model
         'role_id' => 'string',
         'content' => 'string',
         'service_id' => 'string',
-        'paginate' => 'boolean'
+        'paginate' => 'boolean',
+        'isTemplate' => 'boolean',
+        'type_template' => 'string'
     ];
 
     /**
@@ -90,6 +91,8 @@ class documentsEditors extends Model
         'service_id' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'paginate' => 'nullable|boolean',
+        'paginate' => 'nullable|string',
+        'isTemplate' => 'nullable|boolean',
+        'type_template' => 'nullable|string|max:255'
     ];
 }

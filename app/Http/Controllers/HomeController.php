@@ -1010,16 +1010,18 @@ class HomeController extends Controller
             $flight->save();
         }
 
+
         $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
                 ->where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
                 ->where('from', '>=', $filters['fecha_desde'])
                 ->where('to', '<=', $filters['fecha_hasta'])->first();
-
-                $generate1099Id = GenerateDocuments1099::find($generate1099->id);
+        if(isset($generate1099) && !empty($generate1099)){
+            $generate1099Id = GenerateDocuments1099::find($generate1099->id);
         
-                $generate1099Id->delete();
+            $generate1099Id->delete();
+        }
 
         return response()->json([
             'data' => [],

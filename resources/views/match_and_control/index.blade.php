@@ -458,7 +458,7 @@
 						success: function(data) {		
 							$('#btnOpenModal_' + worker_id + valI)
 								.empty()
-								.append('<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ worker_id + valI +'">Show 1090</button>\n');
+								.append('<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ worker_id + valI +'">Show 1099</button>\n');
 							$('#btnSaveOrdDownload_' + worker_id + valI)
 								.empty()
 								.append('<button type="button" onclick="download1099(' + patiente_id + ',' + worker_id + ',' + service_id + ',' + sub_service_id + ',' + status + ',' + paid + ',' + i + ')" id="btn_save_'+ worker_id + valI +'" class="btn btn-primary">Download</button>\n');

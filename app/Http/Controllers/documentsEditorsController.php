@@ -38,12 +38,10 @@ class documentsEditorsController extends AppBaseController
     {
         //dd(DB::select('SELECT role_id FROM documents_editors GROUP BY role_id'));
         $documentsEditors = documentsEditors::orderBy('name_document_editor', 'asc')->orderBy('role_id', 'asc')->get();
-        $services = Service::all();
-        $services2 = Service::all();
 
         return view('documents_editors.index')
             ->with('documentsEditors', $documentsEditors)
-            ->with('services', $services)
+            ->with('services', Service::all())
             ->with('roles', Role::all());
     }
 
@@ -54,10 +52,7 @@ class documentsEditorsController extends AppBaseController
      */
     public function create()
     {
-        $imagesDocuments = ImagesDocuments::all();
-        $services = Service::all();
-        $roles = Role::all();
-        return view('documents_editors.create')->with('imagesDocuments', $imagesDocuments)->with('roles', $roles)->with('services', $services);
+        return view('documents_editors.create')->with('imagesDocuments', ImagesDocuments::all())->with('roles', Role::all())->with('services', Service::all());
     }
 
     /**
@@ -77,7 +72,25 @@ class documentsEditorsController extends AppBaseController
             $input['paginate'] = false;
         }
 
-        $pathfolderStorage = '../resources/views/pdf';
+        $pathfolderStorage = '';
+        
+        if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'documents'){
+            $pathfolderStorage = '../resources/views/pdf';
+            $input['type_template'] = null;
+            $input['isTemplate'] = 0;
+        }else if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'templates'){
+            $input['role_id'] = null;
+            $input['service_id'] = null;
+            $input['isTemplate'] = 1;
+
+            if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 0){
+                $pathfolderStorage = '../resources/views/templatesDocuments';
+            }else if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 1){
+                $pathfolderStorage = '../resources/views/templatesEmails';
+            }else if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 2){
+                $pathfolderStorage = '../resources/views/templatesOthers';
+            }
+        }
 
         if (!is_dir($pathfolderStorage)) {
             mkdir($pathfolderStorage, 0777, true);
@@ -150,9 +163,15 @@ class documentsEditorsController extends AppBaseController
 
         $documentsEditors = $this->documentsEditorsRepository->create($input);
 
-        Flash::success('Documents Editors saved successfully.');
+        if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'documents'){
+            Flash::success('Documents Editors saved successfully.');
 
-        return redirect(route('documentsEditors.index'));
+            return redirect(route('documentsEditors.index'));
+        }elseif(isset($input['url']) && !empty($input['url']) && $input['url'] == 'templates'){
+            Flash::success('Templates Editors saved successfully.');
+
+            return redirect(route('templatesEditors.index'));
+        }
     }
 
     /**
@@ -230,7 +249,25 @@ class documentsEditorsController extends AppBaseController
             $input['paginate'] = false;
         }
 
-        $pathfolderStorage = '../resources/views/pdf';
+        $pathfolderStorage = '';
+        
+        if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'documents'){
+            $pathfolderStorage = '../resources/views/pdf';
+            $input['type_template'] = null;
+            $input['isTemplate'] = 0;
+        }else if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'templates'){
+            $input['role_id'] = null;
+            $input['service_id'] = null;
+            $input['isTemplate'] = 1;
+
+            if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 0){
+                $pathfolderStorage = '../resources/views/templatesDocuments';
+            }else if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 1){
+                $pathfolderStorage = '../resources/views/templatesEmails';
+            }else if(isset($input['type_template']) && $input['type_template'] != '' && intval($input['type_template']) == 2){
+                $pathfolderStorage = '../resources/views/templatesOthers';
+            }
+        }
 
         if (!is_dir($pathfolderStorage)) {
             mkdir($pathfolderStorage, 0777, true);
@@ -302,9 +339,15 @@ class documentsEditorsController extends AppBaseController
 
         $documentsEditors = $this->documentsEditorsRepository->update($input, $id);
 
-        Flash::success('Documents Editors updated successfully.');
+        if(isset($input['url']) && !empty($input['url']) && $input['url'] == 'documents'){
+            Flash::success('Documents Editors updated successfully.');
 
-        return redirect(route('documentsEditors.index'));
+            return redirect(route('documentsEditors.index'));
+        }elseif(isset($input['url']) && !empty($input['url']) && $input['url'] == 'templates'){
+            Flash::success('Templates Editors updated successfully.');
+
+            return redirect(route('templatesEditors.index'));
+        }
     }
 
     /**
