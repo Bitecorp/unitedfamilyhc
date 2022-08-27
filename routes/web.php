@@ -135,6 +135,8 @@ Route::post('/documentUserFiles/{userID}/{fileID}/{docID}', [App\Http\Controller
 
 Route::resource('settings/PDFs/documentsEditors', App\Http\Controllers\documentsEditorsController::class);
 
+Route::resource('settings/PDFs/templatesEditors', App\Http\Controllers\documentsEditorsController::class);
+
 Route::resource('settings/PDFs/imagesDocuments', App\Http\Controllers\ImagesDocumentsController::class);
 
 Route::resource('settings/PDFs/externalsDocuments', App\Http\Controllers\ExternalsDocumentsController::class);

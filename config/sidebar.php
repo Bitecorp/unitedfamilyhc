@@ -115,6 +115,10 @@ return [
                             'url' => '/settings/PDFs/documentsEditors',
                             'title' => 'Create Documents PDFs'
                         ],
+                        [
+                            'url' => '/settings/PDFs/templatesEditors',
+                            'title' => 'Create  Templates'
+                        ],
                     ],
                 ],
             ]

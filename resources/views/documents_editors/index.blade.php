@@ -14,11 +14,15 @@
 				<!-- begin panel-heading -->
 				<div class="panel-heading">
                     <h4 class="panel-title">
-                        Documents Editors
+                        @if (strpos(Request::url(), "documentsEditors"))
+                            Documents Editors
+                        @elseif (strpos(Request::url(), "templatesEditors"))
+                            Templates Editors
+                        @endif
                     </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="{{ route('documentsEditors.create') }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
+                        <a href="{{ strpos(Request::url(), "documentsEditors") ? route('documentsEditors.create') : (strpos(Request::url(), "templatesEditors") ? route('templatesEditors.create') : null )}}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                     </div>
