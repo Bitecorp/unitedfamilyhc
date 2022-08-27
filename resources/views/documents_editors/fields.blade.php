@@ -1,21 +1,29 @@
-<?php
-    $options = [
-        '1' => 'Email',
-        '0' => 'Document',
-        '2' => 'Others'
-    ];
-
-    $selected = isset($typeDoc) && isset($typeDoc->document_certificate) ? $typeDoc->document_certificate : 0;
-
-    $valUrl = strpos(Request::url(), "documentsEditors") ? 'documents' : (strpos(Request::url(), "templatesEditors") ? 'templates' : null)
-?>
-
 @push('css')
 	<link href="/assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" />
 @endpush
+
+<?php
+
+    $options = [
+        '1' => 'Email',
+        '0' => 'Document',
+        '2' => 'Others'
+    ];
+
+    $selected = isset($documentsEditors) && isset($documentsEditors->type_template) ? $documentsEditors->type_template : 0;
+
+    $valUrl = strpos(Request::url(), "documentsEditors") ? 'documents' : (strpos(Request::url(), "templatesEditors") ? 'templates' : null);
+
+    $hidenForDoc = strpos(Request::url(), "documentsEditors") ? 'hidden' : '' ;
+
+    $hidenForTem = strpos(Request::url(), "templatesEditors") ? 'hidden' : '' ;
+
+    $urlCancel = strpos(Request::url(), "documentsEditors") ? route('documentsEditors.index') : (strpos(Request::url(), "templatesEditors") ? route('templatesEditors.index') : null);
+
+?>
 
 <div class="row">
     <div class="col">
@@ -39,7 +47,7 @@
                             {!! Form::text('backgroundImg', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
                         </div>
                     </div>
-                    <div class="col" {{ strpos(Request::url(), "templatesEditors") ? 'hidden' : '' }}>
+                    <div class="col" {{ $hidenForTem }}>
                         <!-- Role Id Field -->
                         <div class="form-group">
                             {!! Form::label('role_id', 'Document For:') !!}
@@ -52,7 +60,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col" {{ strpos(Request::url(), "templatesEditors") ? 'hidden ': '' }}>
+                    <div class="col" {{ $hidenForTem }}>
                         <!-- Service Id Field -->
                         <div class="form-group">
                             {!! Form::label('service_id', 'Service:') !!}
@@ -66,7 +74,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col" {{ strpos(Request::url(), "documentsEditors") ? 'hidden ': '' }}>
+                    <div class="col" {{ $hidenForDoc }}>
                         <div class="form-group">
                             {!! Form::label('type_template', 'Type:') !!}
                             {!! Form::select('type_template', $options, $selected, ['class'=>'form-control']) !!}
@@ -151,7 +159,7 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ strpos(Request::url(), "documentsEditors") ? route('documentsEditors.index') : (strpos(Request::url(), "templatesEditors") ? route('templatesEditors.index') : null )}}" class="btn btn-secondary">Cancel</a>
+    <a href="{{ $urlCancel }}" class="btn btn-secondary">Cancel</a>
 </div>
 
 @push('scripts')
