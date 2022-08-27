@@ -401,14 +401,14 @@ class HomeController extends Controller
     {
         $filters = $request->all();
 
-        $desde = $filters['desde'] . ' 00:00:01';
-        $hasta = $filters['hasta'] . ' 23:59:59';
-
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('paid', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                ->where('paid', $filters['paid'])
+                ->where('start', '>=', $filters['desde'])
+                ->where('end', '<=', $filters['hasta'])->get();
         }
 
         //dd($registerAttentions);
@@ -475,6 +475,8 @@ class HomeController extends Controller
             $arrayFinal = [];
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
+                    //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
+
                     $dataWorker = User::find($arraySumC->worker_id);
                     $arraySumC->worker_id = $dataWorker;
 
@@ -491,6 +493,32 @@ class HomeController extends Controller
 
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
                     $arraySumC->sub_service_id = $dataSubService;
+
+                    $dataDocument1099 = GenerateDocuments1099::where('service_id', strval(json_decode($arraySumC->service_id)->id))
+                            ->where('worker_id', strval(json_decode($arraySumC->worker_id)->id))
+                            ->where('patiente_id', strval(json_decode($arraySumC->patiente_id)->id))
+                            ->where('sub_service_id', strval(json_decode($arraySumC->sub_service_id)->id))
+                            ->where('from', '>=', $filters['desde'])
+                            ->where('to', '>=', $filters['hasta'])->first();
+                    
+
+                    if(isset($dataDocument1099) && !empty($dataDocument1099)){                         
+                        if(isset($dataDocument1099->eftor_check) && !empty($dataDocument1099->eftor_check)){
+                            $arraySumC->eftor_check = $dataDocument1099->eftor_check;
+                        }else{
+                            $arraySumC->eftor_check = '';
+                        }
+
+                        if(isset($dataDocument1099->invoice_number) && !empty($dataDocument1099->invoice_number)){
+                            $arraySumC->invoice_number = $dataDocument1099->invoice_number;
+                        }else{
+                            $arraySumC->invoice_number = '';
+                        }
+                            
+                    }else{
+                        $arraySumC->eftor_check = '';
+                        $arraySumC->invoice_number = '';
+                    }                  
 
                     $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
 
@@ -539,7 +567,6 @@ class HomeController extends Controller
                             $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                             $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
                         }
-
                         
                         $arraySumC->unid_pay_worker = $unidadesPorPagar;
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
@@ -610,9 +637,7 @@ class HomeController extends Controller
 
                     array_push($arrayFinal, $arraySumC);
                 }
-            }
-
-            
+            }            
 
             $dataPatiente = $this->matchAndControlSearchPatientes($request);
             
@@ -639,14 +664,14 @@ class HomeController extends Controller
     {
         $filters = $request->all();
 
-        $desde = $filters['desde'] . ' 00:00:01';
-        $hasta = $filters['hasta'] . ' 23:59:59';
-
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])->where('collected', $filters['paid'])->where('start', '>=', $desde)->where('end', '<=', $hasta)->get();
+            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                ->where('collected', $filters['paid'])
+                ->where('start', '>=', $filters['desde'])
+                ->where('end', '<=', $filters['hasta'])->get();
         }
         
         
@@ -704,8 +729,6 @@ class HomeController extends Controller
                 $arraySum = $registerAttentionss;
             }
 
-
-
             $arraySumClean = collect($arraySum)->unique();
 
             $arrayFinal = [];
@@ -727,6 +750,32 @@ class HomeController extends Controller
 
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
                     $arraySumC->sub_service_id = $dataSubService;
+
+                    $dataDocument1099 = GenerateDocuments1099::where('service_id', strval(json_decode($arraySumC->service_id)->id))
+                            ->where('worker_id', strval(json_decode($arraySumC->worker_id)->id))
+                            ->where('patiente_id', strval(json_decode($arraySumC->patiente_id)->id))
+                            ->where('sub_service_id', strval(json_decode($arraySumC->sub_service_id)->id))
+                            ->where('from', '>=', $filters['desde'])
+                            ->where('to', '>=', $filters['hasta'])->first();
+                    
+
+                    if(isset($dataDocument1099) && !empty($dataDocument1099)){                         
+                        if(isset($dataDocument1099->eftor_check) && !empty($dataDocument1099->eftor_check)){
+                            $arraySumC->eftor_check = $dataDocument1099->eftor_check;
+                        }else{
+                            $arraySumC->eftor_check = '';
+                        }
+
+                        if(isset($dataDocument1099->invoice_number) && !empty($dataDocument1099->invoice_number)){
+                            $arraySumC->invoice_number = $dataDocument1099->invoice_number;
+                        }else{
+                            $arraySumC->invoice_number = '';
+                        }
+                            
+                    }else{
+                        $arraySumC->eftor_check = '';
+                        $arraySumC->invoice_number = '';
+                    } 
 
                     $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
 
@@ -861,8 +910,7 @@ class HomeController extends Controller
         if($filters['service_id'] == 'all'){
             $registerAttentions = RegisterAttentions::where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 0)->get();
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('patiente_id', $filters['patiente_id'])
+            $registerAttentions = RegisterAttentions::where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
                 ->where('start', '>=', $filters['fecha_desde'])
@@ -891,8 +939,7 @@ class HomeController extends Controller
         if($filters['service_id'] == 'all'){
             $registerAttentions = RegisterAttentions::where('paid', 0)->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->get();
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', 0)
+            $registerAttentions = RegisterAttentions::where('paid', 0)
                 ->where('worker_id', $filters['worker_id'])
                 ->where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
@@ -919,17 +966,13 @@ class HomeController extends Controller
     public function revertirCobrar(Request $request)
     {
         $filters = $request->all();
-        if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 1)->get();
-        }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('patiente_id', $filters['patiente_id'])
+            $registerAttentions = RegisterAttentions::where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
                 ->where('start', '>=', $filters['fecha_desde'])
                 ->where('end', '<=', $filters['fecha_hasta'])
                 ->where('collected', 1)->get();
-        }
+        
 
         foreach(collect($registerAttentions)->unique() as $key => $reg){
             $flight = RegisterAttentions::find($reg->id);
@@ -949,18 +992,15 @@ class HomeController extends Controller
     public function revertirPagar(Request $request)
     {
         $filters = $request->all();
-        if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', 1)->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->get();
-        }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', 1)
+
+            $registerAttentions = RegisterAttentions::where('paid', 1)
                 ->where('worker_id', $filters['worker_id'])
                 ->where('patiente_id', $filters['patiente_id'])
                 ->where('service_id', $filters['service_id'])
                 ->where('sub_service_id', $filters['sub_service_id'])
                 ->where('start', '>=', $filters['fecha_desde'])
                 ->where('end', '<=', $filters['fecha_hasta'])->get();
-        }
+        
 
         foreach(collect($registerAttentions)->unique() as $key => $reg){
             $flight = RegisterAttentions::find($reg->id);
@@ -969,6 +1009,17 @@ class HomeController extends Controller
             
             $flight->save();
         }
+
+        $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
+                ->where('patiente_id', $filters['patiente_id'])
+                ->where('service_id', $filters['service_id'])
+                ->where('sub_service_id', $filters['sub_service_id'])
+                ->where('from', '>=', $filters['fecha_desde'])
+                ->where('to', '<=', $filters['fecha_hasta'])->first();
+
+                $generate1099Id = GenerateDocuments1099::find($generate1099->id);
+        
+                $generate1099Id->delete();
 
         return response()->json([
             'data' => [],
@@ -982,14 +1033,14 @@ class HomeController extends Controller
 
         $flight = new GenerateDocuments1099;
         
-        $flight->worker_id = $request['worker_id'];
-        $flight->patiente_id = $request['patiente_id'];
-        $flight->service_id = $request['service_id'];
-        $flight->sub_service_id = $request['sub_service_id'];
-        $flight->from = $request['fecha_desde'];
-        $flight->to = $request['fecha_hasta'];
-        $flight->eftor_check = $request['eftor_check'];
-        $flight->invoice_number = $request['invoice_number'];
+            $flight->worker_id = $request['worker_id'];
+            $flight->patiente_id = $request['patiente_id'];
+            $flight->service_id = $request['service_id'];
+            $flight->sub_service_id = $request['sub_service_id'];
+            $flight->from = $request['fecha_desde'];
+            $flight->to = $request['fecha_hasta'];
+            $flight->eftor_check = $request['eftor_check'];
+            $flight->invoice_number = $request['invoice_number'];
  
         $flight->save();
 

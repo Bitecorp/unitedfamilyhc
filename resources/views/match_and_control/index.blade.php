@@ -137,8 +137,8 @@
 			var url = "/matchAndControl";
 			var service_id = $('#service_id').val();
 			var paid = $('#paid').val();
-			var dateDesde = $('#desde').val();
-			var dateHasta = $('#hasta').val();
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 
@@ -175,7 +175,7 @@
 							colBG = 'bg-red';
 							checkCheck = '';
 							block = '';
-							revertir = 'revertit';
+							revertir = '';
 						}
 
 						var dataFullW = data['dataW'];
@@ -207,6 +207,7 @@
 							$('#resulWorMod').empty();
 							$('#resulPatTab').empty();
 							var htmlResultados = '';
+							var htmlResultModal = '';
 
 							if(dataFullW.length >= 1){
 								for (var i = 0; i < dataFullW.length; i++) {
@@ -219,62 +220,72 @@
 
 									
 									var btnModal = '';
-									if(dataFullW[i].independent_contractor.independent_contractor == 1 || dataFullW[i].independent_contractor.independent_contractor == '1'){
+									var textBtnOne = 'Generate 1099';
+									var textBtnTwo = 'Save';
+									var actionGenerateOrDownload = 'saveData';
+									var valueInvoice = '';
+									var eftorCheck = '';
+									//if(paid == 1){
+										if(paid == 1 && (dataFullW[i].independent_contractor.independent_contractor == 1 || dataFullW[i].independent_contractor.independent_contractor == '1')){
 
-										btnModal =
-											'<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ dataFullW[i].worker_id.id +'">\n'+
-												'Generate 1099\n' +
-											'</button>\n';
+											if(dataFullW[i].invoice_number != '' && typeof dataFullW[i].invoice_number != 'undefined'){
+												valueInvoice = dataFullW[i].invoice_number;
+											}
 
-										var valueInvoice = '';
-										if(dataFullW[i].invoice_number != '' && typeof dataFullW[i].invoice_number != 'undefined'){
-											valueInvoice = dataFullW[i].invoice_number;
-										}
+											if(dataFullW[i].eftor_check != '' && typeof dataFullW[i].eftor_check != 'undefined'){
+												eftorCheck = dataFullW[i].eftor_check;
+												textBtnOne = 'Show 1099';
+												textBtnTwo = 'Download';
+												actionGenerateOrDownload = 'download1099';
+											}
+											
+											btnModal = 
+											'<div id="btnOpenModal_'+ dataFullW[i].worker_id.id + i +'">\n' +
+												'<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ dataFullW[i].worker_id.id + i +'">' + textBtnOne + '</button>\n' +
+											'</div>\n';
 
-										var eftorCheck = '';
-										if(dataFullW[i].eftor_check != '' && typeof dataFullW[i].eftor_check != 'undefined'){
-											eftorCheck = dataFullW[i].eftor_check;
-										}
-
-										var modal = 
-										'<div class="modal fade" id="exampleModal_'+ dataFullW[i].worker_id.id +'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
-											'<div class="modal-dialog modal-lg">\n' +
-												'<div class="modal-content">\n' +
-													'<div class="modal-header">\n' +
-														'<h5 class="modal-title" id="exampleModalLabel_'+ dataFullW[i].worker_id.id +'">Data to generate 1099 to the worker ' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</h5>\n' +
-														'<button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
-															'<span aria-hidden="true">&times;</span>\n' +
-														'</button>\n' +
-													'</div>\n' +
-													'<div class="modal-body">\n' +
-														'<form role="form">\n' +
-														'<div class="row">\n' +
-															'<div class="col">\n' +
-																'<div class="form-group">\n' +
-																	'{!! Form::label("eftor_check", "Eftor Check:") !!}\n' +
-																	'<input type="text" class="form-control" name="eftor_check" id="eftor_check" value="' + eftorCheck + '" required>\n' +
+											var modal = 
+											'<div class="modal fade" id="exampleModal_'+ dataFullW[i].worker_id.id + i +'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+												'<div class="modal-dialog modal-lg">\n' +
+													'<div class="modal-content">\n' +
+														'<div class="modal-header">\n' +
+															'<h5 class="modal-title" id="exampleModalLabel_'+ dataFullW[i].worker_id.id + i +'">Data to generate 1099 to the worker ' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h5>\n' +
+															'<button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
+																'<span aria-hidden="true">&times;</span>\n' +
+															'</button>\n' +
+														'</div>\n' +
+														'<div class="modal-body">\n' +
+															'<form id="form_'+ dataFullW[i].worker_id.id + i +'" role="form_'+ dataFullW[i].worker_id.id + i +'">\n' +
+															'<div class="row">\n' +
+																'<div class="col">\n' +
+																	'<div class="form-group">\n' +
+																		'{!! Form::label("eftor_check", "Eftor Check:") !!}\n' +
+																		'<input type="text" class="form-control" name="eftor_check_'+ dataFullW[i].worker_id.id + i +'" id="eftor_check_'+ dataFullW[i].worker_id.id + i +'" value="' + eftorCheck + '" required="true">\n' +
+																	'</div>\n' +
+																'</div>\n' +
+																'<div class="col">\n' +
+																	'<div class="form-group">\n' +
+																		'{!! Form::label("invoice_number", "Invoice Number:") !!}\n' +
+																		'<input type="text" class="form-control" name="invoice_number_'+ dataFullW[i].worker_id.id + i +'" id="invoice_number_'+ dataFullW[i].worker_id.id + i +'" value="' + valueInvoice + '">\n' +
+																	'</div>\n' +
 																'</div>\n' +
 															'</div>\n' +
-															'<div class="col">\n' +
-																'<div class="form-group">\n' +
-																	'{!! Form::label("invoice_number", "Invoice Number:") !!}\n' +
-																	'<input type="text" class="form-control" name="invoice_number" id="invoice_number" value="' + valueInvoice + '">\n' +
-																'</div>\n' +
+															'</form>\n' +
+
+
+														'</div>\n' +
+														'<div class="modal-footer">\n' +
+															'<button type="button" id="btn_close_'+ dataFullW[i].worker_id.id + i +'" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' +
+															'<div id="btnSaveOrdDownload_'+ dataFullW[i].worker_id.id + i +'">\n' +
+																'<button type="button" onclick="' + actionGenerateOrDownload + '(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ',' + i +')" id="btn_save_'+ dataFullW[i].worker_id.id + i +'" class="btn btn-primary">' + textBtnTwo + '</button>\n' +
 															'</div>\n' +
 														'</div>\n' +
-														'</form>\n' +
-
-
-													'</div>\n' +
-													'<div class="modal-footer">\n' +
-														'<button type="button" id="btn_close_'+ dataFullW[i].worker_id.id +'" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' +
-														'<button type="button" onclick="saveData(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ')" id="btn_save_'+ dataFullW[i].worker_id.id +'" class="btn btn-primary">Save</button>\n' +
 													'</div>\n' +
 												'</div>\n' +
-											'</div>\n' +
-										'</div>\n';
+											'</div>\n';
 
-									}
+										}
+									//}
 
 									var dataW = 
 										'<tr>\n' +
@@ -292,9 +303,10 @@
 										'</tr>\n';
 
 									htmlResultados = dataW;
+									htmlResultModal = modal;
 											
 									$('#resulWorTab').append(htmlResultados);
-									$('#resulWorMod').append(modal);
+									$('#resulWorMod').append(htmlResultModal);
 								};
 							}
 
@@ -395,58 +407,76 @@
 	</script>
 
 	<script>
-		function saveData(idPatiente, idWorker, idService, idSubService, status, paid) {
+		function download1099(idPatiente, idWorker, idService, idSubService, status, paid) {
+			//
+		};
+	</script>
+
+	<script>
+		function saveData(idPatiente, idWorker, idService, idSubService, status, paid, i) {
 			var dateDesde = $('#desde').val() + ' 00:00:00';
 			var dateHasta = $('#hasta').val() + ' 23:59:59';
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/generateDocumentOfPai";
+			var valI = i;
 
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
-			var sub_service = idSubService;
+			var sub_service_id = idSubService;
 			var status = status;
 			var paid = paid;
 
-			var eftor_check = $('#eftor_check').val();
-			var invoice_number = $('#invoice_number').val();
+			var eftor_check = $('#eftor_check_' + worker_id + valI).val();
+			var invoice_number = $('#invoice_number_' + worker_id + valI).val();
 
+			var obj = document.getElementById('btn_close_' + worker_id + valI);
 
-
-			$.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-					_token: token,
-					patiente_id: idPatiente,
-					worker_id: worker_id,
-					service_id: service_id,
-					sub_service_id: idSubService,
-					fecha_desde: dateDesde,
-					fecha_hasta: dateHasta,
-					status: status,
-					paid: paid,
-					eftor_check: eftor_check,
-					invoice_number: invoice_number
-				},
-				success: function(data) {
-					var obj = document.getElementById('btn_close_' + worker_id);
-					if(data['success'] == true){
-						if (obj){
-							obj.click(); 
+			var opcion = confirm("Are you sure you want to generate this document?");
+			if (opcion == true && obj) {
+				obj.click();
+			
+				setTimeout(
+					$.ajax({
+						type: "post",
+						url: url,
+						dataType: 'json',
+						data: {
+							_token: token,
+							patiente_id: patiente_id,
+							worker_id: worker_id,
+							service_id: service_id,
+							sub_service_id: sub_service_id,
+							fecha_desde: dateDesde,
+							fecha_hasta: dateHasta,
+							status: status,
+							paid: paid,
+							eftor_check: eftor_check,
+							invoice_number: invoice_number
+						},
+						success: function(data) {		
+							$('#btnOpenModal_' + worker_id + valI)
+								.empty()
+								.append('<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal_'+ worker_id + valI +'">Show 1090</button>\n');
+							$('#btnSaveOrdDownload_' + worker_id + valI)
+								.empty()
+								.append('<button type="button" onclick="download1099(' + patiente_id + ',' + worker_id + ',' + service_id + ',' + sub_service_id + ',' + status + ',' + paid + ',' + i + ')" id="btn_save_'+ worker_id + valI +'" class="btn btn-primary">Download</button>\n');
+							
+					
+							
+							let msjOne = 'The 1099 document was successfully generated.\n\n';
+							let msjTwo = 'El documento 1099 fue generado con exito.';
+							alert(msjOne + msjTwo);		
+						},
+						error: function (error) { 
+							console.log(error);
 						}
-					}		
-					let msjOne = 'The billing process was carried out successfully.\n\n';
-					let msjTwo = 'El proceso pago fue realizado con exito.';
-					alert(msjOne + msjTwo);		
-				},
-				error: function (error) { 
-					console.log(error);
-				}
-			});
-
+					})
+				, 5000);
+			}else if(opcion == false && obj){
+				obj.click();
+			}
 
 		};
 	</script>
