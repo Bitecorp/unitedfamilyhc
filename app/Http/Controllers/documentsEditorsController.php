@@ -154,7 +154,7 @@ class documentsEditorsController extends AppBaseController
         $urlReplace = public_path() . '/';
         $contentReplace = str_replace('../../../../', $urlReplace, $contentReplace);
 
-        $fileCreate = fopen('../resources/views/pdf/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
+        $fileCreate = fopen($pathfolderStorage . '/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
         fwrite($fileCreate, $initHTML);
         fwrite($fileCreate, $contentReplace);
         fwrite($fileCreate, $endHTML);
@@ -238,8 +238,18 @@ class documentsEditorsController extends AppBaseController
 
             return redirect(route('documentsEditors.index'));
         }
-        
-        unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+
+        if(intval($documentsEditors->isTemplate) == 0 || $documentsEditors->isTemplate == false){
+            unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+        }else if(intval($documentsEditors->isTemplate) == 1 || $documentsEditors->isTemplate == true){
+            if(intval($documentsEditors->type_template) == 0){
+                unlink('../resources/views/templatesDocuments/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }else if(intval($documentsEditors->type_template) == 1){
+                unlink('../resources/views/templatesEmails/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }else if(intval($documentsEditors->type_template) == 2){
+                unlink('../resources/views/templatesOthers/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }
+        }
 
         $input = $request->all();
 
@@ -331,7 +341,7 @@ class documentsEditorsController extends AppBaseController
         $urlReplace = public_path() . '/';
         $contentReplace = str_replace('../../../../', $urlReplace, $contentReplace);
 
-        $fileCreate = fopen('../resources/views/pdf/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
+        $fileCreate = fopen($pathfolderStorage . '/' . str_replace(' ', '_', $input['name_document_editor']) . '.blade.php', 'w+b');
         fwrite($fileCreate, $initHTML);
         fwrite($fileCreate, $contentReplace);
         fwrite($fileCreate, $endHTML);
@@ -369,18 +379,28 @@ class documentsEditorsController extends AppBaseController
             return redirect(route('documentsEditors.index'));
         }
 
-        $pathfolderStorage = '../resources/views/pdf';
-
-        if (!is_dir($pathfolderStorage)) {
-            mkdir($pathfolderStorage, 0777, true);
+        if(intval($documentsEditors->isTemplate) == 0 || $documentsEditors->isTemplate == false){
+            unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+        }else if(intval($documentsEditors->isTemplate) == 1 || $documentsEditors->isTemplate == true){
+            if(intval($documentsEditors->type_template) == 0){
+                unlink('../resources/views/templatesDocuments/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }else if(intval($documentsEditors->type_template) == 1){
+                unlink('../resources/views/templatesEmails/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }else if(intval($documentsEditors->type_template) == 2){
+                unlink('../resources/views/templatesOthers/' . str_replace(' ', '_', $documentsEditors->name_document_editor). '.blade.php'); //elimino el fichero
+            }
         }
-
-        unlink('../resources/views/pdf/' . str_replace(' ', '_', $documentsEditors->name_document_editor) . '.blade.php'); //elimino el fichero
 
         $this->documentsEditorsRepository->delete($id);
 
-        Flash::success('Documents Editors deleted successfully.');
+        if(intval($documentsEditors->isTemplate) == 0 || $documentsEditors->isTemplate == false){
+            Flash::success('Documents Editors deleted successfully.');
 
-        return redirect(route('documentsEditors.index'));
+            return redirect(route('documentsEditors.index'));
+        }else if(intval($documentsEditors->isTemplate) == 1 || $documentsEditors->isTemplate == true){
+            Flash::success('Templates Editors deleted successfully.');
+
+            return redirect(route('templatesEditors.index'));   
+        }
     }
 }
