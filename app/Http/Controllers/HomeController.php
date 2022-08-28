@@ -44,28 +44,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $dataInitial = RegisterAttentions::ALL();
-        $dataInitialT = RegisterAttentions::ALL();
-
-        foreach($dataInitial as $key => $dataInit){
-            $dataNotasReg = NotesSubServicesRegister::where('register_attentions_id', $dataInit->id)->first();
-            if(isset($dataNotasReg) && !empty($dataNotasReg)){
-                $dataInit->data_nota = $dataNotasReg;
-            }else{
-                unset($dataInitial[$key]);
-            }
-        }
-
-        foreach($dataInitialT as $keyT => $dataInitT){
-            $dataNotasReg = NotesSubServicesRegister::where('register_attentions_id', $dataInitT->id)->first();
-            if(isset($dataNotasReg) && !empty($dataNotasReg)){
-                $dataInit->data_nota = $dataNotasReg;
-            }
-        }
-
-        dd($dataInitial, $dataInitialT);
-
         $documentsExpireds = AlertDocumentsExpired::all();
 
         $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get();
