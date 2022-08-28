@@ -245,72 +245,79 @@ function alerta(){
 			var token = '{{ csrf_token() }}';
             var previa_url = document.getElementById('previa_url').value;
 
-            $.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-					_token: token,
-                    register_attentions_id: register_attentions_id,
-					worker_id: idUser,
-					service_id: service_id,
-					patiente_id: patiente_id,
-					sub_service_id: idSubService,
-                    note: note,
-                    firma: file,
-                    typeReturn: 'json',
-                    previa_url: previa_url
-				},
-				success: function(data) {
+            if(worker_id, service_id, patiente_id, sub_service_id){
+                let msjOne = 'There are empty fields and you cannot proceed to the creation, please fill in all the field.\n\n';
+				let msjTwo = 'Existen campos vacios y no se puede proceder a la creacion por favor llene todos los campos.';
 
-                    if(data['userAuth'] != 1 || data['userAuth'] != '1'){                    
-                        $('#btn_modal').attr("hidden", true);
+                alert(msjOne + msjTwo);
+            }else{	
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                        _token: token,
+                        register_attentions_id: register_attentions_id,
+                        worker_id: idUser,
+                        service_id: service_id,
+                        patiente_id: patiente_id,
+                        sub_service_id: idSubService,
+                        note: note,
+                        firma: file,
+                        typeReturn: 'json',
+                        previa_url: previa_url
+                    },
+                    success: function(data) {
 
-                        var URLdomain = window.location.host;
-                        var protocol = location.protocol;
-                        var urlTotal = protocol + '//' + URLdomain + '/filesUsers/' + data['urlImagen'];
+                        if(data['userAuth'] != 1 || data['userAuth'] != '1'){                    
+                            $('#btn_modal').attr("hidden", true);
 
-                        document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
+                            var URLdomain = window.location.host;
+                            var protocol = location.protocol;
+                            var urlTotal = protocol + '//' + URLdomain + '/filesUsers/' + data['urlImagen'];
 
-                        if (obj){
-                            obj.click(); 
-                        }
+                            document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
 
-                        if(data['prevUrl'].includes('dashboard')){
-                            if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
-                                $('#note').attr('readonly', true)
-                                setTimeout(function(){
-                                    window.location.href = "/dashboard";
-                                }, 1000);
-                            
+                            if (obj){
+                                obj.click(); 
                             }
 
-                            //$('#previa_url').empty()
-                            //$('#previa_url').val('');
-                            //$('#previa_url').val("{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl :" + localStorage.getItem('prevUrl') + "}}");
-                        }else{
-                            if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
-                                $('#note').attr('readonly', true)
-                                setTimeout(function(){
-                                    window.location.href = "/notesSubServices";
-                                }, 1000);
-                            
-                            }
-                        }
-                    }else if(data['userAuth'] == 1 || data['userAuth'] == '1'){
+                            if(data['prevUrl'].includes('dashboard')){
+                                if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                                    $('#note').attr('readonly', true)
+                                    setTimeout(function(){
+                                        window.location.href = "/dashboard";
+                                    }, 1000);
+                                
+                                }
 
-                        if (obj){
-                            obj.click(); 
+                                //$('#previa_url').empty()
+                                //$('#previa_url').val('');
+                                //$('#previa_url').val("{{ isset($prevUrl) && !empty($prevUrl) ? $prevUrl :" + localStorage.getItem('prevUrl') + "}}");
+                            }else{
+                                if(data['statusAttention'] == 3 || data['statusAttention'] == '3'){
+                                    $('#note').attr('readonly', true)
+                                    setTimeout(function(){
+                                        window.location.href = "/notesSubServices";
+                                    }, 1000);
+                                
+                                }
+                            }
+                        }else if(data['userAuth'] == 1 || data['userAuth'] == '1'){
+
+                            if (obj){
+                                obj.click(); 
+                            }
+                            setTimeout(function(){
+                                window.location.reload();
+                            }, 500);
                         }
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 500);
+                    },
+                    error: function (error) { 
+                        console.log(error);
                     }
-                },
-				error: function (error) { 
-					console.log(error);
-				}
-			});
+                });
+            }
         });
     };
 

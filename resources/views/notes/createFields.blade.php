@@ -261,32 +261,39 @@
             var lat_end = $('#lat_end').val();
             var long_end = $('#long_end').val();
 			var token = '{{ csrf_token() }}';
-			
-			$.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-					_token: token,
-					service_id: service_id,
-					patiente_id: patiente_id,
-                    worker_id: worker_id,
-                    sub_service_id: sub_service_id,
-                    number_of_notes: number_of_notes,
-                    start: start,
-                    lat_start: lat_start,
-                    long_start: long_start,
-                    end: end,
-                    lat_end: lat_end,
-                    long_end: long_end
-				},
-                success: function(data) {
-                    location.href = '/notesSubServices';
-                },
-				error: function (error) { 
-					console.log(error);
-				}
-			});				
+
+            if(worker_id, service_id, patiente_id, sub_service_id, number_of_notes, start, lat_start, long_start, end, lat_end, long_end){
+                let msjOne = 'There are empty fields and you cannot proceed to the creation, please fill in all the field.\n\n';
+				let msjTwo = 'Existen campos vacios y no se puede proceder a la creacion por favor llene todos los campos.';
+
+                alert(msjOne + msjTwo);
+            }else{			
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                        _token: token,
+                        service_id: service_id,
+                        patiente_id: patiente_id,
+                        worker_id: worker_id,
+                        sub_service_id: sub_service_id,
+                        number_of_notes: number_of_notes,
+                        start: start,
+                        lat_start: lat_start,
+                        long_start: long_start,
+                        end: end,
+                        lat_end: lat_end,
+                        long_end: long_end
+                    },
+                    success: function(data) {
+                        location.href = '/notesSubServices';
+                    },
+                    error: function (error) { 
+                        console.log(error);
+                    }
+                });	
+            }			
 		});
 	</script>
 @endpush
