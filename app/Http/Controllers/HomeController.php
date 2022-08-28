@@ -46,6 +46,7 @@ class HomeController extends Controller
     {
 
         $dataInitial = RegisterAttentions::ALL();
+        $dataInitialT = RegisterAttentions::ALL();
 
         foreach($dataInitial as $key => $dataInit){
             $dataNotasReg = NotesSubServicesRegister::where('register_attentions_id', $dataInit->id)->first();
@@ -56,7 +57,14 @@ class HomeController extends Controller
             }
         }
 
-        dd($dataInitial);
+        foreach($dataInitialT as $key => $dataInitT){
+            $dataNotasReg = NotesSubServicesRegister::where('register_attentions_id', $dataInitT->id)->first();
+            if(isset($dataNotasReg) && !empty($dataNotasReg)){
+                $dataInit->data_nota = $dataNotasReg;
+            }
+        }
+
+        dd($dataInitial, $dataInitialT);
 
         $documentsExpireds = AlertDocumentsExpired::all();
 
