@@ -77,7 +77,7 @@ class NotesSubServicesRegisterController extends Controller
                 "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
                 "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                 "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
-                "time_attention" => $data->time_attention,
+                "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '',
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
