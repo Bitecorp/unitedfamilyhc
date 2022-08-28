@@ -64,7 +64,7 @@ class NotesSubServicesRegisterController extends Controller
                     
                     $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
                 }else{
-                    $data->time_attention = '00:00:00'
+                    $data->time_attention = '00:00:00';
                 }
 
             $newNote = array( 
@@ -118,17 +118,21 @@ class NotesSubServicesRegisterController extends Controller
                 }
 
                 $unidadesPorPagar = '';
-                $times = explode(":", $newNote['time_attention']);
-                if($newNote['unidad_type_worker_int'] == 0){
-                    $unidH = ($times[0] * 60) / $newNote['unidad_time_worker'];
-                    $unidM = $times[1] / $newNote['unidad_time_worker'];
+                if(isset($newNote['time_attention']) && !empty($newNote['time_attention']) && strval($newNote['time_attention']) != '00:00:00'){
+                    $times = explode(":", $newNote['time_attention']);
+                    if($newNote['unidad_type_worker_int'] == 0){
+                        $unidH = ($times[0] * 60) / $newNote['unidad_time_worker'];
+                        $unidM = $times[1] / $newNote['unidad_time_worker'];
 
-                    $calc = $unidH + $unidM;
-                    $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        $calc = $unidH + $unidM;
+                        $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
 
+                    }else{
+                        $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_worker'];
+                        $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                    }
                 }else{
-                    $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_worker'];
-                    $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                    $unidadesPorPagar = 00.00;
                 }
                                     
                 $newNote['unid_pay_worker'] = $unidadesPorPagar;
