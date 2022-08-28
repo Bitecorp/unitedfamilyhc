@@ -63,8 +63,6 @@ class NotesSubServicesRegisterController extends Controller
                     }
                     
                     $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
-                }else{
-                    $data->time_attention = "00:00:00";
                 }
 
             $newNote = array( 
@@ -79,7 +77,7 @@ class NotesSubServicesRegisterController extends Controller
                 "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
                 "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                 "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
-                "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '',
+                "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
@@ -117,7 +115,7 @@ class NotesSubServicesRegisterController extends Controller
                     $newNote['unidad_type_worker_int'] = $dataUnidadWorker->type_unidad;
                 }
 
-                $unidadesPorPagar = 00.00;
+                $unidadesPorPagar = '';
                 if(isset($newNote['time_attention']) && !empty($newNote['time_attention']) && strval($newNote['time_attention']) != '00:00:00'){
                     $times = explode(":", $newNote['time_attention']);
                     if($newNote['unidad_type_worker_int'] == 0){
@@ -131,6 +129,8 @@ class NotesSubServicesRegisterController extends Controller
                         $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_worker'];
                         $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
                     }
+                }else{
+                    $unidadesPorPagar = number_format((float)00, 2, '.', '');
                 }
                                     
                 $newNote['unid_pay_worker'] = $unidadesPorPagar;
