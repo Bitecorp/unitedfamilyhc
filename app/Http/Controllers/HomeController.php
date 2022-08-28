@@ -57,7 +57,7 @@ class HomeController extends Controller
             }
         }
 
-        foreach($dataInitialT as $key => $dataInitT){
+        foreach($dataInitialT as $keyT => $dataInitT){
             $dataNotasReg = NotesSubServicesRegister::where('register_attentions_id', $dataInitT->id)->first();
             if(isset($dataNotasReg) && !empty($dataNotasReg)){
                 $dataInit->data_nota = $dataNotasReg;
