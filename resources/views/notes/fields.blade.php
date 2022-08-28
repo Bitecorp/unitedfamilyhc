@@ -59,21 +59,21 @@
                     <div class="col">
                         <div class="form-group">
                             {!! Form::label('start', 'Start Date/Hora:') !!}
-                            <input class="form-control" type="datetime-local" id="start" name="start" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->start : '' }}">
+                            <input class="form-control" type="datetime-local" id="start" name="start" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->start : '' }}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group" >
                             {!! Form::label('lat_start', 'Latitud Start:') !!}    
-                            <input type="text" name="lat_start" id="lat_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_start : ''}}" >
+                            <input type="text" name="lat_start" id="lat_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_start : ''}}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group" >
                             {!! Form::label('long_start', 'Longitud Start:') !!}    
-                            <input type="text" name="long_start" id="long_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_start : ''}}" >
+                            <input type="text" name="long_start" id="long_start" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_start : ''}}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
                 </div>
@@ -82,21 +82,21 @@
                     <div class="col">
                         <div class="form-group">
                             {!! Form::label('end', 'End Date/Hora:') !!}
-                            <input class="form-control" type="datetime-local" id="end" name="end" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->end : '' }}">
+                            <input class="form-control" type="datetime-local" id="end" name="end" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->end : '' }}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group" >
                             {!! Form::label('lat_end', 'Latitud End:') !!}    
-                            <input type="text" name="lat_end" id="lat_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_end : ''}}" >
+                            <input type="text" name="lat_end" id="lat_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->lat_end : ''}}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group" >
                             {!! Form::label('long_end', 'Longitud End:') !!}    
-                            <input type="text" name="long_end" id="long_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_end : ''}}" >
+                            <input type="text" name="long_end" id="long_end" class="form-control" value="{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions']->long_end : ''}}" {{ strpos(Request::url(), "create") || strpos(Request::url(), "edit") ? 'required' : '' }}>
                         </div>
                     </div>
                 </div>
