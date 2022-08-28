@@ -44,23 +44,26 @@ class NotesSubServicesRegisterController extends Controller
             $service = Service::find($note->service_id);
             $subService = SubServices::find($note->sub_service_id);
             $data = RegisterAttentions::find($note->register_attentions_id);
-
-                $timeAttention = $data->start->diff($data->end);
-                $times = explode(":", $timeAttention->format('%H:%i:%s'));
-
-                if($times[0] < 10){
-                    $times[0] = str_split($times[0])[1];
-                }
-
-                if($times[1] < 10){
-                    $times[1] = '0' . $times[1];
-                }
-
-                if($times[2] < 10){
-                    $times[2] = '0' . $times[2];
-                }
                 
-                $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+                if(isset($data) && !empty($data)){
+                
+                    $timeAttention = $data->start->diff($data->end);
+                    $times = explode(":", $timeAttention->format('%H:%i:%s'));
+    
+                    if($times[0] < 10){
+                        $times[0] = str_split($times[0])[1];
+                    }
+    
+                    if($times[1] < 10){
+                        $times[1] = '0' . $times[1];
+                    }
+    
+                    if($times[2] < 10){
+                        $times[2] = '0' . $times[2];
+                    }
+                    
+                    $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+                }
 
             $newNote = array( 
                 "id" => $note->id,
@@ -71,9 +74,9 @@ class NotesSubServicesRegisterController extends Controller
                 "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                 "note" => $note->note,
                 "firma" => $note->firma,
-                "status" => $data->status,
-                "start" => date('m-d-Y h:i:s A', strtotime($data->start)),
-                "end" => date('m-d-Y h:i:s A', strtotime($data->end)),
+                "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
+                "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
+                "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
                 "time_attention" => $data->time_attention,
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
