@@ -63,6 +63,8 @@ class NotesSubServicesRegisterController extends Controller
                     }
                     
                     $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+                }else{
+                    $data->time_attention = '00:00:00'
                 }
 
             $newNote = array( 
