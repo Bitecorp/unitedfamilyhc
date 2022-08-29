@@ -133,7 +133,7 @@ class NotesSubServicesRegisterController extends Controller
                     $unidadesPorPagar = number_format((float)00, 2, '.', '');
                 }
                                     
-                $newNote['unid_pay_worker'] = $unidadesPorPagar ?? number_format((float)00, 2, '.', '');
+                $newNote['unid_pay_worker'] = $unidadesPorPagar;
                 $calcPay = $newNote['unid_pay_worker'] * $dataPagosWorker->salary;
                 $newNote['mont_pay'] = number_format((float)$calcPay, 2, '.', '');                        
             }
@@ -172,21 +172,25 @@ class NotesSubServicesRegisterController extends Controller
                     }
 
                     $unidadesPorCobrar = '';
-                    $times = explode(":", $newNote['time_attention']);
-                    if($newNote['unidad_type_patiente_int'] == 0){
-                        if($newNote['unidad_time_patiente'] != 0){
-                            $unidH = ($times[0] * 60) / $newNote['unidad_time_patiente'];
-                        }
-                        if($newNote['unidad_time_patiente'] != 0){
-                            $unidM = $times[1] / $newNote['unidad_time_patiente'];
-                        }
+                    if(isset($newNote['time_attention']) && !empty($newNote['time_attention']) && strval($newNote['time_attention']) != '00:00:00'){
+                        $times = explode(":", $newNote['time_attention']);
+                        if($newNote['unidad_type_patiente_int'] == 0){
+                            if($newNote['unidad_time_patiente'] != 0){
+                                $unidH = ($times[0] * 60) / $newNote['unidad_time_patiente'];
+                            }
+                            if($newNote['unidad_time_patiente'] != 0){
+                                $unidM = $times[1] / $newNote['unidad_time_patiente'];
+                            }
 
-                        $calc = $unidH + $unidM;
-                        $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                            $calc = $unidH + $unidM;
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
 
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_patiente'];
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                        }
                     }else{
-                        $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_patiente'];
-                        $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                        $unidadesPorCobrar = number_format((float)00, 2, '.', '');
                     }
                                     
                 $newNote['unid_cob_patiente'] = $unidadesPorCobrar;
