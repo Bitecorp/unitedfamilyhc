@@ -262,7 +262,7 @@
             var long_end = $('#long_end').val();
 			var token = '{{ csrf_token() }}';
 
-            if(worker_id, service_id, patiente_id, sub_service_id, number_of_notes, start, lat_start, long_start, end, lat_end, long_end){
+            if(worker_id == '', service_id == '', patiente_id == '', sub_service_id == '', number_of_notes == '', start == '', lat_start == '', long_start == '', end == '', lat_end == '', long_end == ''){
                 let msjOne = 'There are empty fields and you cannot proceed to the creation, please fill in all the field.\n\n';
 				let msjTwo = 'Existen campos vacios y no se puede proceder a la creacion por favor llene todos los campos.';
 
