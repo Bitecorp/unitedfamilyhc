@@ -66,7 +66,7 @@
                                         <td>{{ $note['patiente_id']['fullName'] }}</td>
                                         <td>{{ $note['start'] }}</td>
                                         <td>{{ $note['end'] }}</td>
-                                        <td>{{ isset($note['unid_pay_worker']) && !empty($note['unid_pay_worker']) ? $note['unid_pay_worker'] : '00.00' }} of {{ $note['unidad_time_worker'] }} {{ $note['unidad_type_worker'] }}</td>
+                                        <td>{{ isset($note['unid_pay_worker']) && !empty($note['unid_pay_worker']) ? $note['unid_pay_worker'] : '00.00' }} of {{ isset($note['unidad_time_worker']) && !empty($note['unidad_time_worker']) ? $note['unidad_time_worker'] : '15' }} {{ isset($note['unidad_type_worker']) && !empty($note['unidad_type_worker']) ? $note['unidad_type_worker'] : 'Minutes' }}</td>
                                         <td>
                                             @if(Auth::user()->role_id == 1)
                                                 x {{ $note['unit_value_patiente'] }} = {{ $note['mont_cob'] }}$ (USD)
