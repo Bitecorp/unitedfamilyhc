@@ -58,6 +58,7 @@ class DocumentsExpired extends Command
         }
         
         $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('user_id', $arrayUsers)->get() ?? [];
+        dd($documents);
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
             foreach($documents AS $key => $document){
