@@ -39,7 +39,6 @@ class NotesSubServicesRegisterController extends Controller
         
         $notes = [];
         foreach($allNotes as $note){
-            dd($note);
             $worker = User::find($note->worker_id);
             $patiente = User::find($note->patiente_id);
             $service = Service::find($note->service_id);
@@ -204,8 +203,6 @@ class NotesSubServicesRegisterController extends Controller
         //foreach(collect($notes) as $key => $note){
             //dd($note['id']);
         //};
-
-        dd(collect($notes));
 
         if(Auth::user()->role_id == 1){
             return view('notes.index')->with('notes', collect($notes));
