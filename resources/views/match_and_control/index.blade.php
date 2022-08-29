@@ -142,6 +142,9 @@
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 
+			var dateDesdeT = new Date(dateDesde).toLocaleString('en-US');
+			var dateHastaT = new Date(dateHasta).toLocaleString('en-US');
+
 			var urlActualMAC = '{{ strpos(Request::url(), "matchAndControl") }}';
 			var urlActualBYP = '{{ strpos(Request::url(), "manageBillAndPay") }}';
 
@@ -294,7 +297,7 @@
 											'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
 											'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
 											'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
-											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
+											'<td>' + dateDesdeT + ' - ' + dateHastaT + '</td>\n' +
 											'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
 											'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
 											'<td class="with-btn" nowrap>\n'
@@ -325,7 +328,7 @@
 											'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
 											'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
 											'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
-											'<td>' + dateDesde + ' - ' + dateHasta + '</td>\n' +
+											'<td>' + dateDesdeT + ' - ' + dateHastaT + '</td>\n' +
 											'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
 											'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
 											'<td class="with-btn" nowrap>\n'

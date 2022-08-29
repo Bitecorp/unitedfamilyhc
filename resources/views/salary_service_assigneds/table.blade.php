@@ -59,7 +59,7 @@
                                                 @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
                                                     @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                         @if($subService->id == $salaryServiceAssigned->service_id)
-                                                            {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $
+                                                            {{ $subService->worker_payment == $salaryServiceAssigned->salary || $salaryServiceAssigned->salary == '' ? $subService->worker_payment : $salaryServiceAssigned->salary }} $ {{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Unit'}}
                                                         @endif
                                                     @endforeach
                                                 @endif
@@ -67,7 +67,7 @@
                                                 @if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && count($salaryServiceAssigneds) >= 1)
                                                     @foreach($salaryServiceAssigneds AS $keySA => $salaryServiceAssigned)
                                                         @if($subService->id == $salaryServiceAssigned->service_id)
-                                                            {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $
+                                                            {{ $subService->price_sub_service == $salaryServiceAssigned->customer_payment || $salaryServiceAssigned->customer_payment == ''  ? $subService->price_sub_service : $salaryServiceAssigned->customer_payment  }} $ {{ $salaryServiceAssigned->type_salary ==  0 ? 'Monthly' : 'Per Unit'}}
                                                         @endif
                                                     @endforeach
                                                 @endif

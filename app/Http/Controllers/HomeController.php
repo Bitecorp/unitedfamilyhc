@@ -418,10 +418,7 @@ class HomeController extends Controller
                 ->where('paid', $filters['paid'])
                 ->where('start', '>=', $filters['desde'])
                 ->where('end', '<=', $filters['hasta'])->get();
-        }
-
-        //dd($registerAttentions);
-        
+        }        
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
@@ -1042,6 +1039,17 @@ class HomeController extends Controller
     public function generateDocumentOfPay(Request $request)
     {
 
+        if (ob_get_length() > 0) {
+            ob_end_clean();
+            ob_start();
+            ob_end_flush();
+        } else {
+            ob_start();
+            ob_end_flush();
+        }
+
+        //generar1099($request['worker_id'], $request['patiente_id'], $request['service_id'], $request['sub_service_id'], $request['fecha_desde'], $request['fecha_hasta'], 1, $request['eftor_check'], $request['invoice_number']);
+
         $flight = new GenerateDocuments1099;
         
             $flight->worker_id = $request['worker_id'];
@@ -1054,6 +1062,8 @@ class HomeController extends Controller
             $flight->invoice_number = $request['invoice_number'];
  
         $flight->save();
+
+        
 
         return response()->json([
             'data' => [],
