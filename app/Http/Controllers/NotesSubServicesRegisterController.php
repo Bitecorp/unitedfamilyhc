@@ -39,6 +39,7 @@ class NotesSubServicesRegisterController extends Controller
         
         $notes = [];
         foreach($allNotes as $note){
+            dd($note);
             $worker = User::find($note->worker_id);
             $patiente = User::find($note->patiente_id);
             $service = Service::find($note->service_id);
