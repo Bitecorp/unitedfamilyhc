@@ -365,34 +365,32 @@ class HomeController extends Controller
     {
         $input = $request->all();
 
-        dd($input);
-
         for($i = 1; $i <= intval($input['number_of_notes']); $i++){
             $regAt = new RegisterAttentions;
 
-            $regAt->worker_id = $input['worker_id'];
-            $regAt->service_id = $input['service_id'];
-            $regAt->patiente_id = $input['patiente_id'];
-            $regAt->sub_service_id = $input['sub_service_id'];
-            $regAt->lat_start = $input['lat_start'];
-            $regAt->long_start = $input['long_start'];
-            $regAt->start = $input['start'];
-            $regAt->lat_end = $input['lat_end'];
-            $regAt->long_end = $input['long_end'];
-            $regAt->end = $input['end'];
-            $regAt->status = 2;
+                $regAt->worker_id = $input['worker_id'];
+                $regAt->service_id = $input['service_id'];
+                $regAt->patiente_id = $input['patiente_id'];
+                $regAt->sub_service_id = $input['sub_service_id'];
+                $regAt->lat_start = $input['lat_start'];
+                $regAt->long_start = $input['long_start'];
+                $regAt->start = $input['start'];
+                $regAt->lat_end = $input['lat_end'];
+                $regAt->long_end = $input['long_end'];
+                $regAt->end = $input['end'];
+                $regAt->status = 2;
 
             $regAt->save();
 
             $regNote = new NotesSubServicesRegister;
 
-            $regNote->register_attentions_id = $regAt->id;
-            $regNote->worker_id = $input['worker_id'];
-            $regNote->service_id = $input['service_id'];
-            $regNote->patiente_id = $input['patiente_id'];
-            $regNote->sub_service_id = $input['sub_service_id'];
-            $regNote->note = null;
-            $regNote->firma = null;
+                $regNote->register_attentions_id = $regAt->id;
+                $regNote->worker_id = $input['worker_id'];
+                $regNote->service_id = $input['service_id'];
+                $regNote->patiente_id = $input['patiente_id'];
+                $regNote->sub_service_id = $input['sub_service_id'];
+                $regNote->note = null;
+                $regNote->firma = null;
         
             $regNote->save();
         }
