@@ -44,7 +44,20 @@ class DocumentsExpired extends Command
      */
     public function handle()
     {
-        $documents = DocumentUserFiles::where('expired', 0)->get() ?? [];
+     
+        $arrayUsers = [];
+
+        $usersD = DB::table('users')
+            ->where('statu_id', 1)
+            ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
+            ->select('document_user_files.id')
+            ->get();
+
+        foreach($usersD->unique() as $userD){
+            array_push($arrayUsers, $userD->id);
+        }
+        
+        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('user_id', $arrayUsers)->get() ?? [];
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
             foreach($documents AS $key => $document){
@@ -75,7 +88,7 @@ class DocumentsExpired extends Command
             foreach($dataAlerts AS $key => $dataAlert){
                 $dataDocument = DocumentUserFiles::where('id', $dataAlert->document_user_file_id)->first() ?? '';
                 if(isset($dataDocument) && !empty($dataDocument)){
-                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 2)->where('role_id', 3)->first() ?? '';
+                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2, 3])->first() ?? '';
                     $arrayDocs = [];
                     if(isset($infoUser) && !empty($infoUser)){
                         $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];

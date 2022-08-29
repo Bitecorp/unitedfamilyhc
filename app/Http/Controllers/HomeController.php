@@ -44,9 +44,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $documentsExpireds = AlertDocumentsExpired::all();
+        $arrayUsers = [];
+        $usersD = DB::table('users')
+            ->where('statu_id', 1)
+            ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
+            ->select('document_user_files.id')
+            ->get();
+        foreach($usersD->unique() as $userD){
+            array_push($arrayUsers, $userD->id);
+        }
 
-        $workersCount = User::where('role_id', '<>', 1)->where('role_id', '<>', 4)->where('role_id', '<>', 5)->where('statu_id', 1)->get();
+        $documentsExpireds = AlertDocumentsExpired::whereNotIn('user_id', $arrayUsers)->get();
+
+        $workersCount = User::whereNotIn('role_id', [1, 4, 5])->where('statu_id', 1)->get();
         $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
 
         $workersDocumentsExpireds = [];
@@ -354,6 +364,8 @@ class HomeController extends Controller
     public function createMultiRegister(Request $request)
     {
         $input = $request->all();
+
+        dd($input);
 
         for($i = 1; $i <= intval($input['number_of_notes']); $i++){
             $regAt = new RegisterAttentions;
