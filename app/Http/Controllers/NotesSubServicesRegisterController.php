@@ -199,8 +199,9 @@ class NotesSubServicesRegisterController extends Controller
             }
 
 
-
-            $calcGan = $newNote['mont_cob'] - $newNote['mont_pay'];
+            $montCobRes = $newNote['mont_cob'] ?? number_format((float)00, 2, '.', '');
+            $montPayRes = $newNote['mont_pay'] ?? number_format((float)00, 2, '.', '');
+            $calcGan = $montCobRes - $montPayRes;
             $newNote['ganancia_empresa'] = number_format((float)$calcGan, 2, '.', '');
 
             array_push($notes, $newNote);
