@@ -245,7 +245,7 @@ function alerta(){
 			var token = '{{ csrf_token() }}';
             var previa_url = document.getElementById('previa_url').value;
 
-            if(worker_id, service_id, patiente_id, sub_service_id){
+            if(worker_id  == '', service_id == '', patiente_id == '', sub_service_id == ''){
                 let msjOne = 'There are empty fields and you cannot proceed to the creation, please fill in all the field.\n\n';
 				let msjTwo = 'Existen campos vacios y no se puede proceder a la creacion por favor llene todos los campos.';
 
