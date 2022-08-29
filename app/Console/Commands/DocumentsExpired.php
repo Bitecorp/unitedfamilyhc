@@ -47,21 +47,21 @@ class DocumentsExpired extends Command
      
         $arrayUsers = [];
 
-        $usersActives= DB::table('users')
+        $usersActives = DB::table('users')
             ->where('statu_id', 1)
             ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
             ->select('document_user_files.id')
             ->get();
 
-        foreach($usersD->unique() as $usersActive){
+        foreach($usersActives->unique() as $usersActive){
             array_push($arrayUsers, $usersActive->id);
         }
         
-        $documents = DocumentUserFiles::where('expired', 0)->whereIn('user_id', $arrayUsers)->get() ?? [];
-        dd($documents);
+        $documents = DocumentUserFiles::where('expired', 0)->get() ?? [];
+
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
-            foreach($documents AS $key => $document){
+            foreach($documents->whereIn('user_id', $arrayUsers) AS $key => $document){
                 if(isset($document->date_expired)){
                     $dataA = Carbon::parse($dateActual);
                     $dataAA = Carbon::parse($dateActual)->addMonth(1);

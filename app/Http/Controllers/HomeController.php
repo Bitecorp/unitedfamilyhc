@@ -54,14 +54,13 @@ class HomeController extends Controller
             array_push($arrayUsers, $userD->id);
         }
 
-        $documentsExpireds = AlertDocumentsExpired::whereNotIn('user_id', $arrayUsers)->get();
+        $documentsExpireds = AlertDocumentsExpired::all();
 
         $workersCount = User::whereNotIn('role_id', [1, 4, 5])->where('statu_id', 1)->get();
         $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
-
         $workersDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
-            foreach ($documentsExpireds as $key => $documentsExpired) {
+            foreach ($documentsExpireds->whereNotIn('user_id', $arrayUsers) as $key => $documentsExpired) {
                 $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
                 if (isset($dataDocument) && !empty($dataDocument)) {
                     $infoUser = User::where('id', $dataDocument->user_id)->first();
@@ -74,7 +73,7 @@ class HomeController extends Controller
 
         $patientesDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
-            foreach ($documentsExpireds as $key => $documentsExpired) {
+            foreach ($documentsExpireds->whereNotIn('user_id', $arrayUsers) as $key => $documentsExpired) {
                 $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
                 if (isset($dataDocument) && !empty($dataDocument)) {
                     $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->first();
