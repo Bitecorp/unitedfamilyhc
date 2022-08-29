@@ -45,13 +45,13 @@ class HomeController extends Controller
     public function index()
     {
         $arrayUsers = [];
-        $usersD = DB::table('users')
+        $usersActives = DB::table('users')
             ->where('statu_id', 1)
             ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
             ->select('document_user_files.id')
             ->get();
-        foreach($usersD->unique() as $userD){
-            array_push($arrayUsers, $userD->id);
+        foreach($usersActives->unique() as $usersActive){
+            array_push($arrayUsers, $usersActive->id);
         }
 
         $documentsExpireds = AlertDocumentsExpired::all();
