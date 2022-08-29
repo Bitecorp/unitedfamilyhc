@@ -204,6 +204,8 @@ class NotesSubServicesRegisterController extends Controller
             //dd($note['id']);
         //};
 
+        dd(collect($notes));
+
         if(Auth::user()->role_id == 1){
             return view('notes.index')->with('notes', collect($notes));
         }else{
