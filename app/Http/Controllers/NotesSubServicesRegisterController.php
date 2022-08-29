@@ -133,7 +133,7 @@ class NotesSubServicesRegisterController extends Controller
                     $unidadesPorPagar = number_format((float)00, 2, '.', '');
                 }
                                     
-                $newNote['unid_pay_worker'] = $unidadesPorPagar;
+                $newNote['unid_pay_worker'] = $unidadesPorPagar ?? number_format((float)00, 2, '.', '');
                 $calcPay = $newNote['unid_pay_worker'] * $dataPagosWorker->salary;
                 $newNote['mont_pay'] = number_format((float)$calcPay, 2, '.', '');                        
             }
@@ -193,6 +193,8 @@ class NotesSubServicesRegisterController extends Controller
                 $calcCob = $newNote['unid_cob_patiente'] * $dataCobroPatiente->customer_payment;
                 $newNote['mont_cob'] = number_format((float)$calcCob, 2, '.', '');
             }
+
+
 
             $calcGan = $newNote['mont_cob'] - $newNote['mont_pay'];
             $newNote['ganancia_empresa'] = number_format((float)$calcGan, 2, '.', '');
