@@ -67,7 +67,6 @@ use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Auth;
 use Elibyy\TCPDF\Facades\TCPDF;
-
 use Illuminate\Support\Facades\Config;
 
 class MyPdf extends \TCPDF

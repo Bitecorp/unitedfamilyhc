@@ -16,13 +16,11 @@ class GenerateDocuments1099 extends Model
 
     protected $fillable = [
         'worker_id',
-        'patiente_id',
-        'service_id',
-        'sub_service_id',
         'from',
         'to',
         'eftor_check',
-        'invoice_number'
+        'invoice_number',
+        'file'
     ];
 
     /**
@@ -33,13 +31,11 @@ class GenerateDocuments1099 extends Model
     protected $casts = [
         'id' => 'integer',
         'worker_id' => 'string',
-        'patiente_id' => 'string',
-        'service_id' => 'string',
-        'sub_service_id' => 'string',
         'from' => 'datetime',
         'to' => 'datetime',
         'eftor_check' => 'string',
         'invoice_number' => 'string',
+        'file' => 'string'
     ];
 
     /**
@@ -49,13 +45,11 @@ class GenerateDocuments1099 extends Model
      */
     public static $rules = [
         'worker_id' => 'required|string|max:255',
-        'patiente_id' => 'required|string|max:255',
-        'service_id' => 'required|string|max:255',
-        'sub_service_id' => 'required|string|max:255',
         'from' => 'required|required',
         'to' => 'required|required',
-        'eftor_check' => 'required|string|max:255',
+        'eftor_check' => 'nullable|string|max:255',
         'invoice_number' => 'nullable|string|max:255',
+        'file' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

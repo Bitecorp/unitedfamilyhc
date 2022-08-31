@@ -53,6 +53,10 @@ return [
                     'url' => '/manageBillAndPay',
                     'title' => 'Manage Bill & Pay'
                 ],
+                [
+                    'url' => '/generate1099',
+                    'title' => 'Generate 1099'
+                ],
             ]
         ],
         

@@ -35,6 +35,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/matchAndControl', 'matchAndControlFilter');
 
     Route::get('/manageBillAndPay', 'matchAndControlFilter');
+
+    Route::get('/generate1099', 'generate1099Filters');
+
+    Route::post('/generate1099', 'dataConsultGenerate1099');
     
     Route::post('/matchAndControl', 'matchAndControlSearch'); 
 

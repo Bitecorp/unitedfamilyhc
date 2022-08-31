@@ -17,6 +17,97 @@ use App\Models\Service;
 use App\Models\SubServices;
 use App\Models\GenerateDocuments1099;
 
+use App\Models\documentsEditors;
+use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Support\Facades\Config;
+
+class MyPdf extends \TCPDF
+{
+    protected $headerCallback;
+
+    protected $footerCallback;
+
+    public function Header()
+    {
+            if ($this->headerCallback != null && is_callable($this->headerCallback)) {
+                $cb = $this->headerCallback;
+                $cb($this);
+            } else {
+                //if (Config::get('tcpdf.use_original_header')) {
+                    //parent::Header();
+                //}
+                if (Config::get('tcpdf.use_original_header')) {
+                    // Get the current page break margin
+                    $bMargin = $this->getBreakMargin();
+
+                    // Get current auto-page-break mode
+                    $auto_page_break = $this->AutoPageBreak;
+
+                    // Disable auto-page-break
+                    $this->SetAutoPageBreak(false, 0);
+
+                    // Define the path to the image that you want to use as watermark.
+                    $img_file = Config::get('tcpdf.image_background');
+                    // Render the image
+                    $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
+
+                    // Restore the auto-page-break status
+                    $this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+                    // set the starting point for the page content
+                    $this->setPageMark();
+                }
+            }
+    }
+
+    public function Footer()
+    {
+        if ($this->footerCallback != null && is_callable($this->footerCallback)) {
+            $cb = $this->footerCallback;
+            $cb($this);
+        } else {
+            //if (Config::get('tcpdf.use_original_footer')) {
+                //parent::Footer();
+            //}
+            if (Config::get('tcpdf.use_original_footer')) {
+                $this->setX(180);
+                // Set font
+                $this->SetFont('helvetica', 'I', 8);
+
+                // Page number
+                $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+            }
+        }
+    }
+
+    public function setHeaderCallback($callback)
+    {
+        $this->headerCallback = $callback;
+    }
+
+    public function setFooterCallback($callback)
+    {
+        $this->footerCallback = $callback;
+    }
+
+    public function addTOC($page = '', $numbersfont = '', $filler = '.', $toc_name = 'TOC', $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addTOC($page, $numbersfont, $filler, $toc_name, $style, $color);
+    }
+
+    public function addHTMLTOC($page = '', $toc_name = 'TOC', $templates = array(), $correct_align = true, $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addHTMLTOC($page, $toc_name, $templates, $correct_align, $style, $color);
+    }
+}
+
+
 function createFile($file, $titleFile, $base64 = false)
 {
 
@@ -142,7 +233,7 @@ function sumaFechasTiempos ($fechaOne, $fechaTwo)
 function dataUser1099Global($idWorker){
     $dataEmpresa = '';
     $dataPersonal = User::where('id',$idWorker)->first();
-    $confirm = ConfirmationIndependent::where('user_id', $idWorker)->where('independent_contractor', 1)->first() ?? '';
+    $confirm = ConfirmationIndependent::where('user_id', $idWorker)->where('independent_contractor', 1)->first();
     if(isset($confirm) && !empty($confirm) && $confirm->personalEmpresa == 2){
         $dataEmpresa = Companies::where('user_id', $idWorker)->first();
         $dataEmpresa->user_id = User::where('id',$idWorker)->first();
@@ -155,28 +246,19 @@ function dataUser1099Global($idWorker){
     }
 }
 
-function dataPayUnitsServicesForWorker($worker_id, $patiente_id, $service_id, $sub_service_id, $fecha_desde, $fecha_hasta, $paid){
+function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $paid){
         $filters = [
-            'service_id' => $service_id,
             'paid' => $paid,
-            'sub_service_id' => $sub_service_id,
             'desde' => $fecha_desde,
             'hasta' => $fecha_hasta,
-            'worker_id' => $worker_id,
-            'patiente_id' => $patiente_id
+            'worker_id' => $worker_id
         ];
 
-        $registerAttentions = [];
-        if($filters['service_id'] == 'all'){
-            $dataTotal = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
-        }else{
-            $dataTotal = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', $filters['paid'])
+        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
                 ->where('start', '>=', $filters['desde'])
-                ->where('end', '<=', $filters['hasta'])->get();
-        }
+                ->where('end', '<=', $filters['hasta'])->where('paid', '<=', 1)->get();
 
-        $registerAttentions = $dataTotal->where('worker_id', $filters['worker_id']);
+            
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
@@ -243,6 +325,7 @@ function dataPayUnitsServicesForWorker($worker_id, $patiente_id, $service_id, $s
 
                     $dataWorker = User::find($arraySumC->worker_id);
                     $arraySumC->worker_id = $dataWorker;
+                    $arraySumC->worker_full_name = json_decode($dataWorker)->first_name . ' ' .  json_decode($dataWorker)->last_name;
 
                     $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
                     if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
@@ -251,39 +334,17 @@ function dataPayUnitsServicesForWorker($worker_id, $patiente_id, $service_id, $s
 
                     $dataPatiente = User::find($arraySumC->patiente_id);
                     $arraySumC->patiente_id = $dataPatiente;
+                    $arraySumC->patiente_full_name = json_decode($dataPatiente)->first_name . ' ' .  json_decode($dataPatiente)->last_name;
 
                     $dataService = Service::find($arraySumC->service_id);
                     $arraySumC->service_id = $dataService;
+                    $arraySumC->name_service = json_decode($dataService)->name_service;
 
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
-                    $arraySumC->sub_service_id = $dataSubService;
+                    $arraySumC->sub_service_id = $dataSubService; 
+                    $arraySumC->name_sub_service = json_decode($dataSubService)->name_sub_service;
 
-                    $dataDocument1099 = GenerateDocuments1099::where('service_id', strval(json_decode($arraySumC->service_id)->id))
-                            ->where('worker_id', strval(json_decode($arraySumC->worker_id)->id))
-                            ->where('patiente_id', strval(json_decode($arraySumC->patiente_id)->id))
-                            ->where('sub_service_id', strval(json_decode($arraySumC->sub_service_id)->id))
-                            ->where('from', '>=', $filters['desde'])
-                            ->where('to', '>=', $filters['hasta'])->first();
-                    
-
-                    if(isset($dataDocument1099) && !empty($dataDocument1099)){                         
-                        if(isset($dataDocument1099->eftor_check) && !empty($dataDocument1099->eftor_check)){
-                            $arraySumC->eftor_check = $dataDocument1099->eftor_check;
-                        }else{
-                            $arraySumC->eftor_check = '';
-                        }
-
-                        if(isset($dataDocument1099->invoice_number) && !empty($dataDocument1099->invoice_number)){
-                            $arraySumC->invoice_number = $dataDocument1099->invoice_number;
-                        }else{
-                            $arraySumC->invoice_number = '';
-                        }
-                            
-                    }else{
-                        $arraySumC->eftor_check = '';
-                        $arraySumC->invoice_number = '';
-                    }                  
-
+                    $arraySumC->service_and_sub_service = $arraySumC->name_service . ' - ' . $arraySumC->name_sub_service;
                     $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
@@ -339,36 +400,105 @@ function dataPayUnitsServicesForWorker($worker_id, $patiente_id, $service_id, $s
                     array_push($arrayFinal, $arraySumC);
                 }
             }
+            return collect($arrayFinal)->unique();
         }
-    return collect($arrayFinal);
 }
 
-function generar1099($worker_id, $patiente_id, $service_id, $sub_service_id, $fecha_desde, $fecha_hasta, $paid, $eftor_check, $invoice_number){
-    $filters = [
-            'service_id' => $service_id,
-            'paid' => $paid,
-            'sub_service_id' => $sub_service_id,
-            'fecha_desde' => $fecha_desde,
-            'fecha_hasta' => $fecha_hasta,
-            'worker_id' => $worker_id,
-            'patiente_id' => $patiente_id,
-            'eftor_check' => $eftor_check,
-            'invoice_number' => $invoice_number
-        ];
+function generar1099($filters){
+        if(ob_get_length() > 0){
+            ob_end_clean();
+            ob_start();
+            ob_end_flush();
+        } else {
+            ob_start();
+            ob_end_flush();
+        }
 
-    $dataWorker = dataUser1099Global(intval($filters['worker_id']));
+        $dataWorker = dataUser1099Global(intval($filters['worker_id']));
 
-    $dataPagos = dataPayUnitsServicesForWorker($filters['worker_id'], $filters['patiente_id'], $filters['service_id'], $filters['sub_service_id'], $filters['fecha_desde'], $filters['fecha_hasta'], 1);
+        $dataPagos = dataPayUnitsServicesForWorker($filters['worker_id'], $filters['fecha_desde'], $filters['fecha_hasta'], 1);
+
+        $updateDataDoc = GenerateDocuments1099::find($filters['document_1099_id']);
         
-    $arrayData = [
-        'infoUser' => $dataWorker,
-        'eftorCheck' => $filters['eftor_check'],
-        'invoiceNumber' => $filters['invoice_number'],
-        'desde' => date_format(date_create($filters['fecha_desde']), 'm/d/Y'),
-        'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
-        'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
-        'dataPago' => $dataPagos
-    ];
+        $updateDataDoc->eftor_check = $filters['eftor_check'];
+        if(isset($filters['invoice_number']) && !empty($filters['invoice_number'])){
+            $updateDataDoc->invoice_number = $filters['invoice_number'];
+        }
 
-    return $arrayData;
+        $updateDataDoc->save();
+            
+        $arrayData = [
+            'infoUser' => $dataWorker,
+            'eftorCheck' =>  $filters['eftor_check'],
+            'invoiceNumber' => isset($filters['invoice_number']) && !empty($filters['invoice_number']) ? $filters['invoice_number'] : '',
+            'desde' => date_format(date_create($filters['fecha_desde']), 'm/d/Y'),
+            'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
+            'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
+            'dataPagos' => $dataPagos->unique()
+        ];   
+        
+        $namePdf = documentsEditors::find(11);
+
+        $nameFile = '';
+        $confirm = ConfirmationIndependent::where('user_id', intval($filters['worker_id']))->where('independent_contractor', 1)->first();
+        if(isset($confirm) && !empty($confirm)){
+            if ($confirm->independent_contractor == 1 && $confirm->personalEmpresa == 2) {
+                $buscar = array (".",",",";",":");    
+                $remplazar = array ("","","","");
+
+                $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $dataWorker->name));
+            } else {
+                $nameFile = $dataWorker->first_name . "_" . $dataWorker->last_name;
+            }
+        }
+
+        $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
+        $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");
+        $titleFileOrFile = 'templatesDocuments.' . str_replace(' ', '_', $namePdf->name_document_editor);
+
+        if(isset($namePdf->backgroundImg) && !empty($namePdf->backgroundImg)){
+            Config::set('tcpdf.image_background', public_path($namePdf->backgroundImg));
+        }else{
+            Config::set('tcpdf.use_original_header', false);
+        }
+
+        if(isset($namePdf->paginate) && !empty($namePdf->paginate) && ($namePdf->paginate == 1 || $namePdf->paginate == true)){
+            Config::set('tcpdf.use_original_footer', true);
+        }
+
+    	$view = \View::make($titleFileOrFile, $arrayData);
+        $html = $view->render();
+
+    	$pdf = new MyPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+       // dd(Config::get('tcpdf.use_original_header'), Config::get('tcpdf.image_background'), $pdf);
+        
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor(PDF_AUTHOR);
+        $pdf->SetTitle(!empty($title) ? $title : PDF_HEADER_TITLE);
+        $pdf->SetSubject($nameFile . '.');
+        $pdf->SetKeywords('TCPDF, PDF');
+
+        // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+
+        $pdf->AddPage();
+
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $pdf->Output(storage_path('app/templates_documents') . '/' . $filename, 'F');
+
+        $updateDataDocT = GenerateDocuments1099::find($filters['document_1099_id']);
+        
+        $updateDataDocT->file = $filename;
+
+        $updateDataDocT->save();
+
+        return ['worker_id' =>$filters['worker_id'], 'file' => asset('templatesDocuments/' . $filename)];
 }

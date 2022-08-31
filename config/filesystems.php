@@ -60,6 +60,24 @@ return [
             'url' => env('APP_URL').'/filesUsers',
             'visibility' => 'public',
         ],
+        'public_templates_documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/templates_documents'),
+            'url' => env('APP_URL').'/templatesDocuments',
+            'visibility' => 'public',
+        ],
+        'public_templates_emails' => [
+            'driver' => 'local',
+            'root' => storage_path('app/templates_emails'),
+            'url' => env('APP_URL').'/templatesEmails',
+            'visibility' => 'public',
+        ],
+        'public_templates_others' => [
+            'driver' => 'local',
+            'root' => storage_path('app/templates_others'),
+            'url' => env('APP_URL').'/templatesOthers',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -86,6 +104,9 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('filesUsers') => storage_path('app/user_files'),
+        public_path('templatesDocuments') => storage_path('app/templates_documents'),
+        public_path('templatesEmails') => storage_path('app/templates_emails'),
+        public_path('templatesOthers') => storage_path('app/templates_others'),
     ],
 
 ];

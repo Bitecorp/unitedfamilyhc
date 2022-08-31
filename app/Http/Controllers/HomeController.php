@@ -24,6 +24,96 @@ use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
 use App\Models\GenerateDocuments1099;
 use App\Models\ConfirmationIndependent;
+use App\Models\documentsEditors;
+
+use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Support\Facades\Config;
+
+class MyPdf extends \TCPDF
+{
+    protected $headerCallback;
+
+    protected $footerCallback;
+
+    public function Header()
+    {
+            if ($this->headerCallback != null && is_callable($this->headerCallback)) {
+                $cb = $this->headerCallback;
+                $cb($this);
+            } else {
+                //if (Config::get('tcpdf.use_original_header')) {
+                    //parent::Header();
+                //}
+                if (Config::get('tcpdf.use_original_header')) {
+                    // Get the current page break margin
+                    $bMargin = $this->getBreakMargin();
+
+                    // Get current auto-page-break mode
+                    $auto_page_break = $this->AutoPageBreak;
+
+                    // Disable auto-page-break
+                    $this->SetAutoPageBreak(false, 0);
+
+                    // Define the path to the image that you want to use as watermark.
+                    $img_file = Config::get('tcpdf.image_background');
+                    // Render the image
+                    $this->Image($img_file, 0, 0, 210, 295, '', '', '', false, 300, '', false, false, 0);
+
+                    // Restore the auto-page-break status
+                    $this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+                    // set the starting point for the page content
+                    $this->setPageMark();
+                }
+            }
+    }
+
+    public function Footer()
+    {
+        if ($this->footerCallback != null && is_callable($this->footerCallback)) {
+            $cb = $this->footerCallback;
+            $cb($this);
+        } else {
+            //if (Config::get('tcpdf.use_original_footer')) {
+                //parent::Footer();
+            //}
+            if (Config::get('tcpdf.use_original_footer')) {
+                $this->setX(180);
+                // Set font
+                $this->SetFont('helvetica', 'I', 8);
+
+                // Page number
+                $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+            }
+        }
+    }
+
+    public function setHeaderCallback($callback)
+    {
+        $this->headerCallback = $callback;
+    }
+
+    public function setFooterCallback($callback)
+    {
+        $this->footerCallback = $callback;
+    }
+
+    public function addTOC($page = '', $numbersfont = '', $filler = '.', $toc_name = 'TOC', $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addTOC($page, $numbersfont, $filler, $toc_name, $style, $color);
+    }
+
+    public function addHTMLTOC($page = '', $toc_name = 'TOC', $templates = array(), $correct_align = true, $style = '', $color = array(0, 0, 0))
+    {
+        // sort bookmarks before generating the TOC
+        parent::sortBookmarks();
+
+        parent::addHTMLTOC($page, $toc_name, $templates, $correct_align, $style, $color);
+    }
+}
 
 class HomeController extends Controller
 {
@@ -406,6 +496,14 @@ class HomeController extends Controller
     
     }
 
+    public function generate1099Filters ()
+    {
+        $services = Service::all();
+        $workers = User::all()->whereIn('role_id', 2);
+        return view('match_and_control.index')->with('services', $services)->with('workers', $workers);
+    
+    }
+
     public function matchAndControlSearch (Request $request)
     {
         $filters = $request->all();
@@ -498,33 +596,7 @@ class HomeController extends Controller
                     $arraySumC->service_id = $dataService;
 
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
-                    $arraySumC->sub_service_id = $dataSubService;
-
-                    $dataDocument1099 = GenerateDocuments1099::where('service_id', strval(json_decode($arraySumC->service_id)->id))
-                            ->where('worker_id', strval(json_decode($arraySumC->worker_id)->id))
-                            ->where('patiente_id', strval(json_decode($arraySumC->patiente_id)->id))
-                            ->where('sub_service_id', strval(json_decode($arraySumC->sub_service_id)->id))
-                            ->where('from', '>=', $filters['desde'])
-                            ->where('to', '>=', $filters['hasta'])->first();
-                    
-
-                    if(isset($dataDocument1099) && !empty($dataDocument1099)){                         
-                        if(isset($dataDocument1099->eftor_check) && !empty($dataDocument1099->eftor_check)){
-                            $arraySumC->eftor_check = $dataDocument1099->eftor_check;
-                        }else{
-                            $arraySumC->eftor_check = '';
-                        }
-
-                        if(isset($dataDocument1099->invoice_number) && !empty($dataDocument1099->invoice_number)){
-                            $arraySumC->invoice_number = $dataDocument1099->invoice_number;
-                        }else{
-                            $arraySumC->invoice_number = '';
-                        }
-                            
-                    }else{
-                        $arraySumC->eftor_check = '';
-                        $arraySumC->invoice_number = '';
-                    }                  
+                    $arraySumC->sub_service_id = $dataSubService;                 
 
                     $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
 
@@ -757,32 +829,6 @@ class HomeController extends Controller
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
                     $arraySumC->sub_service_id = $dataSubService;
 
-                    $dataDocument1099 = GenerateDocuments1099::where('service_id', strval(json_decode($arraySumC->service_id)->id))
-                            ->where('worker_id', strval(json_decode($arraySumC->worker_id)->id))
-                            ->where('patiente_id', strval(json_decode($arraySumC->patiente_id)->id))
-                            ->where('sub_service_id', strval(json_decode($arraySumC->sub_service_id)->id))
-                            ->where('from', '>=', $filters['desde'])
-                            ->where('to', '>=', $filters['hasta'])->first();
-                    
-
-                    if(isset($dataDocument1099) && !empty($dataDocument1099)){                         
-                        if(isset($dataDocument1099->eftor_check) && !empty($dataDocument1099->eftor_check)){
-                            $arraySumC->eftor_check = $dataDocument1099->eftor_check;
-                        }else{
-                            $arraySumC->eftor_check = '';
-                        }
-
-                        if(isset($dataDocument1099->invoice_number) && !empty($dataDocument1099->invoice_number)){
-                            $arraySumC->invoice_number = $dataDocument1099->invoice_number;
-                        }else{
-                            $arraySumC->invoice_number = '';
-                        }
-                            
-                    }else{
-                        $arraySumC->eftor_check = '';
-                        $arraySumC->invoice_number = '';
-                    } 
-
                     $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
@@ -954,12 +1000,27 @@ class HomeController extends Controller
                 ->where('end', '<=', $filters['fecha_hasta'])->get();
         }
 
-        foreach(collect($registerAttentions)->unique() as $key => $reg){
+        foreach(collect($registerAttentions)->unique() as $reg){
             $flight = RegisterAttentions::find($reg->id);
  
             $flight->paid = true;
             
             $flight->save();
+        }
+
+
+        $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $request['worker_id'])->where('from', '>=', $request['fecha_desde'])->where('to', '<=', $request['fecha_hasta'])->first() ?? '';
+
+        if(empty($existeGenerate1099)){
+            $generate1099 = new GenerateDocuments1099;
+        
+                $generate1099->worker_id = $request['worker_id'];
+                $generate1099->from = $request['fecha_desde'];
+                $generate1099->to = $request['fecha_hasta'];
+                $generate1099->eftor_check = $request['eftor_check'];
+                $generate1099->invoice_number = $request['invoice_number'];
+    
+            $generate1099->save();
         }
 
         return response()->json([
@@ -1018,9 +1079,6 @@ class HomeController extends Controller
 
 
         $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
-                ->where('patiente_id', $filters['patiente_id'])
-                ->where('service_id', $filters['service_id'])
-                ->where('sub_service_id', $filters['sub_service_id'])
                 ->where('from', '>=', $filters['fecha_desde'])
                 ->where('to', '<=', $filters['fecha_hasta'])->first();
         if(isset($generate1099) && !empty($generate1099)){
@@ -1037,38 +1095,189 @@ class HomeController extends Controller
     }
 
     public function generateDocumentOfPay(Request $request)
-    {
+    { 
+        $filters = $request->all();
 
-        if (ob_get_length() > 0) {
-            ob_end_clean();
-            ob_start();
-            ob_end_flush();
-        } else {
-            ob_start();
-            ob_end_flush();
+        $document = generar1099($filters);
+
+        if(isset($document) && !empty($document)){
+            return response()->json([
+                'data' => $document ?? [],
+                'msj' => "documento generado",
+                'success' => true
+            ]);
         }
+    }
 
-        //generar1099($request['worker_id'], $request['patiente_id'], $request['service_id'], $request['sub_service_id'], $request['fecha_desde'], $request['fecha_hasta'], 1, $request['eftor_check'], $request['invoice_number']);
+    public function dataConsultGenerate1099 (Request $request)
+    {
+        $filters = $request->all();
 
-        $flight = new GenerateDocuments1099;
+        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])->where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();       
         
-            $flight->worker_id = $request['worker_id'];
-            $flight->patiente_id = $request['patiente_id'];
-            $flight->service_id = $request['service_id'];
-            $flight->sub_service_id = $request['sub_service_id'];
-            $flight->from = $request['fecha_desde'];
-            $flight->to = $request['fecha_hasta'];
-            $flight->eftor_check = $request['eftor_check'];
-            $flight->invoice_number = $request['invoice_number'];
- 
-        $flight->save();
+        $registerAttentionss = [];
+        if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
+            foreach($registerAttentions as $registerAttention){
 
-        
+                $timeAttention = $registerAttention->start->diff($registerAttention->end);
+                $times = explode(":", $timeAttention->format('%H:%i:%s'));
 
-        return response()->json([
-            'data' => [],
-            'msj' => "documento generado",
-            'success' => true
-        ]);
+                if($times[0] < 10){
+                    $times[0] = str_split($times[0])[1];
+                }
+
+                if($times[1] < 10){
+                    $times[1] = '0' . $times[1];
+                }
+
+                if($times[2] < 10){
+                    $times[2] = '0' . $times[2];
+                }
+                
+                $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
+                array_push($registerAttentionss, $registerAttention);
+            }
+
+            $arrayCollect = collect($registerAttentionss)->unique();
+            $arraySum = [];
+            if(count($arrayCollect) > 1){
+                foreach($arrayCollect as $keyI => $registerAttention){
+                    $count = $arrayCollect
+                        ->where('worker_id', $registerAttention->worker_id)
+                        ->where('patiente_id', $registerAttention->patiente_id)
+                        ->where('service_id', $registerAttention->service_id)
+                        ->where('sub_service_id', $registerAttention->sub_service_id)
+                    ;
+
+                    if(count($count) > 1){
+                        if(isset($count) && !empty($count) && count($count) >= 1){
+                            foreach($count->where('id', '<>', $registerAttention->id) as $key => $registerAttent){
+                                $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                                array_push($arraySum, $registerAttention);
+                                unset($arrayCollect[$key]);  
+                            }                    
+                        }
+                    }elseif(count($count) == 1){
+                        foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
+                            array_push($arraySum, $registerAttention);
+                            unset($arrayCollect[$key]);  
+                        }
+                    }
+
+                }
+            }else{
+                $arraySum = $registerAttentionss;
+            }
+
+            $arraySumClean = collect($arraySum)->unique()->filter();
+
+            $arrayFinal = [];
+            if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
+                foreach($arraySumClean as $arraySumC){
+
+                    $dataWorker = User::find($arraySumC->worker_id);
+                    $arraySumC->worker_id = $dataWorker;
+
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
+
+                    $dataPatiente = User::find($arraySumC->patiente_id);
+                    $arraySumC->patiente_id = $dataPatiente;
+
+                    $dataService = Service::find($arraySumC->service_id);
+                    $arraySumC->service_id = $dataService;
+
+                    $dataSubService = SubServices::find($arraySumC->sub_service_id);
+                    $arraySumC->sub_service_id = $dataSubService;                
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+
+                    if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
+                        if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
+                            $dataPagosWorker->salary = $dataSubService->worker_payment;
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }else{
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }
+
+                        $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataPagosWorker->id)->first();
+                        
+                        if(isset($dataConfig) && !empty($dataConfig)){
+                            if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                    $arraySumC->unidad_time_worker = $dataUnidadConfig->time;
+                                    $arraySumC->unidad_type_worker = $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_worker_int = $dataUnidadConfig->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                                $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                                $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                            $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                            $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                        }
+
+
+                        $unidadesPorPagar = '';
+                        $times = explode(":", $arraySumC->time_attention);
+                        if($arraySumC->unidad_type_worker_int == 0){
+                            $unidH = ($times[0] * 60) / $arraySumC->unidad_time_worker;
+                            $unidM = $times[1] / $arraySumC->unidad_time_worker;
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+                        
+                        $arraySumC->unid_pay_worker = $unidadesPorPagar;
+                        $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
+                        $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
+                    }
+
+                    array_push($arrayFinal, $arraySumC);
+                }
+            }
+            
+            
+            $dataDocument1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
+                ->where('from', '>=', $filters['desde'])
+                ->where('to', '<=', $filters['hasta'])->first(); 
+
+            $dataWorker = User::find($filters['worker_id']);
+            $dataDocument1099->worker_id = $dataWorker;
+
+            $dataindependentContractor = ConfirmationIndependent::where('user_id', $filters['worker_id'])->first();
+            if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                $dataDocument1099->independent_contractor = $dataindependentContractor;
+            }
+
+            $dataDocument1099->file = asset('templatesDocuments/' . $dataDocument1099->file);
+
+            return response()->json([
+                'dataW' => collect($arrayFinal),
+                'data1099' => array(collect($dataDocument1099)->unique()),
+                'msj' => "data encontrada",
+                'success' => true
+            ]); 
+
+        }else{
+            return response()->json([
+                'dataW' => [],
+                'msj' => "data no encontrada",
+                'success' => true
+            ]); 
+        }
     }
 }

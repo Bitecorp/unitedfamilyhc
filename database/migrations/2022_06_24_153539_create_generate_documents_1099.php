@@ -16,12 +16,9 @@ class CreateGenerateDocuments1099 extends Migration
         Schema::create('generate_documents_1099', function (Blueprint $table) {
             $table->id();
             $table->string('worker_id');
-            $table->string('patiente_id');
-            $table->string('service_id');
-            $table->string('sub_service_id');
             $table->dateTime('from');
             $table->dateTime('to');
-            $table->string('eftor_check');
+            $table->string('eftor_check')->nullable();
             $table->string('invoice_number')->nullable();
             $table->timestamps();
         });
