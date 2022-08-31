@@ -121,6 +121,58 @@
 @endsection
 
 @push('scripts')
+<script>
+	var urlDoc = "{{ strpos(Request::url(), 'generate1099') }}";
+	var urlBAP = "{{ strpos(Request::url(), 'manageBillAndPay') }}";
+	var urlDash = "{{ strpos(Request::url(), 'matchAndControl') }}";
+
+	$("#service_id").change(function() {
+		$("#service_id option:selected").each(function() {
+			$('#resulWor').empty();
+			$('#resulPat').empty();
+			$('#resulWorTab').empty();
+			$('#resulWorMod').empty();
+			$('#resulPatTab').empty();
+		});
+	});
+
+	$("#paid").change(function() {
+		$("#paid option:selected").each(function() {
+			$('#resulWor').empty();
+			$('#resulPat').empty();
+			$('#resulWorTab').empty();
+			$('#resulWorMod').empty();
+			$('#resulPatTab').empty();
+		});
+	});
+
+	$("#worker_id").change(function() {
+		$("#worker_id option:selected").each(function() {
+			$('#resulWor').empty();
+			$('#resulPat').empty();
+			$('#resulWorTab').empty();
+			$('#resulWorMod').empty();
+			$('#resulPatTab').empty();
+		});
+	});
+
+	$("#desde").change(function() {
+		$('#resulWor').empty();
+		$('#resulPat').empty();
+		$('#resulWorTab').empty();
+		$('#resulWorMod').empty();
+		$('#resulPatTab').empty();
+	});
+
+	$("#hasta").change(function() {
+		$('#resulWor').empty();
+		$('#resulPat').empty();
+		$('#resulWorTab').empty();
+		$('#resulWorMod').empty();
+		$('#resulPatTab').empty();
+	});
+
+</script>
 
 	<script>
         $(function () {
@@ -389,9 +441,7 @@
 
 							$('#resulWorTab').empty();
 							$('#resulPatTab').empty();
-							var htmlResultados = '';
-
-							
+							var htmlResultados = '';							
 
 							if(dataFullW.length >= 1){
 								for (var i = 0; i < dataFullW.length; i++) {
