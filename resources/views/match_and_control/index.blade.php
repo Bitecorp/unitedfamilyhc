@@ -288,10 +288,10 @@
 													'</div>\n' +
 												'</div>\n' +
 												'<div class="col-4">\n' +
+													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' +
 													'<div id"btnDownload">\n' +
 														btnDownload
 													'</div>\n' +
-													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' +
 												'</div>\n' +
 											'</div>\n';
 
