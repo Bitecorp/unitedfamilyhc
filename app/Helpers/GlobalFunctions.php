@@ -516,7 +516,7 @@ function generar1099($filters){
         $pdf->SetKeywords('TCPDF, PDF');
 
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP,  PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(15, 15,  15);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
