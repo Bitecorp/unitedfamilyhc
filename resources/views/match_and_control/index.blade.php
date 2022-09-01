@@ -605,9 +605,8 @@
 							invoice_number: invoice_number
 						},
 						success: function(data) {
-							if (obj){
-								obj.click(); 
-							}
+							var dataT = data['data'];
+							$('#btn_download_' + dataT.worker_id).empty().append('<a id="btn_save_'+ dataT.worker_id +'" name="btn_save_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>');	
 						},
 						error: function (error) { 
 							console.log(error);
