@@ -269,7 +269,7 @@
 										
 										if(Data1099[i].file != '' && typeof Data1099[i].file != 'undefined' && Data1099[i].file != null){
 											link = Data1099[i].file;
-											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>\n';
+											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>';
 										}
 										
 										
@@ -289,9 +289,7 @@
 												'</div>\n' +
 												'<div class="col-4">\n' +
 													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' +
-													'<div id"btnDownload">\n' +
-														btnDownload
-													'</div>\n' +
+													'<div id"btnDownloadBtn">' + btnDownload + '</div>\n' +
 												'</div>\n' +
 											'</div>\n';
 
@@ -609,7 +607,7 @@
 						},
 						success: function(data) {
 							var dataT = data['data'];							
-							$('#btnDownload').empty().append('<a id="btn_download_'+ dataT.worker_id +'" name="btn_download_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>\n');	
+							$('#btnDownloadBtn').empty().append('<a id="btn_download_' + dataT.worker_id + '" name="btn_download_' + dataT.worker_id + '" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>');	
 						},
 						error: function (error) { 
 							console.log(error);
