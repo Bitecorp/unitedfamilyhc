@@ -261,6 +261,7 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
             
         
         $registerAttentionss = [];
+        $sumaPagos = 0;
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){
 
@@ -397,10 +398,12 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
                         $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
                     }
+                    $suma = $sumaPagos + $arraySumC->mont_pay;
+                    $sumaPagos = number_format((float)$suma, 2, '.', ''); 
                     array_push($arrayFinal, $arraySumC);
                 }
             }
-            return collect($arrayFinal)->unique();
+            return ['dataPagos' => collect($arrayFinal)->unique(), 'montoPagoTotal' => $sumaPagos];
         }
 }
 
@@ -426,31 +429,64 @@ function generar1099($filters){
         }
 
         $updateDataDoc->save();
+
+        $namePdf = documentsEditors::find(11);
+
+        $nameFile = '';
+        $fullNameArrayCompani = '';
+        $fullNameArray = '';
+        $addresArray = '';
+        $confirm = ConfirmationIndependent::where('user_id', intval($filters['worker_id']))->where('independent_contractor', 1)->first();
+        if(isset($confirm) && !empty($confirm)){
+            if ($confirm->independent_contractor == 1) {
+                $buscar = array (".",",",";",":");    
+                $remplazar = array ("","","","");
+
+                $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $dataWorker->name));
+
+                if($confirm->personalEmpresa == 2){
+                    $fullNameArrayCompani = $dataWorker->name;
+                    $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $fullNameArrayCompani));
+                    $fullNameArray = json_decode($dataWorker->user_id)->first_name . ' ' . json_decode($dataWorker->user_id)->last_name;
+                    $addresArray = $dataWorker->street_addres;                   
+                }else{
+                    $fullNameArrayCompani = $dataWorker->first_name . ' ' .$dataWorker->last_name;
+                    $fullNameArray = $dataWorker->first_name . ' ' .$dataWorker->last_name;
+                    $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $fullNameArrayCompani));
+                    $addresArray = $dataWorker->street_addres;                   
+                }
+
+                
+            } else {
+                $buscar = array (".",",",";",":");    
+                $remplazar = array ("","","","");
+
+                $fullNameArrayCompani = $dataWorker->first_name . ' ' .$dataWorker->last_name;
+                $fullNameArray = $dataWorker->first_name . ' ' .$dataWorker->last_name;
+                $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $fullNameArrayCompani));
+                $addresArray = $dataWorker->street_addres;  
+            }
+        }
+
+        $vendorCodeArray = $dataWorker->id;
             
         $arrayData = [
             'infoUser' => $dataWorker,
+            'vendorCode' => $vendorCodeArray,
+            'fullName' => $fullNameArray,
+            'fullNameCompani' => $fullNameArrayCompani,
+            'vendorCode' => $vendorCodeArray,
+            'addres' => $addresArray,
             'eftorCheck' =>  $filters['eftor_check'],
             'invoiceNumber' => isset($filters['invoice_number']) && !empty($filters['invoice_number']) ? $filters['invoice_number'] : '',
             'desde' => date_format(date_create($filters['fecha_desde']), 'm/d/Y'),
             'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
             'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
-            'dataPagos' => $dataPagos->unique()
+            'dataPagos' => collect($dataPagos['dataPagos']),
+            'montoTotal' => collect($dataPagos['montoPagoTotal']),
         ];
-        
-        $namePdf = documentsEditors::find(11);
 
-        $nameFile = '';
-        $confirm = ConfirmationIndependent::where('user_id', intval($filters['worker_id']))->where('independent_contractor', 1)->first();
-        if(isset($confirm) && !empty($confirm)){
-            if ($confirm->independent_contractor == 1 && $confirm->personalEmpresa == 2) {
-                $buscar = array (".",",",";",":");    
-                $remplazar = array ("","","","");
-
-                $nameFile = str_replace($buscar, $remplazar, str_replace(" ", "_", $dataWorker->name));
-            } else {
-                $nameFile = $dataWorker->first_name . "_" . $dataWorker->last_name;
-            }
-        }
+        //dd($arrayData['montoTotal'][0]);
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");
@@ -466,7 +502,7 @@ function generar1099($filters){
             Config::set('tcpdf.use_original_footer', true);
         }
  
-    	$view = \View::make($titleFileOrFile, $arrayData);
+    	$view = \View::make($titleFileOrFile, collect($arrayData));
         $html = $view->render();
 
     	$pdf = new MyPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);

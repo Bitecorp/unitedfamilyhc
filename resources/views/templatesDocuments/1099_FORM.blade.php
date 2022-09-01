@@ -67,8 +67,8 @@
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td>08/01/22</td>
-<td>08/15/22</td>
+<td>{{ $desde }}</td>
+<td>{{ $hasta }}</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -86,7 +86,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">VENDOR CODE:</td>
-<td>110</td>
+<td>{{ $vendorCode }}</td>
 <td>DATE PAY:</td>
 <td>01/31/22</td>
 <td>&nbsp;</td>
@@ -95,7 +95,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">EFT OR CHECK:</td>
-<td>a9f8jcyk</td>
+<td>{{ $eftorCheck }}</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -122,7 +122,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">NAME:</td>
-<td>ANTONIO PADURA</td>
+<td>{{ $fullName }}.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -131,7 +131,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">BUSINESS NAME:</td>
-<td>KYUSS CORP.</td>
+<td>{{ $fullNameCompani }}.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -140,7 +140,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">ADDRESS:</td>
-<td colspan="3">5928 W 16 LANE HIALEAH FL 33012</td>
+<td colspan="3">{{ $addres }}.</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
@@ -171,7 +171,7 @@
 <tr>
 <td>&nbsp;</td>
 <td colspan="2">INVOICE NUMBER:</td>
-<td colspan="2">&nbsp;</td>
+<td colspan="2">{{ $invoiceNumber }}</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -189,63 +189,29 @@
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>N#</td>
 <td>Current Service</td>
 <td>Client Name</td>
+<td>Unit</td>
 <td>Rate</td>
-<td>Units</td>
 <td>Hours</td>
 <td>&nbsp;Amount&nbsp;</td>
 </tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>S5130UC</td>
-<td>Erick Pastrana</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15.00</td>
-<td>144</td>
-<td>36</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 540.00</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>S5135UC</td>
-<td>Erick Pastrana</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15.00</td>
-<td>0</td>
-<td>0</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>S5151UC</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>S5130CDC</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>S5135CDC</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;&nbsp;</td>
-</tr>
+
+@foreach($dataPagos as $key => $value)
+    <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>{{ $key + 1 }}</td>
+    <td>{{ $value['service_and_sub_service'] }}</td>
+    <td>{{ $value['patiente_full_name'] }}</td>
+    <td>{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
+    <td>{{ $value['unid_pay_worker'] }}</td>
+    <td>{{ $value['time_attention']}}</td>
+    <td>{{ $value['mont_pay'] }} $ (USD)</td>
+    </tr>
+@endforeach
+
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -274,7 +240,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>TOTAL</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 540.00</td>
+<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $montoTotal[0] }}</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
