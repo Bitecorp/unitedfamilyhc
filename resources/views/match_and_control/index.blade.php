@@ -585,7 +585,7 @@
 			var invoice_number = $('#invoice_number_' + worker_id).val();
 
 			var opcion = confirm("Are you sure you want to generate this document?");
-			var obj = document.getElementById('btn_submit');
+			var obj = document.getElementById('btn_submit_1099');
 					
 			if (opcion == true) {
 			
@@ -605,8 +605,9 @@
 							invoice_number: invoice_number
 						},
 						success: function(data) {
-							var dataT = data['data'];
-							$('#btn_download_' + dataT.worker_id).empty().append('<a id="btn_save_'+ dataT.worker_id +'" name="btn_save_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>');	
+							if (obj){
+								obj.click(); 
+							}
 						},
 						error: function (error) { 
 							console.log(error);
