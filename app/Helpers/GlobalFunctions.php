@@ -482,11 +482,13 @@ function generar1099($filters){
             'desde' => date_format(date_create($filters['fecha_desde']), 'm/d/Y'),
             'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
             'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
-            'dataPagos' => collect($dataPagos['dataPagos']),
+            'dataPagos' => $dataPagos['dataPagos'],
             'montoTotal' => collect($dataPagos['montoPagoTotal']),
         ];
 
-        //dd($arrayData['montoTotal'][0]);
+        //foreach($dataPagos['dataPagos'] as $key => $value) {
+            //dd($value->id);
+        //}
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");

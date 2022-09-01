@@ -9,395 +9,61 @@
                 <title>1099 FORM</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p>&nbsp;</p>
-<p>@foreach($dataPagos as $key => $value)@endforeach</p>
-<table width="700">
-<tbody>
-<tr>
-<td width="29">&nbsp;</td>
-<td width="40">&nbsp;</td>
-<td width="123">&nbsp;</td>
-<td width="149">&nbsp;</td>
-<td width="105">&nbsp;</td>
-<td width="77">&nbsp;</td>
-<td width="80">&nbsp;</td>
-<td width="97">&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td style="text-align: center;" colspan="8">1099 CONTRACTOR BALANCE DETAIL REPORT</td>
-</tr>
-<tr>
-<td style="text-align: center;" colspan="8">ETF AND CHECK&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2" rowspan="2">DATE PERIOD:</td>
-<td>START</td>
-<td>END</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>{{ $desde }}</td>
-<td>{{ $hasta }}</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">VENDOR CODE:</td>
-<td>{{ $vendorCode }}</td>
-<td>DATE PAY:</td>
-<td>01/31/22</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">EFT OR CHECK:</td>
-<td>{{ $eftorCheck }}</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="3">VENDOR / PAYEE INFORMATION</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">NAME:</td>
-<td>{{ $fullName }}.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">BUSINESS NAME:</td>
-<td>{{ $fullNameCompani }}.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">ADDRESS:</td>
-<td colspan="3">{{ $addres }}.</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="7">INVOICE INFORMATION&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td colspan="2">INVOICE NUMBER:</td>
-<td colspan="2">{{ $invoiceNumber }}</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>N#</td>
-<td>Current Service</td>
-<td>Client Name</td>
-<td>Unit</td>
-<td>Rate</td>
-<td>Hours</td>
-<td>&nbsp;Amount&nbsp;</td>
-</tr>
 
-@foreach($dataPagos as $key => $value)  
-  
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>{{ $key + 1 }}</td>
-<td>{{ $value['service_and_sub_service'] }}</td>
-<td>{{ $value['patiente_full_name'] }}</td>
-<td>{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
-<td>{{ $value['unid_pay_worker'] }}</td>
-<td>{{ $value['time_attention']}}</td>
-<td>{{ $value['mont_pay'] }} $ (USD)</td>
-</tr>
+            <p style="text-align: center;">1099 CONTRACTOR BALANCE DETAIL REPORT</p>
+            <p style="text-align: center;">ETF AND CHECK</p>
+            <table style="border-collapse: collapse; width: 100%; height: 36px;" border="1">
+                <tbody>
+                    <tr style="height: 18px;">
+                        <td style="width: 33.3333%; height: 36px;" rowspan="2">DATE PERIOD:</td>
+                        <td style="width: 33.3333%; height: 18px;">START</td>
+                        <td style="width: 33.3333%; height: 18px;">END</td>
+                    </tr>
+                    <tr style="height: 18px;">
+                        <td style="width: 33.3333%; height: 18px;">{{ $desde }}</td>
+                        <td style="width: 33.3333%; height: 18px;">{{ $hasta }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>VENDOR CODE: {{ $vendorCode }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DATE PAY: {{ $datePai }}</p>
+            <p>EFT OR CHECK: {{ $eftorCheck }}</p>
+            <p style="text-align: center;"><br />VENDOR / PAYEE INFORMATION</p>
+            <p>NANE: {{ $fullName }}.</p>
+            <p>BUSINESS NAME: {{ $fullNameCompani }}.</p>
+            <p>ADDRESS: {{ $addres }}</p>
+            <p style="text-align: center;"><br />INVOICE INFORMATION</p>
+            <p style="text-align: left;">INVOICE NUMBER: {{ $invoiceNumber }}</p>
+            <table style="border-collapse: collapse; width: 100%;" border="1">
+                <thead>
+                     <tr>
+                        <td style="width: 5.12391%;">N#</td>
+                        <td style="width: 22.083%;">Current Service</td>
+                        <td style="width: 17.5995%;">Client Name</td>
+                        <td style="width: 14.0908%;">Rate</td>
+                        <td style="width: 13.506%;">Units</td>
+                        <td style="width: 13.311%;">Hours</td>
+                        <td style="width: 14.2857%;">Amount</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($dataPagos as $key => $value)  
+                    
+                        <tr id="{{ $key }}">
+                            <td style="width: 5.12391%;">{{ $key + 1 }}</td>
+                            <td style="width: 22.083%;">{{ $value['service_and_sub_service'] }}</td>
+                            <td style="width: 17.5995%;">{{ $value['patiente_full_name'] }}</td>
+                            <td style="width: 14.0908%;">{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
+                            <td style="width: 13.506%;">{{ $value['unid_pay_worker'] }}</td>
+                            <td style="width: 13.311%;">{{ $value['time_attention']}}</td>
+                            <td style="width: 14.2857%;">{{ $value['mont_pay'] }} $ (USD)</td>
+                        </tr>
 
-@endforeach
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>TOTAL</td>
-<td>&nbsp;$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $montoTotal[0] }}</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-</tbody>
-</table>
+                    @endforeach
+
+                </tbody>
+            </table>
+            <p style="text-align: right;">Total: {{ $montoTotal[0] }} $ (USD)</p>
+
             </body>
         </html>
         

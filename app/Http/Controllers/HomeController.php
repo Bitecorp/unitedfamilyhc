@@ -1075,11 +1075,11 @@ class HomeController extends Controller
         $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filters['fecha_desde'])->where('to', '<=', $filters['fecha_hasta'])->first();
         if(isset($generate1099) && !empty($generate1099)){
             $generate1099Id = GenerateDocuments1099::find($generate1099->id);
-
-            unlink(storage_path('app/templates_documents') . str_replace(' ', '_', $generate1099Id->file). '.blade.php'); //elimino el f
         
             $generate1099Id->delete();
-
+            if(isset($generate1099Id->file) &&  !empty($generate1099Id->file)){
+                unlink(storage_path('app/templates_documents') .'/'. str_replace(' ', '_', $generate1099Id->file). '.blade.php'); //elimino el f   
+            }
         }
 
         return response()->json([
