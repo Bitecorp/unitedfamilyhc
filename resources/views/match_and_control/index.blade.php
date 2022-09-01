@@ -288,8 +288,11 @@
 													'</div>\n' +
 												'</div>\n' +
 												'<div class="col-4">\n' +
-													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>' + btnDownload
-												+ '</div>\n' +
+													'<div id"btnDownload">\n' +
+														btnDownload
+													'</div>\n' +
+													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' +
+												'</div>\n' +
 											'</div>\n';
 
 										htmlResultModal = modal;
@@ -605,8 +608,8 @@
 							invoice_number: invoice_number
 						},
 						success: function(data) {
-							var dataT = data['data'];
-							$('#btn_download_' + dataT.worker_id).empty().append('<a id="btn_save_'+ dataT.worker_id +'" name="btn_save_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>');	
+							var dataT = data['data'];							
+							$('#btnDownload').empty().append('<a id="btn_download_'+ dataT.worker_id +'" name="btn_download_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>\n');	
 						},
 						error: function (error) { 
 							console.log(error);
