@@ -1257,8 +1257,9 @@ class HomeController extends Controller
             if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
                 $dataDocument1099->independent_contractor = $dataindependentContractor;
             }
-
-            $dataDocument1099->file = asset('templatesDocuments/' . $dataDocument1099->file);
+            if(isset($dataDocument1099->file) && !empty($dataDocument1099->file)){
+                $dataDocument1099->file = asset('templatesDocuments/' . $dataDocument1099->file);
+            }
 
             return response()->json([
                 'dataW' => collect($arrayFinal),

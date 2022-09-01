@@ -269,25 +269,25 @@
 										
 										if(Data1099[i].file != '' && typeof Data1099[i].file != 'undefined' && Data1099[i].file != null){
 											link = Data1099[i].file;
-											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>\n';
+											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>\n';
 										}
 										
 										
 										var modal = 
 											'<div class="row">\n' +
-												'<div class="col-5">\n' +
+												'<div class="col-4">\n' +
 													'<div class="form-group">\n' +
 														'{!! Form::label("eftor_check", "Eft or Check:") !!}\n' +
 														'<input type="text" class="form-control" name="eftor_check_'+ Data1099[i].worker_id.id + '" id="eftor_check_'+ Data1099[i].worker_id.id + '" value="' + eftorCheck + '" required>\n' +
 													'</div>\n' +
 												'</div>\n' +
-												'<div class="col-5">\n' +
+												'<div class="col-4">\n' +
 													'<div class="form-group">\n' +
 														'{!! Form::label("invoice_number", "Invoice Number:") !!}\n' +
 														'<input type="text" class="form-control" name="invoice_number_'+ Data1099[i].worker_id.id + '" id="invoice_number_'+ Data1099[i].worker_id.id + '" value="' + valueInvoice + '">\n' +
 													'</div>\n' +
 												'</div>\n' +
-												'<div class="col-2">\n' +
+												'<div class="col-4">\n' +
 													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>' + btnDownload
 												+ '</div>\n' +
 											'</div>\n';
