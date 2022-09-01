@@ -606,9 +606,8 @@
 						},
 						success: function(data) {
 							var dataT = data['data'];
-							$('#btn_download_' + dataT.worker_id).empty().append(
-								'<a id="btn_save_'+ dataT.worker_id +'" name="btn_save_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>\n' +
-							);
+							var newBtn = '<a id="btn_save_'+ dataT.worker_id +'" name="btn_save_'+ dataT.worker_id +'" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 20px;"><i class="fa fa-eye"></i> Show </a>\n';
+							$('#btn_download_' + dataT.worker_id).empty().append(newBtn);
 
 							let msjOne = 'The 1099 document was successfully generated.\n\n';
 							let msjTwo = 'El documento 1099 fue generado con exito.';
