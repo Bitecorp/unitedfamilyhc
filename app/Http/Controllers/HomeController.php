@@ -1095,13 +1095,11 @@ class HomeController extends Controller
 
         $documents = generar1099($filters);
 
-        if(isset($document) && !empty($document)){
-            return response()->json([
-                'data' => $documents ?? [],
-                'msj' => "documento generado",
-                'success' => true
-            ]);
-        }
+        return response()->json([
+            'data' => isset($documents) && !empty($documents) ? : [],
+            'msj' => "documento generado",
+            'success' => true
+        ]);
     }
 
     public function dataConsultGenerate1099 (Request $request)
