@@ -435,7 +435,7 @@ function generar1099($filters){
             'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
             'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
             'dataPagos' => $dataPagos->unique()
-        ];   
+        ];
         
         $namePdf = documentsEditors::find(11);
 
@@ -465,7 +465,7 @@ function generar1099($filters){
         if(isset($namePdf->paginate) && !empty($namePdf->paginate) && ($namePdf->paginate == 1 || $namePdf->paginate == true)){
             Config::set('tcpdf.use_original_footer', true);
         }
-
+ 
     	$view = \View::make($titleFileOrFile, $arrayData);
         $html = $view->render();
 

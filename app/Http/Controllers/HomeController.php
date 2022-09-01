@@ -1072,13 +1072,14 @@ class HomeController extends Controller
         }
 
 
-        $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
-                ->where('from', '>=', $filters['fecha_desde'])
-                ->where('to', '<=', $filters['fecha_hasta'])->first();
+        $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filters['fecha_desde'])->where('to', '<=', $filters['fecha_hasta'])->first();
         if(isset($generate1099) && !empty($generate1099)){
             $generate1099Id = GenerateDocuments1099::find($generate1099->id);
+
+            unlink(storage_path('app/templates_documents') . str_replace(' ', '_', $generate1099Id->file). '.blade.php'); //elimino el f
         
             $generate1099Id->delete();
+
         }
 
         return response()->json([
@@ -1092,11 +1093,11 @@ class HomeController extends Controller
     { 
         $filters = $request->all();
 
-        $document = generar1099($filters);
+        $documents = generar1099($filters);
 
         if(isset($document) && !empty($document)){
             return response()->json([
-                'data' => $document ?? [],
+                'data' => $documents ?? [],
                 'msj' => "documento generado",
                 'success' => true
             ]);
