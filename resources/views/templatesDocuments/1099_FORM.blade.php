@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+        <!DOCTYPE html>
         <html lang="es">
             <head>
                 <meta charset="utf-8">
@@ -8,7 +9,9 @@
                 <title>1099 FORM</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <table width="700">
+        <p>&nbsp;</p>
+<p>@foreach($dataPagos as $key => $value)@endforeach</p>
+<table width="700">
 <tbody>
 <tr>
 <td width="29">&nbsp;</td>
@@ -197,21 +200,17 @@
 <td>Hours</td>
 <td>&nbsp;Amount&nbsp;</td>
 </tr>
-
-@foreach($dataPagos as $key => $value)
-    <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>{{ $key + 1 }}</td>
-    <td>{{ $value['service_and_sub_service'] }}</td>
-    <td>{{ $value['patiente_full_name'] }}</td>
-    <td>{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
-    <td>{{ $value['unid_pay_worker'] }}</td>
-    <td>{{ $value['time_attention']}}</td>
-    <td>{{ $value['mont_pay'] }} $ (USD)</td>
-    </tr>
-@endforeach
-
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>{{ $key + 1 }}</td>
+<td>{{ $value['service_and_sub_service'] }}</td>
+<td>{{ $value['patiente_full_name'] }}</td>
+<td>{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
+<td>{{ $value['unid_pay_worker'] }}</td>
+<td>{{ $value['time_attention']}}</td>
+<td>{{ $value['mont_pay'] }} $ (USD)</td>
+</tr>
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -396,3 +395,4 @@
 </table>
             </body>
         </html>
+        
