@@ -287,7 +287,7 @@
 														'<input type="text" class="form-control" name="invoice_number_'+ Data1099[i].worker_id.id + '" id="invoice_number_'+ Data1099[i].worker_id.id + '" value="' + valueInvoice + '">\n' +
 													'</div>\n' +
 												'</div>\n' +
-												'<div class="col-4 with-btn" id='btnDownloadBtn">\n' +
+												'<div class="col-4 with-btn" id="btnDownloadBtn">\n' +
 													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' + 
 													btnDownload +
 												'</div>\n' +
