@@ -203,6 +203,9 @@
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+@foreach ($dataPagos as $key => $value)
+    
+
 <td>{{ $key + 1 }}</td>
 <td>{{ $value['service_and_sub_service'] }}</td>
 <td>{{ $value['patiente_full_name'] }}</td>
@@ -211,6 +214,8 @@
 <td>{{ $value['time_attention']}}</td>
 <td>{{ $value['mont_pay'] }} $ (USD)</td>
 </tr>
+
+@endforeach
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
