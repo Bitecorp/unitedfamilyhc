@@ -9,8 +9,7 @@
                 <title>Independent Contractor Agreement APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p style="text-align: center;">&nbsp;</p>
-<h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>UNITED FAMILY HEALTH CARE INC.</strong></span></h3>
+        <h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>UNITED FAMILY HEALTH CARE INC.</strong></span></h3>
 <h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>INDEPENDENT CONTRACTOR AGREEMENT</strong></span></h3>
 <h3 style="text-align: center;"><span style="font-size: 12pt;"><strong>HOME HEALTH AIDE (HHA)</strong></span></h3>
 <p>This agreement is made and entered into this day _ _ _ _ _ _ _ _ _ _ _ _ _ _ _, by and between UNITED FAMILY HEALTH CARE INC. A Florida corporation, And {{ $worker->first_name }}&nbsp; {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }} , S.S # {{ $worker->ssn }}, a Florida resident at: {{ $worker->street_addres }}.</p>

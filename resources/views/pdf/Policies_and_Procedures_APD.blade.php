@@ -9,8 +9,7 @@
                 <title>Policies and Procedures APD</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="font-size: 12pt;"><strong>POLICIES AND PROCEDURES</strong></span></p>
+        <p style="text-align: center;"><span style="font-size: 12pt;"><strong>POLICIES AND PROCEDURES</strong></span></p>
 <p style="text-align: center;"><span style="font-size: 12pt;">Medicaid Waiver Provider</span></p>
 <p>United Family Health Care Agency provider for HCBS waiver will make known to all staff members and clients the following Policy and Procedures Statement:</p>
 <ol>

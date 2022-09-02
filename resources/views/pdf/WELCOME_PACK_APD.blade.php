@@ -157,7 +157,6 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <p>&nbsp;</p>
@@ -197,7 +196,6 @@
 <p><strong>&nbsp;</strong></p>
 <p><strong>There are four ways to make a report:</strong><br /><br />By Telephone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1&shy;800&shy;96ABUSE</strong> (1&shy;800&shy;962&shy;2873)<br />By Fax:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&shy;800&shy;914&shy;0004<br />By TDD:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1&shy;800&shy;453&shy;5145&nbsp;&nbsp;<br />Web Reporting:&nbsp; &nbsp; &nbsp; &nbsp;<a href="http://reportabuse.dcf.state.fl.us">http://reportabuse.dcf.state.fl.us</a><br /><br />EMERGENCY<strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>911</strong></p>
 <p>Date: ___/ ___/ 202_</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <div><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></div>
 <div>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Phone:<strong>________________________</strong><br /><br /></div>
@@ -360,7 +358,6 @@
 <p>Date: ___/ ___/ 202_</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>
 <p>Individual/Guardian<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </strong>UFHC Provider</p>
 <h2 style="text-align: center;">&nbsp;</h2>
@@ -376,7 +373,6 @@
 <li>Client-on-Client Sexual Abuse: Known or suspected sexual abuse between two individuals with developmental disabilities must also be reported immediately to the Central Abuse Hotline at 1-800-96-ABUSE (1-800-962-2873), so that an investigation will occur in order to determine whether or not the sexual abuse was the result of inadequate supervision or neglect on the part of a service provider or caregiver. The incident must also be reported immediately to the District or Regional Developmental Disabilities Program Office to ensure the continued health and safety of the individuals involved.</li>
 </ol>
 <p>Date: ___/ ___/ 202_</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><strong>___________________________&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__________________________________ </strong></p>

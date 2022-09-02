@@ -26,8 +26,8 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp; &nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
-<p>{{ $supervisor->first_name }} {{ $supervisor->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</p>
+<div>Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _&nbsp; &nbsp; &nbsp; &nbsp;Signature: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
+<div>{{ $supervisor->first_name }} {{ $supervisor->last_name }}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{ $worker->first_name }} {{ isset($worker->mi) ? $worker->mi : "" }} {{ $worker->last_name }}</div>
             </body>
         </html>
         
