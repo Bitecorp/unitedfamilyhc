@@ -21,6 +21,8 @@ use App\Models\documentsEditors;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 
+use Illuminate\Support\Facades\View;
+
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
@@ -512,7 +514,7 @@ function generar1099($filters){
         
 
        // dd(collect($arrayData));
-    	$view = \View::make($titleFileOrFile, collect($arrayData));
+    	$view = View::make($titleFileOrFile, collect($arrayData));
         $html = $view->render();
 
     	$pdf = new MyPdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
