@@ -28,6 +28,7 @@ use App\Models\documentsEditors;
 
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 class MyPdf extends \TCPDF
 {
@@ -1078,7 +1079,8 @@ class HomeController extends Controller
         
             $generate1099Id->delete();
             if(isset($generate1099Id->file) &&  !empty($generate1099Id->file)){
-                unlink(storage_path('app/templates_documents') .'/'. str_replace(' ', '_', $generate1099Id->file). '.blade.php'); //elimino el f   
+                //Storage::disk('public_templates_documents')->delete($generate1099Id->file);
+                unlink(storage_path('app/templates_documents') .'/'. $generate1099Id->file); //elimino el f   
             }
         }
 

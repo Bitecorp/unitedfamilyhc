@@ -398,12 +398,16 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
                         $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
                     }
-                    $suma = $sumaPagos + $arraySumC->mont_pay;
-                    $sumaPagos = number_format((float)$suma, 2, '.', ''); 
+
+                    $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
                     array_push($arrayFinal, $arraySumC);
                 }
             }
-            return ['dataPagos' => collect($arrayFinal)->unique(), 'montoPagoTotal' => $sumaPagos];
+            //dd($sumaPagos);
+            return [
+                'dataPagos' => collect($arrayFinal)->unique(), 
+                'montoPagoTotal' => $sumaPagos
+            ];
         }
 }
 
@@ -490,7 +494,7 @@ function generar1099($filters){
             //dd($value->id);
         //}
 
-        dd($arrayData['montoTotal']);
+        //dd($arrayData['montoTotal']);
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");
@@ -505,7 +509,9 @@ function generar1099($filters){
         if(isset($namePdf->paginate) && !empty($namePdf->paginate) && ($namePdf->paginate == 1 || $namePdf->paginate == true)){
             Config::set('tcpdf.use_original_footer', true);
         }
- 
+        
+
+       // dd(collect($arrayData));
     	$view = \View::make($titleFileOrFile, collect($arrayData));
         $html = $view->render();
 
