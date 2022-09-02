@@ -47,12 +47,12 @@
                     @foreach($dataPagos as $key => $value)
                         <tr id="{{ $key }}">
                             <td style="width: 5.12391%; font-size: 12px;">{{ $key + 1 }}</td>
-                            <td style="width: 22.083%; font-size: 12px;">{{ $value['service_and_sub_service'] }}</td>
-                            <td style="width: 17.5995%; font-size: 12px;">{{ $value['patiente_full_name'] }}</td>
-                            <td style="width: 14.0908%; font-size: 12px;">{{ $value['unidad_time_worker'] }} {{ $value['unidad_type_worker'] }} = {{ $value['unit_value_worker'] }} $ (USD)</td>
-                            <td style="width: 13.506%; font-size: 12px;">{{ $value['unid_pay_worker'] }}</td>
-                            <td style="width: 13.311%; font-size: 12px;">{{ $value['time_attention']}}</td>
-                            <td style="width: 14.2857%; font-size: 12px;">{{ $value['mont_pay'] }} $ (USD)</td>
+                            <td style="width: 22.083%; font-size: 12px;">{{ $value['service_and_sub_service'] ? $value['service_and_sub_service'] : 'N/A' }}</td>
+                            <td style="width: 17.5995%; font-size: 12px;">{{ $value['patiente_full_name'] ? $value['patiente_full_name'] : 'N/A'}}</td>
+                            <td style="width: 14.0908%; font-size: 12px;">{{ $value['unidad_time_worker'] ? $value['unidad_time_worker'] : 'N/A' }} {{ $value['unidad_type_worker'] ? $value['unidad_type_worker'] : 'N/A' }} = {{ $value['unit_value_worker'] ? $value['unit_value_worker'] : '' }} $ (USD)</td>
+                            <td style="width: 13.506%; font-size: 12px;">{{ $value['unid_pay_worker'] ? $value['unid_pay_worker'] : 'N/A }}</td>
+                            <td style="width: 13.311%; font-size: 12px;">{{ $value['time_attention'] ? $value['time_attention'] : 'N/A'}}</td>
+                            <td style="width: 14.2857%; font-size: 12px;">{{ $value['mont_pay'] ? $value['mont_pay'] : 'N/A' }} $ (USD)</td>
                         </tr>
                     @endforeach
                 </tbody>
