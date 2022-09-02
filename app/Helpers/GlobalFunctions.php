@@ -483,12 +483,14 @@ function generar1099($filters){
             'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
             'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
             'dataPagos' => $dataPagos['dataPagos'],
-            'montoTotal' => collect($dataPagos['montoPagoTotal']),
+            'montoTotal' => isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal'][0]) && !empty($dataPagos['montoPagoTotal'][0]) ? $dataPagos['montoPagoTotal'][0] : (isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && !isset($dataPagos['montoPagoTotal'][0]) || empty($dataPagos['montoPagoTotal'][0]) ? $dataPagos['montoPagoTotal'] : 00.00),
         ];
 
         //foreach($dataPagos['dataPagos'] as $key => $value) {
             //dd($value->id);
         //}
+
+        dd($arrayData['montoTotal']);
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");
