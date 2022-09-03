@@ -10,6 +10,14 @@
     $selected = isset($typeDoc) && isset($typeDoc->document_certificate) ? $typeDoc->document_certificate : 0;
 ?>
 
+@push('css')
+	<link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
+
 <div class="row">
     <div class="col">
         <!-- Name Doc Field -->
@@ -22,7 +30,7 @@
         <!-- Mi Field -->
         <div class="form-group">
             {!! Form::label('document_certificate', 'Type:') !!}
-            {!! Form::select('document_certificate', $options, $selected, ['class'=>'form-control']) !!}
+            {!! Form::select('document_certificate', $options, $selected, ['class'=>'default-select2 form-control']) !!}
         </div>
     </div>
     <div class="col">
@@ -38,7 +46,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('role_id', 'For:') !!}
-            <select name='role_id' class="form-control">
+            <select name='role_id' class="default-select2 form-control">
                 @foreach($roles as $role)
                     @if(!empty($role))
                         <option value='{{ $role->id }}' {{ isset($typeDoc) && isset($typeDoc->role_id) && $typeDoc->role_id == $role->id ? 'selected' : (isset($role) && isset($role->id) && $role->id == 1 ? 'selected' : '') }} >{{ $role->name_role }}</option>
@@ -51,7 +59,7 @@
         <!-- Service Id Field -->
         <div class="form-group">
             {!! Form::label('service_id', 'Service:') !!}
-            <select name='service_id' class="form-control">
+            <select name='service_id' class="default-select2 form-control">
                 <option value='0' {{ isset($typeDoc) && isset($typeDoc->service_id) && $typeDoc->service_id == 0 ? 'selected' : '' }} >ALL</option>
                 @foreach($services as $service)
                     @if(!empty($service))
@@ -68,3 +76,9 @@
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('typeDocs.index') }}" class="btn btn-secondary">Cancel</a>
 </div>
+
+@push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
+@endpush

@@ -550,3 +550,20 @@ function generar1099($filters){
 
         return ['worker_id' =>$filters['worker_id'], 'file' => asset('templatesDocuments/' . $filename)];
 }
+
+
+/** Actual month first day **/
+function data_first_month_day() {
+    $month = date('m');
+    $year = date('Y');
+    return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
+}
+
+/** Actual month last day **/
+function data_last_month_day() { 
+    $month = date('m');
+    $year = date('Y');
+    $day = date("d", mktime(0,0,0, $month+1, 0, $year));
+ 
+    return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+};

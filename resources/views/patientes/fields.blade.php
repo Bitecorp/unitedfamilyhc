@@ -121,7 +121,7 @@
             {!! Form::label('role_id', 'Role:') !!}
             @foreach($roles as $key => $role)
                 @if($role->id == 4)
-                    <input type="text" name="role_id" class="form-control" readonly value="{{ $role->id }}" >
+                    <input type="text" name="role_id" class="default-select2 form-control" readonly value="{{ $role->id }}" >
                 @endif
             @endforeach
         </div>
@@ -131,7 +131,7 @@
             <!-- Statu Id Field -->
             <div class="form-group">
                 {!! Form::label('statu_id', 'Status:') !!}
-                <select name='statu_id' class="form-control">
+                <select name='statu_id' class="default-select2 form-control">
                     @foreach($status as $statu)
                         @if(empty($patiente))
                             <option value='{{ $statu->id }}'>{{ $statu->name_status }}</option>

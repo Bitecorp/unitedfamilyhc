@@ -5,6 +5,11 @@
 	<link href="/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
 @endpush
 
 @section('content')
@@ -31,7 +36,7 @@
 							<div class="col">
 								<div class="form-group">
 									{!! Form::label('worker_id', 'Worker:') !!}
-									<select name='worker_id'id="worker_id" class="form-control" required="true">
+									<select name='worker_id'id="worker_id" class="default-select2 form-control" required="true">
 										@if (isset($workers) && !empty($workers) && count($workers) >= 1)
 											<option data-name-service='' value='' selected>Select Option...</option>
 											@foreach($workers->where('role_id', 2) as $key => $worker)
@@ -46,7 +51,7 @@
 								<!-- Role Id Field -->
 								<div class="form-group">
 									{!! Form::label('service_id', 'Service:') !!}
-									<select name='service_id'id="service_id" class="form-control" required="true">
+									<select name='service_id'id="service_id" class="default-select2 form-control" required="true">
 										@if (isset($services) && !empty($services) && count($services) >= 1)
 											<option data-name-service='all' value='all' selected>All</option>
 											@foreach($services as $key => $service)
@@ -60,7 +65,7 @@
 								<!-- Role Id Field -->
 								<div class="form-group">
 									{!! Form::label('paid', 'Status Pay:') !!}
-									<select name='paid' id="paid" class="form-control" required="true">
+									<select name='paid' id="paid" class="default-select2 form-control" required="true">
 										<option value='' selected>Select Option..</option>
 										<option value='1' >Yes</option>
 										<option value='0' >No</option>
@@ -121,6 +126,9 @@
 @endsection
 
 @push('scripts')
+<script>
+  $(".default-select2").select2();
+</script>
 <script>
 	var urlDoc = "{{ strpos(Request::url(), 'generate1099') }}";
 	var urlBAP = "{{ strpos(Request::url(), 'manageBillAndPay') }}";

@@ -1,3 +1,11 @@
+@push('css')
+	<link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
+
 <div class="row">
     <div class="col-2">
         <div class="form-group">
@@ -16,14 +24,12 @@
         <!-- Documents Field -->
         <div class="form-group">
             {!! Form::label('documents', 'Documents:') !!}
-            @if(empty($collection))
-                <select class="js-example-basic-multiple custom-select" name='documents[]' multiple="multiple" required>
-                     @foreach($docs as $doc)
-                       <option value='{{ $doc->id }}'>{{ $doc->name_doc }}</option>
+            <select name='documents[]' class="multiple-select2 form-control" size="3" multiple required>
+                @if(empty($collection))
+                    @foreach($docs as $doc)
+                        <option value='{{ $doc->id }}'>{{ $doc->name_doc }}</option>
                     @endforeach
-                </select>
-            @else
-                <select class="js-example-basic-multiple custom-select" name='documents[]' multiple="multiple" required>
+                @else
                     @foreach($docs as $doc)
                         @foreach($collection as $collect)
                             @if( $doc->id == $collect->id)
@@ -34,24 +40,20 @@
                     @foreach($docDist as $distD)
                         <option value='{{ $distD->id }}'>{{ $distD->name_doc }}</option>
                     @endforeach
-                </select>
-            @endif
+                @endif
+            </select>
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $(function() {
-            $(document).ready(function() {
-                $('.js-example-basic-multiple').select2();
-            });
-        });
-    </script>
-@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
 </div>
+
+@push('scripts')
+    <script>
+        $(".multiple-select2").select2({ placeholder: "Select option" });
+    </script>
+@endpush

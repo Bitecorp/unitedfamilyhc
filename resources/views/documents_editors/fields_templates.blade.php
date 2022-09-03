@@ -3,6 +3,11 @@
 	<link href="/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" />
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
 @endpush
 
 <?php
@@ -41,7 +46,7 @@
                     <div class="col">
                         <div class="form-group">
                             {!! Form::label('type_template', 'Type:') !!}
-                            {!! Form::select('type_template', $options, $selected, ['class'=>'form-control']) !!}
+                            {!! Form::select('type_template', $options, $selected, ['class'=>'default-select2 form-control']) !!}
                         </div>
                     </div>
                     <div class="col">
@@ -127,6 +132,9 @@
 </div>
 
 @push('scripts')
+<script>
+  $(".default-select2").select2();
+</script>
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 <script>
     tinymce.init({

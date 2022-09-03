@@ -1,3 +1,11 @@
+@push('css')
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
+
 <div class="row">
     <div class="col">
         <!-- High School Field -->
@@ -25,7 +33,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('role_id', 'For:') !!}
-            <select name='role_id' class="form-control">
+            <select name='role_id' class="default-select2 form-control">
                 @foreach($roles as $role)
                     @if(!empty($role))
                         <option value='{{ $role->id }}' {{ isset($externalsDocuments) && isset($externalsDocuments->role_id) && $externalsDocuments->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
@@ -38,7 +46,7 @@
         <!-- Service Id Field -->
         <div class="form-group">
             {!! Form::label('service_id', 'Service:') !!}
-            <select name='service_id' class="form-control">
+            <select name='service_id' class="default-select2 form-control">
                 <option value='0' {{ isset($externalsDocuments) && isset($externalsDocuments->service_id) && $externalsDocuments->service_id == 0 ? 'selected' : '' }} >ALL</option>
                 @foreach($services as $service)
                     @if(!empty($service))
@@ -51,6 +59,9 @@
 </div>
 
 @push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
     <script type="text/javascript">
         $(function () {
             $(".custom-file-input").on("change", function() {

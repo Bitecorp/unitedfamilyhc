@@ -36,7 +36,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('unit_customer_id', 'Unit Customer:') !!}
-            <select name='unit_customer_id' id='unit_customer_id' class="form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
+            <select name='unit_customer_id' id='unit_customer_id' class="default-select2 form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
                 <option value='' {{ isset($subServices) && isset($subServices->unit_customer_id) && !empty($subServices->unit_customer_id) ? 'selected' : '' }} >Select Option</option>
                 @foreach($units as $unit)
                     @if(!empty($unit))
@@ -57,7 +57,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('unit_worker_payment', 'Unit Customer:') !!}
-            <select name='unit_worker_payment_id' id='unit_worker_payment_id' class="form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
+            <select name='unit_worker_payment_id' id='unit_worker_payment_id' class="default-select2 form-control" {{ isset($subServices) && $subServices->type_salary  == 1 ? 'required' : ''}}>
                 <option value='' {{ isset($subServices) && isset($subServices->unit_worker_payment_id) && !empty($subServices->unit_worker_payment_id)  ? 'selected' : '' }} >Select Option</option>
                 @if(isset($units) && !empty($units))
                     @foreach($units as $unit)
@@ -73,7 +73,7 @@
         <!-- Documents Field -->
         <div class="form-group">
             {!! Form::label('config_validate', 'Tasks:') !!}
-            <select class="form-control" name='config_validate[]' multiple="multiple">
+            <select class="multiple-select2 form-control" name='config_validate[]' multiple>
                 @if(!empty($tasks))
                     @foreach($tasks as $task)
                        <option value='{{ $task->id }}' {{ isset($task->assigned) &&  !empty($task->assigned) && $task->assigned == true ? 'selected' : '' }}>{{ $task->name_task }}</option>
@@ -84,23 +84,31 @@
     </div>
 </div>
 
-<script>
-    const radio = document.getElementById('type_salary');
+@push('script')
+    <script>
+        $(".default-select2").select2();
+        $(".multiple-select2").select2({ placeholder: "Select option" });
+    </script>
 
-    radio.addEventListener('change', (event) => {
-        if (event.currentTarget.checked == true) {
-            document.getElementById('unitWorker').removeAttribute('hidden');
-            document.getElementById('unitCustomer').removeAttribute('hidden');
-            document.getElementById('unit_customer_id').setAttribute('required', 'true');
-            document.getElementById('unit_worker_payment_id').setAttribute('required', 'true');
-        }else{
-            document.getElementById('unit_customer_id').removeAttribute('required');
-            document.getElementById('unit_worker_payment_id').removeAttribute('required');
-            document.getElementById('unitWorker').setAttribute('hidden', 'true');
-            document.getElementById('unitCustomer').setAttribute('hidden', 'true');
-        }
-    })
-</script>
+    <script>
+        const radio = document.getElementById('type_salary');
+
+        radio.addEventListener('change', (event) => {
+            if (event.currentTarget.checked == true) {
+                document.getElementById('unitWorker').removeAttribute('hidden');
+                document.getElementById('unitCustomer').removeAttribute('hidden');
+                document.getElementById('unit_customer_id').setAttribute('required', 'true');
+                document.getElementById('unit_worker_payment_id').setAttribute('required', 'true');
+            }else{
+                document.getElementById('unit_customer_id').removeAttribute('required');
+                document.getElementById('unit_worker_payment_id').removeAttribute('required');
+                document.getElementById('unitWorker').setAttribute('hidden', 'true');
+                document.getElementById('unitCustomer').setAttribute('hidden', 'true');
+            }
+        })
+    </script>
+@endpush
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

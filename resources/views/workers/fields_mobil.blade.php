@@ -93,7 +93,7 @@
         <!-- Marital Status Field -->
         <div class="form-group">
             {!! Form::label('marital_status', 'Marital Status:') !!}
-            <select name='marital_status' class="form-control">
+            <select name='marital_status' class="default-select2 form-control">
                 @foreach($marital_status as $marital_statu)
                     @if(empty($worker))
                         <option value='{{ $marital_statu->id }}'>{{ $marital_statu->name_marital_status }}</option>
@@ -116,7 +116,7 @@
         <!-- Role Id Field -->
         <div class="form-group">
             {!! Form::label('role_id', 'Role:') !!}
-            <select name='role_id' class="form-control">
+            <select name='role_id' class="default-select2 form-control">
                 @foreach($roles as $role)
                     @if(empty($worker))
                         <option value='{{ $role->id }}' {{ $role->id == '2' ? 'selected' : '' }} >{{ $role->name_role }}</option>
@@ -132,7 +132,7 @@
             <!-- Statu Id Field -->
             <div class="form-group">
                 {!! Form::label('statu_id', 'Status:') !!}
-                <select name='statu_id' class="form-control">
+                <select name='statu_id' class="default-select2 form-control">
                     @foreach($status as $statu)
                         @if(empty($worker))
                             <option value='{{ $statu->id }}'>{{ $statu->name_status }}</option>

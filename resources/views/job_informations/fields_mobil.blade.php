@@ -6,12 +6,19 @@
     }
 </script>
 
+@push('css')
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
 
     <div class="col">
         <!-- Title Field -->
         <div class="form-group">
             {!! Form::label('title', 'Title:') !!}
-            <select name='title' class="form-control">
+            <select name='title' class="default-select2 form-control">
                 <option value='' selected>Selecciona una opción</option>
                 @foreach($titleJobs as $titleJob)
                     @if(!empty($jobInformation))
@@ -25,7 +32,7 @@
         <!-- Supervisor Field -->
         <div class="form-group">
             {!! Form::label('supervisor', 'Manager:') !!}
-            <select id='supervisor' name='supervisor' class="form-control" onchange='cambioOpciones();' required>
+            <select id='supervisor' name='supervisor' class="default-select2 form-control" onchange='cambioOpciones();' required>
                 <option value=''>Selecciona una opción</option>
                 @foreach($workers as $manager)
                     @if ($manager->role_id == 3)
@@ -48,7 +55,7 @@
         <!-- Work Name Location Field -->
         <div class="form-group">
             {!! Form::label('work_name_location', 'Work Name Location:') !!}
-            <select id='work_name_location' name='work_name_location' class="form-control" required>
+            <select id='work_name_location' name='work_name_location' class="default-select2 form-control" required>
                 <option value=''>Selecciona una opción</option>
                 @foreach($locations as $location)
                     @if(!empty($jobInformation))
@@ -102,3 +109,9 @@
     <a href="{{ route('workers.index') }}" class="btn btn-secondary">Cancel</a>
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
+@endpush

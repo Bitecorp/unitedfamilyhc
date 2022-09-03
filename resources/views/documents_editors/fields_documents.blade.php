@@ -3,6 +3,11 @@
 	<link href="/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 	<link href="/assets/plugins/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" />
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
 @endpush
 
 <div class="row">
@@ -31,7 +36,7 @@
                         <!-- Role Id Field -->
                         <div class="form-group">
                             {!! Form::label('role_id', 'Document For:') !!}
-                            <select name='role_id' class="form-control">
+                            <select name='role_id' class="default-select2 form-control">
                                 @foreach($roles as $role)
                                     @if(!empty($role))
                                         <option value='{{ $role->id }}' {{ isset($documentsEditors) && isset($documentsEditors->role_id) && $documentsEditors->role_id == $role->id ? 'selected' : ($role->id == 2 ? 'selected' : '') }} >{{ $role->name_role }}</option>
@@ -44,7 +49,7 @@
                         <!-- Service Id Field -->
                         <div class="form-group">
                             {!! Form::label('service_id', 'Service:') !!}
-                            <select name='service_id' class="form-control">
+                            <select name='service_id' class="default-select2 form-control">
                                 <option value='0' {{ isset($documentsEditors) && isset($documentsEditors->service_id) && $documentsEditors->service_id == 0 ? 'selected' : '' }} >ALL</option>
                                 @foreach($services as $service)
                                     @if(!empty($service))
@@ -137,6 +142,9 @@
 </div>
 
 @push('scripts')
+<script>
+  $(".default-select2").select2();
+</script>
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 <script>
     tinymce.init({

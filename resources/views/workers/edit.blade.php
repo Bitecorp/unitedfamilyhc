@@ -2,6 +2,11 @@
 
 @push('css')
 	<link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
 @endpush
 
 @section('content')
@@ -76,6 +81,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
 	<script src="/assets/plugins/moment/moment.js"></script>
 	<script src="/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 	<script src="/assets/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>

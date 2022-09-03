@@ -30,11 +30,12 @@ class NotesSubServicesRegisterController extends Controller
      */
     public function index(Request $request)
     {
+        
         $allNotes = [];
         if(Auth::user()->role_id == 1){
-            $allNotes = NotesSubServicesRegister::all()->sortByDesc('created_at')->sortByDesc('id')->values();
+            $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
         }else{
-            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->get();
+            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('start', 'DESC')->orderBy('id', 'DESC')->get();
         }
         
         $notes = [];

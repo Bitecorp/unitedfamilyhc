@@ -1,9 +1,16 @@
+@push('css')
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
 <div class="row">
     <div class="col">
         <!-- worker Id Field -->
         <div class="form-group">
             {!! Form::label('worker_id', 'Worker:') !!}
-            <select name='worker_id' id='worker_id' class="form-control">
+            <select name='worker_id' id='worker_id' class="default-select2 form-control">
                 <option  value='' selected>Select Option..</option>
                 @foreach($workers as $worker)
                     <option value='{{ $worker->id }}'>{{ $worker->first_name }} {{ $worker->last_name }}</option>
@@ -16,7 +23,7 @@
         <!-- service Id Field -->
         <div class="form-group">
             {!! Form::label('service_id', 'services:') !!}
-            <select name='service_id'id="service_id" class="form-control" disabled>
+            <select name='service_id'id="service_id" class="default-select2 form-control" disabled>
                 @if (isset($services) && !empty($services) && count($services) >= 1)
                     <option value='' selected>Select Worker Option..</option>
                 @endif
@@ -30,7 +37,7 @@
         <!-- patiente Id Field -->
         <div class="form-group">
             {!! Form::label('patiente_id', 'Patiente:') !!}
-            <select name='patiente_id' id="patiente_id" class="form-control" disabled>
+            <select name='patiente_id' id="patiente_id" class="default-select2 form-control" disabled>
                 @if (isset($patientes) && !empty($patientes) && count($patientes) >= 1)
                     <option value='' selected>Select Service Option..</option>
                 @endif
@@ -42,7 +49,7 @@
         <!-- sub_service Id Field -->
         <div class="form-group">
             {!! Form::label('sub_service_id', 'Sub Service:') !!}
-            <select name='sub_service_id' id='sub_service_id' class="form-control" disabled>
+            <select name='sub_service_id' id='sub_service_id' class="default-select2 form-control" disabled>
                 @if (isset($subServices) && !empty($subServices) && count($subServices) >= 1)
                     <option value='' selected>Select Service Option..</option>
                 @endif
@@ -117,6 +124,9 @@
 
 
 @push('scripts')
+<script>
+  $(".default-select2").select2();
+</script>
     <script>
         $("#worker_id").change(function() {
 			$("#worker_id option:selected").each(function() {

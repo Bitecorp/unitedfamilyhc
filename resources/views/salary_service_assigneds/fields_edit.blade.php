@@ -1,3 +1,11 @@
+@push('css')
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.min.js"></script>
+@endpush
+
 {!! Form::model($salaryServiceAssigneds, ['route' => ['salaryServiceAssigneds.update', $salaryServiceAssigneds->id], 'method' => 'patch']) !!}
 <div class="row">
     <div class="col">
@@ -35,7 +43,7 @@
         <!-- unit Id Field -->
         <div class="form-group">
             {!! Form::label('unit_id', 'Unit Of Time:') !!}
-            <select name='unit_id' id='unit_id' class="form-control">
+            <select name='unit_id' id='unit_id' class="default-select2 form-control">
                 <option value='' selected>Select Unit of Time..</option>
                 @foreach($units as $unit)
                     <option value='{{ $unit->id }}' 
@@ -49,7 +57,7 @@
         <!-- agent Id Field -->
         <div class="form-group">
             {!! Form::label('agent_id', 'Agent:') !!}
-            <select name='agent_id' class="form-control">
+            <select name='agent_id' class="default-select2 form-control">
                 <option value='' selected>Select Agent..</option>
                 @foreach($agents as $agent)
                     <option value='{{ $agent->id }}' {{ isset($config) && !empty($config) && isset($config->agent_id) && !empty($config->agent_id) && $config->agent_id == $agent->id ? 'selected' : '' }} >{{ $agent->first_name }} {{ $agent->last_name }} - {{ $agent->companie_agent }}</option>
@@ -151,6 +159,9 @@
 </div>
 
 @push('scripts')
+    <script>
+    $(".default-select2").select2();
+    </script>
     <script> 
 
         $("#approved_units").change(function() {

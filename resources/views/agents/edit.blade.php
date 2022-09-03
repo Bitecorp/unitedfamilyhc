@@ -37,6 +37,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
 	<script src="/assets/plugins/moment/moment.js"></script>
 	<script src="/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 	<script src="/assets/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
