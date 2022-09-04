@@ -65,6 +65,8 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::resource('notesSubServices', App\Http\Controllers\NotesSubServicesRegisterController::class);
 
+Route::post('/notesSubServices', [App\Http\Controllers\NotesSubServicesRegisterController::class, 'search'])->name('notesSubServices.search');
+
 Route::post('notesSubService/{idNota}/update', [App\Http\Controllers\NotesSubServicesRegisterController::class, 'update']);
 
 Route::resource('agents', App\Http\Controllers\AgentController::class);

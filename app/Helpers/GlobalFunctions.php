@@ -556,7 +556,7 @@ function generar1099($filters){
 function data_first_month_day() {
     $month = date('m');
     $year = date('Y');
-    return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
+    return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
 }
 
 /** Actual month last day **/
@@ -565,5 +565,5 @@ function data_last_month_day() {
     $year = date('Y');
     $day = date("d", mktime(0,0,0, $month+1, 0, $year));
  
-    return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+    return date('Y-m-d', mktime(0,0,0, $month, $day, $year)) . ' 23:59:59';
 };

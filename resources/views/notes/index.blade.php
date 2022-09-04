@@ -14,7 +14,61 @@
 
 @section('content')
         @include('flash::message')
-        <!-- begin panel -->
+            <div class="panel panel-inverse">
+				<!-- begin panel-heading -->
+				<div class="panel-heading">
+                    <h4 class="panel-title">
+						Filter notes
+                    </h4>
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                </div>
+				<!-- end panel-heading -->
+				<!-- begin panel-body -->
+				<div class="panel-body">
+                    {!! Form::open(['route' => 'notesSubServices.search']) !!}
+                        <div class="row">
+                            @if (Auth::user()->role_id == 1)
+                                <div class="col">
+                                    <div class="form-group">
+                                        {!! Form::label('worker_id', 'Worker:') !!}
+                                        <select name='worker_id'id="worker_id" class="default-select2 form-control" required="true">
+                                            @if (isset($workers) && !empty($workers) && count($workers) >= 1)
+                                                <option data-name-service='' value='' selected>Select Option...</option>
+                                                @foreach($workers->where('role_id', 2) as $key => $worker)
+                                                    <option data-name-service='{{ $worker->id }}' value='{{ $worker->id }}' >{{ $worker->first_name }} {{ $worker->last_name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>					
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="col">
+                                <div class="form-group">
+                                    {!! Form::label('desde', 'From:') !!}
+                                    <input type="date" name="desde" id="desde" class="form-control" value="" required="true">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    {!! Form::label('hasta', 'To:') !!}
+                                    <input type="date" name="hasta" id="hasta" class="form-control" value="" required="true">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Field -->
+                        <div class="form-group col-sm-12">
+                            <input class="btn btn-primary" type="submit" name="btn_submit" id="btn_submit" value="Search" />
+                            <input class="btn btn-secondary" type="reset" name="btn_reset" id="btn_reset" value="Clear" />
+                        </div>
+                    {!! Form::close() !!}
+				</div>
+				<!-- end panel-body -->
+			</div>
+            <!-- begin panel -->
 			<div class="panel panel-inverse">
 				<!-- begin panel-heading -->
 				<div class="panel-heading">

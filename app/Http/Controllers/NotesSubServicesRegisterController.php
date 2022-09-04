@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
+use App\Http\Controllers\DateTime;
 
 class NotesSubServicesRegisterController extends Controller
 {      
@@ -28,18 +29,28 @@ class NotesSubServicesRegisterController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        
+        $workers = User::all();
         $allNotes = [];
         if(Auth::user()->role_id == 1){
             $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
         }else{
             $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('start', 'DESC')->orderBy('id', 'DESC')->get();
         }
-        
+
+        $arrayForNotes = [];
+        //if((isset($input['worker_id']) && !empty($input['worker_id'])) && $dateConsultaMenor && $dateConsultaMayor){
+            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
+            if(isset($notesRegs) && !empty($notesRegs)){
+                foreach($notesRegs as $key => $val){
+                    array_push($arrayForNotes, $val->id);
+                }
+            }
+        //}
+
         $notes = [];
-        foreach($allNotes as $note){
+        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
             $worker = User::find($note->worker_id);
             $patiente = User::find($note->patiente_id);
             $service = Service::find($note->service_id);
@@ -213,7 +224,7 @@ class NotesSubServicesRegisterController extends Controller
         //};
 
         if(Auth::user()->role_id == 1){
-            return view('notes.index')->with('notes', collect($notes));
+            return view('notes.index')->with('notes', collect($notes))->with('workers', $workers);
         }else{
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
@@ -226,6 +237,241 @@ class NotesSubServicesRegisterController extends Controller
             }
         }
     }
+    
+    /**
+     * Display a listing of the NotesSubServicesRegister.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function search(request $request)
+    {
+        $input = $request->all();
+        $dateMenor = data_first_month_day();
+        $dateMayor = data_last_month_day();
+        $dateConsultaMenor = '';
+        $dateConsultaMayor = '';
+        
+        if(!isset($input['desde']) || empty($input['desde'])){
+            $dateConsultaMenor = $dateMenor;
+        }else{
+            $dateConsultaMenor = $input['desde'] . ' 00:00:01';
+        }
+
+        if(!isset($input['hasta']) || empty($input['hasta'])){
+            $dateConsultaMayor = $dateMayor;
+        }else{
+            $dateConsultaMayor = $input['hasta'] . ' 23:59:59';
+        }
+
+        $arrayForNotes = [];
+        if((isset($input['worker_id']) && !empty($input['worker_id'])) && $dateConsultaMenor && $dateConsultaMayor){
+            $notesRegs = RegisterAttentions::select('id')->where('worker_id', $input['worker_id'])->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+            if(isset($notesRegs) && !empty($notesRegs)){
+                foreach($notesRegs as $key => $val){
+                    array_push($arrayForNotes, $val->id);
+                }
+            }
+        }
+
+        $workers = User::all();
+        $allNotes = [];
+        if(Auth::user()->role_id == 1){
+            $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
+        }else{
+            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('start', 'DESC')->orderBy('id', 'DESC')->get();
+        }
+
+            //where('start', '>=', $dateMenor)->where('end', '<=', $dateMayor)
+        $notes = [];
+        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
+            //if($note->start >= $dateConsultaMenor && $note->end <= $dateConsultaMayor){
+                $worker = User::find($note->worker_id);
+                $patiente = User::find($note->patiente_id);
+                $service = Service::find($note->service_id);
+                $subService = SubServices::find($note->sub_service_id);
+                $data = RegisterAttentions::find($note->register_attentions_id);
+                    
+                    if(isset($data) && !empty($data)){
+                    
+                        $timeAttention = $data->start->diff($data->end);
+                        $times = explode(":", $timeAttention->format('%H:%i:%s'));
+        
+                        if($times[0] < 10){
+                            $times[0] = str_split($times[0])[1];
+                        }
+        
+                        if($times[1] < 10){
+                            $times[1] = '0' . $times[1];
+                        }
+        
+                        if($times[2] < 10){
+                            $times[2] = '0' . $times[2];
+                        }
+                        
+                        $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+                    }
+
+                $newNote = array( 
+                    "id" => $note->id,
+                    "register_attentions_id" => $note->register_attentions_id,
+                    "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
+                    "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
+                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                    "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
+                    "note" => $note->note,
+                    "firma" => $note->firma,
+                    "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
+                    "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
+                    "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
+                    "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
+                    "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
+                    "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
+                );
+
+                $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $worker->id)->first();
+
+                if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
+                    if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
+                        $dataPagosWorker->salary = $subService->worker_payment;
+                        $newNote['unit_value_worker'] = $dataPagosWorker->salary;
+                    }else{
+                        $newNote['unit_value_worker'] = $dataPagosWorker->salary;
+                    }
+
+                    $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataPagosWorker->id)->first();
+                                        
+                    if(isset($dataConfig) && !empty($dataConfig)){
+                        if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                            $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                            if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                $newNote['unidad_time_worker'] = $dataUnidadConfig->time;
+                                $newNote['unidad_type_worker'] = $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $newNote['unidad_type_worker_int'] = $dataUnidadConfig->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadWorker = Units::find($subService->unit_worker_payment_id);
+                            $newNote['unidad_time_worker'] = $dataUnidadWorker->time;
+                            $newNote['unidad_type_worker'] = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $newNote['unidad_type_worker_int'] = $dataUnidadWorker->type_unidad;
+                        }
+                    }else{
+                        $dataUnidadWorker = Units::find($subService->unit_worker_payment_id);
+                        $newNote['unidad_time_worker'] = $dataUnidadWorker->time;
+                        $newNote['unidad_type_worker'] = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                        $newNote['unidad_type_worker_int'] = $dataUnidadWorker->type_unidad;
+                    }
+
+                    $unidadesPorPagar = '';
+                    if(isset($newNote['time_attention']) && !empty($newNote['time_attention']) && strval($newNote['time_attention']) != '00:00:00'){
+                        $times = explode(":", $newNote['time_attention']);
+                        if($newNote['unidad_type_worker_int'] == 0){
+                            $unidH = ($times[0] * 60) / $newNote['unidad_time_worker'];
+                            $unidM = $times[1] / $newNote['unidad_time_worker'];
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_worker'];
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+                    }else{
+                        $unidadesPorPagar = number_format((float)00, 2, '.', '');
+                    }
+                                        
+                    $newNote['unid_pay_worker'] = $unidadesPorPagar ?? number_format((float)00, 2, '.', '');
+                    $calcPay = $newNote['unid_pay_worker'] * $dataPagosWorker->salary;
+                    $newNote['mont_pay'] = number_format((float)$calcPay, 2, '.', '');                        
+                }
+
+                $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $patiente->id)->first();
+
+                if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
+                    if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                        $dataCobroPatiente->customer_payment = $subService->price_sub_service;
+                        $newNote['unit_value_patiente'] = $subService->price_sub_service;
+                    }else{
+                        $newNote['unit_value_patiente'] = $dataCobroPatiente->customer_payment;
+                    }
+                                            
+                    $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataCobroPatiente->id)->first();
+                    if(isset($dataConfig) && !empty($dataConfig)){
+                        if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                            $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                    $newNote['unidad_time_patiente'] = $dataUnidadConfig->time;
+                                    $newNote['unidad_type_patiente'] =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
+                                    $newNote['unidad_type_patiente_int'] = $dataUnidadConfig->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadPatiente = Units::find($subService->unit_customer_id);
+                                $newNote['unidad_time_patiente'] = $dataUnidadPatiente->time;
+                                $newNote['unidad_type_patiente'] =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $newNote['unidad_type_patiente_int'] = $dataUnidadPatiente->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadPatiente = Units::find($subService->unit_customer_id);
+                            $newNote['unidad_time_patiente'] = $dataUnidadPatiente->time;
+                            $newNote['unidad_type_patiente'] =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $newNote['unidad_type_patiente_int'] = $dataUnidadPatiente->type_unidad;
+                        }
+
+                        $unidadesPorCobrar = '';
+                        if(isset($newNote['time_attention']) && !empty($newNote['time_attention']) && strval($newNote['time_attention']) != '00:00:00'){
+                            $times = explode(":", $newNote['time_attention']);
+                            if($newNote['unidad_type_patiente_int'] == 0){
+                                if($newNote['unidad_time_patiente'] != 0){
+                                    $unidH = ($times[0] * 60) / $newNote['unidad_time_patiente'];
+                                }
+                                if($newNote['unidad_time_patiente'] != 0){
+                                    $unidM = $times[1] / $newNote['unidad_time_patiente'];
+                                }
+
+                                $calc = $unidH + $unidM;
+                                $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+
+                            }else{
+                                $calc = ($times[0] + ($times[1] / 100)) / $newNote['unidad_time_patiente'];
+                                $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                            }
+                        }else{
+                            $unidadesPorCobrar = number_format((float)00, 2, '.', '');
+                        }
+                                        
+                    $newNote['unid_cob_patiente'] = $unidadesPorCobrar ?? number_format((float)00, 2, '.', '');
+                    $calcCob = $newNote['unid_cob_patiente'] * $dataCobroPatiente->customer_payment;
+                    $newNote['mont_cob'] = number_format((float)$calcCob, 2, '.', '');
+                }
+
+
+                $montCobRes = $newNote['mont_cob'] ?? number_format((float)00, 2, '.', '');
+                $montPayRes = $newNote['mont_pay'] ?? number_format((float)00, 2, '.', '');
+                $calcGan = $montCobRes - $montPayRes;
+                $newNote['ganancia_empresa'] = number_format((float)$calcGan, 2, '.', '');
+
+                array_push($notes, $newNote);
+            //}
+
+        }
+
+        if(Auth::user()->role_id == 1){
+            return view('notes.index')->with('notes', collect($notes))->with('workers', $workers);
+        }else{
+            $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
+
+            if(isset($dataFull) && !empty($dataFull)){
+                if(!isset($dataFull[0]->name_job) || empty($dataFull[0]->name_job) && !isset($dataFull[0]->address) || empty($dataFull[0]->address) && !isset($dataFull[0]->phone) || empty($dataFull[0]->phone) && !isset($dataFull[0]->ocupation) || empty($dataFull[0]->ocupation) && !isset($dataFull[0]->time) || empty($dataFull[0]->time)){
+                    return redirect(route('workers.edit', Auth::user()->id));
+                }else{
+                    return view('notes.index')->with('notes', collect($notes));
+                }
+            }
+        }
+    }
+
 
     /**
      * Show the form for creating a new NotesSubServicesRegister.
