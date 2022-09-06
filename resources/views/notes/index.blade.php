@@ -34,7 +34,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         {!! Form::label('worker_id', 'Worker:') !!}
-                                        <select name='worker_id'id="worker_id" class="default-select2 form-control" required="true">
+                                        <select name='worker_id'id="worker_id" class="default-select2 form-control"  required="Auth::user()->role_id == 1 ? 'true' : 'false'">
                                             @if (isset($workers) && !empty($workers) && count($workers) >= 1)
                                                 <option data-name-service='' value='' selected>Select Option...</option>
                                                 @foreach($workers->where('role_id', 2) as $key => $worker)

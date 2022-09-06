@@ -32,22 +32,23 @@ class NotesSubServicesRegisterController extends Controller
     public function index()
     {
         $workers = User::all();
-        $allNotes = [];
+        $arrayForNotes = []; 
+
         if(Auth::user()->role_id == 1){
-            $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
+            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
         }else{
-            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('start', 'DESC')->orderBy('id', 'DESC')->get();
+            $notesRegs = RegisterAttentions::select('id')->where('worker_id', Auth::user()->id)->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
         }
 
-        $arrayForNotes = [];
-        //if((isset($input['worker_id']) && !empty($input['worker_id'])) && $dateConsultaMenor && $dateConsultaMayor){
-            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
-            if(isset($notesRegs) && !empty($notesRegs)){
-                foreach($notesRegs as $key => $val){
-                    array_push($arrayForNotes, $val->id);
-                }
+        if(isset($notesRegs) && !empty($notesRegs)){
+            foreach($notesRegs as $key => $val){
+                array_push($arrayForNotes, $val->id);
             }
-        //}
+        }
+
+        $workers = User::all();
+        $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
+
 
         $notes = [];
         foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
@@ -265,9 +266,11 @@ class NotesSubServicesRegisterController extends Controller
             $dateConsultaMayor = $input['hasta'] . ' 23:59:59';
         }
 
-        $arrayForNotes = [];
-        if((isset($input['worker_id']) && !empty($input['worker_id'])) && $dateConsultaMenor && $dateConsultaMayor){
-            $notesRegs = RegisterAttentions::select('id')->where('worker_id', $input['worker_id'])->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+        $arrayForNotes = []; 
+        $workerF = isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id;
+        if((isset($workerF) && !empty($workerF)) && $dateConsultaMenor && $dateConsultaMayor){
+            $notesRegs = RegisterAttentions::select('id')->where('worker_id', $workerF)->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+
             if(isset($notesRegs) && !empty($notesRegs)){
                 foreach($notesRegs as $key => $val){
                     array_push($arrayForNotes, $val->id);
@@ -276,12 +279,7 @@ class NotesSubServicesRegisterController extends Controller
         }
 
         $workers = User::all();
-        $allNotes = [];
-        if(Auth::user()->role_id == 1){
-            $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
-        }else{
-            $allNotes = NotesSubServicesRegister::where('worker_id', Auth::user()->id)->orderBy('start', 'DESC')->orderBy('id', 'DESC')->get();
-        }
+        $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
 
             //where('start', '>=', $dateMenor)->where('end', '<=', $dateMayor)
         $notes = [];
