@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="panel-body">
-            @include('notes.createFields'
+            @include('notes.createFields')
         </div>
     </div>
     <!-- end panel -->
