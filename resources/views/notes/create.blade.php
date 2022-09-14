@@ -15,9 +15,7 @@
             </div>
         </div>
         <div class="panel-body">
-            {!! Form::open(['route' => 'notesSubServices.store']) !!}
-                @include('notes.createFields')
-            {!! Form::close() !!}
+            @include('notes.createFields'
         </div>
     </div>
     <!-- end panel -->

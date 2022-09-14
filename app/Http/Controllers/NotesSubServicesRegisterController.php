@@ -484,7 +484,12 @@ class NotesSubServicesRegisterController extends Controller
         $services = Service::all();
         $subServices = SubServices::all();
 
-        return view('notes.create')->with('workers', $workers)->with('patientes', $patientes)->with('roles', $roles)->with('services', $services)->with('subServices', $subServices);
+        return view('notes.create')
+            ->with('workers', $workers)
+            ->with('patientes', $patientes)
+            ->with('roles', $roles)
+            ->with('services', $services)
+            ->with('subServices', $subServices);
     }
 
     /**
