@@ -350,11 +350,17 @@ class HomeController extends Controller
         $workerID = isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id;
 
         $servicesAssignedss = SalaryServiceAssigneds::where('user_id', $input['patiente_id'])->get();
+        $servicesAssignedssW = SalaryServiceAssigneds::where('user_id', $input['worker_id'])->get();
         $dataPatiente = User::where('id', $input['patiente_id'])->first() ?? '';
+
+        $idsServicesWorkersPatiente = [];
+        foreach($servicesAssignedss as $servicesAssignedsW){
+            array_push($idsServicesWorkersPatiente, $servicesAssignedsW->service_id);
+        }
 
         $subservices = [];
         if (isset($servicesAssignedss) && !empty($servicesAssignedss) && count($servicesAssignedss) >= 1) {
-            foreach ($servicesAssignedss as $servicesAssignedsss) {
+            foreach ($servicesAssignedssW->whereIn('service_id', $idsServicesWorkersPatiente) as $servicesAssignedsss) {
                 $itemExist = RegisterAttentions::where('worker_id', $workerID)->where('service_id', $input['service_id'])->where('patiente_id', $input['patiente_id'])->where('sub_service_id', $servicesAssignedsss->service_id)->where('status', 1)->first();
                 if (empty($itemExist)) {
                     $service = SubServices::where('id', $servicesAssignedsss->service_id)->first();
