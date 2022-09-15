@@ -493,7 +493,8 @@ class HomeController extends Controller
     public function matchAndControlFilter ()
     {
         $services = Service::all();
-        return view('match_and_control.index')->with('services', $services);
+        $dataMensual = $this->matchAndControl() ?? [];
+        return view('match_and_control.index')->with('services', $services)->with('dataMensual', $dataMensual);
     
     }
 
@@ -1280,6 +1281,440 @@ class HomeController extends Controller
                 'msj' => "data no encontrada",
                 'success' => true
             ]); 
+        }
+    }
+
+    public function matchAndControl ()
+    {
+
+        $registerAttentions = RegisterAttentions::where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get() ?? [];        
+        
+        $registerAttentionss = [];
+        if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
+            foreach($registerAttentions as $registerAttention){
+
+                $timeAttention = $registerAttention->start->diff($registerAttention->end);
+                $times = explode(":", $timeAttention->format('%H:%i:%s'));
+
+                if($times[0] < 10){
+                    $times[0] = str_split($times[0])[1];
+                }
+
+                if($times[1] < 10){
+                    $times[1] = '0' . $times[1];
+                }
+
+                if($times[2] < 10){
+                    $times[2] = '0' . $times[2];
+                }
+                
+                $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
+                array_push($registerAttentionss, $registerAttention);
+            }
+
+            $arrayCollect = collect($registerAttentionss)->unique();
+            $arraySum = [];
+            if(count($arrayCollect) > 1){
+                foreach($arrayCollect as $keyI => $registerAttention){
+                    $count = $arrayCollect
+                        ->where('worker_id', $registerAttention->worker_id)
+                        ->where('patiente_id', $registerAttention->patiente_id)
+                        ->where('service_id', $registerAttention->service_id)
+                        ->where('sub_service_id', $registerAttention->sub_service_id)
+                    ;
+
+                    if(count($count) > 1){
+                        if(isset($count) && !empty($count) && count($count) >= 1){
+                            foreach($count->where('id', '<>', $registerAttention->id) as $key => $registerAttent){
+                                $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                                array_push($arraySum, $registerAttention);
+                                unset($arrayCollect[$key]);  
+                            }                    
+                        }
+                    }elseif(count($count) == 1){
+                        foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
+                            //$registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                            array_push($arraySum, $registerAttention);
+                            unset($arrayCollect[$key]);  
+                        }
+                    }
+
+                }
+            }else{
+                $arraySum = $registerAttentionss;
+            }
+
+            $arraySumClean = collect($arraySum)->unique()->filter();
+
+            $arrayFinal = [];
+            if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
+                foreach($arraySumClean as $arraySumC){
+                    //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
+
+                    $dataWorker = User::find($arraySumC->worker_id);
+                    $arraySumC->worker_id = $dataWorker;
+
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
+
+                    $dataPatiente = User::find($arraySumC->patiente_id);
+                    $arraySumC->patiente_id = $dataPatiente;
+
+                    $dataService = Service::find($arraySumC->service_id);
+                    $arraySumC->service_id = $dataService;
+
+                    $dataSubService = SubServices::find($arraySumC->sub_service_id);
+                    $arraySumC->sub_service_id = $dataSubService;                 
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+
+                    if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
+                        if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
+                            $dataPagosWorker->salary = $dataSubService->worker_payment;
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }else{
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }
+
+                        $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataPagosWorker->id)->first();
+                        
+                        if(isset($dataConfig) && !empty($dataConfig)){
+                            if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                    $arraySumC->unidad_time_worker = $dataUnidadConfig->time;
+                                    $arraySumC->unidad_type_worker = $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_worker_int = $dataUnidadConfig->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                                $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                                $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                            $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                            $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                        }
+
+
+                        $unidadesPorPagar = '';
+                        $times = explode(":", $arraySumC->time_attention);
+                        if($arraySumC->unidad_type_worker_int == 0){
+                            $unidH = ($times[0] * 60) / $arraySumC->unidad_time_worker;
+                            $unidM = $times[1] / $arraySumC->unidad_time_worker;
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+                        
+                        $arraySumC->unid_pay_worker = $unidadesPorPagar;
+                        $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
+                        $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
+                    }
+
+
+                    $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataPatiente->id)->first();
+
+                    if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
+                        //if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                            if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                                $dataCobroPatiente->customer_payment = $dataSubService->price_sub_service;
+                                $arraySumC->unit_value_patiente = $dataSubService->price_sub_service;
+                            }else{
+                                $arraySumC->unit_value_patiente = $dataCobroPatiente->customer_payment;
+                            }
+                            
+                            $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataCobroPatiente->id)->first();
+                            if(isset($dataConfig) && !empty($dataConfig)){
+                                if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                    $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                    if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                        $arraySumC->unidad_time_patiente = $dataUnidadConfig->time;
+                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                        $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
+                                        $arraySumC->unidad_type_patiente_int = $dataUnidadConfig->type_unidad;
+                                    }
+                                }else{
+                                    $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                    $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                            }
+                        //}
+
+                        $unidadesPorCobrar = '';
+                        $times = explode(":", $arraySumC->time_attention);
+                        if($arraySumC->unidad_type_patiente_int == 0){
+                            if($arraySumC->unidad_time_patiente != 0){
+                                $unidH = ($times[0] * 60) / $arraySumC->unidad_time_patiente;
+                            }
+                            if($arraySumC->unidad_time_patiente != 0){
+                                $unidM = $times[1] / $arraySumC->unidad_time_patiente;
+                            }
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_patiente;
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                        }
+                        
+                        $arraySumC->unid_cob_patiente = $unidadesPorCobrar;
+                        $calcCob = $arraySumC->unid_cob_patiente * $dataCobroPatiente->customer_payment;
+                        $arraySumC->mont_cob = number_format((float)$calcCob, 2, '.', '');
+                    }
+
+                    $calcGan = $arraySumC->mont_cob - $arraySumC->mont_pay;
+                    $arraySumC->ganancia_empresa = number_format((float)$calcGan, 2, '.', '');
+
+                    array_push($arrayFinal, $arraySumC);
+                }
+            }            
+
+            $dataPatiente = $this->matchAndControlPatientes();
+            
+            return collect([
+                'dataW' => collect($arrayFinal),
+                'dataP' => $dataPatiente,
+                'msj' => "data encontrada",
+                'success' => true
+            ]); 
+
+        }else{
+            $dataPatiente = $this->matchAndControlPatientes();
+
+            return collect([
+                'dataW' => [],
+                'dataP' => $dataPatiente,
+                'msj' => "data no encontrada",
+                'success' => true
+            ]); 
+        }
+    }
+
+    public function matchAndControlPatientes ()
+    {
+
+        $registerAttentions = RegisterAttentions::where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get() ?? []; 
+        
+        
+        $registerAttentionss = [];
+        if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
+            foreach($registerAttentions as $registerAttention){
+
+                $timeAttention = $registerAttention->start->diff($registerAttention->end);
+                $times = explode(":", $timeAttention->format('%H:%i:%s'));
+
+                if($times[0] < 10){
+                    $times[0] = str_split($times[0])[1];
+                }
+
+                if($times[1] < 10){
+                    $times[1] = '0' . $times[1];
+                }
+
+                if($times[2] < 10){
+                    $times[2] = '0' . $times[2];
+                }
+                
+                $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
+                array_push($registerAttentionss, $registerAttention);
+            }
+
+            $arrayCollect = collect($registerAttentionss);            
+            $arraySum = [];
+            if(count($arrayCollect) > 1){
+                foreach($arrayCollect as $keyI => $registerAttention){
+                    $count = $arrayCollect
+                        ->where('patiente_id', $registerAttention->patiente_id)
+                        ->where('service_id', $registerAttention->service_id)
+                        ->where('sub_service_id', $registerAttention->sub_service_id)
+                    ;
+
+                    if(count($count) > 1){
+                        if(isset($count) && !empty($count) && count($count) >= 1){
+                            foreach($count->where('id', '<>', $registerAttention->id) as $key => $registerAttent){
+                                $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                                array_push($arraySum, $registerAttention);
+                                unset($arrayCollect[$key]);  
+                            }                    
+                        }
+                    }elseif(count($count) == 1){
+                        foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
+                            //$registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
+                            array_push($arraySum, $registerAttention);
+                            unset($arrayCollect[$key]);  
+                        }
+                    }
+                }
+            }else{
+                $arraySum = $registerAttentionss;
+            }
+
+            $arraySumClean = collect($arraySum)->unique();
+
+            $arrayFinal = [];
+            if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
+                foreach($arraySumClean as $arraySumC){
+                    $dataWorker = User::find($arraySumC->worker_id);
+                    $arraySumC->worker_id = $dataWorker;
+
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
+
+                    $dataPatiente = User::find($arraySumC->patiente_id);
+                    $arraySumC->patiente_id = $dataPatiente;
+
+                    $dataService = Service::find($arraySumC->service_id);
+                    $arraySumC->service_id = $dataService;
+
+                    $dataSubService = SubServices::find($arraySumC->sub_service_id);
+                    $arraySumC->sub_service_id = $dataSubService;
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+
+                    if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
+                        if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
+                            $dataPagosWorker->salary = $dataSubService->worker_payment;
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }else{
+                            $arraySumC->unit_value_worker = $dataPagosWorker->salary;
+                        }
+
+                        $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataPagosWorker->id)->first();
+                        
+                        if(isset($dataConfig) && !empty($dataConfig)){
+                            if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                    $arraySumC->unidad_time_worker = $dataUnidadConfig->time;
+                                    $arraySumC->unidad_type_worker = $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_worker_int = $dataUnidadConfig->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                                $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                                $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                            }
+                        }else{
+                            $dataUnidadWorker = Units::find($dataSubService->unit_worker_payment_id);
+                            $arraySumC->unidad_time_worker = $dataUnidadWorker->time;
+                            $arraySumC->unidad_type_worker = $dataUnidadWorker->type_unidad == 0 ? 'Minutes' : 'Hours';
+                            $arraySumC->unidad_type_worker_int = $dataUnidadWorker->type_unidad;
+                        }
+
+
+                        $unidadesPorPagar = '';
+                        $times = explode(":", $arraySumC->time_attention);
+                        if($arraySumC->unidad_type_worker_int == 0){
+                            $unidH = ($times[0] * 60) / $arraySumC->unidad_time_worker;
+                            $unidM = $times[1] / $arraySumC->unidad_time_worker;
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
+                            $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+
+                        
+                        $arraySumC->unid_pay_worker = $unidadesPorPagar;
+                        $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
+                        $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
+                    }
+
+
+                    $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataPatiente->id)->first();
+
+                    if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
+                        //if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                            if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                                $dataCobroPatiente->customer_payment = $dataSubService->price_sub_service;
+                                $arraySumC->unit_value_patiente = $dataSubService->price_sub_service;
+                            }else{
+                                $arraySumC->unit_value_patiente = $dataCobroPatiente->customer_payment;
+                            }
+                            
+                            $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataCobroPatiente->id)->first();
+                            if(isset($dataConfig) && !empty($dataConfig)){
+                                if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                    $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                    if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                        $arraySumC->unidad_time_patiente = $dataUnidadConfig->time;
+                                        $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                        $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
+                                        $arraySumC->unidad_type_patiente_int = $dataUnidadConfig->type_unidad;
+                                    }
+                                }else{
+                                    $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                    $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                                }
+                            }else{
+                                $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                            }
+                        //}
+
+                        $unidadesPorCobrar = '';
+                        $times = explode(":", $arraySumC->time_attention);
+                        if($arraySumC->unidad_type_patiente_int == 0){
+                            if($arraySumC->unidad_time_patiente != 0){
+                                $unidH = ($times[0] * 60) / $arraySumC->unidad_time_patiente;
+                            }
+                            if($arraySumC->unidad_time_patiente != 0){
+                                $unidM = $times[1] / $arraySumC->unidad_time_patiente;
+                            }
+
+                            $calc = $unidH + $unidM;
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+
+                        }else{
+                            $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_patiente;
+                            $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                        }
+                        
+                        $arraySumC->unid_cob_patiente = $unidadesPorCobrar;
+                        $calcCob = $arraySumC->unid_cob_patiente * $dataCobroPatiente->customer_payment;
+                        $arraySumC->mont_cob = number_format((float)$calcCob, 2, '.', '');
+                    }
+
+                    $calcGan = $arraySumC->mont_cob - $arraySumC->mont_pay;
+                    $arraySumC->ganancia_empresa = number_format((float)$calcGan, 2, '.', '');
+
+                    array_push($arrayFinal, $arraySumC);
+                }
+            }
+            
+            return collect($arrayFinal); 
+
+        }else{
+            return []; 
         }
     }
 }

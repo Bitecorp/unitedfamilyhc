@@ -133,53 +133,6 @@
 	var urlDoc = "{{ strpos(Request::url(), 'generate1099') }}";
 	var urlBAP = "{{ strpos(Request::url(), 'manageBillAndPay') }}";
 	var urlDash = "{{ strpos(Request::url(), 'matchAndControl') }}";
-
-	$("#service_id").change(function() {
-		$("#service_id option:selected").each(function() {
-			$('#resulWor').empty();
-			$('#resulPat').empty();
-			$('#resulWorTab').empty();
-			$('#resulWorMod').empty();
-			$('#resulPatTab').empty();
-		});
-	});
-
-	$("#paid").change(function() {
-		$("#paid option:selected").each(function() {
-			$('#resulWor').empty();
-			$('#resulPat').empty();
-			$('#resulWorTab').empty();
-			$('#resulWorMod').empty();
-			$('#resulPatTab').empty();
-		});
-	});
-
-	$("#worker_id").change(function() {
-		$("#worker_id option:selected").each(function() {
-			$('#resulWor').empty();
-			$('#resulPat').empty();
-			$('#resulWorTab').empty();
-			$('#resulWorMod').empty();
-			$('#resulPatTab').empty();
-		});
-	});
-
-	$("#desde").change(function() {
-		$('#resulWor').empty();
-		$('#resulPat').empty();
-		$('#resulWorTab').empty();
-		$('#resulWorMod').empty();
-		$('#resulPatTab').empty();
-	});
-
-	$("#hasta").change(function() {
-		$('#resulWor').empty();
-		$('#resulPat').empty();
-		$('#resulWorTab').empty();
-		$('#resulWorMod').empty();
-		$('#resulPatTab').empty();
-	});
-
 </script>
 
 	<script>
@@ -204,7 +157,8 @@
 
 	<script>
 		$('#btn_submit_1099').click(function() {
-
+			$('#btn_submit_1099').attr('disabled', 'disabled');
+			$('#btn_reset').attr('disabled', 'disabled');
 			$('#resulWorTab').empty();
 			$('#resulWorMod').empty();
 			
@@ -234,7 +188,8 @@
 						hasta: dateHasta
 					},
 					success: function(data) {
-
+						$('#btn_submit_1099').removeAttr('disabled');
+						$('#btn_reset').removeAttr('disabled');
 						var dataFullW = data['dataW'];
 						var Data1099 = data['data1099'];
 
@@ -339,11 +294,15 @@
 							}
 						
 					},
-					error: function (error) { 
+					error: function (error) {
+						$('#btn_submit_1099').removeAttr('disabled');
+						$('#btn_reset').removeAttr('disabled');
 						console.log(error);
 					}
 				});	
 			}else{
+				$('#btn_submit_1099').removeAttr('disabled');
+				$('#btn_reset').removeAttr('disabled');
 				let msjOne = 'You must fill in all the fields for a more accurate search.\n\n';
 				let msjTwo = 'Debe llenar todos los campos para una busqueda mas precisa.';
 				alert(msjOne + msjTwo);
@@ -369,6 +328,9 @@
 
     <script>
 		$('#btn_submit').click(function() {
+
+			$('#btn_submit').attr('disabled', 'disabled');
+			$('#btn_reset').attr('disabled', 'disabled');
 
 			$('#resulWor').empty();
 			$('#resulPat').empty();
@@ -403,7 +365,8 @@
 						hasta: dateHasta
 					},
 					success: function(data) {
-
+						$('#btn_submit').removeAttr('disabled');
+						$('#btn_reset').removeAttr('disabled');	
 						var htmlResultados = '';
 						var colBG = '';
 						var checkCheck = '';
@@ -517,7 +480,7 @@
 							$('#resulPat').empty();
 
 							if(dataFullW.length >= 1){
-								for (var i = 0; i < dataFullW.length; i++) {							
+								for (var i = 0; i < dataFullW.length; i++) {					
 
 										var dataW = 
 											'<div class="col-xl-6 col-md-6">\n' +
@@ -541,7 +504,8 @@
 							}
 
 							if(dataFullP.length >= 1){
-								for (var i = 0; i < dataFullP.length; i++) {				
+								for (var i = 0; i < dataFullP.length; i++) {	
+
 										var dataP = 
 											'<div class="col-xl-6 col-md-6">\n' +
 												'<div class="widget widget-stats ' + colBG + '">\n' +
@@ -566,11 +530,15 @@
 						}
 						
 					},
-					error: function (error) { 
+					error: function (error) {
+						$('#btn_submit').removeAttr('disabled');
+						$('#btn_reset').removeAttr('disabled');	
 						console.log(error);
 					}
 				});	
 			}else{
+				$('#btn_submit').removeAttr('disabled');
+				$('#btn_reset').removeAttr('disabled');	
 				let msjOne = 'You must fill in all the fields for a more accurate search.\n\n';
 				let msjTwo = 'Debe llenar todos los campos para una busqueda mas precisa.';
 				alert(msjOne + msjTwo);
