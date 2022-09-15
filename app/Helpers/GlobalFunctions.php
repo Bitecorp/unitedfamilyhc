@@ -569,29 +569,29 @@ function data_last_month_day() {
 };
 
 function data_previa_month_day_first() {
-    $month = date('m')-1;
+    $month = date('m');
     $year = date('Y');
     $day = date('d');
 
     if($day <= 15){
-        return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
+        return date('Y-m-d', mktime(0,0,0, $month-1, 16, $year)) . ' 00:00:01';
     }else{
-        return date('Y-m-d', mktime(0,0,0, $month, 16, $year)) . ' 00:00:01';
+        return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
     }
     
 }
 
 function data_previa_month_day_last() {
-    $month = date('m')-1;
+    $month = date('m');
     $year = date('Y');
     $day = date('d');
 
-    if($day <= 15){
+    if($day >= 16){
         return date('Y-m-d', mktime(0,0,0, $month, 15, $year)) . ' 23:59:59';
-    }else{
-        $dayL = date("d", mktime(0,0,0, $month+1, 0, $year));
- 
-        return date('Y-m-d', mktime(0,0,0, $month, $dayL, $year)) . ' 23:59:59';
+    }else{    
+        $monthL = date('m')-1;
+        $dayL = date("d", mktime(0,0,0, $monthL+1, 0, $year));
+        return date('Y-m-d', mktime(0,0,0, $monthL, $dayL, $year)) . ' 23:59:59';
     }
     
 }
