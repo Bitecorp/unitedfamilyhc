@@ -1287,7 +1287,7 @@ class HomeController extends Controller
     public function matchAndControl ()
     {
 
-        $registerAttentions = RegisterAttentions::where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get() ?? [];        
+        $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? [];     
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
@@ -1512,7 +1512,7 @@ class HomeController extends Controller
     public function matchAndControlPatientes ()
     {
 
-        $registerAttentions = RegisterAttentions::where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get() ?? []; 
+        $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? []; 
         
         
         $registerAttentionss = [];
