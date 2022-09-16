@@ -63,7 +63,7 @@
                         <!-- Submit Field -->
                         <div class="form-group col-sm-12">
                             <input class="btn btn-primary" type="submit" name="btn_submit" id="btn_submit" value="Search" />
-                            <input class="btn btn-secondary" type="reset" name="btn_reset" id="btn_reset" value="Clear" />
+                            <input class="btn btn-secondary" name="btn_reset" id="btn_reset" type="button" value="Reset" onclick="$(location).attr('href','/notesSubServices');" />
                         </div>
                     {!! Form::close() !!}
 				</div>
