@@ -1287,7 +1287,9 @@ class HomeController extends Controller
     public function matchAndControl ()
     {
 
-        $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? [];     
+        $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? []; 
+        
+        //dd(data_previa_month_day_first(), data_previa_month_day_last());
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){

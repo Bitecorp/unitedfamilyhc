@@ -574,7 +574,8 @@ function data_previa_month_day_first() {
     $day = date('d');
 
     if($day <= 15){
-        return date('Y-m-d', mktime(0,0,0, $month-1, 16, $year)) . ' 00:00:01';
+        $monthL = date('m')-1;
+        return date('Y-m-d', mktime(0,0,0, $monthL, 16, $year)) . ' 00:00:01';
     }else{
         return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
     }
