@@ -37,8 +37,9 @@
                                         <select name='worker_id'id="worker_id" class="default-select2 form-control"  required="Auth::user()->role_id == 1 ? 'true' : 'false'">
                                             @if (isset($workers) && !empty($workers) && count($workers) >= 1)
                                                 <option data-name-service='' value='' selected>Select Option...</option>
+                                                <option data-name-service='' value='all' {{ isset($dataSearch['searchWorkerId']) && !empty($dataSearch['searchWorkerId']) && $dataSearch['searchWorkerId'] == 'all' ? 'selected' : '' }}>All</option>
                                                 @foreach($workers->where('role_id', 2) as $key => $worker)
-                                                    <option data-name-service='{{ $worker->id }}' value='{{ $worker->id }}' >{{ $worker->first_name }} {{ $worker->last_name }}</option>
+                                                    <option data-name-service='{{ $worker->id }}' value='{{ $worker->id }}' {{ isset($dataSearch['searchWorkerId']) && !empty($dataSearch['searchWorkerId']) && $dataSearch['searchWorkerId'] == $worker->id ? 'selected' : '' }} >{{ $worker->first_name }} {{ $worker->last_name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>					
@@ -48,13 +49,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     {!! Form::label('desde', 'From:') !!}
-                                    <input type="date" name="desde" id="desde" class="form-control" value="" required="true">
+                                    <input type="date" name="desde" id="desde" class="form-control" value="{{ isset($dataSearch['searchStart']) && !empty($dataSearch['searchStart']) ? $dataSearch['searchStart'] : '' }}" required="true">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     {!! Form::label('hasta', 'To:') !!}
-                                    <input type="date" name="hasta" id="hasta" class="form-control" value="" required="true">
+                                    <input type="date" name="hasta" id="hasta" class="form-control" value="{{ isset($dataSearch['searchEnd']) && !empty($dataSearch['searchEnd']) ? $dataSearch['searchEnd'] : '' }}" required="true">
                                 </div>
                             </div>
                         </div>
@@ -123,9 +124,9 @@
                                         <td>{{ isset($note['unid_pay_worker']) && !empty($note['unid_pay_worker']) ? $note['unid_pay_worker'] : '00.00' }} of {{ isset($note['unidad_time_worker']) && !empty($note['unidad_time_worker']) ? $note['unidad_time_worker'] : '15' }} {{ isset($note['unidad_type_worker']) && !empty($note['unidad_type_worker']) ? $note['unidad_type_worker'] : 'Minutes' }}</td>
                                         <td>
                                             @if(Auth::user()->role_id == 1)
-                                                x {{ $note['unit_value_patiente'] }} = {{ $note['mont_cob'] }}$ (USD)
+                                                x {{ isset($note['unit_value_patiente']) && !empty($note['unit_value_patiente']) ? $note['unit_value_patiente'] : '0' }} = {{ isset($note['mont_cob']) && !empty($note['mont_cob']) ? $note['mont_cob'] : '0' }}$ (USD)
                                             @else
-                                                x {{ $note['unit_value_worker'] }} = {{ $note['mont_pay'] }}$ (USD)
+                                                x {{ isset($note['unit_value_worker']) && !empty($note['unit_value_worker']) ? $note['unit_value_worker'] : '0' }} = {{ isset($note['mont_pay']) && !empty($note['mont_pay']) ? $note['mont_pay'] : '0' }}$ (USD)
                                             @endif                                        
                                         </td>
                                         <td>

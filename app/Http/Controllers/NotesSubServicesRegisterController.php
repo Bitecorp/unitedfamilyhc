@@ -269,7 +269,12 @@ class NotesSubServicesRegisterController extends Controller
         $arrayForNotes = []; 
         $workerF = isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id;
         if((isset($workerF) && !empty($workerF)) && $dateConsultaMenor && $dateConsultaMayor){
-            $notesRegs = RegisterAttentions::select('id')->where('worker_id', $workerF)->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+            $notesRegs = [];
+            if($workerF == 'all'){
+                $notesRegs = RegisterAttentions::select('id')->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+            }else{
+                $notesRegs = RegisterAttentions::select('id')->where('worker_id', $workerF)->where('start', '>=', $dateConsultaMenor)->where('end', '<=', $dateConsultaMayor)->get();
+            }
 
             if(isset($notesRegs) && !empty($notesRegs)){
                 foreach($notesRegs as $key => $val){
@@ -455,8 +460,16 @@ class NotesSubServicesRegisterController extends Controller
 
         }
 
+        $dataSearch = [
+            'searchStart' => $input['desde'],
+            'searchEnd' => $input['hasta'],
+            'searchWorkerId' => $input['worker_id'],
+        ];
+
+       //dd(collect($notes)->unique());
+
         if(Auth::user()->role_id == 1){
-            return view('notes.index')->with('notes', collect($notes))->with('workers', $workers);
+            return view('notes.index')->with('notes', collect($notes))->with('workers', $workers)->with('dataSearch', collect($dataSearch));
         }else{
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
