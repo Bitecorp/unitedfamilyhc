@@ -31,15 +31,30 @@
 	<!-- end panel-body -->
 </div>
 
-@push('scripts')
-    <script>
-        $(function () {
-            $('#tableDocumentsExternals').DataTable( {
-                retrieve: true,
-                paging: true,
-                searching: true,
-                autoFill: true,
+@if((new \Jenssegers\Agent\Agent())->isDesktop())
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsExternals').DataTable( {
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
+@else
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsExternals').DataTable( {
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    responsive: true
+                });
+            });
+        </script>
+    @endpush
+@endif
+

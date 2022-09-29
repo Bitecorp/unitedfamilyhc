@@ -90,7 +90,7 @@
 			<div class="widget widget-stats {{ $countDocumentsPatientes >= 1 ? 'bg-red' : 'bg-teal'}}">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-file fa-fw"></i></div>
 				<div class="stats-content">
-					<div class="stats-title">DOCUMENTS PATIENTES TO EXPIRED</div>
+					<div class="stats-title">DOCUMENTS PATIENTS TO EXPIRED</div>
 					<div class="stats-number">{{ $countDocumentsPatientes }}</div>
 					<div class="stats-link">
                         <a href="{{ route('alertDocuments.index', ['patientes']) }}">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>

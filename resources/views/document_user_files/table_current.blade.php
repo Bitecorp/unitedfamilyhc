@@ -1,6 +1,10 @@
 <div class="row">
     <!-- <div class="col-6"> -->
-        <div class="col-6">
+        @if((new \Jenssegers\Agent\Agent())->isDesktop())
+            <div class="col-6">
+        @else
+            <div class="col">
+        @endif
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
@@ -19,7 +23,8 @@
                                 @if(isset($education))
                                     @if(isset($documentUserFiles) && !empty($documentUserFiles) && count(array($documentUserFiles)) >= 1)
                                         @foreach($documentUserFiles as $key => $documentUserFile)
-                                            <tr>
+                                                <tr>
+                                            
                                                 <td>{{ $documentUserFile->name_doc }}</td>
                                                 @if(count(array($filesUploads)) >= 1)
                                                     <td>
@@ -57,7 +62,13 @@
                                                             @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired == 0)
                                                                 {!! Form::open(['route' => ['documentUserFiles.destroy', $filesUpload->id], 'method' => 'delete']) !!}
                                                                     <a onclick="vieFile('{{ $filesUpload->file }}');" class='btn btn-sm btn-primary' style="color: #FFF;"><i class="fa fa-eye"></i> Show </a>
-                                                                    <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                                                        <br>
+                                                                        <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning mt-1 mb-1'><i class="fa fa-edit"></i> Edit </a>
+                                                                        <br>
+                                                                    @else
+                                                                        <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                                                    @endif
                                                                     @if(Auth::user()->role_id == 1)
                                                                         {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
                                                                     @endif
@@ -94,7 +105,11 @@
             </div>
         </div>
 
-        <div class="col-6">
+        @if((new \Jenssegers\Agent\Agent())->isDesktop())
+            <div class="col-6">
+        @else
+            <div class="col">
+        @endif
             <div id='view' class="abs-center" >
 
             </div>
@@ -116,23 +131,49 @@
         }
     };
 </script>
-<script>
-    $(function () {
-        $('#tableDocumentsCurrents').DataTable( {
-            retrieve: true,
-            paging: true,
-            searching: true,
-            autoFill: true,
-            columnDefs: [
-                { 
-                    orderable: false, 
-                    targets: 0
-                }
-            ],
-            order: [
-                [3, 'asc']
-            ]
-        });
-    });
-</script>
 @endpush
+
+@if((new \Jenssegers\Agent\Agent())->isDesktop())
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsCurrents').DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    columnDefs: [
+                        { 
+                            orderable: false, 
+                            targets: 0
+                        }
+                    ],
+                    order: [
+                        [3, 'asc']
+                    ]
+                });
+            });
+        </script>
+    @endpush
+@else
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsCurrents').DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    responsive: true,
+                    columnDefs: [
+                        { 
+                            orderable: false, 
+                            targets: 0
+                        }
+                    ],
+                    order: [
+                        [3, 'asc']
+                    ]
+                });
+            });
+        </script>
+    @endpush
+@endif

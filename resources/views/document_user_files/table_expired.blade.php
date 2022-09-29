@@ -1,7 +1,7 @@
 
 <div class="row">
     <!-- <div class="col-6"> -->
-        <div class="col-6">
+        <div class="col">
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col">
             <div id='viewExpired' class="abs-center" >
 
             </div>
@@ -74,23 +74,50 @@
         }
     };
 </script>
-<script>
-    $(function () {
-        $('#tableDocumentsExpired').DataTable( {
-            retrieve: true,
-            paging: true,
-            searching: true,
-            autoFill: true,
-            columnDefs: [
-                { 
-                    orderable: false, 
-                    targets: 0
-                }
-            ],
-            order: [
-                [3, 'desc']
-            ]
-        });
-    });
-</script>
 @endpush
+
+@if((new \Jenssegers\Agent\Agent())->isDesktop())
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsExpired').DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    columnDefs: [
+                        { 
+                            orderable: false, 
+                            targets: 0
+                        }
+                    ],
+                    order: [
+                        [2, 'desc']
+                    ]
+                });
+            });
+        </script>
+    @endpush
+@else
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocumentsExpired').DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    responsive: true,
+                    columnDefs: [
+                        { 
+                            orderable: false, 
+                            targets: 0
+                        }
+                    ],
+                    order: [
+                        [2, 'desc']
+                    ]
+                });
+            });
+        </script>
+    @endpush
+@endif
+

@@ -30,6 +30,15 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
+class jsonUsuario {
+    public $servicio = "";
+    public $statusPay = "";
+    public $startDate = "";
+    public $endDate = "";
+    public $dataW = "";
+    public $dataP = "";
+}
+
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
@@ -512,12 +521,23 @@ class HomeController extends Controller
 
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                if($filters['paid'] == 'all'){
+                    $registerAttentions = RegisterAttentions::whereIn('paid', [0,1])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                }else{
+                    $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                }
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('paid', $filters['paid'])
-                ->where('start', '>=', $filters['desde'])
-                ->where('end', '<=', $filters['hasta'])->get();
+            if($filters['paid'] == 'all'){
+                $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                    ->whereIn('paid', [0,1])
+                    ->where('start', '>=', $filters['desde'])
+                    ->where('end', '<=', $filters['hasta'])->get();
+            }else{
+                $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                    ->where('paid', $filters['paid'])
+                    ->where('start', '>=', $filters['desde'])
+                    ->where('end', '<=', $filters['hasta'])->get();
+            }
         }        
         
         $registerAttentionss = [];
@@ -720,7 +740,7 @@ class HomeController extends Controller
             }            
 
             $dataPatiente = $this->matchAndControlSearchPatientes($request);
-            
+
             return response()->json([
                 'dataW' => collect($arrayFinal),
                 'dataP' => $dataPatiente,
@@ -746,12 +766,23 @@ class HomeController extends Controller
 
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+            if($filters['paid'] == 'all'){
+                $registerAttentions = RegisterAttentions::whereIn('collected', [0,1])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+            }else{
+                $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+            }
         }else{
-            $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                ->where('collected', $filters['paid'])
-                ->where('start', '>=', $filters['desde'])
-                ->where('end', '<=', $filters['hasta'])->get();
+            if($filters['paid'] == 'all'){
+                $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                    ->whereIn('collected', [0,1])
+                    ->where('start', '>=', $filters['desde'])
+                    ->where('end', '<=', $filters['hasta'])->get();
+            }else{
+                $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
+                    ->where('paid', $filters['paid'])
+                    ->where('start', '>=', $filters['desde'])
+                    ->where('end', '<=', $filters['hasta'])->get();
+            }
         }
         
         

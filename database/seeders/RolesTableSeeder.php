@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
                 'name_role' => 'MANAGER'
             ],
             [
-                'name_role' => 'PATIENTE'
+                'name_role' => 'PATIENT'
             ],
         ];
 

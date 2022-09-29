@@ -247,7 +247,7 @@ class PatienteController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $patientes = Patiente::where('role_id', 4)->get();
+        $patientes = DB::table('users')->where('role_id', 4)->orderBy('first_name', 'asc')->orderBy('statu_id', 'asc')->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 

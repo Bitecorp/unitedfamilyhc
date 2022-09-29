@@ -1,4 +1,4 @@
-<table id="tableWorkerTest" class="table table-striped table-bordered table-td-valign-middle">
+<table id="tablePatientes" class="table table-striped table-bordered table-td-valign-middle">
     <thead>
         <tr>
             <th width="1%"></th>
@@ -63,11 +63,11 @@
     </script>
     <script>
         $(function () {
-            $('#tableWorkerTest').DataTable( {
+            $('#tablePatientes').DataTable( {
                 retrieve: true,
                 paging: true,
-                searching: true,
                 autoFill: true,
+                responsive: true
             });
         });
     </script>

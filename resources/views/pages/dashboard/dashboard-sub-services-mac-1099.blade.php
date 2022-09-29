@@ -16,7 +16,7 @@
 							<table id="contable-table-wor" class="table table-striped table-bordered table-td-valign-middle">
 								<thead>
 									<tr>
-										<th width="1%"></th>
+										<th width="1%">#</th>
 										<th class="text-nowrap">Patient</th>	
 										<th class="text-nowrap">Service - Sub Service</th>
 										<th class="text-nowrap">Worker</th>

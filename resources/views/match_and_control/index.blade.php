@@ -66,7 +66,11 @@
 								<div class="form-group">
 									{!! Form::label('paid', 'Status Pay:') !!}
 									<select name='paid' id="paid" class="default-select2 form-control" required="true">
-										<option value='' selected>Select Option..</option>
+										@if(strpos(Request::url(), 'matchAndControl') || strpos(Request::url(), 'manageBillAndPay'))
+											<option value='all' selected>All</option>
+										@elseif(strpos(Request::url(), 'generate1099'))
+											<option value='' selected>Select Option..</option>
+										@endif
 										<option value='1' >Yes</option>
 										<option value='0' >No</option>
 									</select>
@@ -88,7 +92,7 @@
 					</div>
 					@if(strpos(Request::url(), 'generate1099'))
 						<div class="row">
-							<div class="form-group col-sm-12" id="resulWorMod">
+							<div class="form-group col-sm-12" id="extraDataGen1099">
 
 							</div>
 						</div>
@@ -141,6 +145,7 @@
                 retrieve: true,
                 paging: true,
                 autoFill: true,
+				responsive: true,
             });
         });
     </script>
@@ -151,6 +156,7 @@
                 retrieve: true,
                 paging: true,
                 autoFill: true,
+				responsive: true,
             });
         });
     </script>
@@ -160,7 +166,7 @@
 			$('#btn_submit_1099').attr('disabled', 'disabled');
 			$('#btn_reset').attr('disabled', 'disabled');
 			$('#resulWorTab').empty();
-			$('#resulWorMod').empty();
+			$('#extraDataGen1099').empty();
 			
 			var url = "/generate1099";
 			var worker_id = $('#worker_id').val();
@@ -208,9 +214,8 @@
 						});
 
 							$('#resulWorTab').empty();
-							$('#resulWorMod').empty();
-							var htmlResultados = '';
-							var htmlResultModal = '';
+							$('#extraDataGen1099').empty();
+							var htmlResultextraDataGen1099 = '';
 							var valueInvoice = '';
 							var eftorCheck = '';
 							var link = '';
@@ -236,7 +241,7 @@
 										}
 										
 										
-										var modal = 
+										var addExtraDataGen1099 = 
 											'<div class="row">\n' +
 												'<div class="col-4">\n' +
 													'<div class="form-group">\n' +
@@ -244,20 +249,20 @@
 														'<input type="text" class="form-control" name="eftor_check_'+ Data1099[i].worker_id.id + '" id="eftor_check_'+ Data1099[i].worker_id.id + '" value="' + eftorCheck + '" required>\n' +
 													'</div>\n' +
 												'</div>\n' +
-												'<div class="col-4">\n' +
+												'<div class="col-4 pl-3">\n' +
 													'<div class="form-group">\n' +
 														'{!! Form::label("invoice_number", "Invoice Number:") !!}\n' +
 														'<input type="text" class="form-control" name="invoice_number_'+ Data1099[i].worker_id.id + '" id="invoice_number_'+ Data1099[i].worker_id.id + '" value="' + valueInvoice + '">\n' +
 													'</div>\n' +
 												'</div>\n' +
-												'<div class="col-4 with-btn" id="btnDownloadBtn">\n' +
+												'<div class="col-4 pl-3" id="btnDownloadBtn">\n' +
 													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' + 
 													btnDownload +
 												'</div>\n' +
 											'</div>\n';
 
-										htmlResultModal = modal;
-										$('#resulWorMod').append(htmlResultModal);
+										htmlResultextraDataGen1099 = addExtraDataGen1099;
+										$('#extraDataGen1099').append(htmlResultextraDataGen1099);
 									}
 								//}
 
@@ -272,24 +277,23 @@
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
-									var dataW = 
-										'<tr>\n' +
-											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
-											'<td>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</td>\n' +
-											'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
-											'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
-											'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
-											'<td>' + dateDesdeT + ' - ' + dateHastaT + '</td>\n' +
-											'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
-											'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
-											'<td class="with-btn" nowrap>\n'
-												+ check +
-											'</td>\n'
-										'</tr>\n';
 
-									htmlResultados = dataW;
-											
-									$('#resulWorTab').append(htmlResultados);
+									$('#contable-table-wor').DataTable({
+										retrieve: true,
+										paging: true,
+										autoFill: true,
+										responsive: true,
+									}).row.add([
+										(i+1),
+										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
+										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
+										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
+										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)', 
+										dateDesdeT + ' - ' + dateHastaT,
+										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
+										dataFullW[i].mont_pay + '$ (USD)',
+										check
+									]).draw(null, false);
 								};
 							}
 						
@@ -320,7 +324,7 @@
 				$('#resulWor').empty();
 				$('#resulPat').empty();
 				$('#resulWorTab').empty();
-				$('#resulWorMod').empty();
+				$('#extraDataGen1099').empty();
 				$('#resulPatTab').empty();
 			});
 		});
@@ -335,7 +339,7 @@
 			$('#resulWor').empty();
 			$('#resulPat').empty();
 			$('#resulWorTab').empty();
-			$('#resulWorMod').empty();
+			$('#extraDataGen1099').empty();
 			$('#resulPatTab').empty();
 
 			var urlActualMAC = '{{ strpos(Request::url(), "matchAndControl") }}';
@@ -371,20 +375,7 @@
 						var colBG = '';
 						var checkCheck = '';
 						var block = '';
-						var revertir = '';
-						
-
-						if(paid == 1){
-							colBG = 'bg-teal';
-							checkCheck = 'checked';
-							block = ' disabled readonly';
-							revertir = 'revertir';
-						}else if(paid == 0){
-							colBG = 'bg-red';
-							checkCheck = '';
-							block = '';
-							revertir = '';
-						}
+						var revertir = '';						
 
 						var dataFullW = data['dataW'];
 						var dataFullP = data['dataP'];
@@ -412,11 +403,15 @@
 						if(urlActualBYP){
 
 							$('#resulWorTab').empty();
-							$('#resulPatTab').empty();
-							var htmlResultados = '';							
+							$('#resulPatTab').empty();						
 
 							if(dataFullW.length >= 1){
 								for (var i = 0; i < dataFullW.length; i++) {
+
+									checkCheck = dataFullW[i].paid == true ? 'checked' : '';
+									colBG = dataFullW[i].paid == true ? 'bg-teal' : 'bg-red';
+									block = dataFullW[i].paid == true ? ' disabled readonly' : '';
+									revertir = dataFullW[i].paid == true ? 'revertir' : '';
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
@@ -424,53 +419,54 @@
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
-									var dataW = 
-										'<tr>\n' +
-											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
-											'<td>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</td>\n' +
-											'<td>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</td>\n' +
-											'<td>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</td>\n' +
-											'<td>' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)</td>\n' +
-											'<td>' + dateDesdeT + ' - ' + dateHastaT + '</td>\n' +
-											'<td>' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</td>\n' +
-											'<td>' + dataFullW[i].mont_pay + '$ (USD)</td>\n' +
-											'<td class="with-btn" nowrap>\n'
-												+ check +
-											'</td>\n'
-										'</tr>\n';
-
-									htmlResultados = dataW;
-											
-									$('#resulWorTab').append(htmlResultados);
+									$('#contable-table-wor').DataTable({
+										retrieve: true,
+										paging: true,
+										autoFill: true,
+										responsive: true,
+									}).row.add([
+										(i+1),
+										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
+										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
+										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
+										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)', 
+										dateDesdeT + ' - ' + dateHastaT,
+										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
+										dataFullW[i].mont_pay + '$ (USD)',
+										check
+									]).draw(null, false);
 								};
 							}
 
 							if(dataFullP.length >= 1){
 								for (var i = 0; i < dataFullP.length; i++) {
 
+									checkCheck = dataFullP[i].paid == true ? 'checked' : '';
+									colBG = dataFullP[i].paid == true ? 'bg-teal' : 'bg-red';
+									block = dataFullP[i].paid == true ? ' disabled readonly' : '';
+									revertir = dataFullP[i].paid == true ? 'revertir' : '';
+
 									var check =
 									'<div class="custom-control custom-switch">\n' +
 										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
 									'</div>\n';
-									
-									var dataP = 
-										'<tr>\n' +
-											'<td width="1%" class="f-s-600 text-inverse">' + (i+1) + '</td>\n' +
-											'<td>' + dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</td>\n' +
-											'<td>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</td>\n' +
-											'<td>' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)</td>\n' +
-											'<td>' + dateDesdeT + ' - ' + dateHastaT + '</td>\n' +
-											'<td>' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</td>\n' +
-											'<td>' + dataFullP[i].mont_cob + '$ (USD) </td>\n' +
-											'<td class="with-btn" nowrap>\n'
-												+ check +
-											'</td>\n' +
-										'</tr>\n';
 
-									htmlResultados = dataP;
-											
-									$('#resulPatTab').append(htmlResultados);
+									$('#contable-table-pat').DataTable({
+										retrieve: true,
+										paging: true,
+										autoFill: true,
+										responsive: true,
+									}).row.add([
+										(i+1),
+										dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name, 
+										dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service, 
+										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
+										dateDesdeT + ' - ' + dateHastaT, 
+										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
+										dataFullP[i].mont_cob + '$ (USD)',
+										check
+									]).draw(null, false);
 								};
 							}
 
@@ -480,7 +476,12 @@
 							$('#resulPat').empty();
 
 							if(dataFullW.length >= 1){
-								for (var i = 0; i < dataFullW.length; i++) {					
+								for (var i = 0; i < dataFullW.length; i++) {
+
+									checkCheck = dataFullW[i].paid == true ? 'checked' : '';
+									colBG = dataFullW[i].paid == true ? 'bg-teal' : 'bg-red';
+									block = dataFullW[i].paid == true ? ' disabled readonly' : '';
+									revertir = dataFullW[i].paid == true ? 'revertir' : '';				
 
 										var dataW = 
 											'<div class="col-xl-6 col-md-6">\n' +
@@ -505,6 +506,11 @@
 
 							if(dataFullP.length >= 1){
 								for (var i = 0; i < dataFullP.length; i++) {	
+
+									checkCheck = dataFullP[i].paid == true ? 'checked' : '';
+									colBG = dataFullP[i].paid == true ? 'bg-teal' : 'bg-red';
+									block = dataFullP[i].paid == true ? ' disabled readonly' : '';
+									revertir = dataFullP[i].paid == true ? 'revertir' : '';
 
 										var dataP = 
 											'<div class="col-xl-6 col-md-6">\n' +

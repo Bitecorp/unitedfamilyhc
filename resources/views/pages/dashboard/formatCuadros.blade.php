@@ -78,7 +78,7 @@
 			<div class="widget widget-stats bg-red">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-file fa-fw"></i></div>
 				<div class="stats-content">
-					<div class="stats-title">DOCUMENTS PATIENTES TO EXPIRED</div>
+					<div class="stats-title">DOCUMENTS PATIENTS TO EXPIRED</div>
 					<div class="stats-number">180,200</div>
 					<div class="stats-link">
                         <a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>

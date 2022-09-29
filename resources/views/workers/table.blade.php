@@ -1,7 +1,7 @@
-<table id="tableWorkerTest" class="table table-striped table-bordered table-td-valign-middle">
+<table id="tableWorke" class="table table-striped table-bordered table-td-valign-middle">
     <thead>
         <tr>
-            <th width="1%"></th>
+            <th width="1%">#</th>
             <th class="text-nowrap">Full Name</th>
             <th class="text-nowrap">Home Phone</th>
             <th class="text-nowrap">Email</th>
@@ -65,11 +65,11 @@
     </script>
     <script>
         $(function () {
-            $('#tableWorkerTest').DataTable( {
+            $('#tableWorke').DataTable( {
                 retrieve: true,
                 paging: true,
-                searching: true,
                 autoFill: true,
+                responsive: true
             });
         });
     </script>

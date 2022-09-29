@@ -101,14 +101,36 @@
             $('#sendForm_' + dato).submit();
         })
     };
-
-    $(function () {
-        $('#tableSalary' + {{ $value->id }}).DataTable( {
-            retrieve: true,
-            paging: true,
-            searching: true,
-            autoFill: true,
-        });
-    });
 </script>
 @endpush
+
+@if((new \Jenssegers\Agent\Agent())->isDesktop())
+    @push('scripts')
+        <script>
+            var valId = '{{ $value->id }}';
+
+            $(function () {
+                $('#tableSalary' + valId).DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                });
+            });
+        </script>
+    @endpush
+@else
+    @push('scripts')
+        <script>
+            var valId = '{{ $value->id }}';
+
+            $(function () {
+                $('#tableSalary' + valId).DataTable({
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    responsive: true
+                });
+            });
+        </script>
+    @endpush
+@endif

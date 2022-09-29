@@ -1,3 +1,11 @@
+@push('css')
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+	<script src="../assets/plugins/select2/dist/js/select2.full.min.js"></script>
+@endpush
+
 <div class="row">
     <div class="col">
         <!-- First Name Field -->
@@ -176,3 +184,9 @@
         @endif
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        $(".default-select2").select2();
+    </script>
+@endpush

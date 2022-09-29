@@ -246,7 +246,7 @@ class AgentController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $agents = Agent::where('role_id', 5)->get();
+        $agents = DB::table('users')->where('role_id', 5)->orderBy('first_name', 'asc')->orderBy('statu_id', 'asc')->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 

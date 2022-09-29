@@ -2,7 +2,7 @@
 	<!-- begin panel-body -->
 	<div class="panel-body">
         <div class="col-xs-12 ">
-            <table id="tableDocumentsTest" class="table table-striped table-bordered table-td-valign-middle">
+            <table id="tableDocuments" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
                     <tr>
                         <th class="text-nowrap">Document</th>
@@ -29,15 +29,29 @@
 	<!-- end panel-body -->
 </div>
 
-@push('scripts')
-    <script>
-        $(function () {
-            $('#tableDocumentsTest').DataTable( {
-                retrieve: true,
-                paging: true,
-                searching: true,
-                autoFill: true,
+@if((new \Jenssegers\Agent\Agent())->isDesktop())
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocuments').DataTable( {
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
+@else
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#tableDocuments').DataTable( {
+                    retrieve: true,
+                    paging: true,
+                    autoFill: true,
+                    responsive: true
+                });
+            });
+        </script>
+    @endpush
+@endif

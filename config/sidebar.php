@@ -31,7 +31,7 @@ return [
 	    ],
         [
             'icon' => 'fa fa-users',
-            'title' => 'Patientes',
+            'title' => 'Patients',
             'url' => '/patientes',
 	    ],
         [

@@ -92,11 +92,10 @@
                         <table id="tableNotes" class="table table-striped table-bordered table-td-valign-middle">
                             <thead>
                                 <tr>
-                                    <th width="1%"></th>
                                     <th class="text-nowrap">Worker</th>
                                     <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Sub Service</th>
-                                    <th class="text-nowrap">Patiente</th>
+                                    <th class="text-nowrap">Patient</th>
                                     <th class="text-nowrap">In</th>
                                     <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Quantity of units</th>
@@ -114,7 +113,6 @@
                             <tbody>
                                 @foreach($notes as $key => $note)
                                     <tr>
-                                        <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                                         <td>{{ $note['worker_id']['fullName'] }}</td>
                                         <td>{{ $note['service_id']['nameService'] }}</td>
                                         <td>{{ $note['sub_service_id']['nameSubService'] }}</td>
@@ -198,11 +196,20 @@
     </script>
     <script>
         $(function () {
-            $('#tableNotes').DataTable( {
+            $('#tableNotes').DataTable({
                 retrieve: true,
                 paging: true,
-                searching: true,
                 autoFill: true,
+                responsive: true,
+                columnDefs: [
+                    { 
+                        orderable: false, 
+                        targets: 0
+                    }
+                ],
+                order: [
+                    [0, 'asc']
+                ]
             });
         });
     </script>

@@ -50,7 +50,8 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/Helpers/GlobalFunctions.php"
+            "app/Helpers/GlobalFunctions.php",
+            "app/Helpers/LocalStorage.php"
         ]
     },
     "extra": {

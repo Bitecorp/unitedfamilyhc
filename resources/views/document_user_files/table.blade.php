@@ -17,7 +17,6 @@
     $link = "$_SERVER[REQUEST_URI]";
     $stringSeparado = parse_url($link, PHP_URL_QUERY );
     $isVisibiliti =  isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' ? true : false;
-
 ?>
 
 <div id="accordion">
@@ -108,5 +107,4 @@
 	<script src="/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
 	<script src="/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
 	<script src="/assets/plugins/jszip/dist/jszip.min.js"></script>
-	<script src="/assets/js/demo/table-manage-combine.demo.js"></script>
 @endpush
