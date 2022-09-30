@@ -3,12 +3,11 @@
 @section('title', 'Dashboard')
 
 <?php 
-$dataPagCobGanActual = dataPayUnitsServicesForWorker(null, data_first_month_day(), data_last_month_day(), 1, true);
+	$dataPagCobGanActual = dataPayUnitsServicesForWorker(null, data_first_month_day(), data_last_month_day(), 1, true);
 
-$dataPagCobGanLast = dataPayUnitsServicesForWorker(null, data_first_month_day_last(), data_last_month_day_last(), 1, true);
+	$dataPagCobGanLast = dataPayUnitsServicesForWorker(null, data_first_month_day_last(), data_last_month_day_last(), 1, true);
 
-$dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day(), 1, true);
-
+	$dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day_last(), 1, true);
 ?>
 
 @push('css')
@@ -26,10 +25,10 @@ $dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
 				<div class="stats-info">
 					<h4>COLLECTED - PAY -> CURRENT MONTH</h4>
-					<h5>{{ number_format(($dataPagCobGanActual['montoCobroTotal']/2), 2, ".", ",") }} - {{ number_format(($dataPagCobGanActual['montoPagoTotal']/2), 2, ".", ",") }}</h5>
+					<h5>{{ isset($dataPagCobGanActual) && !empty($dataPagCobGanActual) && isset($dataPagCobGanActual['montoCobroTotal']) && !empty($dataPagCobGanActual['montoCobroTotal']) ? number_format($dataPagCobGanActual['montoCobroTotal'], 2, ".", ",") : '0.00' }} - {{ isset($dataPagCobGanActual) && !empty($dataPagCobGanActual) && isset($dataPagCobGanActual['montoPagoTotal']) && !empty($dataPagCobGanActual['montoPagoTotal']) ? number_format($dataPagCobGanActual['montoPagoTotal'], 2, ".", ",") : '0.00' }}</h5>
 				
 					<h4>PROFITS</h4>
-					<p>{{ number_format(($dataPagCobGanActual['montoGananciaTotal']/2), 2, ".", ",") }}</p>
+					<p>{{ isset($dataPagCobGanActual) && !empty($dataPagCobGanActual) && isset($dataPagCobGanActual['montoGananciaTotal']) && !empty($dataPagCobGanActual['montoGananciaTotal']) ? number_format($dataPagCobGanActual['montoGananciaTotal'], 2, ".", ",") : '0.00' }}</p>
 				</div>
 			</div>
 		</div>
@@ -40,10 +39,10 @@ $dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
 				<div class="stats-info">
 					<h4>COLLECTED - PAY -> LAST MONTH</h4>
-					<h5>{{ number_format($dataPagCobGanLast['montoCobroTotal'], 2, ".", ",") }} - {{ number_format($dataPagCobGanLast['montoPagoTotal'], 2, ".", ",") }}</h5>
+					<h5>{{ isset($dataPagCobGanLast) && !empty($dataPagCobGanLast) && isset($dataPagCobGanLast['montoCobroTotal']) && !empty($dataPagCobGanLast['montoCobroTotal']) ? number_format($dataPagCobGanLast['montoCobroTotal'], 2, ".", ",") : '0.00' }} - {{ isset($dataPagCobGanLast) && !empty($dataPagCobGanLast) && isset($dataPagCobGanLast['montoPagoTotal']) && !empty($dataPagCobGanLast['montoPagoTotal']) ? number_format($dataPagCobGanLast['montoPagoTotal'], 2, ".", ",") : '0.00' }}</h5>
 				
 					<h4>PROFITS</h4>
-					<p>{{ number_format($dataPagCobGanLast['montoGananciaTotal'], 2, ".", ",") }}</p>
+					<p>{{ isset($dataPagCobGanLast) && !empty($dataPagCobGanLast) && isset($dataPagCobGanLast['montoGananciaTotal']) && !empty($dataPagCobGanLast['montoGananciaTotal']) ? number_format($dataPagCobGanLast['montoGananciaTotal'], 2, ".", ",") : '0.00' }}</p>
 				</div>
 			</div>
 		</div>
@@ -53,11 +52,11 @@ $dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri
 			<div class="widget widget-stats bg-info">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
 				<div class="stats-info">
-					<h4>COLLECTED - PAY -> LAST THREE MONTHS</h4>
-					<h5>{{ number_format($dataPagCobGanTri['montoCobroTotal'], 2, ".", ",") }} - {{ number_format($dataPagCobGanTri['montoPagoTotal'], 2, ".", ",") }}</h5>
+					<h4>COLLECTED - PAY -> PREVIOUS THREE MONTHS</h4>
+					<h5>{{ isset($dataPagCobGanTri) && !empty($dataPagCobGanTri) && isset($dataPagCobGanTri['montoCobroTotal']) && !empty($dataPagCobGanTri['montoCobroTotal']) ? number_format($dataPagCobGanTri['montoCobroTotal'], 2, ".", ",") : '0.00' }} - {{ isset($dataPagCobGanTri) && !empty($dataPagCobGanTri) && isset($dataPagCobGanTri['montoPagoTotal']) && !empty($dataPagCobGanTri['montoPagoTotal']) ? number_format($dataPagCobGanTri['montoPagoTotal'], 2, ".", ",") : '0.00' }}</h5>
 				
 					<h4>PROFITS</h4>
-					<p>{{ number_format($dataPagCobGanTri['montoGananciaTotal'], 2, ".", ",") }}</p>
+					<p>{{ isset($dataPagCobGanTri) && !empty($dataPagCobGanTri) && isset($dataPagCobGanTri['montoGananciaTotal']) && !empty($dataPagCobGanTri['montoGananciaTotal']) ? number_format($dataPagCobGanTri['montoGananciaTotal'], 2, ".", ",") : '0.00' }}</p>
 				</div>
 			</div>
 		</div>

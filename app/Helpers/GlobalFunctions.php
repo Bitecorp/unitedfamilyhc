@@ -666,9 +666,9 @@ function data_last_month_day_last() {
     return date('Y-m-d', mktime(0,0,0, $month, $day, $year)) . ' 23:59:59';
 };
 
-/** Last month first day **/
+/** Tree month first day **/
 function data_first_month_day_tri() {
-    $month = date('m')-3;
+    $month = date('m')-4;
     $year = date('Y');
     return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
 }
