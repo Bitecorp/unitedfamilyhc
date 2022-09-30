@@ -1752,4 +1752,30 @@ class HomeController extends Controller
             return []; 
         }
     }
+
+    public function myProfile($id){
+        $user = User::find($id);
+
+        if (empty($user)) {
+            Flash::error('User not found');
+
+            return redirect(route('home'));
+        }
+
+        return view('profiles.index')->with('dataUser', $user);
+    }
+
+    public function settings($id){
+        
+    }
+
+    public function postMyProfile(Request $request, $id){
+        $input = $request->all();
+        
+    }
+
+    public function postSettings(Request $request, $id){
+        $input = $request->all();
+
+    }
 }

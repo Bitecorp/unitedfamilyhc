@@ -34,6 +34,14 @@ Route::controller(HomeController::class)->group(function () {
     
     Route::get('/matchAndControl', 'matchAndControlFilter');
 
+    Route::get('/settings/{idUser}', 'settings');
+
+    Route::get('/myProfile/{idUser}', 'myProfile');
+
+    Route::post('/settings/{idUser}', 'postSettings')->name('home.settings');
+
+    Route::post('/myProfile/{idUser}', 'postMyProfile')->name('home.MyProfile');
+
     Route::get('/manageBillAndPay', 'matchAndControlFilter');
 
     Route::get('/generate1099', 'generate1099Filters');

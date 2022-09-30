@@ -78,27 +78,55 @@ class RegisterController extends Controller
         ]);
 
         DB::table('contacts_emergencys')->insert([
-                'user_id' => $dataReuturn->id,
-                'created_at' => now(),
-                'updated_at' => now()
+            'user_id' => $dataReuturn->id,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('jobs_information')->insert([
-                'user_id' => $dataReuturn->id,
-                'created_at' => now(),
-                'updated_at' => now()
+            'user_id' => $dataReuturn->id,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('educations')->insert([
-                'user_id' => $dataReuturn->id,
-                'created_at' => now(),
-                'updated_at' => now()
+            'user_id' => $dataReuturn->id,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('confirmations')->insert([
-                'user_id' => $dataReuturn->id,
-                'created_at' => now(),
-                'updated_at' => now()
+            'user_id' => $dataReuturn->id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('references')->insert([
+            'user_id' => $dataReuturn->id,
+            'reference_number' => '1',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('references_jobs')->insert([
+            'user_id' => $dataReuturn->id,
+            'reference_number' => '1',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('references')->insert([
+            'user_id' => $dataReuturn->id,
+            'reference_number' => '2',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+         DB::table('references_jobs')->insert([
+            'user_id' => $dataReuturn->id,
+            'reference_number' => '2',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         return $dataReuturn;

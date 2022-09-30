@@ -62,8 +62,9 @@
 				<!--<a href="javascript:;" class="dropdown-item">Edit Profile</a>
 				<a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a>
 				<a href="javascript:;" class="dropdown-item">Calendar</a>
-				<a href="javascript:;" class="dropdown-item">Setting</a>
-				<div class="dropdown-divider"></div>--->
+				<div class="dropdown-divider"></div>-->
+				<a href="/myProfile/{{ Auth::user()->id }}" class="dropdown-item">Edit Profile</a>
+				<a href="/settings/{{ Auth::user()->id }}" class="dropdown-item">Settings</a>
 				<a href="{{ url('/logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Log Out
                 </a>
