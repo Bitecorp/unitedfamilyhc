@@ -91,6 +91,8 @@ class NotesSubServicesRegisterController extends Controller
                 "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                 "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
                 "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
+                "statusPaid" => $note->paid ?? '',
+                "statusCollected" => $note->collected ?? '',
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
@@ -329,6 +331,8 @@ class NotesSubServicesRegisterController extends Controller
                     "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                     "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
                     "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
+                    "statusPaid" => $note->paid,
+                    "statusCollected" => $note->collected,
                     "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                     "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
                 );

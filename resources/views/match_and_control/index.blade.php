@@ -201,7 +201,7 @@
 
 
 						if(dataFullW.length < 1){
-							let msjOne = 'There are no matches for the search parameters entered, please enter others..\n\n';
+							let msjOne = 'There are no matches for the search parameters entered, please enter others.\n\n';
 							let msjTwo = 'No existen coincidencias con los parametros de busqueda ingresados , por favor ingrese otros.';
 							alert(msjOne + msjTwo);
 						}
@@ -213,7 +213,12 @@
 							dataFullW[indice].sub_service_id = JSON.parse(dataFullW[indice].sub_service_id);
 						});
 
-							$('#resulWorTab').empty();
+							('#contable-table-wor').DataTable({
+								retrieve: true,
+								paging: true,
+								autoFill: true,
+								responsive: true,
+							}).clear();
 							$('#extraDataGen1099').empty();
 							var htmlResultextraDataGen1099 = '';
 							var valueInvoice = '';
@@ -402,8 +407,18 @@
 
 						if(urlActualBYP){
 
-							$('#resulWorTab').empty();
-							$('#resulPatTab').empty();						
+							$('#contable-table-wor').DataTable({
+								retrieve: true,
+								paging: true,
+								autoFill: true,
+								responsive: true,
+							}).clear();
+							$('#contable-table-pat').DataTable({
+								retrieve: true,
+								paging: true,
+								autoFill: true,
+								responsive: true,
+							}).clear();						
 
 							if(dataFullW.length >= 1){
 								for (var i = 0; i < dataFullW.length; i++) {

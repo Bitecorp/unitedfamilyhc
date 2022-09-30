@@ -522,14 +522,13 @@ class HomeController extends Controller
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
                 if($filters['paid'] == 'all'){
-                    $registerAttentions = RegisterAttentions::whereIn('paid', [0,1])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                    $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
                 }else{
                     $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
                 }
         }else{
             if($filters['paid'] == 'all'){
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                    ->whereIn('paid', [0,1])
                     ->where('start', '>=', $filters['desde'])
                     ->where('end', '<=', $filters['hasta'])->get();
             }else{
@@ -767,14 +766,13 @@ class HomeController extends Controller
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
             if($filters['paid'] == 'all'){
-                $registerAttentions = RegisterAttentions::whereIn('collected', [0,1])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
             }else{
                 $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
             }
         }else{
             if($filters['paid'] == 'all'){
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                    ->whereIn('collected', [0,1])
                     ->where('start', '>=', $filters['desde'])
                     ->where('end', '<=', $filters['hasta'])->get();
             }else{

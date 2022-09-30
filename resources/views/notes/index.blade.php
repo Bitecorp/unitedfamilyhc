@@ -147,11 +147,16 @@
                                             <div>
                                                 {!! Form::open(['route' => ['notesSubServices.destroy', $note['id']], 'method' => 'delete']) !!}
                                                     <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
-                                                    @if ($note['status'] == 2 || Auth::user()->role_id == 1)
+                                                    @if (intval($note['statusPaid']) === 0 && ($note['status'] == 2 || Auth::user()->role_id == 1))
                                                         <a href="{{ route('notesSubServices.edit', [ $note['id'] ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                                    @elseif (intval($note['statusPaid']) === 1 && ($note['status'] == 2 || Auth::user()->role_id == 1))
+                                                        <a onclick="showAlertEdit()" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
                                                     @endif
-                                                    @if(Auth::user()->role_id == 1)
+
+                                                    @if(Auth::user()->role_id == 1 && intval($note['statusPaid']) === 0)
                                                         {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('The record pertaining to this note will also be deleted, are you sure?')"]) !!}
+                                                    @elseif (Auth::user()->role_id == 1 && intval($note['statusPaid']) === 1)
+                                                        <a onclick="showAlertDelete()" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i> Delete </a>
                                                     @endif
                                                 {!! Form::close() !!}
                                             </div>
@@ -193,6 +198,17 @@
 @push('scripts')
     <script>
     $(".default-select2").select2();
+
+    function showAlertDelete(){
+        let msjOne = 'This note has already been paid, you must reverse it in order to delete it.\n\n';
+		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder eliminarla.';
+		alert(msjOne + msjTwo);
+    }
+    function showAlertEdit(){
+        let msjOne = 'This note has already been paid, you must reverse it to be able to edit it.\n\n';
+		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder editarla.';
+		alert(msjOne + msjTwo);
+    }
     </script>
     <script>
         $(function () {
