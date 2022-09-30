@@ -18,14 +18,6 @@
     <div class="col">
         <!-- Name Task Field -->
         <div class="form-group col">
-            {!! Form::label('old_password', 'Password:') !!}
-            {!! Form::text('old_password', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-        </div>
-    </div>
-
-    <div class="col">
-        <!-- Name Task Field -->
-        <div class="form-group col">
             {!! Form::label('new_password', 'New Password:') !!}
             {!! Form::text('new_password', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
@@ -34,7 +26,7 @@
     <div class="col">
         <!-- Name Task Field -->
         <div class="form-group col">
-            {!! Form::label('confirm_password', 'Confirm Password:') !!}
+            {!! Form::label('confirm_password', 'Confirm New Password:') !!}
             {!! Form::text('confirm_password', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
     </div>

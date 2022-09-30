@@ -29,6 +29,8 @@ use App\Models\documentsEditors;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class jsonUsuario {
     public $servicio = "";
@@ -1771,6 +1773,37 @@ class HomeController extends Controller
 
     public function postMyProfile(Request $request, $id){
         $input = $request->all();
+
+        $user = User::find($id);
+
+        if(isset($input['avatar']) && !empty($input['avatar'])){
+            Flash::error('Your image could not be updated at this time, please try again later');
+
+            return view('profiles.index')->with('dataUser', $user);
+            //$user->avatar = $input['avatar'];
+        }
+
+        if(isset($input['new_password']) && !empty($input['new_password']) && isset($input['confirm_password']) && !empty($input['confirm_password'])){
+            if($input['new_password'] == $input['confirm_password']){
+                $user->password = Hash::make($input['new_password']);
+            }else{
+                Flash::error('Invalid confirmation password');
+
+                return view('profiles.index')->with('dataUser', $user);
+            } 
+        }else{
+        
+            Flash::error('Confirm your password');
+
+            return view('profiles.index')->with('dataUser', $user);
+
+        }
+        
+        $user->save();
+
+        Flash::success('Your password updated successfully');
+
+        return view('profiles.index')->with('dataUser', $user);
         
     }
 
