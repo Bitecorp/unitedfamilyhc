@@ -250,7 +250,7 @@ function dataUser1099Global($idWorker){
     }
 }
 
-function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $paid){
+function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $paid, $isForHomne = null){
         $filters = [
             'paid' => $paid,
             'desde' => $fecha_desde,
@@ -258,14 +258,19 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
             'worker_id' => $worker_id
         ];
 
-        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
+        if($isForHomne){
+            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])
+                ->where('end', '<=', $filters['hasta'])->where('paid', 1)->orWhere('collected', 1)->get();
+        }else{
+            $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
                 ->where('start', '>=', $filters['desde'])
                 ->where('end', '<=', $filters['hasta'])->where('paid', '<=', 1)->get();
-
-            
+        }            
         
         $registerAttentionss = [];
         $sumaPagos = 0;
+        $sumaCobros = 0;
+        $gananciaEmpresa = 0;
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){
 
@@ -402,16 +407,91 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
                         $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
                     }
+                    
+                    if($isForHomne){
+                        $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataPatiente->id)->first();
+
+                        if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
+                            //if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                                if(!isset($dataCobroPatiente->customer_payment) || empty($dataCobroPatiente->customer_payment)){
+                                    $dataCobroPatiente->customer_payment = $dataSubService->price_sub_service;
+                                    $arraySumC->unit_value_patiente = $dataSubService->price_sub_service;
+                                }else{
+                                    $arraySumC->unit_value_patiente = $dataCobroPatiente->customer_payment;
+                                }
+                                
+                                $dataConfig = ConfigSubServicesPatiente::where('salary_service_assigned_id', $dataCobroPatiente->id)->first();
+                                if(isset($dataConfig) && !empty($dataConfig)){
+                                    if(isset($dataConfig->unit_id) && !empty($dataConfig->unit_id)){
+                                        $dataUnidadConfig = Units::find($dataConfig->unit_id);
+                                        if(isset($dataUnidadConfig) && !empty($dataUnidadConfig)){
+                                            $arraySumC->unidad_time_patiente = $dataUnidadConfig->time;
+                                            $arraySumC->unidad_type_patiente =  $dataUnidadConfig->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                            $dataCobroPatiente->unidades_aprovadas = $dataUnidadConfig->approved_units;
+                                            $arraySumC->unidad_type_patiente_int = $dataUnidadConfig->type_unidad;
+                                        }
+                                    }else{
+                                        $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                        $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                        $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                        $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                                    }
+                                }else{
+                                    $dataUnidadPatiente = Units::find($dataSubService->unit_customer_id);
+                                    $arraySumC->unidad_time_patiente = $dataUnidadPatiente->time;
+                                    $arraySumC->unidad_type_patiente =  $dataUnidadPatiente->type_unidad == 0 ? 'Minutes' : 'Hours';
+                                    $arraySumC->unidad_type_patiente_int = $dataUnidadPatiente->type_unidad;
+                                }
+                            //}
+
+                            $unidadesPorCobrar = '';
+                            $times = explode(":", $arraySumC->time_attention);
+                            if($arraySumC->unidad_type_patiente_int == 0){
+                                if($arraySumC->unidad_time_patiente != 0){
+                                    $unidH = ($times[0] * 60) / $arraySumC->unidad_time_patiente;
+                                }
+                                if($arraySumC->unidad_time_patiente != 0){
+                                    $unidM = $times[1] / $arraySumC->unidad_time_patiente;
+                                }
+
+                                $calc = $unidH + $unidM;
+                                $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+
+                            }else{
+                                $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_patiente;
+                                $unidadesPorCobrar = number_format((float)$calc, 2, '.', '');
+                            }
+                            
+                            $arraySumC->unid_cob_patiente = $unidadesPorCobrar;
+                            $calcCob = $arraySumC->unid_cob_patiente * $dataCobroPatiente->customer_payment;
+                            $arraySumC->mont_cob = number_format((float)$calcCob, 2, '.', '');
+                        }
+
+                        $calcGan = $arraySumC->mont_cob - $arraySumC->mont_pay;
+                        $arraySumC->ganancia_empresa = number_format((float)$calcGan, 2, '.', '');
+
+                        $sumaCobros = $sumaCobros + $arraySumC->mont_cob;
+                        $gananciaEmpresa = $gananciaEmpresa + $arraySumC->ganancia_empresa;
+                    }
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
                     array_push($arrayFinal, $arraySumC);
                 }
             }
-            //dd($sumaPagos);
-            return [
-                'dataPagos' => collect($arrayFinal)->unique(), 
-                'montoPagoTotal' => $sumaPagos
-            ];
+            //dd(number_format((float)$sumaCobros, 2, '.', ''), number_format((float)$sumaPagos, 2, '.', ''), number_format((float)$gananciaEmpresa, 2, '.', ''));
+
+            if($isForHomne){
+                return [
+                    'montoCobroTotal' => isset($sumaCobros) && !empty($sumaCobros) ? number_format((float)$sumaCobros, 2, '.', '') : '0.00',
+                    'montoPagoTotal' => isset($sumaPagos) && !empty($sumaPagos) ? number_format((float)$sumaPagos, 2, '.', '') : '0:00',
+                    'montoGananciaTotal' => isset($gananciaEmpresa) && !empty($gananciaEmpresa) ? number_format((float)$gananciaEmpresa, 2, '.', '') : '0.00'
+                ];
+            }else{
+                return [
+                    'dataPagos' => collect($arrayFinal)->unique(), 
+                    'montoPagoTotal' => isset($sumaPagos) && !empty($sumaPagos) ? number_format((float)$sumaPagos, 2, '.', '') : '0:00'
+                ];
+            }
         }
 }
 
@@ -569,6 +649,29 @@ function data_last_month_day() {
  
     return date('Y-m-d', mktime(0,0,0, $month, $day, $year)) . ' 23:59:59';
 };
+
+/** Last month first day **/
+function data_first_month_day_last() {
+    $month = date('m')-1;
+    $year = date('Y');
+    return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
+}
+
+/** Last month last day **/
+function data_last_month_day_last() { 
+    $month = date('m')-1;
+    $year = date('Y');
+    $day = date("d", mktime(0,0,0, $month+1, 0, $year));
+ 
+    return date('Y-m-d', mktime(0,0,0, $month, $day, $year)) . ' 23:59:59';
+};
+
+/** Last month first day **/
+function data_first_month_day_tri() {
+    $month = date('m')-3;
+    $year = date('Y');
+    return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
+}
 
 function data_previa_month_day_first() {
     $month = date('m');

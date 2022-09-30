@@ -2,6 +2,15 @@
 
 @section('title', 'Dashboard')
 
+<?php 
+$dataPagCobGanActual = dataPayUnitsServicesForWorker(null, data_first_month_day(), data_last_month_day(), 1, true);
+
+$dataPagCobGanLast = dataPayUnitsServicesForWorker(null, data_first_month_day_last(), data_last_month_day_last(), 1, true);
+
+$dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day(), 1, true);
+
+?>
+
 @push('css')
 	<link href="/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
@@ -12,33 +21,51 @@
 	<!-- begin row -->
 	<div class="row">
 		<!-- begin col-3 -->
-		<div class="col-xl-3 col-md-6">
-			<div class="widget widget-stats bg-blue">
+		<div class="col-xl-4 col-md-6">
+			<div class="widget widget-stats bg-info">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
 				<div class="stats-info">
-					<h4>PROFIT X 15</h4>
-					<p>21.291,59</p>
-				</div>
-				<div class="stats-link">
-					<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+					<h4>COLLECTED - PAY -> CURRENT MONTH</h4>
+					<h5>{{ number_format(($dataPagCobGanActual['montoCobroTotal']/2), 2, ".", ",") }} - {{ number_format(($dataPagCobGanActual['montoPagoTotal']/2), 2, ".", ",") }}</h5>
+				
+					<h4>PROFITS</h4>
+					<p>{{ number_format(($dataPagCobGanActual['montoGananciaTotal']/2), 2, ".", ",") }}</p>
 				</div>
 			</div>
 		</div>
 		<!-- end col-3 -->
 		<!-- begin col-3 -->
-		<div class="col-xl-3 col-md-6">
+		<div class="col-xl-4 col-md-6">
 			<div class="widget widget-stats bg-info">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
 				<div class="stats-info">
-					<h4>MONTLY PROFIT</h4>
-					<p>131.391,25</p>
-				</div>
-				<div class="stats-link">
-					<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+					<h4>COLLECTED - PAY -> LAST MONTH</h4>
+					<h5>{{ number_format($dataPagCobGanLast['montoCobroTotal'], 2, ".", ",") }} - {{ number_format($dataPagCobGanLast['montoPagoTotal'], 2, ".", ",") }}</h5>
+				
+					<h4>PROFITS</h4>
+					<p>{{ number_format($dataPagCobGanLast['montoGananciaTotal'], 2, ".", ",") }}</p>
 				</div>
 			</div>
 		</div>
 		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-xl-4 col-md-6">
+			<div class="widget widget-stats bg-info">
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i><!-- <i class="fa fa-desktop"></i> --></div>
+				<div class="stats-info">
+					<h4>COLLECTED - PAY -> LAST THREE MONTHS</h4>
+					<h5>{{ number_format($dataPagCobGanTri['montoCobroTotal'], 2, ".", ",") }} - {{ number_format($dataPagCobGanTri['montoPagoTotal'], 2, ".", ",") }}</h5>
+				
+					<h4>PROFITS</h4>
+					<p>{{ number_format($dataPagCobGanTri['montoGananciaTotal'], 2, ".", ",") }}</p>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+	</div>
+	<!-- end row -->
+    <!-- begin row -->
+	<div class="row">
 		<!-- begin col-3 -->
 		<div class="col-xl-3 col-md-6">
 			<div class="widget widget-stats bg-teal">
@@ -67,10 +94,6 @@
 			</div>
 		</div>
 		<!-- end col-3 -->
-	</div>
-	<!-- end row -->
-    <!-- begin row -->
-	<div class="row">
 		<!-- begin col-3 -->
 		<div class="col-xl-3 col-md-6">
 			<div class="widget widget-stats {{ $countDocumentsWorkers >= 1 ? 'bg-red' : 'bg-teal'}}">
@@ -94,34 +117,6 @@
 					<div class="stats-number">{{ $countDocumentsPatientes }}</div>
 					<div class="stats-link">
                         <a href="{{ route('alertDocuments.index', ['patientes']) }}">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
-                    </div>
-				</div>
-			</div>
-		</div>
-		<!-- end col-3 -->
-		<!-- begin col-3 -->
-		<div class="col-xl-3 col-md-6">
-			<div class="widget widget-stats bg-indigo">
-				<div class="stats-icon stats-icon-lg"><i class="fa fa-archive fa-fw"></i></div>
-				<div class="stats-content">
-					<div class="stats-title">NEW ORDERS</div>
-					<div class="stats-number">38,900</div>
-					<div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
-                    </div>
-				</div>
-			</div>
-		</div>
-		<!-- end col-3 -->
-		<!-- begin col-3 -->
-		<div class="col-xl-3 col-md-6">
-			<div class="widget widget-stats bg-dark">
-				<div class="stats-icon stats-icon-lg"><i class="fa fa-comment-alt fa-fw"></i></div>
-				<div class="stats-content">
-					<div class="stats-title">NEW COMMENTS</div>
-					<div class="stats-number">3,988</div>
-					<div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
                     </div>
 				</div>
 			</div>
