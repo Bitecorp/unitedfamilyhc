@@ -149,6 +149,8 @@ Route::resource('settings/PDFs/externalsDocuments', App\Http\Controllers\Externa
 
 Route::resource('salaryServiceAssigneds', App\Http\Controllers\SalaryServiceAssignedsController::class);
 
+Route::post("/returnValuesDefault", [App\Http\Controllers\SalaryServiceAssignedsController::class, 'returnValues']);
+
 Route::resource('alertDocuments', App\Http\Controllers\AlertDocumentsController::class);
 
 Route::get('/alertDocuments/sendEmail/{userID}', [App\Http\Controllers\AlertDocumentsController::class, 'sendEmail'])->name('alertDocuments.sendEmail');

@@ -1,7 +1,5 @@
 <?php
 
-use Auth;
-
 /**
  * A simple helper class to
  * persistently store primitive data.

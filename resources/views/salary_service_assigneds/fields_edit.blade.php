@@ -14,6 +14,27 @@
             <input type="text" name="service_id" class="form-control" readonly value="{{ $services->name_sub_service }}" >
         </div>
     </div>
+
+    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
+        <div class="form-group">
+            <p>Values:</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="billing_default" onclick="billingDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}')" name="billing_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'checked' : '') }}>
+                <label class="custom-control-label" for="billing_default">Changed/Default</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
+        <div class="form-group">
+            <p>Values:</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="payment_default" onclick="paymentDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}')" name="payment_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'checked' : '') }}>
+                <label class="custom-control-label" for="payment_default">Changed/Default</label>
+            </div>
+        </div>
+    </div>
+
     <div class="col">
         <div class="form-group">
             <p>Type of Salary:</p>
@@ -30,6 +51,7 @@
             <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? $salaryServiceAssigneds->customer_payment : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '') }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
         </div>
     </div>
+
     <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('salary', 'Worker Payment:') !!}
@@ -161,6 +183,65 @@
 @push('scripts')
     <script>
         $(".default-select2").select2();
+    
+
+        function billingDefault(idSalary, idUser) {
+            var id_salary = idSalary;
+            var billin_default = true;
+            var payment_default = false;
+            var url = "/returnValuesDefault";
+            var token = '{{ csrf_token() }}';
+            var id_user = idUser;
+            var urlRedirect = '/patientes/' + id_user + '?services';
+            var urlClean = urlRedirect.replace("%20", "");
+
+            $.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+				_token: token,
+				id_salary: id_salary,
+                billin_default: billin_default,
+                payment_default: payment_default
+			},
+                success: function(data) {
+                    location.replace(urlClean.replace(" ", ""));
+                },
+                error: function (error) { 
+                    console.log(error);
+                }
+			})
+        }
+
+        function paymentDefault(idSalary, idUser) {
+            var id_salary = idSalary;
+            var billin_default = false;
+            var payment_default = true;
+            var url = "/returnValuesDefault";
+            var token = '{{ csrf_token() }}';
+            var id_user = idUser;
+            var urlRedirect = '/workers/' + id_user + '?services';
+            var urlClean = urlRedirect.replace("%20", "");
+
+            $.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+				_token: token,
+				id_salary: id_salary,
+                billin_default: billin_default,
+                payment_default: payment_default
+			},
+                success: function(data) {
+                    location.replace(urlClean.replace(" ", ""));
+                },
+                error: function (error) { 
+                    console.log(error);
+                }
+			})
+        }
     </script>
     <script> 
 

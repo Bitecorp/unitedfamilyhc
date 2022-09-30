@@ -216,4 +216,59 @@ class SalaryServiceAssignedsController extends AppBaseController
 
         return redirect(route('salaryServiceAssigneds.index'));
     }
+
+    public function returnValues(Request $request){
+        $filters = $request->all();
+        $salaryServiceAssigneds = $this->salaryServiceAssignedsRepository->find($filters['id_salary']);
+        if(isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds)){
+            $config = ConfigSubServicesPatiente::where('salary_service_assigned_id', $salaryServiceAssigneds->id)->first();
+            
+            if($filters['billin_default']){
+
+                $data = [
+                    'salary' => null,
+                ];
+                
+                $this->salaryServiceAssignedsRepository->update($data, $salaryServiceAssigneds->id);
+                
+
+            }
+            
+            if($filters['payment_default']){
+
+                $data = [
+                    'customer_payment' => null,
+                ];
+
+                $this->salaryServiceAssignedsRepository->update($data, $salaryServiceAssigneds->id);
+
+            }
+
+            if($config){
+                
+                $dataConfig = [
+                    'agent_id' => null,
+                    'code_patiente' => null,
+                    'approved_units' => null,
+                    'date_expedition' => null,
+                    'date_expired' => null,
+                    'unit_id' => null,
+                    'updated_at' => new \DateTime(),
+                ];
+
+                $this->configSubServicesPatienteRepository->update($dataConfig ,$config->id);
+            }
+
+            return response()->json([
+                'msj' => "Data retornada a sus valores por defecto",
+                'success' => true
+            ]); 
+        }else{
+            return response()->json([
+                'msj' => "Data no encontrada",
+                'success' => false
+            ]); 
+        }
+
+    }
 }
