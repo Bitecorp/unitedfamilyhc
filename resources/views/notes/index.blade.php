@@ -147,15 +147,15 @@
                                             <div>
                                                 {!! Form::open(['route' => ['notesSubServices.destroy', $note['id']], 'method' => 'delete']) !!}
                                                     <a href="{{ route('notesSubServices.show', [ $note['id'] ]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
-                                                    @if (intval($note['statusPaid']) === 0 && ($note['status'] == 2 || Auth::user()->role_id == 1))
+                                                    @if ($note['statusPaid'] === 0 && ($note['status'] == 2 || Auth::user()->role_id == 1))
                                                         <a href="{{ route('notesSubServices.edit', [ $note['id'] ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
-                                                    @elseif (intval($note['statusPaid']) === 1 && ($note['status'] == 2 || Auth::user()->role_id == 1))
+                                                    @elseif ($note['statusPaid'] === 1 && ($note['status'] == 2 || Auth::user()->role_id == 1))
                                                         <a onclick="showAlertEdit()" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
                                                     @endif
 
-                                                    @if(Auth::user()->role_id == 1 && intval($note['statusPaid']) === 0)
+                                                    @if(Auth::user()->role_id == 1 && $note['statusPaid'] === 0)
                                                         {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('The record pertaining to this note will also be deleted, are you sure?')"]) !!}
-                                                    @elseif (Auth::user()->role_id == 1 && intval($note['statusPaid']) === 1)
+                                                    @elseif (Auth::user()->role_id == 1 && $note['statusPaid'] === 1)
                                                         <a onclick="showAlertDelete()" class='btn btn-sm btn-danger'><i class="fa fa-trash"></i> Delete </a>
                                                     @endif
                                                 {!! Form::close() !!}

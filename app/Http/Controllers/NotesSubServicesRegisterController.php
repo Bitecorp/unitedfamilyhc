@@ -91,8 +91,8 @@ class NotesSubServicesRegisterController extends Controller
                 "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                 "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
                 "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
-                "statusPaid" => $note->paid ?? '',
-                "statusCollected" => $note->collected ?? '',
+                "statusPaid" => $data->paid,
+                "statusCollected" => $data->collected,
                 "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                 "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
             );
@@ -291,6 +291,7 @@ class NotesSubServicesRegisterController extends Controller
             //where('start', '>=', $dateMenor)->where('end', '<=', $dateMayor)
         $notes = [];
         foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
+            //dd($note);
             //if($note->start >= $dateConsultaMenor && $note->end <= $dateConsultaMayor){
                 $worker = User::find($note->worker_id);
                 $patiente = User::find($note->patiente_id);
@@ -331,8 +332,8 @@ class NotesSubServicesRegisterController extends Controller
                     "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
                     "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
                     "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
-                    "statusPaid" => $note->paid,
-                    "statusCollected" => $note->collected,
+                    "statusPaid" => $data->paid,
+                    "statusCollected" => $data->collected,
                     "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                     "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
                 );
