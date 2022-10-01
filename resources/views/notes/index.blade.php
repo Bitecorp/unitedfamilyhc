@@ -201,12 +201,12 @@
     function showAlertDelete(){
         let msjOne = 'This note has already been paid, you must reverse it in order to delete it.\n\n';
 		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder eliminarla.';
-		confirm(msjOne + msjTwo);
+		alert(msjOne + msjTwo);
     }
     function showAlertEdit(){
         let msjOne = 'This note has already been paid, you must reverse it to be able to edit it.\n\n';
 		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder editarla.';
-		confirm(msjOne + msjTwo);
+		alert(msjOne + msjTwo);
     }
     </script>
     <script>
