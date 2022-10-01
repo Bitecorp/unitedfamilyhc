@@ -456,10 +456,10 @@
 							if(dataFullP.length >= 1){
 								for (var i = 0; i < dataFullP.length; i++) {
 
-									checkCheck = dataFullP[i].paid == true ? 'checked' : '';
-									colBG = dataFullP[i].paid == true ? 'bg-teal' : 'bg-red';
-									block = dataFullP[i].paid == true ? ' disabled readonly' : '';
-									revertir = dataFullP[i].paid == true ? 'revertir' : '';
+									checkCheck = dataFullP[i].collected == true ? 'checked' : '';
+									colBG = dataFullP[i].collected == true ? 'bg-teal' : 'bg-red';
+									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
+									revertir = dataFullP[i].collected == true ? 'revertir' : '';
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
