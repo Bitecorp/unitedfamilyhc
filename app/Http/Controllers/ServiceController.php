@@ -13,6 +13,7 @@ use Response;
 use DB;
 use Illuminate\Support\Collection;
 use App\Models\SubServices;
+use App\Models\Service;
 
 class ServiceController extends AppBaseController
 {
@@ -33,7 +34,7 @@ class ServiceController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $services = $this->serviceRepository->paginate(10);
+        $services = Service::all();
 
         return view('services.index')
             ->with('services', $services);
