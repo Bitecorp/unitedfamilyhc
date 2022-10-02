@@ -157,6 +157,18 @@ class Worker extends Model
         'statu_id',
         'remember_token',
         'companie_agent',
+        'avatar',
+        'bg_avatar'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -185,7 +197,9 @@ class Worker extends Model
         'role_id' => 'string',
         'statu_id' => 'string',
         'remember_token' => 'string',
-        'companie_agent' => 'string'
+        'companie_agent' => 'string',
+        'avatar' => 'string',
+        'bg_avatar'  => 'string'
     ];
 
     /**
@@ -216,6 +230,8 @@ class Worker extends Model
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'companie_agent' => 'nullable|string|max:100',
+        'avatar' => 'nullable|string|max:250',
+        'bg_avatar' => 'nullable|string|max:250',
     ];
 
      /**
@@ -246,5 +262,7 @@ class Worker extends Model
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'companie_agent' => 'nullable|string|max:100',
+        'avatar' => 'nullable|string|max:250',
+        'bg_avatar' => 'nullable|string|max:250',
     ];
 }

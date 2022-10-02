@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\resetPassword;
 
 use App\Http\Controllers\HomeController;
 
@@ -24,7 +29,27 @@ Route::get('/register', function () {
     return view('auth/register');
 });
 
-Route::post('/registerWorker', [App\Http\Controllers\WorkerController::class, 'storeExternal'])->name('registerWorker');
+Route::get('/resetPassword', function () {
+    return view('auth/passwords/email');
+})->name('resetPassword');
+
+Route::post('/emailReset', function (Request $request) {
+    $exist = User::where('email', $request->all()['email'])->first();
+    if(isset($exist) && !empty($exist)){
+        Mail::to($exist->email)->send(new resetPassword($exist, $request->all()));
+        return redirect(route('login'));
+    }else{
+        return redirect(route('resetPassword'));
+    }
+});
+
+Route::get('/recoveryPassword', function () {
+    return view('auth/passwords/reset');
+})->name('recoveryPassword');
+
+Route::post('/recoveryPassword', function () {
+    return view('auth/passwords/reset');
+});
 
 Auth::routes();
 

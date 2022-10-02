@@ -35,7 +35,11 @@ class User extends Authenticatable
         'password',
         'role_id',
         'statu_id',
+        'remember_token',
         'companie_agent',
+        'avatar',
+        'bg_avatar'
+
     ];
 
     /**
@@ -75,5 +79,7 @@ class User extends Authenticatable
         'statu_id' => 'string',
         'remember_token' => 'string',
         'companie_agent' => 'string',
+        'avatar' => 'string',
+        'bg_avatar' => 'string',
     ];
 }

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use DB;
 
+use Laracasts\Flash\Flash;
+
 class RegisterController extends Controller
 {
     /*
@@ -31,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -67,15 +69,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $dataReuturn = User::create([
+        $dataReuturn = DB::table('users')->insert([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => '2',
-            'statu_id' => '2',
+            'role_id' => 2, 
+            'statu_id' => 1, 
             'remember_token' => Str::random(10),
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
+        if($dataReuturn){
+            $dataReuturn = User::where('email', $data['email'])->first();
+        }
 
         DB::table('contacts_emergencys')->insert([
             'user_id' => $dataReuturn->id,
@@ -129,6 +138,7 @@ class RegisterController extends Controller
             'updated_at' => now()
         ]);
 
+        Flash::success('Worker saved successfully.');
         return $dataReuturn;
     }
 }

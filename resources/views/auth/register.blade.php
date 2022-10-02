@@ -29,7 +29,8 @@
 		<!-- end brand -->
 		<!-- begin login-content -->
 		<div class="login-content" style="/*display: none;*/">
-			<form method="post" action="{{ url('/registerWorker') }}">
+            @include('coreui-templates::common.errors')
+			<form method="post" action="{{ url('/register') }}">
                 @csrf
                 <div class="input-group mb-3">
                     <input type="text" class="form-control form-control-lg {{ $errors->has('first_name')?'is-invalid':'' }}" name="first_name" value="{{ old('first_name') }}" placeholder="First Name">

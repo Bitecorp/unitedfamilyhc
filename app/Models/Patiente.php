@@ -157,6 +157,18 @@ class Patiente extends Model
         'statu_id',
         'remember_token',
         'companie_agent',
+        'avatar',
+        'bg_avatar'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -185,7 +197,9 @@ class Patiente extends Model
         'role_id' => 'string',
         'statu_id' => 'string',
         'remember_token' => 'string',
-        'companie_agent' => 'string'
+        'companie_agent' => 'string',
+        'avatar' => 'string',
+        'bg_avatar'  => 'string'
     ];
 
     /**
@@ -204,10 +218,10 @@ class Patiente extends Model
         'zip_code' => 'required|string|max:255',
         'home_phone' => 'required|string|max:255',
         'alternate_phone' => 'nullable|string|max:255',
-        'ssn' => 'nullable|string|unique:users|max:255',
-        'birth_date' => 'nullable|date_format:Y-m-d',
-        'marital_status' => 'nullable|string|max:255',
-        'email' => 'nullable|email|unique:users|max:255',
+        'ssn' => 'required|string|unique:users|max:255',
+        'birth_date' => 'required|date_format:Y-m-d',
+        'marital_status' => 'required|string|max:255',
+        'email' => 'required|email|unique:users|max:255',
         'email_verified_at' => 'nullable',
         'password' => 'nullable|string|max:255',
         'role_id' => 'required|string|max:255',
@@ -216,6 +230,8 @@ class Patiente extends Model
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'companie_agent' => 'nullable|string|max:100',
+        'avatar' => 'nullable|string|max:250',
+        'bg_avatar' => 'nullable|string|max:250',
     ];
 
      /**
@@ -234,10 +250,10 @@ class Patiente extends Model
         'zip_code' => 'required|string|max:255',
         'home_phone' => 'required|string|max:255',
         'alternate_phone' => 'nullable|string|max:255',
-        'ssn' => 'nullable|string|max:255',
-        'birth_date' => 'nullable|date_format:Y-m-d',
-        'marital_status' => 'nullable|string|max:255',
-        'email' => 'nullable|email|max:255',
+        'ssn' => 'required|string|max:255',
+        'birth_date' => 'required|date_format:Y-m-d',
+        'marital_status' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
         'email_verified_at' => 'nullable',
         'password' => 'nullable|string|max:255',
         'role_id' => 'required|string|max:255',
@@ -246,5 +262,7 @@ class Patiente extends Model
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'companie_agent' => 'nullable|string|max:100',
+        'avatar' => 'nullable|string|max:250',
+        'bg_avatar' => 'nullable|string|max:250',
     ];
 }

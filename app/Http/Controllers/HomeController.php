@@ -258,8 +258,6 @@ class HomeController extends Controller
             }
         }
 
-        $dataPagCobGan = dataPayUnitsServicesForWorker(null, '2022-07-01 00:00:00', '2022-09-28 23:59:59', 1, true);
-
         //dd($dataPagCobGan);
 
         if (Auth::user()->role_id == 1) {

@@ -22,6 +22,7 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Crypt;
 
 class MyPdf extends \TCPDF
 {
@@ -111,6 +112,13 @@ class MyPdf extends \TCPDF
 
 
 
+function encriptar($st){
+    return Crypt::encryptString($st);
+}
+
+function desencriptar($st){
+    return Crypt::decryptString($st);
+}
 
 function createFile($file, $titleFile, $base64 = false)
 {
