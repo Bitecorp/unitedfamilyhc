@@ -48,7 +48,7 @@ Route::get('/recoveryPassword', function () {
 })->name('recoveryPassword');
 
 Route::post('/recoveryPassword', function () {
-    return view('auth/passwords/reset');
+    return view('login');
 });
 
 Auth::routes();
