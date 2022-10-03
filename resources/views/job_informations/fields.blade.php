@@ -66,6 +66,13 @@
             </select>
         </div>
     </div>
+    <div class="col">
+        <!-- Work Name Location Field -->
+        <div class="form-group">
+            {!! Form::label('initial_salary', 'Initial Salary:') !!}
+            {!! Form::text('initial_salary', null, ['class' => 'form-control','maxlength' => 255, 'required' => true]) !!}
+        </div>
+    </div>
 </div>
 
 

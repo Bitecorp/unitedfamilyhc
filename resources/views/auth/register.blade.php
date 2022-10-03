@@ -49,7 +49,7 @@
                 <div class="login-buttons" style='margin-bottom: 10px !important;'>
                     <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion" disabled>Register</button>
                 </div>
-                <a href="{{ url('/login') }} " class="text-center" style='text-align: center !important, margin-top: 10px !important;'>I already have an account</a>
+                <a href="{{ url('/login') }} " class="text-center" style='margin-top: 10px !important;'>I already have an account</a>
                 <hr class="bg-grey-darker">
                 <div class="m-t-20 text-center">
                     &copy; <script> document.write(new Date().getFullYear()) </script> United Family

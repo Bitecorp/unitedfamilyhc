@@ -74,7 +74,8 @@ class JobInformation extends Model
         'title',
         'supervisor',
         'work_name_location',
-        'work_phone'
+        'work_phone',
+        'initial_salary'
     ];
 
     /**
@@ -88,7 +89,8 @@ class JobInformation extends Model
         'title' => 'string',
         'supervisor' => 'string',
         'work_name_location' => 'string',
-        'work_phone' => 'string'
+        'work_phone' => 'string',
+        'initial_salary' => 'string'
     ];
 
     /**
@@ -102,6 +104,7 @@ class JobInformation extends Model
         'supervisor' => 'required|string|max:255',
         'work_name_location' => 'required|string|max:255',
         'work_phone' => 'nullable|string|max:255',
+        'initial_salary' => 'nullable|string|max:250',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];
