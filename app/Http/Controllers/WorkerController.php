@@ -69,6 +69,8 @@ use Auth;
 use Elibyy\TCPDF\Facades\TCPDF;
 
 use Illuminate\Support\Facades\Config;
+use Mail;
+use App\Mail\resetPassword;
 
 class MyPdf extends \TCPDF
 {
@@ -966,5 +968,30 @@ class WorkerController extends AppBaseController
         Flash::success('Worker deleted successfully.');
 
         return redirect(route('workers.index'));
+    }
+
+    public function sendEmailRecovery(Request $request){
+        $input = $request->all();
+        $exist = Worker::where('email', $input['email'])->first();
+        if(isset($exist) && !empty($exist)){
+            Mail::to($exist->email)->send(new resetPassword($exist, $input));
+            return redirect(route('login'));
+        }else{
+            return redirect(route('resetPassword'));
+        }
+    }
+
+    public function changePass(Request $request){
+        
+        $input = $request->all();
+
+        $exist = Worker::where('email', $input['email'])->first();
+        if(isset($exist) && !empty($exist)){
+            Worker::where('email', $input['email'])->update(['password' => $input['password']]);
+            Flash::success('Password updated successfully.');
+            return redirect(route('login'));
+        }else{
+            return redirect(route('resetPassword'));
+        }
     }
 }

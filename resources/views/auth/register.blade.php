@@ -33,45 +33,21 @@
 			<form method="post" action="{{ url('/register') }}">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg {{ $errors->has('first_name')?'is-invalid':'' }}" name="first_name" value="{{ old('first_name') }}" placeholder="First Name">
-                    @if ($errors->has('first_name'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('first_name') }}</strong>
-                        </span>
-                    @endif
-                    <input type="text" class="form-control form-control-lg {{ $errors->has('last_name')?'is-invalid':'' }}" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name">
-                    @if ($errors->has('last_name'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('last_name') }}</strong>
-                        </span>
-                    @endif
+                    <input type="text" class="form-control form-control-lg" name="first_name" value="" placeholder="First Name" required>
+                    <input type="text" class="form-control form-control-lg" name="last_name" value="" placeholder="Last Name" required>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control form-control-lg {{ $errors->has('email')?'is-invalid':'' }}" name="email" value="{{ old('email') }}" placeholder="Email">
-                    @if ($errors->has('email'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input type="email" class="form-control form-control-lg" name="email" value="" placeholder="Email" required>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control form-control-lg {{ $errors->has('password')?'is-invalid':''}}" name="password" placeholder="Password">
-                    @if ($errors->has('password'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
+                    <input type="password" class="form-control form-control-lg" minlength="8" id="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="input-group mb-4">
-                    <input type="password" name="password_confirmation" class="form-control form-control-lg" placeholder="Confirm password">
-                    @if ($errors->has('password_confirmation'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                        </span>
-                    @endif
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" minlength="8" placeholder="Confirm password" required>
+                    <label id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;">Passwords do not match</label>
                 </div>
                 <div class="login-buttons" style='margin-bottom: 10px !important;'>
-                    <button type="submit" class="btn btn-success btn-block btn-lg btnIniciarSesion">Register</button>
+                    <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion" disabled>Register</button>
                 </div>
                 <a href="{{ url('/login') }} " class="text-center" style='text-align: center !important, margin-top: 10px !important;'>I already have an account</a>
                 <hr class="bg-grey-darker">
@@ -85,6 +61,32 @@
 	<!-- end login -->
     @push('scripts')
         <script src="/assets/js/demo/login-v2.demo.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#mensaje_error').hide();  
+            });
+
+            var cambioDePass = function() {
+                var pass = $('#password').val();
+                var passConfirm = $('#password_confirmation').val();
+                if (pass == passConfirm) {
+                    $('#mensaje_error').hide();
+                    $('#mensaje_error').attr("class", "control-label col-md-12 text-success");
+                    $('#mensaje_error').show();
+                    $('#mensaje_error').html("Passwords match");
+                    $('#btn_submit').removeAttr('disabled');
+                } else {
+                    $('#btn_submit').attr('disabled', 'disabled');
+                    $('#mensaje_error').html("Passwords do not match");
+                    $('#mensaje_error').show();
+                }
+            }
+
+            $("#password").on('keyup', cambioDePass);
+            $("#password_confirmation").on('keyup', cambioDePass);
+
+        </script>
     @endpush
 	@include('includes.page-js')
 </body>

@@ -17,10 +17,10 @@ class resetPassword extends Mailable
      *
      * @return void
      */
-    public function __construct($exist, $req)
+    public function __construct($exist, $input)
     {
         $this->exist = $exist;
-        $this->req = $req;
+        $this->input = $input;
     }
 
     /**
@@ -32,8 +32,8 @@ class resetPassword extends Mailable
     {
         $data = [
             'exist' => $this->exist,
-            'req' => $this->req,
-            'btnURL' => 'https://app.unitedfamilyhc.com/recoveryPassword?email=' . $this->req['email'] . '&code=' . encriptar($this->req['email']),
+            'input' => $this->input,
+            'btnURL' => 'https://app.unitedfamilyhc.com/recoveryPassword?code=' . encriptar($this->input['email']),
         ];
 
         return $this->from('update@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Recovery password')->view('mails.resetPass')->with('data', $data);

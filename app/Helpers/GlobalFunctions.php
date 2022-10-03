@@ -111,6 +111,14 @@ class MyPdf extends \TCPDF
 }
 
 
+function url_actual(){
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        $url = "https://"; 
+    }else{
+        $url = "http://"; 
+    }
+    return $url . $_SERVER['HTTP_HOST'] .  $_SERVER['REQUEST_URI'];
+}
 
 function encriptar($st){
     return Crypt::encryptString($st);

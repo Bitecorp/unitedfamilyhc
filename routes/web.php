@@ -33,23 +33,9 @@ Route::get('/resetPassword', function () {
     return view('auth/passwords/email');
 })->name('resetPassword');
 
-Route::post('/emailReset', function (Request $request) {
-    $exist = User::where('email', $request->all()['email'])->first();
-    if(isset($exist) && !empty($exist)){
-        Mail::to($exist->email)->send(new resetPassword($exist, $request->all()));
-        return redirect(route('login'));
-    }else{
-        return redirect(route('resetPassword'));
-    }
-});
-
 Route::get('/recoveryPassword', function () {
     return view('auth/passwords/reset');
 })->name('recoveryPassword');
-
-Route::post('/recoveryPassword', function () {
-    return view('login');
-});
 
 Auth::routes();
 
@@ -94,6 +80,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/registerAttentions', 'registerAttentions');
 
     Route::post('/createMultiRegister', 'createMultiRegister');
+
 });
 
 Route::resource('notesSubServices', App\Http\Controllers\NotesSubServicesRegisterController::class);
@@ -121,6 +108,10 @@ Route::resource('workers', App\Http\Controllers\WorkerController::class);
 Route::get('/workers/pdf/{id}/{idPdf}', [App\Http\Controllers\WorkerController::class, 'getPDF'])->name('workers.pdf');
 
 Route::post('/workers/updateState/{id}', [App\Http\Controllers\WorkerController::class, 'updateState'])->name('workers.updateState');
+
+Route::post('/emailReset', [App\Http\Controllers\WorkerController::class, 'sendEmailRecovery']);
+
+Route::post('/recoveryPassword', [App\Http\Controllers\WorkerController::class, 'changePass']);
 
 Route::get('/sendEmailRegister/emailRegisterWorker', [App\Http\Controllers\SendEmailRegisterController::class, 'emailRegisterWorker'])->name('sendEmailRegisterController.emailRegisterWorker');
 
