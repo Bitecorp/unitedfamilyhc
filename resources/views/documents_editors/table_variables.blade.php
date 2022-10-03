@@ -121,6 +121,10 @@
             'llamado' => '{{ $job_information->work_phone }}'
         ],
         [
+            'dato' => 'Worker / Job Information / Initial Salary ',
+            'llamado' => '{{ isset($job_information->initial_salary) ? $job_information->initial_salary : "0.00" }}'
+        ],
+        [
             'dato' => 'Worker / Education / High School',
             'llamado' => '{{ $education->high_school }}'
         ],

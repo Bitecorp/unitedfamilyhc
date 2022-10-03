@@ -350,16 +350,47 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                     //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
 
                     $dataWorker = User::find($arraySumC->worker_id);
-                    $arraySumC->worker_id = $dataWorker;
-                    $arraySumC->worker_full_name = json_decode($dataWorker)->first_name . ' ' .  json_decode($dataWorker)->last_name;
 
-                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    $arraySumC->worker_id = $dataWorker;
+                    if($isForHomne){
+                        $firstName = '';
+                        if(isset($dataWorker['first_name']) && !empty($dataWorker['first_name'])){
+                            $firstName = $dataWorker['first_name'];
+                        }elseif(isset($dataWorker->first_name) && !empty($dataWorker->first_name)){
+                            $firstName = $dataWorker->first_name;
+                        }
+
+                        $lastName = '';
+                        if(isset($dataWorker['last_name']) && !empty($dataWorker['last_name'])){
+                            $lastName = $dataWorker['last_name'];
+                        }elseif(isset($dataWorker->last_name) && !empty($dataWorker->last_name)){
+                            $lastName = $dataWorker->last_name;
+                        }
+                        $arraySumC->worker_full_name = $firstName . ' ' .  $lastName;
+                    }else{
+                        $arraySumC->worker_full_name = json_decode($dataWorker)->first_name . ' ' .  json_decode($dataWorker)->last_name;
+                    }  
+
+                    if($isForHomne){
+                        $idWorker = '';
+                        if(isset($dataWorker['id']) && !empty($dataWorker['id'])){
+                            $idWorker = $dataWorker['id'];
+                        }elseif(isset($dataWorker->id) && !empty($dataWorker->id)){
+                            $idWorker = $dataWorker->id;
+                        }
+                        $dataindependentContractor = ConfirmationIndependent::where('user_id', $idWorker)->first();
+                    }else{
+                        $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
+                    }
+
+                    
                     if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
                         $arraySumC->independent_contractor = $dataindependentContractor;
                     }
 
                     $dataPatiente = User::find($arraySumC->patiente_id);
                     $arraySumC->patiente_id = $dataPatiente;
+                    
                     $arraySumC->patiente_full_name = json_decode($dataPatiente)->first_name . ' ' .  json_decode($dataPatiente)->last_name;
 
                     $dataService = Service::find($arraySumC->service_id);
@@ -371,7 +402,24 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                     $arraySumC->name_sub_service = json_decode($dataSubService)->name_sub_service;
 
                     $arraySumC->service_and_sub_service = $arraySumC->name_service . ' - ' . $arraySumC->name_sub_service;
-                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+                    if($isForHomne){
+                        $firstName = '';
+                        if(isset($dataPatiente['first_name']) && !empty($dataPatiente['first_name'])){
+                            $firstName = $dataPatiente['first_name'];
+                        }elseif(isset($dataPatiente->first_name) && !empty($dataPatiente->first_name)){
+                            $firstName = $dataPatiente->first_name;
+                        }
+
+                        $lastName = '';
+                        if(isset($dataPatiente['last_name']) && !empty($dataPatiente['last_name'])){
+                            $lastName = $dataPatiente['last_name'];
+                        }elseif(isset($dataPatiente->last_name) && !empty($dataPatiente->last_name)){
+                            $lastName = $dataPatiente->last_name;
+                        }
+                        $arraySumC->worker_full_name = $firstName . ' ' .  $lastName;
+                    }else{
+                        $arraySumC->worker_full_name = json_decode($dataPatiente)->first_name . ' ' .  json_decode($dataPatiente)->last_name;
+                    }
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                         if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){

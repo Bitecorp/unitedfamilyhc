@@ -43,6 +43,13 @@
             @endforeach
         </div>
     </div>
+    <div class="col">
+        <!-- Alternate Phone Field -->
+        <div class="form-group">
+            {!! Form::label('initial_salary', 'Initial Salary:') !!}
+            <input type="text" name="work_name_location" class="form-control" readonly value="{{ isset($jobInformation->initial_salary) && !empty($jobInformation->initial_salary) ? $jobInformation->initial_salary : '0.00' }} $(USD)">
+        </div>
+    </div>
 </div>
 
 <!-- <div class="row">
