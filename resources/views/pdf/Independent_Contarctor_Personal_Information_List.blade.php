@@ -1,5 +1,4 @@
-
-        <!DOCTYPE html>
+ <!DOCTYPE html>
         <html lang="es">
             <head>
                 <meta charset="utf-8">
@@ -93,4 +92,3 @@
 <p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><script type='text/php'> if (isset($pdf)){ $pdf->page_script('$pdf->text(280, 820, "$PAGE_NUM", $fontMetrics->get_font("Arial, Helvetica, sans-serif", "bold"), 10); '); } </script></span></p>
             </body>
         </html>
-        

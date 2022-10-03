@@ -12,41 +12,48 @@
     @include('coreui-templates::common.errors')
     <div class="progress" style="height: 30px; margin-bottom: 16.67px;">
         @if($urlUser == "workers")
-            <div class="progress-bar progress-bar-striped bg-success"
-                role="progressbar"
-                style="width: 16.67%"
-                aria-valuenow="16.67"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            > Worker Data </div>
-            <div class="progress-bar progress-bar-striped bg-success"
-                role="progressbar"
-                style="width: 16.67%"
-                aria-valuenow="16.67"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            > Emergency Contact </div>
-            <div class="progress-bar progress-bar-striped bg-success"
-                role="progressbar"
-                style="width: 16.67%"
-                aria-valuenow="16.67"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            > Job Information </div>
-            <div class="progress-bar progress-bar-striped bg-success"
-                role="progressbar"
-                style="width: 16.67%"
-                aria-valuenow="16.67"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            > Education </div>
-            <div class="progress-bar progress-bar-striped bg-success"
-                role="progressbar"
-                style="width: 16.67%"
-                aria-valuenow="16.67"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            > Independent Contractor </div>
+           <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > Worker Data </div>
+        <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > Emergency Contact </div>
+        <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > Job Information </div>
+        <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > Education </div>
+        <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > References </div>
+        <div class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 16.67%"
+            aria-valuenow="16.67"
+            aria-valuemin="0"
+            aria-valuemax="100"
+        > Independent Contractor </div> 
         @elseif($urlUser == "patientes" || $contactEmergency->guardian == 1) 
             <div class="progress-bar progress-bar-striped bg-success"
                 role="progressbar"
