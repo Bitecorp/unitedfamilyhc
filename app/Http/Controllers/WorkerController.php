@@ -248,7 +248,8 @@ class WorkerController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $workers = DB::table('users')->whereNotIn('role_id', [4, 5])->orderBy('first_name', 'asc')->orderBy('statu_id', 'asc')->get();
+        $workersAct = DB::table('users')->whereNotIn('role_id', [4, 5])->where('statu_id', 1)->orderBy('first_name', 'asc')->get();
+        $workersInact = DB::table('users')->whereNotIn('role_id', [4, 5])->where('statu_id', 2)->orderBy('first_name', 'asc')->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 
@@ -264,7 +265,7 @@ class WorkerController extends AppBaseController
             ->with('confirmationIndependents', $confirmationIndependents)
             ->with('contactEmergencies', $contactEmergencies)
             ->with('jobInformations', $jobInformations)
-            ->with('workers', $workers)
+            ->with('workers', ['WA' => $workersAct, 'WI' => $workersInact])
             ->with('servicesAssigned', $servicesAssigned)
             ->with('educations', $educations)
             ->with('maritalStatus', $maritalStatus);

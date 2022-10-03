@@ -247,7 +247,8 @@ class PatienteController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $patientes = DB::table('users')->where('role_id', 4)->orderBy('first_name', 'asc')->orderBy('statu_id', 'asc')->get();
+        $patientesAct = DB::table('users')->where('role_id', 4)->where('statu_id', 1)->orderBy('first_name', 'asc')->get();
+        $patientesInact = DB::table('users')->where('role_id', 4)->where('statu_id', 2)->orderBy('first_name', 'asc')->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 
@@ -263,7 +264,7 @@ class PatienteController extends AppBaseController
         ->with('confirmationIndependents', $confirmationIndependents)
         ->with('contactEmergencies', $contactEmergencies)
         ->with('jobInformations', $jobInformations)
-        ->with('patientes', $patientes)
+        ->with('patientes', ['PA' => $patientesAct, 'PI' => $patientesInact])
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);

@@ -8,7 +8,8 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
-                    <!-- <div class="col-xs-12 "> -->
+                    <!-- <div class="col-xs-12 ">
+                        <div class="table-responsive">-->
                         <table id="tableDocumentsCurrents" class="table table-striped table-bordered table-td-valign-middle">
                             <thead>
                                 <tr>
@@ -99,7 +100,8 @@
                                 @endif
                             </tbody>
                         </table>
-                    <!-- </div> -->
+                        <!-- </div>
+                    </div> -->
                 </div>
                 <!-- end panel-body -->
             </div>
@@ -136,7 +138,7 @@
 @if((new \Jenssegers\Agent\Agent())->isDesktop())
     @push('scripts')
         <script>
-            $(function () {
+            $(document).ready(function () {
                 $('#tableDocumentsCurrents').DataTable({
                     retrieve: true,
                     paging: true,
@@ -157,8 +159,8 @@
 @else
     @push('scripts')
         <script>
-            $(function () {
-                $('#tableDocumentsCurrents').DataTable({
+        $(document).ready(function () {
+            $('#tableDocumentsCurrents').DataTable({
                     retrieve: true,
                     paging: true,
                     autoFill: true,

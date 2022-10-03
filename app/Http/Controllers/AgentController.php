@@ -246,7 +246,8 @@ class AgentController extends AppBaseController
 
         $typeDoc = TypeDoc::all();
 
-        $agents = DB::table('users')->where('role_id', 5)->orderBy('first_name', 'asc')->orderBy('statu_id', 'asc')->get();
+        $agentsAct = DB::table('users')->where('role_id', 5)->where('statu_id', 1)->orderBy('first_name', 'asc')->get();
+        $agentsInact = DB::table('users')->where('role_id', 5)->where('statu_id', 2)->orderBy('first_name', 'asc')->get();
 
         $confirmationIndependents = ConfirmationIndependent::all();
 
@@ -262,7 +263,7 @@ class AgentController extends AppBaseController
         ->with('confirmationIndependents', $confirmationIndependents)
         ->with('contactEmergencies', $contactEmergencies)
         ->with('jobInformations', $jobInformations)
-        ->with('agents', $agents)
+        ->with('agents', ['AA' => $agentsAct, 'AI' => $agentsInact])
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);

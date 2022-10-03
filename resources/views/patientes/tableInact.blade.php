@@ -1,4 +1,4 @@
-<table id="tablePatientes" class="table table-striped table-bordered table-td-valign-middle">
+<table id="tablePatientesInact" class="table table-striped table-bordered table-td-valign-middle">
     <thead>
         <tr>
             <th width="1%"></th>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($patientes as $key => $patiente)
+        @foreach($patientes['PI'] as $key => $patiente)
             <tr data-id='{{ $patiente->id }}' id="data_{{ $key }}">
                 <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                 <td>{{ $patiente->first_name }} {{ $patiente->last_name }}</td>
@@ -62,8 +62,8 @@
         };
     </script>
     <script>
-        $(function () {
-            $('#tablePatientes').DataTable( {
+        $(document).ready(function () {
+            $('#tablePatientesInact').DataTable( {
                 retrieve: true,
                 paging: true,
                 autoFill: true,

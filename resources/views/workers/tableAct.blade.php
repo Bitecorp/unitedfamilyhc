@@ -1,7 +1,7 @@
-<table id="tableAgents" class="table table-striped table-bordered table-td-valign-middle">
+<table id="tableWorkeAct" class="table table-striped table-bordered table-td-valign-middle">
     <thead>
         <tr>
-            <th width="1%"></th>
+            <th width="1%">#</th>
             <th class="text-nowrap">Full Name</th>
             <th class="text-nowrap">Home Phone</th>
             <th class="text-nowrap">Email</th>
@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($agents as $key => $worker)
+        @foreach($workers['WA'] as $key => $worker)
             <tr data-id='{{ $worker->id }}' id="data_{{ $key }}">
                 <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
                 <td>{{ $worker->first_name }} {{ $worker->last_name }}</td>
@@ -28,10 +28,10 @@
                             <td>{{ $statu->name_status }}</td>
                         @elseif($worker->id > 1)
                             <td>
-                                {!! Form::model($worker, ['route' => ['agents.updateState', $worker->id], 'method' => 'post', 'id' => "sendForm_$worker->id"]) !!}
+                                {!! Form::model($worker, ['route' => ['workers.updateState', $worker->id], 'method' => 'post', 'id' => "sendForm_$worker->id"]) !!}
                                 <!-- begin custom-switches -->
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" onclick="changeStatus('{{$worker->id}}');"  class="custom-control-input" data-id="{{ $worker->id }}" name="{{$worker->id}}" id="Switch_{{$worker->id}}" {{ $worker->statu_id == 1 ? 'checked' : '' }}>
+                                        <input type="checkbox" onclick="changeStatus('{{$worker->id}}');"  class="custom-control-input" data-id="{{ $worker->id }}" name="Switch_{{$worker->id}}" id="Switch_{{$worker->id}}" {{ $worker->statu_id == 1 ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="Switch_{{$worker->id}}"></label>
                                     </div>
                                 <!-- end custom-switches -->
@@ -42,8 +42,8 @@
                 @endforeach
                 <td class="with-btn" nowrap>
                     @if($worker->id > 1 )
-                        {!! Form::open(['route' => ['agents.destroy', $worker->id], 'method' => 'delete']) !!}
-                            <a href="{{ route('agents.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
+                        {!! Form::open(['route' => ['workers.destroy', $worker->id], 'method' => 'delete']) !!}
+                            <a href="{{ route('workers.show', [$worker->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
                             @if(Auth::user()->role_id == 1)
                                 {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('You are about to delete a root record, if the information is not saved all documents attached to this worker will be lost. (Valid Documents and Expired Documents, Signed Contracts, Etc.).')"]) !!}
                             @endif
@@ -64,8 +64,8 @@
         };
     </script>
     <script>
-        $(function () {
-            $('#tableAgents').DataTable( {
+        $(document).ready(function () {
+            $('#tableWorkeAct').DataTable( {
                 retrieve: true,
                 paging: true,
                 autoFill: true,
