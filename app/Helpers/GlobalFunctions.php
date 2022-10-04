@@ -8,6 +8,7 @@ use Jenssegers\Agent\Agent;
 use App\Models\User;
 use App\Models\Companies;
 use App\Models\ConfirmationIndependent;
+use DateTime;
 
 use App\Models\RegisterAttentions;
 use App\Models\Units;
@@ -276,20 +277,28 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
 
         $registerAttentions = [];
         if($isForHome){
-            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])
-                ->where('end', '<=', $filters['hasta'])->where('paid', 1)->orWhere('collected', 1)->get();
+            $registerAttentions = RegisterAttentions::where('start', '>=', new DateTime($fecha_desde))
+                ->where('end', '<=', new DateTime($fecha_hasta))->get();
         }else{
             $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
-                ->where('start', '>=', $filters['desde'])
-                ->where('end', '<=', $filters['hasta'])->where('paid', '<=', 1)->get();
+                ->where('start', '>=', new DateTime($fecha_desde))
+                ->where('end', '<=', new DateTime($fecha_hasta))->get();
         }
+
+        $dataCompare = DB::select('SELECT id FROM register_attentions WHERE paid = 1 OR collected = 1');
+        $arrayForCompare = [];
+        if(isset($dataCompare) && !empty($dataCompare) && count($dataCompare) >= 1){
+            foreach($dataCompare as $key => $dataComp){
+                array_push($arrayForCompare, $dataComp->id);
+            }
+        }        
         
         $registerAttentionss = [];
         $sumaPagos = 0;
         $sumaCobros = 0;
         $gananciaEmpresa = 0;
-        if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
-            foreach($registerAttentions as $registerAttention){
+        if((isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
+            foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
                 $timeAttention = $registerAttention->start->diff($registerAttention->end);
                 $times = explode(":", $timeAttention->format('%H:%i:%s'));
@@ -531,6 +540,19 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                 return [
                     'dataPagos' => collect($arrayFinal)->unique(), 
                     'montoPagoTotal' => isset($sumaPagos) && !empty($sumaPagos) ? number_format((float)$sumaPagos, 2, '.', '') : '0:00'
+                ];
+            }
+        }else{
+            if($isForHome){
+                return [
+                    'montoCobroTotal' => '0.00',
+                    'montoPagoTotal' => '0:00',
+                    'montoGananciaTotal' => '0.00'
+                ];
+            }else{
+                return [
+                    'dataPagos' => [], 
+                    'montoPagoTotal' => '0:00'
                 ];
             }
         }
