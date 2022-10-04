@@ -266,7 +266,7 @@ function dataUser1099Global($idWorker){
     }
 }
 
-function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $paid, $isForHomne = null){
+function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_hasta, $paid = 1, $isForHome = false){
         $filters = [
             'paid' => $paid,
             'desde' => $fecha_desde,
@@ -274,14 +274,15 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
             'worker_id' => $worker_id
         ];
 
-        if($isForHomne){
+        $registerAttentions = [];
+        if($isForHome){
             $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])
                 ->where('end', '<=', $filters['hasta'])->where('paid', 1)->orWhere('collected', 1)->get();
         }else{
             $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
                 ->where('start', '>=', $filters['desde'])
                 ->where('end', '<=', $filters['hasta'])->where('paid', '<=', 1)->get();
-        }            
+        }
         
         $registerAttentionss = [];
         $sumaPagos = 0;
@@ -347,47 +348,33 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
             $arrayFinal = [];
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
-                    //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
-
-                    $dataWorker = User::find($arraySumC->worker_id);
-
+                    $dataWorker = User::where('id', $arraySumC->worker_id)->first();
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', $arraySumC->worker_id)->first();
                     $arraySumC->worker_id = $dataWorker;
-                    if($isForHomne){
+
+                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
+                        $arraySumC->independent_contractor = $dataindependentContractor;
+                    }
+
                         $firstName = '';
-                        if(isset($dataWorker['first_name']) && !empty($dataWorker['first_name'])){
+                        if(isset(json_decode($dataWorker)->first_name) && !empty(json_decode($dataWorker)->first_name)){
+                            $firstName = json_decode($dataWorker)->first_name;
+                        }elseif(isset($dataWorker['first_name']) && !empty($dataWorker['first_name'])){
                             $firstName = $dataWorker['first_name'];
                         }elseif(isset($dataWorker->first_name) && !empty($dataWorker->first_name)){
                             $firstName = $dataWorker->first_name;
                         }
 
                         $lastName = '';
-                        if(isset($dataWorker['last_name']) && !empty($dataWorker['last_name'])){
+                        if(isset(json_decode($dataWorker)->last_name) && !empty(json_decode($dataWorker)->last_name)){
+                            $lastName = json_decode($dataWorker)->last_name;
+                        }elseif(isset($dataWorker['last_name']) && !empty($dataWorker['last_name'])){
                             $lastName = $dataWorker['last_name'];
                         }elseif(isset($dataWorker->last_name) && !empty($dataWorker->last_name)){
                             $lastName = $dataWorker->last_name;
                         }
                         $arraySumC->worker_full_name = $firstName . ' ' .  $lastName;
-                    }else{
-                        $arraySumC->worker_full_name = json_decode($dataWorker)->first_name . ' ' .  json_decode($dataWorker)->last_name;
-                    }  
-
-                    if($isForHomne){
-                        $idWorker = '';
-                        if(isset($dataWorker['id']) && !empty($dataWorker['id'])){
-                            $idWorker = $dataWorker['id'];
-                        }elseif(isset($dataWorker->id) && !empty($dataWorker->id)){
-                            $idWorker = $dataWorker->id;
-                        }
-                        $dataindependentContractor = ConfirmationIndependent::where('user_id', $idWorker)->first();
-                    }else{
-                        $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
-                    }
-
-                    
-                    if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
-                        $arraySumC->independent_contractor = $dataindependentContractor;
-                    }
-
+                        
                     $dataPatiente = User::find($arraySumC->patiente_id);
                     $arraySumC->patiente_id = $dataPatiente;
                     
@@ -402,24 +389,14 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                     $arraySumC->name_sub_service = json_decode($dataSubService)->name_sub_service;
 
                     $arraySumC->service_and_sub_service = $arraySumC->name_service . ' - ' . $arraySumC->name_sub_service;
-                    if($isForHomne){
-                        $firstName = '';
-                        if(isset($dataPatiente['first_name']) && !empty($dataPatiente['first_name'])){
-                            $firstName = $dataPatiente['first_name'];
-                        }elseif(isset($dataPatiente->first_name) && !empty($dataPatiente->first_name)){
-                            $firstName = $dataPatiente->first_name;
-                        }
-
-                        $lastName = '';
-                        if(isset($dataPatiente['last_name']) && !empty($dataPatiente['last_name'])){
-                            $lastName = $dataPatiente['last_name'];
-                        }elseif(isset($dataPatiente->last_name) && !empty($dataPatiente->last_name)){
-                            $lastName = $dataPatiente->last_name;
-                        }
-                        $arraySumC->worker_full_name = $firstName . ' ' .  $lastName;
-                    }else{
-                        $arraySumC->worker_full_name = json_decode($dataPatiente)->first_name . ' ' .  json_decode($dataPatiente)->last_name;
+                    $idWorker = '';
+                    if(isset($dataWorker['id']) && !empty($dataWorker['id'])){
+                        $idWorker = $dataWorker['id'];
+                    }elseif(isset($dataWorker->id) && !empty($dataWorker->id)){
+                        $idWorker = $dataWorker->id;
                     }
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $idWorker)->first();
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                         if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
@@ -471,8 +448,8 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
                         $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
                     }
-                    
-                    if($isForHomne){
+
+                    if($isForHome){
                         $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataPatiente->id)->first();
 
                         if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
@@ -530,7 +507,7 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
                             $calcCob = $arraySumC->unid_cob_patiente * $dataCobroPatiente->customer_payment;
                             $arraySumC->mont_cob = number_format((float)$calcCob, 2, '.', '');
                         }
-
+                        
                         $calcGan = $arraySumC->mont_cob - $arraySumC->mont_pay;
                         $arraySumC->ganancia_empresa = number_format((float)$calcGan, 2, '.', '');
 
@@ -544,7 +521,7 @@ function dataPayUnitsServicesForWorker($worker_id, $fecha_desde, $fecha_hasta, $
             }
             //dd(number_format((float)$sumaCobros, 2, '.', ''), number_format((float)$sumaPagos, 2, '.', ''), number_format((float)$gananciaEmpresa, 2, '.', ''));
 
-            if($isForHomne){
+            if($isForHome){
                 return [
                     'montoCobroTotal' => isset($sumaCobros) && !empty($sumaCobros) ? number_format((float)$sumaCobros, 2, '.', '') : '0.00',
                     'montoPagoTotal' => isset($sumaPagos) && !empty($sumaPagos) ? number_format((float)$sumaPagos, 2, '.', '') : '0:00',

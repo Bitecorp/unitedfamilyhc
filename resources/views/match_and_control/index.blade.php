@@ -407,18 +407,51 @@
 
 						if(urlActualBYP){
 
+							$('#contable-table-pat').DataTable({
+								retrieve: true,
+								paging: true,
+								autoFill: true,
+								responsive: true,
+							}).clear();	
+
 							$('#contable-table-wor').DataTable({
 								retrieve: true,
 								paging: true,
 								autoFill: true,
 								responsive: true,
 							}).clear();
-							$('#contable-table-pat').DataTable({
-								retrieve: true,
-								paging: true,
-								autoFill: true,
-								responsive: true,
-							}).clear();						
+							
+							if(dataFullP.length >= 1){
+								for (var i = 0; i < dataFullP.length; i++) {
+
+									checkCheck = dataFullP[i].collected == true ? 'checked' : '';
+									colBG = dataFullP[i].collected == true ? 'bg-teal' : 'bg-red';
+									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
+									revertir = dataFullP[i].collected == true ? 'revertir' : '';
+
+									var check =
+									'<div class="custom-control custom-switch">\n' +
+										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
+										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
+									'</div>\n';
+
+									$('#contable-table-pat').DataTable({
+										retrieve: true,
+										paging: true,
+										autoFill: true,
+										responsive: true,
+									}).row.add([
+										(i+1),
+										dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name, 
+										dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service, 
+										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
+										dateDesdeT + ' - ' + dateHastaT, 
+										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
+										dataFullP[i].mont_cob + '$ (USD)',
+										check
+									]).draw(null, false);
+								};
+							}
 
 							if(dataFullW.length >= 1){
 								for (var i = 0; i < dataFullW.length; i++) {
@@ -448,38 +481,6 @@
 										dateDesdeT + ' - ' + dateHastaT,
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
-										check
-									]).draw(null, false);
-								};
-							}
-
-							if(dataFullP.length >= 1){
-								for (var i = 0; i < dataFullP.length; i++) {
-
-									checkCheck = dataFullP[i].collected == true ? 'checked' : '';
-									colBG = dataFullP[i].collected == true ? 'bg-teal' : 'bg-red';
-									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
-									revertir = dataFullP[i].collected == true ? 'revertir' : '';
-
-									var check =
-									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
-										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
-									'</div>\n';
-
-									$('#contable-table-pat').DataTable({
-										retrieve: true,
-										paging: true,
-										autoFill: true,
-										responsive: true,
-									}).row.add([
-										(i+1),
-										dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name, 
-										dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service, 
-										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
-										dateDesdeT + ' - ' + dateHastaT, 
-										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
-										dataFullP[i].mont_cob + '$ (USD)',
 										check
 									]).draw(null, false);
 								};

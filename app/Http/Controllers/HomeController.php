@@ -607,9 +607,9 @@ class HomeController extends Controller
                     //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
 
                     $dataWorker = User::find($arraySumC->worker_id);
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', $arraySumC->worker_id)->first();
                     $arraySumC->worker_id = $dataWorker;
 
-                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
                     if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
                         $arraySumC->independent_contractor = $dataindependentContractor;
                     }
@@ -623,7 +623,14 @@ class HomeController extends Controller
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
                     $arraySumC->sub_service_id = $dataSubService;                 
 
-                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+                    $idWorker = '';
+                    if(isset($dataWorker['id']) && !empty($dataWorker['id'])){
+                        $idWorker = $dataWorker['id'];
+                    }elseif(isset($dataWorker->id) && !empty($dataWorker->id)){
+                        $idWorker = $dataWorker->id;
+                    }
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $idWorker)->first();
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                         if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
@@ -848,9 +855,9 @@ class HomeController extends Controller
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
                     $dataWorker = User::find($arraySumC->worker_id);
+                    $dataindependentContractor = ConfirmationIndependent::where('user_id', $arraySumC->worker_id)->first();
                     $arraySumC->worker_id = $dataWorker;
 
-                    $dataindependentContractor = ConfirmationIndependent::where('user_id', json_decode($arraySumC->worker_id)->id)->first();
                     if(isset($dataindependentContractor) && !empty($dataindependentContractor)){
                         $arraySumC->independent_contractor = $dataindependentContractor;
                     }
@@ -864,7 +871,14 @@ class HomeController extends Controller
                     $dataSubService = SubServices::find($arraySumC->sub_service_id);
                     $arraySumC->sub_service_id = $dataSubService;
 
-                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataWorker->id)->first();
+                    $idWorker = '';
+                    if(isset($dataWorker['id']) && !empty($dataWorker['id'])){
+                        $idWorker = $dataWorker['id'];
+                    }elseif(isset($dataWorker->id) && !empty($dataWorker->id)){
+                        $idWorker = $dataWorker->id;
+                    }
+
+                    $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $idWorker)->first();
 
                     if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                         if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
