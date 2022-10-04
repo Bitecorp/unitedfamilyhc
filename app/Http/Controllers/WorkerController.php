@@ -659,9 +659,9 @@ class WorkerController extends AppBaseController
 
             $documentUserFiles = array();
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
-                $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->first();
+                $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->orderBy('document_certificate', 'asc')->first();
                 if(isset($constData) && !empty($constData)){
-                    array_push($documentUserFiles,  $this->OrdenarMatrizColumna($constData, 'document_certificate', "ASC"));
+                    array_push($documentUserFiles,  $constData);
                 }                
             }
 
