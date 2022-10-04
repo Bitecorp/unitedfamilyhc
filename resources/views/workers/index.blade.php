@@ -16,7 +16,7 @@
 				<!-- begin panel-heading -->
 				<div class="panel-heading">
                     <h4 class="panel-title">
-                        Workers List (Actives)
+                        Workers List
                     </h4>
                     <div class="panel-heading-btn">
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -30,29 +30,7 @@
 				<!-- begin panel-body -->
 				<div class="panel-body">
                     <div class="col-xs-12 ">
-                        @include('workers.tableAct')
-                    </div>
-				</div>
-				<!-- end panel-body -->
-			</div>
-
-			<div class="panel panel-inverse">
-				<!-- begin panel-heading -->
-				<div class="panel-heading">
-                    <h4 class="panel-title">
-                        Workers List (Inactives)
-                    </h4>
-                    <div class="panel-heading-btn">
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                    </div>
-                </div>
-				<!-- end panel-heading -->
-				<!-- begin panel-body -->
-				<div class="panel-body">
-                    <div class="col-xs-12 ">
-                        @include('workers.tableInact')
+                        @include('workers.table')
                     </div>
 				</div>
 				<!-- end panel-body -->

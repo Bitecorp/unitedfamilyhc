@@ -224,6 +224,28 @@ class WorkerController extends AppBaseController
     }
 
     /**
+         * Metodo Publico
+         * OrdenarMatrizColumna($MatrizRegistros = false, $Columna = false, $Orden = false)
+         *
+         * Ordena una matriz de registros en funcion de la columna indicada
+         * @param $MatrizRegistros   : Matriz de registros desordenados
+         * @param $Columna           : String Nombre de columna
+         * @param $Orden             : String ASC o DESC -> default DESC
+         * @return $MatrizRegistros  : Matriz de registros Ordenados
+         */
+        public static function OrdenarMatrizColumna(array $MatrizRegistros, $Columna = false, $Orden = false) {
+            if (is_array($MatrizRegistros) == true and $Columna == true and $Orden == true) {
+                $Orden = ($Orden == "ASC") ? SORT_ASC : SORT_DESC;
+                foreach ($MatrizRegistros as $Arreglo) {
+                    $Lista[] = $Arreglo->name_doc;
+                    $Lista2[] = $Arreglo->$Columna;
+                }
+                array_multisort($Lista2, $Orden, $Lista, $Orden, $MatrizRegistros);
+                return $MatrizRegistros;
+            }
+        }
+
+    /**
      * Display a listing of the Worker.
      *
      * @param Request $request
@@ -249,8 +271,9 @@ class WorkerController extends AppBaseController
         $typeDoc = TypeDoc::all();
 
         $workersAct = DB::table('users')->whereNotIn('role_id', [4, 5])->where('statu_id', 1)->orderBy('first_name', 'asc')->get();
-        $workersInact = DB::table('users')->whereNotIn('role_id', [4, 5])->where('statu_id', 2)->orderBy('first_name', 'asc')->get();
 
+        $workersInact = DB::table('users')->whereNotIn('role_id', [4, 5])->where('statu_id', 2)->orderBy('first_name', 'asc')->get();
+        
         $confirmationIndependents = ConfirmationIndependent::all();
 
         $contactEmergencies = ContactEmergency::all();
@@ -588,21 +611,21 @@ class WorkerController extends AppBaseController
                 array_push($subServices, SubServices::where('service_id', $value)->get());
                 array_push($idsSubServices, SubServices::select('id')->where('service_id', $value)->first());
                 array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', $value)->get());
-                $dataMoment = documentsEditors::where('role_id', [2, 3])->where('service_id', $value)->get();
+                $dataMoment = documentsEditors::whereIn('role_id', [2, 3])->where('service_id', $value)->get();
                 if (isset($dataMoment) && !empty($dataMoment) && count($dataMoment) >= 1) {
-                    array_push($documentsEditors, documentsEditors::where('role_id', [2, 3])->where('service_id', $value)->get());
+                    array_push($documentsEditors, documentsEditors::whereIn('role_id', [2, 3])->where('service_id', $value)->get());
                 }
             }
             $dataMomen = documentsEditors::where('role_id', [2, 3])->where('service_id', 0)->get();
             if (isset($dataMomen) && !empty($dataMomen) && count($dataMomen) >= 1) {
-                array_push($documentsEditors, documentsEditors::where('role_id', [2, 3])->where('service_id', 0)->get());
+                array_push($documentsEditors, documentsEditors::whereIn('role_id', [2, 3])->where('service_id', 0)->get());
             }
             array_push($externalDocuments, ExternalsDocuments::where('role_id', '=', $worker->role_id)->where('service_id', 0)->get());
 
             $dataListFiles = array();
             foreach ($dataServicesAssigneds as $key => $values) {
                 foreach (json_decode($values->documents) as $key => $value) {
-                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->where('role_id', [2, 3])->first();
+                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->whereIn('role_id', [2, 3])->first();
                     if (isset($consult)) {
                         array_push($dataListFiles, $consult);
                     }
@@ -644,7 +667,7 @@ class WorkerController extends AppBaseController
 
             /* $documentUserFiles = $documentUserFiles; */
             $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', 0)->orderBy('created_at', 'DESC')->get());
-            $filesUploadsExpired = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', '<>', 0)->orderBy('updated_at', 'DESC')->get());
+            $filesUploadsExpired = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', '<>', 0)->orderBy('updated_at', 'DESC')->orderBy('expired', 'DESC')->get());
 
             $documentUserFilesUpload = array();
             foreach ($filesUploads as $key => $value) {
@@ -656,6 +679,10 @@ class WorkerController extends AppBaseController
             foreach ($documentUserFiles as $key => $value) {
                 array_push($documentUserFilesIDsA, $value->id);
             }
+
+            //dd($documentUserFiles);
+            //$testArrayC = $this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC');
+            //dd($testArrayC);
 
             $documentUserFilesIDsU = array();
             foreach ($documentUserFilesUpload as $key => $value) {
@@ -726,7 +753,7 @@ class WorkerController extends AppBaseController
                 ->with('servicesAssigned', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('education', $education)
                 ->with('filesUploads', !empty($filesUploads) ? $filesUploads : null)
-                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
+                ->with('documentUserFiles', !empty($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) ? collect($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
                 ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
@@ -761,7 +788,7 @@ class WorkerController extends AppBaseController
                 ->with('servicesAssigned', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('education', $education)
                 ->with('filesUploads', !empty($filesUploads) ? $filesUploads : null)
-                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
+                ->with('documentUserFiles', !empty($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) ? collect($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
                 ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
