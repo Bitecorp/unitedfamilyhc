@@ -9,6 +9,7 @@
 
 	$dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day_last(), 1, true);
 
+	dd(data_first_month_day(), data_last_month_day(), data_first_month_day_last(), data_last_month_day_last(), data_first_month_day_Tri(), data_last_month_day_last());
 	//dd($dataPagCobGanActual, $dataPagCobGanLast, $dataPagCobGanTri);
 ?>
 
