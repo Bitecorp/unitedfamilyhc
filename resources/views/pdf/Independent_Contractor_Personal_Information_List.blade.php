@@ -1,16 +1,16 @@
- <!DOCTYPE html>
+
+        <!DOCTYPE html>
         <html lang="es">
             <head>
                 <meta charset="utf-8">
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-               
-                <title>Independent Contarctor Personal Information List</title>
+                <title>Independent Contractor Personal Information List</title>
             </head>
             <body style="margin-top: -25px !important;">
-        <h1 style="text-align: center;"><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;">INDEPENDENT CONTRACTOR INFORMATION</span></h1>
-<p>&nbsp;</p>
+        <h1 style="text-align: center;">&nbsp;</h1>
+<h1 style="text-align: center;"><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;">INDEPENDENT CONTRACTOR INFORMATION</span></h1>
 <table style="border-collapse: collapse; width: 100%; height: 34px;" border="1">
 <tbody>
 <tr style="height: 34px;">
@@ -42,8 +42,7 @@
 </tr>
 </tbody>
 </table>
-<p><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>TITLE:</strong> {{ $job_information->title }}.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>SALARY:</strong> @foreach($services as $key => $service) @foreach($salaryServices as $keySalary => $salaryService) @if($service->id == $salaryService->service_id) {{ $salaryService->salary }}{{ $salaryService->type_salary == 0 ? "$ Monthly" : "$ Per Hour"}} @endif @endforeach @endforeach</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>SUPERVISOR:</strong> {{ $supervisor->first_name }} {{ $supervisor->last_name }} </span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>WORK NAME AND LOCATION:</strong> {{ $location->name_location }}</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>WORK PHONE:</strong> {{ $job_information->work_phone }}</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>INITIAL SALARY:</strong> {{ isset($job_information->initial_salary) ? $job_information->initial_salary : "0.00" }} $(USD)</span></p>
-<p>&nbsp;</p>
+<p><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>TITLE:</strong> {{ $job_information->title }}.</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>INITIAL SALARY: </strong>{{ isset($job_information->initial_salary) ? $job_information->initial_salary : "0.00" }} $(USD).</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>SUPERVISOR:</strong> {{ $supervisor->first_name }} {{ $supervisor->last_name }} </span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>WORK NAME AND LOCATION:</strong> {{ $location->name_location }}.</span><br /><span style="font-size: 12pt; font-family: 'book antiqua', palatino, serif;"><strong>WORK PHONE:</strong> {{ $job_information->work_phone }}.</span></p>
 <table style="border-collapse: collapse; width: 100%; height: 30px;" border="1">
 <tbody>
 <tr style="height: 30px;">
@@ -54,8 +53,6 @@
 </tbody>
 </table>
 <p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><strong>HIGH SCHOOL:</strong> {{ $education->high_school }}</span><br /><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><strong>COLLEGE/UNIVERSITY:</strong> {{ isset($education->college_university) ? $education->college_university : "" }}</span></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -89,6 +86,7 @@
 <p>&nbsp;</p>
 <p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;">_____________________________________________</span></p>
 <p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;">INDEPENDENT CONTRACTOR SIGNATURE</span></p>
-<p><span style="font-family: 'book antiqua', palatino, serif; font-size: 12pt;"><script type='text/php'> if (isset($pdf)){ $pdf->page_script('$pdf->text(280, 820, "$PAGE_NUM", $fontMetrics->get_font("Arial, Helvetica, sans-serif", "bold"), 10); '); } </script></span></p>
+<p>&nbsp;</p>
             </body>
         </html>
+        
