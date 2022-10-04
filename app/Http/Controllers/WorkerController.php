@@ -237,10 +237,9 @@ class WorkerController extends AppBaseController
             if (is_array($MatrizRegistros) == true and $Columna == true and $Orden == true) {
                 $Orden = ($Orden == "ASC") ? SORT_ASC : SORT_DESC;
                 foreach ($MatrizRegistros as $Arreglo) {
-                    $Lista[] = $Arreglo->name_doc;
-                    $Lista2[] = $Arreglo->$Columna;
+                    $Lista[] = $Arreglo->$Columna;
                 }
-                array_multisort($Lista2, $Orden, $Lista, $Orden, $MatrizRegistros);
+                array_multisort($Lista, $Orden, $MatrizRegistros);
                 return $MatrizRegistros;
             }
         }
@@ -660,7 +659,10 @@ class WorkerController extends AppBaseController
 
             $documentUserFiles = array();
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
-                array_push($documentUserFiles,  DB::table('type_docs')->where('id', $valID)->where('role_id', [2, 3])->first());
+                $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->first();
+                if(isset($constData) && !empty($constData)){
+                    array_push($documentUserFiles,  $this->OrdenarMatrizColumna($constData, 'document_certificate', "ASC"));
+                }                
             }
 
             //dd($documentUserFiles);
@@ -753,7 +755,7 @@ class WorkerController extends AppBaseController
                 ->with('servicesAssigned', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('education', $education)
                 ->with('filesUploads', !empty($filesUploads) ? $filesUploads : null)
-                ->with('documentUserFiles', !empty($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) ? collect($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) : null)
+                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
                 ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
@@ -788,7 +790,7 @@ class WorkerController extends AppBaseController
                 ->with('servicesAssigned', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('education', $education)
                 ->with('filesUploads', !empty($filesUploads) ? $filesUploads : null)
-                ->with('documentUserFiles', !empty($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) ? collect($this->OrdenarMatrizColumna($documentUserFiles, 'document_certificate', 'ASC')) : null)
+                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
                 ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
