@@ -19,13 +19,12 @@ use Carbon\Carbon;
 use App\Models\NotesSubServicesRegister;
 use App\Models\ReferencesPersonalesTwo;
 use Flash;
-use DataTime;
+use DateTime;
 use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
 use App\Models\GenerateDocuments1099;
 use App\Models\ConfirmationIndependent;
 use App\Models\documentsEditors;
-
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
@@ -526,23 +525,23 @@ class HomeController extends Controller
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
                 if($filters['paid'] == 'all'){
-                    $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                    $registerAttentions = RegisterAttentions::where('start', '>=', new DateTime($filters['desde']))->where('end', '<=', new DateTime($filters['hasta']))->get();
                 }else{
-                    $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                    $registerAttentions = RegisterAttentions::where('paid', $filters['paid'])->where('start', '>=', new DateTime($filters['desde']))->where('end', '<=', new DateTime($filters['hasta']))->get();
                 }
         }else{
             if($filters['paid'] == 'all'){
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                    ->where('start', '>=', $filters['desde'])
-                    ->where('end', '<=', $filters['hasta'])->get();
+                    ->where('start', '>=', new DateTime($filters['desde']))
+                    ->where('end', '<=', new DateTime($filters['hasta']))->get();
             }else{
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
                     ->where('paid', $filters['paid'])
-                    ->where('start', '>=', $filters['desde'])
-                    ->where('end', '<=', $filters['hasta'])->get();
+                    ->where('start', '>=', new DateTime($filters['desde']))
+                    ->where('end', '<=', new DateTime($filters['hasta']))->get();
             }
-        }        
-        
+        }
+
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){
@@ -577,9 +576,9 @@ class HomeController extends Controller
                         ->where('service_id', $registerAttention->service_id)
                         ->where('sub_service_id', $registerAttention->sub_service_id)
                     ;
-
+                    
                     if(count($count) > 1){
-                        if(isset($count) && !empty($count) && count($count) >= 1){
+                        if(isset($count) && !empty($count) && count($count) > 1){
                             foreach($count->where('id', '<>', $registerAttention->id) as $key => $registerAttent){
                                 $registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                                 array_push($arraySum, $registerAttention);
@@ -777,20 +776,20 @@ class HomeController extends Controller
         $registerAttentions = [];
         if($filters['service_id'] == 'all'){
             if($filters['paid'] == 'all'){
-                $registerAttentions = RegisterAttentions::where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                $registerAttentions = RegisterAttentions::where('start', '>=', new DateTime($filters['desde']))->where('end', '<=', new DateTime($filters['hasta']))->get();
             }else{
-                $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();
+                $registerAttentions = RegisterAttentions::where('collected', $filters['paid'])->where('start', '>=', new DateTime($filters['desde']))->where('end', '<=', new DateTime($filters['hasta']))->get();
             }
         }else{
             if($filters['paid'] == 'all'){
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
-                    ->where('start', '>=', $filters['desde'])
-                    ->where('end', '<=', $filters['hasta'])->get();
+                    ->where('start', '>=', new DateTime($filters['desde']))
+                    ->where('end', '<=', new DateTime($filters['hasta']))->get();
             }else{
                 $registerAttentions = RegisterAttentions::where('service_id', $filters['service_id'])
                     ->where('paid', $filters['paid'])
-                    ->where('start', '>=', $filters['desde'])
-                    ->where('end', '<=', $filters['hasta'])->get();
+                    ->where('start', '>=', new DateTime($filters['desde']))
+                    ->where('end', '<=', new DateTime($filters['hasta']))->get();
             }
         }
         
@@ -1148,7 +1147,6 @@ class HomeController extends Controller
     public function generateDocumentOfPay(Request $request)
     { 
         $filters = $request->all();
-
         $documents = generar1099($filters);
 
         return response()->json([
@@ -1162,7 +1160,7 @@ class HomeController extends Controller
     {
         $filters = $request->all();
 
-        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])->where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();       
+        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])->where('paid', $filters['paid'])->where('start', '>=', new DateTime($filters['desde']))->where('end', '<=', new DateTime($filters['hasta']))->get();       
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
@@ -1301,8 +1299,8 @@ class HomeController extends Controller
             
             
             $dataDocument1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])
-                ->where('from', '>=', $filters['desde'])
-                ->where('to', '<=', $filters['hasta'])->first(); 
+                ->where('from', '>=', new DateTime($filters['desde']))
+                ->where('to', '<=', new DateTime($filters['hasta']))->first(); 
 
             $dataWorker = User::find($filters['worker_id']);
             $dataDocument1099->worker_id = $dataWorker;

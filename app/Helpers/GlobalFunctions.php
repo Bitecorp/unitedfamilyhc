@@ -577,6 +577,8 @@ function generar1099($filters){
         $updateDataDoc->eftor_check = $filters['eftor_check'];
         if(isset($filters['invoice_number']) && !empty($filters['invoice_number'])){
             $updateDataDoc->invoice_number = $filters['invoice_number'];
+        }elseif(empty($filters['invoice_number'])){
+            $updateDataDoc->invoice_number = NULL;
         }
 
         $updateDataDoc->save();

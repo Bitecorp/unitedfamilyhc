@@ -213,7 +213,7 @@
 							dataFullW[indice].sub_service_id = JSON.parse(dataFullW[indice].sub_service_id);
 						});
 
-							('#contable-table-wor').DataTable({
+							$('#contable-table-wor').DataTable({
 								retrieve: true,
 								paging: true,
 								autoFill: true,
@@ -376,6 +376,7 @@
 					success: function(data) {
 						$('#btn_submit').removeAttr('disabled');
 						$('#btn_reset').removeAttr('disabled');	
+
 						var htmlResultados = '';
 						var colBG = '';
 						var checkCheck = '';
@@ -498,7 +499,7 @@
 									colBG = dataFullW[i].paid == true ? 'bg-teal' : 'bg-red';
 									block = dataFullW[i].paid == true ? ' disabled readonly' : '';
 									revertir = dataFullW[i].paid == true ? 'revertir' : '';				
-
+									
 										var dataW = 
 											'<div class="col-xl-6 col-md-6">\n' +
 												'<div class="widget widget-stats ' + colBG + '">\n' +
