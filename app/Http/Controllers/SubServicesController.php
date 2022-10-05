@@ -94,7 +94,7 @@ class SubServicesController extends AppBaseController
             $data['type_salary'] = false;
         }
 
-        $data['config_validate'] = json_encode($data['config_validate']);
+        $data['config_validate'] = isset($data['config_validate']) && !empty($data['config_validate']) ? json_encode($data['config_validate']) : null;
 
         $subServices = $this->subServicesRepository->create($data);
 
