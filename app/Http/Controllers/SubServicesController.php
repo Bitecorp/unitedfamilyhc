@@ -238,7 +238,7 @@ class SubServicesController extends AppBaseController
             $data['unit_customer_id'] = NULL;
         }
 
-        $data['config_validate'] = json_encode($data['config_validate']);
+        $data['config_validate'] = isset($data['config_validate']) && !empty($data['config_validate']) ? json_encode($data['config_validate']) : null;
 
         $subServices = $this->subServicesRepository->update($data, $id);
 
