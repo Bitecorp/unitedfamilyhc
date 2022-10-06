@@ -537,7 +537,7 @@ class WorkerController extends AppBaseController
 
         $status = Statu::all();
 
-        $companies = Companies::all();
+        $companies = Companies::where('user_id', $id)->first();
 
         $services = Service::all();
 
@@ -571,8 +571,6 @@ class WorkerController extends AppBaseController
 
         $confirmationIndependentID = DB::table('confirmations')->select('id')->where('user_id', '=', $id)->first();
         $confirmationIndependent = $this->confirmationIndependentRepository->find($confirmationIndependentID->id);
-
-        dd($confirmationIndependent);
 
         $referenceOneID = DB::table('references')->select('id')->where('user_id', '=', $id)->where('reference_number', '=', '1')->first();
         $referencesPersonales = $this->referencesPersonalesRepository->find($referenceOneID->id);
@@ -743,7 +741,7 @@ class WorkerController extends AppBaseController
                 ->with('roles', $roles)
                 ->with('status', $status)
                 ->with('titleJobs', $titleJobs)
-                ->with('companies', ($companies))
+                ->with('companies', collect($companies))
                 ->with('confirmationIndependent', $confirmationIndependent)
                 ->with('contactEmergency', $contactEmergency)
                 ->with('jobInformation', $jobInformation)
@@ -778,7 +776,7 @@ class WorkerController extends AppBaseController
                 ->with('roles', $roles)
                 ->with('status', $status)
                 ->with('titleJobs', $titleJobs)
-                ->with('companies', ($companies))
+                ->with('companies', collect($companies))
                 ->with('confirmationIndependent', $confirmationIndependent)
                 ->with('contactEmergency', $contactEmergency)
                 ->with('jobInformation', $jobInformation)
