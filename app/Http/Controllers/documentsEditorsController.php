@@ -148,6 +148,7 @@ class documentsEditorsController extends AppBaseController
 
         $contentReplace = str_replace('&gt;', '>', $contentReplace);
         $contentReplace = str_replace('&lt;', '<', $contentReplace);
+        $contentReplace = str_replace('&amp;', '&', $contentReplace);
         $contentReplace = str_replace('<p><script type=', '<script type=', $contentReplace);
         $contentReplace = str_replace('</script></p>', '</script>', $contentReplace);
         $pageNumber = '"$PAGE_NUM"';
@@ -335,6 +336,7 @@ class documentsEditorsController extends AppBaseController
         $contentReplace = $input['content'];
         $contentReplace = str_replace('&gt;', '>', $contentReplace);
         $contentReplace = str_replace('&lt;', '<', $contentReplace);
+        $contentReplace = str_replace('&amp;', '&', $contentReplace);
         $contentReplace = str_replace('<p><script type=', '<script type=', $contentReplace);
         $contentReplace = str_replace('</script></p>', '</script>', $contentReplace);
         $pageNumber = '"$PAGE_NUM"';
