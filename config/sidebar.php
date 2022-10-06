@@ -127,7 +127,7 @@ return [
                 ],
                 [
                     'url' => '/settings/connectionsExternals',
-                    'title' => 'Externals Connections'
+                    'title' => 'OUT-EDI'
                 ],
             ]
         ],
