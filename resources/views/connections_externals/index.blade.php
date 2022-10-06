@@ -14,11 +14,11 @@
 				<!-- begin panel-heading -->
 				<div class="panel-heading">
                     <h4 class="panel-title">
-                        Locations
+                        Externals Conections
                     </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="{{ route('locations.create') }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('connectionsExternals.create') }}" class="btn btn-xs btn-icon btn-circle btn-primary" class="pull-right"><i class="fa fa-plus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                     </div>
@@ -31,28 +31,36 @@
                             <thead>
                                 <tr>
                                     <th width="1%"></th>
-                                    <th class="text-nowrap">Location</th>
+                                    <th class="text-nowrap">Name Connection</th>
+                                    <th class="text-nowrap">Server Connection</th>
+                                    <th class="text-nowrap">Port Connection</th>
+                                    <th class="text-nowrap">User Connection</th>
+                                    <th class="text-nowrap">Password Connection</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($locations as $key => $location)
-                                    <tr>
-                                        <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
-                                        <td>{{ $location->name_location }}</td>
-                                        <td class="with-btn" nowrap>
-                                            {!! Form::open(['route' => ['locations.destroy', $location->id], 'method' => 'delete']) !!}
-                                            <div>
-                                                <a href="{{ route('locations.show', [$location->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
-                                                <a href="{{ route('locations.edit', [$location->id]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
-                                                @if(Auth::user()->role_id == 1)
-                                                    {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                                @endif
-                                            </div>
-                                            {!! Form::close() !!}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @foreach($connectionsExternals as $key => $connectionsExternals)
+                                <tr>
+                                    <td width="1%" class="f-s-600 text-inverse">{{ $key + 1 }}</td>
+                                    <td>{{ $connectionsExternals->name_connection }}</td>
+                                    <td>{{ $connectionsExternals->server_connection }}</td>
+                                    <td>{{ $connectionsExternals->port_connection }}</td>
+                                    <td>{{ $connectionsExternals->user_connection }}</td>
+                                    <td>{{ $connectionsExternals->password_connection }}</td>
+                                    <td class="with-btn" nowrap>
+                                        {!! Form::open(['route' => ['connectionsExternals.destroy', $connectionsExternals->id], 'method' => 'delete']) !!}
+                                        <div>
+                                            <a href="{{ route('connectionsExternals.show', [$connectionsExternals->id]) }}" class='btn btn-sm btn-primary' ><i class="fa fa-eye"></i> Show </a>
+                                            <a href="{{ route('connectionsExternals.edit', [$connectionsExternals->id]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                            @if(Auth::user()->role_id == 1)
+                                                {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                            @endif
+                                        </div>
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -87,4 +95,3 @@
 	<script src="/assets/plugins/jszip/dist/jszip.min.js"></script>
 	<script src="/assets/js/demo/table-manage-combine.demo.js"></script>
 @endpush
-

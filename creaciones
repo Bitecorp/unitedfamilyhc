@@ -1,4 +1,4 @@
-php artisan infyom:scaffold ConfigSubServicesPatiente --fromTable --tableName=config_sub_services_patientes --save --factory --seeder
+php artisan infyom:scaffold ConnectionsExternals --fromTable --tableName= --save --factory --seeder
 
 sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm composer.lock; npm i -f; npm run dev; composer install; php artisan migrate; 
 

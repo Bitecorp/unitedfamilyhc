@@ -147,6 +147,8 @@ Route::resource('settings/locations', App\Http\Controllers\LocationController::c
 
 Route::resource('settings/services', App\Http\Controllers\ServiceController::class);
 
+Route::resource('settings/connectionsExternals', App\Http\Controllers\ConnectionsExternalsController::class);
+
 Route::resource('companies', App\Http\Controllers\CompaniesController::class);
 
 Route::resource('serviceAssigneds', App\Http\Controllers\ServiceAssignedsController::class);

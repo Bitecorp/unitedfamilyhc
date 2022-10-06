@@ -8,7 +8,6 @@ use Jenssegers\Agent\Agent;
 use App\Models\User;
 use App\Models\Companies;
 use App\Models\ConfirmationIndependent;
-use DateTime;
 
 use App\Models\RegisterAttentions;
 use App\Models\Units;
@@ -277,12 +276,12 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
 
         $registerAttentions = [];
         if($isForHome){
-            $registerAttentions = RegisterAttentions::where('start', '>=', new DateTime($fecha_desde))
-                ->where('end', '<=', new DateTime($fecha_hasta))->get();
+            $registerAttentions = RegisterAttentions::where('start', '>=', new \DateTime($fecha_desde))
+                ->where('end', '<=', new \DateTime($fecha_hasta))->get();
         }else{
             $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
-                ->where('start', '>=', new DateTime($fecha_desde))
-                ->where('end', '<=', new DateTime($fecha_hasta))->get();
+                ->where('start', '>=', new \DateTime($fecha_desde))
+                ->where('end', '<=', new \DateTime($fecha_hasta))->get();
         }
 
         $dataCompare = DB::select('SELECT id FROM register_attentions WHERE paid = 1 OR collected = 1');
