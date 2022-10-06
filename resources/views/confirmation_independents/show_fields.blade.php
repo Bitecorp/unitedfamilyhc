@@ -75,21 +75,21 @@
                                     <!-- First Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('name', 'Name:') !!}
-                                        <input type="text" name="name" class="form-control" readonly value="{{ $companies['0']->name }}" >
+                                        <input type="text" name="name" class="form-control" readonly value="{{ $companies->name }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Mi Field -->
                                     <div class="form-group">
                                         {!! Form::label('street_addres', 'Street Addres:') !!}
-                                        <input type="text" name="street_addres" class="form-control" readonly value="{{ $companies['0']->street_addres }}" >
+                                        <input type="text" name="street_addres" class="form-control" readonly value="{{ $companies->street_addres }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Last Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('apartment_unit', 'Apartment Unit:') !!}
-                                        <input type="text" name="apartment_unit " class="form-control" readonly value="{{ $companies['0']->apartment_unit }}" >
+                                        <input type="text" name="apartment_unit " class="form-control" readonly value="{{ $companies->apartment_unit }}" >
                                     </div>
                                 </div>
                             </div>
@@ -99,21 +99,21 @@
                                     <!-- First Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('city', 'City:') !!}
-                                        <input type="text" name="city" class="form-control" readonly value="{{ $companies['0']->city }}" >
+                                        <input type="text" name="city" class="form-control" readonly value="{{ $companies->city }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Mi Field -->
                                     <div class="form-group">
                                         {!! Form::label('state', 'State:') !!}
-                                        <input type="text" name="state" class="form-control" readonly value="{{ $companies['0']->state }}" >
+                                        <input type="text" name="state" class="form-control" readonly value="{{ $companies->state }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Last Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('zip_code', 'Zip Code:') !!}
-                                        <input type="text" name="zip_code " class="form-control" readonly value="{{ $companies['0']->zip_code }}" >
+                                        <input type="text" name="zip_code " class="form-control" readonly value="{{ $companies->zip_code }}" >
                                     </div>
                                 </div>
                             </div>
@@ -123,28 +123,28 @@
                                     <!-- First Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('home_phone', 'Home Phone:') !!}
-                                        <input type="text" name="chome_phone" class="form-control" readonly value="{{ $companies['0']->home_phone }}" >
+                                        <input type="text" name="chome_phone" class="form-control" readonly value="{{ $companies->home_phone }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Mi Field -->
                                     <div class="form-group">
                                         {!! Form::label('alternate_phone', 'Alternate Phone:') !!}
-                                        <input type="text" name="alternate_phone" class="form-control" readonly value="{{ $companies['0']->alternate_phone }}" >
+                                        <input type="text" name="alternate_phone" class="form-control" readonly value="{{ $companies->alternate_phone }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Last Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('ssn', 'SSN:') !!}
-                                        <input type="text" name="ssn " class="form-control" readonly value="{{ $companies['0']->ssn }}" >
+                                        <input type="text" name="ssn " class="form-control" readonly value="{{ $companies->ssn }}" >
                                     </div>
                                 </div>
                                 <div class="col">
                                     <!-- Last Name Field -->
                                     <div class="form-group">
                                         {!! Form::label('email', 'Email:') !!}
-                                        <input type="email" name="email " class="form-control" readonly value="{{ $companies['0']->email }}" >
+                                        <input type="email" name="email " class="form-control" readonly value="{{ $companies->email }}" >
                                     </div>
                                 </div>
                             </div>
