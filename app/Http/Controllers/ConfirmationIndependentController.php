@@ -213,8 +213,11 @@ class ConfirmationIndependentController extends AppBaseController
         $confirmationIndependent = $this->confirmationIndependentRepository->update($input, $confirmationIndependentID->id);
 
         Flash::success('Data loaded successfully');
-
-        return redirect(route('workers.show', [$confirmationIndependent->user_id]));
+        if(Auth::user()->role_id == 2){
+            return redirect(route('home'));
+        }else{
+            return redirect(route('workers.show', [$confirmationIndependent->user_id]));
+        }
     }
 
     /**

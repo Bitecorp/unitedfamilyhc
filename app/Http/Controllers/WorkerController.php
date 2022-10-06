@@ -842,8 +842,8 @@ class WorkerController extends AppBaseController
         $educationID = DB::table('educations')->select('id')->where('user_id', '=', $id)->first();
         $education = $this->educationRepository->find($educationID->id);
 
-        $confirmationIndependentID = DB::table('confirmations')->select('id')->where('user_id', '=', $id)->first();
-        $confirmationIndependent = $this->confirmationIndependentRepository->find($confirmationIndependentID->id);
+        $confirmationIndependent = DB::table('confirmations')->where('user_id', $id)->first();
+        //$confirmationIndependent = $this->confirmationIndependentRepository->find($confirmationIndependentID->id);
 
         if (empty($worker)) {
             Flash::error('Worker not found');
@@ -854,7 +854,7 @@ class WorkerController extends AppBaseController
         return view('workers.edit')
             ->with('roles', $roles)
             ->with('status', $status)
-            ->with('confirmationIndependent', $confirmationIndependent)
+            ->with('confirmationIndependent', collect($confirmationIndependent))
             ->with('contactEmergency', $contactEmergency)
             ->with('jobInformation', $jobInformation)
             ->with('worker', $worker)
