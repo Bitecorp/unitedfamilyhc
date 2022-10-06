@@ -572,6 +572,8 @@ class WorkerController extends AppBaseController
         $confirmationIndependentID = DB::table('confirmations')->select('id')->where('user_id', '=', $id)->first();
         $confirmationIndependent = $this->confirmationIndependentRepository->find($confirmationIndependentID->id);
 
+        dd($confirmationIndependent);
+
         $referenceOneID = DB::table('references')->select('id')->where('user_id', '=', $id)->where('reference_number', '=', '1')->first();
         $referencesPersonales = $this->referencesPersonalesRepository->find($referenceOneID->id);
 
