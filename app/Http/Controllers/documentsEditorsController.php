@@ -144,7 +144,7 @@ class documentsEditorsController extends AppBaseController
         $contentReplace = '';
         $contentReplace = $input['content'];
 
-        dd($contentReplace);
+       // dd($contentReplace);
 
         $contentReplace = str_replace('&gt;', '>', $contentReplace);
         $contentReplace = str_replace('&lt;', '<', $contentReplace);
