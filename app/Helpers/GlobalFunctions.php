@@ -528,6 +528,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                     array_push($arrayFinal, $arraySumC);
                 }
             }
+            //dd($sumaPagos);
             //dd(number_format((float)$sumaCobros, 2, '.', ''), number_format((float)$sumaPagos, 2, '.', ''), number_format((float)$gananciaEmpresa, 2, '.', ''));
 
             if($isForHome){
@@ -571,7 +572,6 @@ function generar1099($filters){
         $dataWorker = dataUser1099Global(intval($filters['worker_id']));
 
         $dataPagos = dataPayUnitsServicesForWorker($filters['worker_id'], $filters['fecha_desde'], $filters['fecha_hasta'], 1);
-
         $updateDataDoc = GenerateDocuments1099::find($filters['document_1099_id']);
         
         $updateDataDoc->eftor_check = $filters['eftor_check'];
@@ -622,7 +622,7 @@ function generar1099($filters){
         }
 
         $vendorCodeArray = $dataWorker->id;
-            
+        
         $arrayData = [
             'infoUser' => $dataWorker,
             'vendorCode' => $vendorCodeArray,
@@ -636,14 +636,14 @@ function generar1099($filters){
             'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
             'datePai' => date("m/d/Y",strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y')."+ 1 days")),
             'dataPagos' => isset($dataPagos['dataPagos']) && !empty($dataPagos['dataPagos']) ? $dataPagos['dataPagos'] : [],
-            'montoTotal' => isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal'][0]) && !empty($dataPagos['montoPagoTotal'][0]) ? $dataPagos['montoPagoTotal'][0] : (isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && !isset($dataPagos['montoPagoTotal'][0]) || empty($dataPagos['montoPagoTotal'][0]) ? $dataPagos['montoPagoTotal'] : 00.00),
+            'montoTotal' => isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) ? $dataPagos['montoPagoTotal'] : 00.00,
         ];
 
         //foreach($dataPagos['dataPagos'] as $key => $value) {
             //dd($value->id);
         //}
 
-        //dd($arrayData['montoTotal']);
+        //dd($arrayData['montoTotal'], $arrayData['montoTotal']);
 
         $filename = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y") . '.pdf';
         $title = str_replace(' ', '_', $namePdf->name_document_editor) . "_" . str_replace(' ', '_', $nameFile) . '_' . date("d_m_Y");
