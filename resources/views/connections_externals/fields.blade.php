@@ -1,31 +1,41 @@
 <!-- Name Connection Field -->
-<div class="form-group col-sm-6">
+<div class="form-group">
     {!! Form::label('name_connection', 'Name Connection:') !!}
     {!! Form::text('name_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
-<!-- Server Connection Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('server_connection', 'Server Connection:') !!}
-    {!! Form::text('server_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
+<div class="row">
+    <div class="col">
+        <!-- Server Connection Field -->
+        <div class="form-group">
+            {!! Form::label('server_connection', 'Server Connection:') !!}
+            {!! Form::text('server_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
 
-<!-- Port Connection Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('port_connection', 'Port Connection:') !!}
-    {!! Form::text('port_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
+    <div class="col">
+        <!-- Port Connection Field -->
+        <div class="form-group">
+            {!! Form::label('port_connection', 'Port Connection:') !!}
+            {!! Form::text('port_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
 
-<!-- User Connection Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_connection', 'User Connection:') !!}
-    {!! Form::text('user_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
+    <div class="col">
+        <!-- User Connection Field -->
+        <div class="form-group">
+            {!! Form::label('user_connection', 'User Connection:') !!}
+            {!! Form::text('user_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
 
-<!-- Password Connection Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('password_connection', 'Password Connection:') !!}
-    {!! Form::text('password_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    <div class="col">
+        <!-- Password Connection Field -->
+        <div class="form-group">
+            {!! Form::label('password_connection', 'Password Connection:') !!}
+            {!! Form::text('password_connection', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
 </div>
 
 <!-- Submit Field -->
