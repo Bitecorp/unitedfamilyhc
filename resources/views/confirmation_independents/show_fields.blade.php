@@ -60,7 +60,7 @@
 </br>
 
 @if($confirmationIndependent->independent_contractor == 1 && $confirmationIndependent->personalEmpresa == 2)
-<p>{{ companies }}</p>
+<p>{{ $companies }}</p>
     <div class="container-fluid">
         <div class="animated fadeIn">
             <div class="row">
