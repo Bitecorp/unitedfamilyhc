@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
-use App\Http\Controllers\DateTime;
+use DateTime;
 
 class NotesSubServicesRegisterController extends Controller
 {      
@@ -35,9 +35,9 @@ class NotesSubServicesRegisterController extends Controller
         $arrayForNotes = []; 
 
         if(Auth::user()->role_id == 1){
-            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
+            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', new DateTime(data_first_month_day()))->where('end', '<=', new DateTime(data_last_month_day()))->get();
         }else{
-            $notesRegs = RegisterAttentions::select('id')->where('worker_id', Auth::user()->id)->where('start', '>=', data_first_month_day())->where('end', '<=', data_last_month_day())->get();
+            $notesRegs = RegisterAttentions::select('id')->where('worker_id', Auth::user()->id)->where('start', '>=', new DateTime(data_first_month_day()))->where('end', '<=', new DateTime(data_last_month_day()))->get();
         }
 
         if(isset($notesRegs) && !empty($notesRegs)){
@@ -48,10 +48,27 @@ class NotesSubServicesRegisterController extends Controller
 
         $workers = User::all();
         $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
-
-
         $notes = [];
-        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
+        
+        foreach($allNotes->whereIn('register_attentions_id', array_unique($arrayForNotes))->unique() as $note){
+                $worker = User::find($note->worker_id);
+                $patiente = User::find($note->patiente_id);
+
+                if(!isset($worker)){
+                    RegisterAttentions::where('worker_id', $note->worker_id)->delete();
+                    NotesSubServicesRegister::where('worker_id', $note->worker_id)->delete();
+                }
+
+                if(!isset($patiente)){
+                    RegisterAttentions::where('worker_id', $note->patiente_id)->delete();
+                    NotesSubServicesRegister::where('worker_id', $note->patiente_id)->delete();
+                }
+        }
+
+        $allNotesClean = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
+
+
+        foreach($allNotesClean->whereIn('register_attentions_id', $arrayForNotes) as $note){
             $worker = User::find($note->worker_id);
             $patiente = User::find($note->patiente_id);
             $service = Service::find($note->service_id);
@@ -83,7 +100,7 @@ class NotesSubServicesRegisterController extends Controller
                     "register_attentions_id" => $note->register_attentions_id,
                     "worker_id" => array(
                         'id' => isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null),
-                        'fullName' => isset($worker->first_name) && !empty($worker->first_name) ? $worker->first_name : (isset($worker['first_name']) && !empty($worker['first_name']) ? $worker['first_name'] : null) . ' ' . isset($worker->last_name) && !empty($worker->last_name) ? $worker->last_name : (isset($worker['last_name']) && !empty($worker['last_name']) ? $worker['last_name'] : null)
+                        'fullName' => $worker->first_name . ' ' . $worker->last_name
                     ),
                     "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
                     "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
@@ -255,21 +272,21 @@ class NotesSubServicesRegisterController extends Controller
     public function search(request $request)
     {
         $input = $request->all();
-        $dateMenor = data_first_month_day();
-        $dateMayor = data_last_month_day();
+        $dateMenor = new DateTime(data_first_month_day());
+        $dateMayor = new DateTime(data_last_month_day());
         $dateConsultaMenor = '';
         $dateConsultaMayor = '';
         
         if(!isset($input['desde']) || empty($input['desde'])){
             $dateConsultaMenor = $dateMenor;
         }else{
-            $dateConsultaMenor = $input['desde'] . ' 00:00:01';
+            $dateConsultaMenor = new DateTime($input['desde'] . ' 00:00:01');
         }
 
         if(!isset($input['hasta']) || empty($input['hasta'])){
             $dateConsultaMayor = $dateMayor;
         }else{
-            $dateConsultaMayor = $input['hasta'] . ' 23:59:59';
+            $dateConsultaMayor = new DateTime($input['hasta'] . ' 23:59:59');
         }
 
         $arrayForNotes = []; 
@@ -293,7 +310,25 @@ class NotesSubServicesRegisterController extends Controller
         $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
 
         $notes = [];
-        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes)->unique() as $note){
+        foreach($allNotes->whereIn('register_attentions_id', array_unique($arrayForNotes))->unique() as $note){
+                $worker = User::find($note->worker_id);
+                $patiente = User::find($note->patiente_id);
+
+                if(!isset($worker)){
+                    RegisterAttentions::where('worker_id', $note->worker_id)->delete();
+                    NotesSubServicesRegister::where('worker_id', $note->worker_id)->delete();
+                }
+
+                if(!isset($patiente)){
+                    RegisterAttentions::where('worker_id', $note->patiente_id)->delete();
+                    NotesSubServicesRegister::where('worker_id', $note->patiente_id)->delete();
+                }
+        }
+
+        $allNotesClean = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
+
+
+        foreach($allNotesClean->whereIn('register_attentions_id', array_unique($arrayForNotes))->unique() as $note){
                 $worker = User::find($note->worker_id);
                 $patiente = User::find($note->patiente_id);
                 $service = Service::find($note->service_id);
@@ -325,7 +360,7 @@ class NotesSubServicesRegisterController extends Controller
                     "register_attentions_id" => $note->register_attentions_id,
                     "worker_id" => array(
                         'id' => isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null),
-                        'fullName' => isset($worker->first_name) && !empty($worker->first_name) ? $worker->first_name : (isset($worker['first_name']) && !empty($worker['first_name']) ? $worker['first_name'] : null) . ' ' . isset($worker->last_name) && !empty($worker->last_name) ? $worker->last_name : (isset($worker['last_name']) && !empty($worker['last_name']) ? $worker['last_name'] : null)
+                        'fullName' => $worker->first_name . ' ' . $worker->last_name
                     ),
                     "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
                     "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
@@ -343,6 +378,7 @@ class NotesSubServicesRegisterController extends Controller
                 );
 
                 $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null))->first();
+
 
                 if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                     if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
