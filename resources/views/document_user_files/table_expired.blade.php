@@ -23,7 +23,7 @@
                                             @if(count(array($filesUploads)) >= 1)
                                                 @foreach($filesUploadsExpired as $key => $filesUpload)
                                                     @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired >= 1)
-                                                        <tr>
+                                                        <tr style="{{ $filesUpload->expired == 1 || $filesUpload->expired == '1' ? 'background-color: #30f2ef !important' : '' }}">
                                                             <td> {{ $documentUserFile->name_doc }} </td>
                                                             <td> {{ $filesUpload->date_expedition }} </td>
                                                             <td> {{ $filesUpload->date_expired }} </td>
@@ -113,7 +113,7 @@
                         }
                     ],
                     order: [
-                        [2, 'desc']
+                        [3, 'desc']
                     ]
                 });
             });

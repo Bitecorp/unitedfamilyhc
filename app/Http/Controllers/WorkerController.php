@@ -624,7 +624,7 @@ class WorkerController extends AppBaseController
             $dataListFiles = array();
             foreach ($dataServicesAssigneds as $key => $values) {
                 foreach (json_decode($values->documents) as $key => $value) {
-                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->whereIn('role_id', [2, 3])->first();
+                    $consult = DB::table('type_docs')->select('id')->where('id', $value)->whereIn('role_id', [2, 3])->orderBy('document_certificate', 'ASC')->first();
                     if (isset($consult)) {
                         array_push($dataListFiles, $consult);
                     }
@@ -659,7 +659,7 @@ class WorkerController extends AppBaseController
 
             $documentUserFiles = array();
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
-                $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->orderBy('document_certificate', 'asc')->first();
+                $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->orderBy('name_doc', 'asc')->first();
                 if(isset($constData) && !empty($constData)){
                     array_push($documentUserFiles,  $constData);
                 }                
@@ -733,9 +733,7 @@ class WorkerController extends AppBaseController
                     }
                 }
             }
-
-
-            //dd($salaryServiceAssigneds);
+           //dd($filesUploadsExpired); //OrdenarMatrizColumna
             $returnView = view('workers.show_index')
                 ->with('typeDocs', $typeDoc)
                 ->with('roles', $roles)
@@ -755,7 +753,7 @@ class WorkerController extends AppBaseController
                 ->with('servicesAssigned', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('education', $education)
                 ->with('filesUploads', !empty($filesUploads) ? $filesUploads : null)
-                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($documentUserFiles) : null)
+                ->with('documentUserFiles', !empty($documentUserFiles) ? collect($this->OrdenarMatrizColumna($documentUserFiles, 'name_doc', 'ASC')) : null)
                 ->with('documentUserFilesUploads', !empty($documentUserFilesUpload) ? collect($documentUserFilesUpload) : null)
                 ->with('documentUserFilesDiffs', !empty($documentUserFilesDinst) ? collect($documentUserFilesDinst) : null)
                 ->with('documentsEditors', !empty($documentsEditors) ? $documentsEditors : null)
@@ -766,7 +764,7 @@ class WorkerController extends AppBaseController
                 ->with('collection', collect($data))
                 ->with('servicesDist', collect($servicesDist))
                 ->with('maritalStatus', $maritalStatus)
-                ->with('filesUploadsExpired', !empty($filesUploadsExpired)  ? $filesUploadsExpired : null)
+                ->with('filesUploadsExpired', !empty($filesUploadsExpired) ? $filesUploadsExpired : null)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
                 ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
         } else {
