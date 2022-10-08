@@ -288,11 +288,8 @@ class NotesSubServicesRegisterController extends Controller
         $workers = User::all();
         $allNotes = NotesSubServicesRegister::all()->sortByDesc('start')->sortByDesc('id')->values();
 
-            //where('start', '>=', $dateMenor)->where('end', '<=', $dateMayor)
         $notes = [];
-        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes) as $note){
-            //dd($note);
-            //if($note->start >= $dateConsultaMenor && $note->end <= $dateConsultaMayor){
+        foreach($allNotes->whereIn('register_attentions_id', $arrayForNotes)->unique() as $note){
                 $worker = User::find($note->worker_id);
                 $patiente = User::find($note->patiente_id);
                 $service = Service::find($note->service_id);
@@ -318,11 +315,14 @@ class NotesSubServicesRegisterController extends Controller
                         
                         $data->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
                     }
-
+                
                 $newNote = array( 
-                    "id" => $note->id,
+                    "id" => isset($note->id) && !empty($note->id) ? $note->id : (isset($note['id']) && !empty($note['id']) ? $note['id'] : null),
                     "register_attentions_id" => $note->register_attentions_id,
-                    "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
+                    "worker_id" => array(
+                        'id' => isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null),
+                        'fullName' => isset($worker->first_name) && !empty($worker->first_name) ? $worker->first_name : (isset($worker['first_name']) && !empty($worker['first_name']) ? $worker['first_name'] : null) . ' ' . isset($worker->last_name) && !empty($worker->last_name) ? $worker->last_name : (isset($worker['last_name']) && !empty($worker['last_name']) ? $worker['last_name'] : null)
+                    ),
                     "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
                     "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
                     "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
@@ -338,7 +338,7 @@ class NotesSubServicesRegisterController extends Controller
                     "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
                 );
 
-                $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $worker->id)->first();
+                $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null))->first();
 
                 if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                     if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
