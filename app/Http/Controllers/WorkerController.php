@@ -1000,13 +1000,16 @@ class WorkerController extends AppBaseController
         return redirect(route('workers.index'));
     }
 
-    public function sendEmailRecovery(Request $request){
+    public function sendEmailRecovery(Request $request)
+    {
         $input = $request->all();
         $exist = Worker::where('email', $input['email'])->first();
         if(isset($exist) && !empty($exist)){
             Mail::to($exist->email)->send(new resetPassword($exist, $input));
+            Flash::success('An email with the recovery link has been sent to the email ' . $input['email'] . '.');
             return redirect(route('login'));
         }else{
+            Flash::error('The email ' . $input['email'] . ' does not exist in our records.');
             return redirect(route('resetPassword'));
         }
     }
@@ -1017,10 +1020,11 @@ class WorkerController extends AppBaseController
 
         $exist = Worker::where('email', $input['email'])->first();
         if(isset($exist) && !empty($exist)){
-            Worker::where('email', $input['email'])->update(['password' => $input['password']]);
+            Worker::where('email', $input['email'])->update(['password' => Hash::make($input['password'])]);
             Flash::success('Password updated successfully.');
             return redirect(route('login'));
         }else{
+            Flash::error('An error has occurred, please try again later.');
             return redirect(route('resetPassword'));
         }
     }

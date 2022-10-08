@@ -31,7 +31,7 @@ class SendEmailRegisterController extends Controller
     {
         $input = $request->all();
         $data = [
-            'btnURL' => 'https://app.unitedfamilyhc.com/register/?email=' . $input['email'] . '&code=' . Hash::make($input['email']),
+            'btnURL' => env('APP_URL', 'https://app.unitedfamilyhc.com/') . 'register/?email=' . $input['email'] . '&code=' . Hash::make($input['email']),
             'email' => $input['email']
         ];
 

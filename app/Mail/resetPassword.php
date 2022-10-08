@@ -33,7 +33,7 @@ class resetPassword extends Mailable
         $data = [
             'exist' => $this->exist,
             'input' => $this->input,
-            'btnURL' => 'https://app.unitedfamilyhc.com/recoveryPassword?code=' . encriptar($this->input['email']),
+            'btnURL' => env('APP_URL', 'https://app.unitedfamilyhc.com/') . 'recoveryPassword?code=' . encriptar($this->input['email']),
         ];
 
         return $this->from('update@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Recovery password')->view('mails.resetPass')->with('data', $data);

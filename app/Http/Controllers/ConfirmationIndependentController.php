@@ -23,6 +23,7 @@ use Response;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Auth;
 
 class ConfirmationIndependentController extends AppBaseController
 {

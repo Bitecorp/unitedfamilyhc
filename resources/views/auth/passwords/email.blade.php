@@ -28,7 +28,8 @@
 		<!-- end brand -->
 		<!-- begin login-content -->
 		<div class="login-content" style="/*display: none;*/">
-            @include('coreui-templates::common.errors')
+            @include('flash::message')
+    		@include('coreui-templates::common.errors')
             <form method="post" action="{{ url('/emailReset') }}">
                 @csrf
                 <div>
@@ -36,13 +37,13 @@
                         <input id="email" name="email" type="text" class="form-control form-control-lg" placeholder="Email Address" required />
                     </div>
                     <div class="login-buttons">
-                        <button type="submit" class="btn btn-success btn-block btn-lg btnIniciarSesion">Send Email</button>
+                        <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion mb-3">Send Email</button>
                     </div>
-					<a href="{{ url('/login') }} " class="text-center" style='margin-top: 20px !important;'>I already have an account</a>
-                	<hr class="bg-grey-darker" style="margin-top: 5px !important;">
-                    <div class="m-t-20 text-center">
-                        &copy; <script> document.write(new Date().getFullYear()) </script> United Family
-                    </div>
+					<a href="{{ url('/login') }} " class="text-center">I already have an account</a>
+                	<hr class="bg-grey-darker">
+					<div class="m-t-20 text-center">
+						&copy; <script> document.write(new Date().getFullYear()) </script> United Family
+					</div>
                 </div>                      
             </form>
         </div>

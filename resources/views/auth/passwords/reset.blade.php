@@ -42,13 +42,13 @@
                         </div>
                         <div class="form-group m-b-20">
                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control-lg" placeholder="Confirm password" minlength="8" required>
-                            <label id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;">Las constraseñas si coinciden</label>
+                            <label id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;">The passwords do match</label>
                         </div>
                         <div class="login-buttons">
-                            <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion" disabled>Reset</button>
+                            <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion mb-3" disabled>Reset</button>
                         </div>
-                    <a href="{{ url('/login') }} " class="text-center" style='margin-top: 20px !important;'>I already have an account</a>
-                	<hr class="bg-grey-darker" style="margin-top: 5px !important;">
+                    <a href="{{ url('/login') }} " class="text-center">I already have an account</a>
+                	<hr class="bg-grey-darker">
                     <div class="m-t-20 text-center">
                         &copy; <script> document.write(new Date().getFullYear()) </script> United Family
                     </div>
@@ -73,11 +73,11 @@
                     $('#mensaje_error').hide();
                     $('#mensaje_error').attr("class", "control-label col-md-12 text-success");
                     $('#mensaje_error').show();
-                    $('#mensaje_error').html("Las constraseñas si coinciden");
+                    $('#mensaje_error').html("Passwords match");
                     $('#btn_submit').removeAttr('disabled');
                 } else {
                     $('#btn_submit').attr('disabled', 'disabled');
-                    $('#mensaje_error').html("Las constraseñas no coinciden");
+                    $('#mensaje_error').html("Passwords do not match");
                     $('#mensaje_error').show();
                 }
             }
