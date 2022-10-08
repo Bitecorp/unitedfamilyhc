@@ -362,7 +362,7 @@ class HomeController extends Controller
         $workerID = isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id;
 
         $servicesAssignedss = SalaryServiceAssigneds::where('user_id', $input['patiente_id'])->get();
-        $servicesAssignedssW = SalaryServiceAssigneds::where('user_id', $input['worker_id'])->get();
+        $servicesAssignedssW = SalaryServiceAssigneds::where('user_id', $workerID)->get();
         $dataPatiente = User::where('id', $input['patiente_id'])->first() ?? '';
 
         $idsServicesWorkersPatiente = [];
