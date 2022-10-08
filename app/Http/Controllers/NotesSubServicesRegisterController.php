@@ -79,25 +79,29 @@ class NotesSubServicesRegisterController extends Controller
                 }
 
             $newNote = array( 
-                "id" => $note->id,
-                "register_attentions_id" => $note->register_attentions_id,
-                "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
-                "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-                "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
-                "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
-                "note" => $note->note,
-                "firma" => $note->firma,
-                "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
-                "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
-                "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
-                "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
-                "statusPaid" => $data->paid,
-                "statusCollected" => $data->collected,
-                "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
-                "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
-            );
+                    "id" => isset($note->id) && !empty($note->id) ? $note->id : (isset($note['id']) && !empty($note['id']) ? $note['id'] : null),
+                    "register_attentions_id" => $note->register_attentions_id,
+                    "worker_id" => array(
+                        'id' => isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null),
+                        'fullName' => isset($worker->first_name) && !empty($worker->first_name) ? $worker->first_name : (isset($worker['first_name']) && !empty($worker['first_name']) ? $worker['first_name'] : null) . ' ' . isset($worker->last_name) && !empty($worker->last_name) ? $worker->last_name : (isset($worker['last_name']) && !empty($worker['last_name']) ? $worker['last_name'] : null)
+                    ),
+                    "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
+                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                    "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
+                    "note" => $note->note,
+                    "firma" => $note->firma,
+                    "status" => isset($data) && !empty($data) && isset($data->status) && !empty($data->status) ? $data->status : '',
+                    "start" => isset($data) && !empty($data) && isset($data->start) && !empty($data->start) ? date('m-d-Y h:i:s A', strtotime($data->start)) : '',
+                    "end" => isset($data) && !empty($data) && isset($data->end) && !empty($data->end) ? date('m-d-Y h:i:s A', strtotime($data->end)) : '',
+                    "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
+                    "statusPaid" => $data->paid,
+                    "statusCollected" => $data->collected,
+                    "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
+                    "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
+                );
 
-            $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', $worker->id)->first();
+            $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null))->first();
+
 
             if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                 if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
