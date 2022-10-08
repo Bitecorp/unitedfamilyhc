@@ -508,7 +508,7 @@ class NotesSubServicesRegisterController extends Controller
         $dataSearch = [
             'searchStart' => $input['desde'],
             'searchEnd' => $input['hasta'],
-            'searchWorkerId' => $input['worker_id'],
+            'searchWorkerId' => isset($input['worker_id']) && !empty($input['worker_id']) ? $input['worker_id'] : Auth::user()->id,
         ];
 
        //dd(collect($notes)->unique());
