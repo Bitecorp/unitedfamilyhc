@@ -19,7 +19,7 @@
         <div class="form-group">
             <p>Values:</p>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="billing_default" onclick="billingDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}')" name="billing_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'checked' : '') }}>
+                <input type="checkbox" class="custom-control-input" id="billing_default" onclick="billingDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}','{{ isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? true : false }} ')" name="billing_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'checked' : '') }}>
                 <label class="custom-control-label" for="billing_default">Changed/Default</label>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
             <p>Values:</p>
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="payment_default" onclick="paymentDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}')" name="payment_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'checked' : '') }}>
+                <input type="checkbox" class="custom-control-input" id="payment_default" onclick="paymentDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}',' {{ isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? true : false }} ')" name="payment_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'checked' : '') }}>
                 <label class="custom-control-label" for="payment_default">Changed/Default</label>
             </div>
         </div>

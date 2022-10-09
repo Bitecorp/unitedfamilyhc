@@ -237,7 +237,7 @@ function alerta(){
             var url = '/notesSubService/' + idNota + '/update';
 
             var register_attentions_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['register_attentions_id'] : '' }}";
-			var idUser = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['worker_id']['id'] : '' }}";
+			var idUser = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['worker_id']['id'] : Auth::user()->id }}";
 			var service_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['service_id']['id'] : '' }}";
 			var patiente_id = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['patiente_id']['id'] : '' }}";
 			var idSubService = "{{ isset($note) && !empty($note) && isset($note[0]) && !empty($note[0]) ? $note[0]['sub_service_id']['id'] : '' }}";
@@ -245,7 +245,7 @@ function alerta(){
 			var token = '{{ csrf_token() }}';
             var previa_url = document.getElementById('previa_url').value;
 
-            if(worker_id  == '', service_id == '', patiente_id == '', sub_service_id == ''){
+            if(idUser  == '', service_id == '', patiente_id == '', idSubService == ''){
                 let msjOne = 'There are empty fields and you cannot proceed to the creation, please fill in all the field.\n\n';
 				let msjTwo = 'Existen campos vacios y no se puede proceder a la creacion por favor llene todos los campos.';
 

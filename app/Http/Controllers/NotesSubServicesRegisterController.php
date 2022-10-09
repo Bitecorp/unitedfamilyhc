@@ -680,16 +680,16 @@ class NotesSubServicesRegisterController extends Controller
 
             $updateAt = $attentionReg;
 
-            $updateAt->worker_id = $input['worker_id'];
-            $updateAt->service_id = $input['service_id'];
-            $updateAt->patiente_id = $input['patiente_id'];
-            $updateAt->sub_service_id = $input['sub_service_id'];
-            $updateAt->start = $input['start'];
-            $updateAt->lat_start = $input['lat_start'];
-            $updateAt->long_start = $input['long_end'];
-            $updateAt->end = $input['end'];
-            $updateAt->lat_end = $input['lat_end'];
-            $updateAt->long_end = $input['long_end'];
+            $updateAt->worker_id = $input['worker_id'] ?? $attentionReg->worker_id;
+            $updateAt->service_id = $input['service_id'] ?? $attentionReg->service_id;
+            $updateAt->patiente_id = $input['patiente_id'] ?? $attentionReg->patiente_id;
+            $updateAt->sub_service_id = $input['sub_service_id'] ?? $attentionReg->sub_service_id;
+            $updateAt->start = $input['start'] ?? $attentionReg->start;
+            $updateAt->lat_start = $input['lat_start'] ?? $attentionReg->lat_start;
+            $updateAt->long_start = $input['long_end'] ?? $attentionReg->long_start;
+            $updateAt->end = $input['end'] ?? $attentionReg->end;
+            $updateAt->lat_end = $input['lat_end'] ?? $attentionReg->lat_end;
+            $updateAt->long_end = $input['long_end'] ?? $attentionReg->long_end;
 
             $updateAt->save();
 
