@@ -15,47 +15,61 @@
         </div>
     </div>
 
-    <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
-        <div class="form-group">
-            <p>Values:</p>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="billing_default" onclick="billingDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}','{{ isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? true : false }} ')" name="billing_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'checked' : '') }}>
-                <label class="custom-control-label" for="billing_default">Changed/Default</label>
+    @if (strpos(URL::previous(), "patientes"))
+        <div class="col">
+            <div class="form-group">
+                <p>Values:</p>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="billing_default" onclick="billingDefault()" name="billing_default" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '0' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? '1' : '0') }}" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'checked' : '') }}>
+                    <label class="custom-control-label" for="billing_default">Changed/Default</label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
-        <div class="form-group">
-            <p>Values:</p>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="payment_default" onclick="paymentDefault('{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}',' {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}',' {{ isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? true : false }} ')" name="payment_default" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'checked' : '') }}>
-                <label class="custom-control-label" for="payment_default">Changed/Default</label>
+        <div class="col">
+            <div class="form-group">
+                <p>Type of Salary:</p>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->type_salary) && !empty($salaryServiceAssigneds->type_salary) == 1 ? 'checked' : (isset($salaryServiceAssigneds) && $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '') }} {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'disabled' : '') }}>
+                    <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
-    <div class="col">
-        <div class="form-group">
-            <p>Type of Salary:</p>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" value="0" {{ isset($salaryServiceAssigneds) && $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '' }}>
-                <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
+    @if (strpos(URL::previous(), "workers"))
+        <div class="col">
+            <div class="form-group">
+                <p>Values:</p>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="payment_default" onclick="paymentDefault()" name="payment_default" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '0' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? '1' : '0') }}" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'checked' : '') }}>
+                    <label class="custom-control-label" for="payment_default">Changed/Default</label>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="col">
+            <div class="form-group">
+                <p>Type of Salary:</p>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="type_salary" name="type_salary" value="0" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->type_salary) && !empty($salaryServiceAssigneds->type_salary) == 1 ? 'checked' : (isset($salaryServiceAssigneds) && $salaryServiceAssigneds->type_salary == 1 ? 'checked' : '') }} {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'disabled' : '') }}>
+                    <label class="custom-control-label" for="type_salary">Monthly/PerHour</label>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('customer_payment', 'Customer Billing:') !!}
-            <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? $salaryServiceAssigneds->customer_payment : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '') }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
+            <input type="text" name="customer_payment" id="customer_payment" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? $salaryServiceAssigneds->customer_payment : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? $services->price_sub_service : '') }}" readonly>
         </div>
     </div>
 
     <div class="col" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
         <div class="form-group">
             {!! Form::label('salary', 'Worker Payment:') !!}
-            <input type="text" name="salary" id="salary" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? $salaryServiceAssigneds->salary : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? $services->worker_payment : '') }}" required={{ strpos(URL::previous(), "workers") ? "false ": "true" }}>
+            <input type="text" name="salary" id="salary" class="form-control" value="{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? $salaryServiceAssigneds->salary : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? $services->worker_payment : '') }}" {{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'readonly' : '') }}>
         </div>
     </div>
 </div>
@@ -65,7 +79,9 @@
         <!-- unit Id Field -->
         <div class="form-group">
             {!! Form::label('unit_id', 'Unit Of Time:') !!}
-            <select name='unit_id' id='unit_id' class="default-select2 form-control">
+            <select name='unit_id' id='unit_id' class="default-select2 form-control"
+            {{ strpos(URL::previous(), "workers") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'readonly disabled' : (strpos(URL::previous(), "patientes") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'readonly disabled' : ''))) }}
+            >
                 <option value='' selected>Select Unit of Time..</option>
                 @foreach($units as $unit)
                     <option value='{{ $unit->id }}' 
@@ -183,65 +199,84 @@
 @push('scripts')
     <script>
         $(".default-select2").select2();
-    
 
-        function billingDefault(idSalary, idUser) {
-            var id_salary = idSalary;
-            var billin_default = true;
-            var payment_default = false;
-            var url = "/returnValuesDefault";
-            var token = '{{ csrf_token() }}';
-            var id_user = idUser;
-            var urlRedirect = '/patientes/' + id_user + '?services';
-            var urlClean = urlRedirect.replace("%20", "");
+        function billingDefault() {
+            var testCheck = $('#billing_default').val();
+            if(testCheck == 1 || testCheck == '1'){
+                $('#type_salary').removeAttr('disabled');
+                $('#customer_payment').removeAttr('readonly');
+                $('#unit_id').removeAttr('readonly');
+                $('#unit_id').removeAttr('disabled');
+                $('#billing_default').val(0);
+            }else{            
+                var id_salary = "{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}";
+                var billin_default = true;
+                var payment_default = false;
+                var url = "/returnValuesDefault";
+                var token = '{{ csrf_token() }}';
+                var id_user = "{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}";
+                var urlRedirect = '/patientes/' + id_user + '?services';
+                var urlClean = urlRedirect.replace("%20", "")
 
-            $.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-				_token: token,
-				id_salary: id_salary,
-                billin_default: billin_default,
-                payment_default: payment_default
-			},
-                success: function(data) {
-                    location.replace(urlClean.replace(" ", ""));
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                    _token: token,
+                    id_salary: id_salary,
+                    billin_default: billin_default,
+                    payment_default: payment_default
                 },
-                error: function (error) { 
-                    console.log(error);
-                }
-			})
+                    success: function(data) {
+                        location.replace(urlClean.replace(" ", ""));
+                    },
+                    error: function (error) { 
+                        console.log(error);
+                    }
+                })
+
+            }
         }
 
-        function paymentDefault(idSalary, idUser) {
-            var id_salary = idSalary;
-            var billin_default = false;
-            var payment_default = true;
-            var url = "/returnValuesDefault";
-            var token = '{{ csrf_token() }}';
-            var id_user = idUser;
-            var urlRedirect = '/workers/' + id_user + '?services';
-            var urlClean = urlRedirect.replace("%20", "");
 
-            $.ajax({
-				type: "post",
-				url: url,
-				dataType: 'json',
-				data: {
-				_token: token,
-				id_salary: id_salary,
-                billin_default: billin_default,
-                payment_default: payment_default
-			},
-                success: function(data) {
-                    location.replace(urlClean.replace(" ", ""));
+        function paymentDefault() {
+            var testCheck = $('#payment_default').val();
+            if(testCheck == 1 || testCheck == '1'){
+                $('#type_salary').removeAttr('disabled');
+                $('#salary').removeAttr('readonly');
+                $('#unit_id').removeAttr('readonly');
+                $('#unit_id').removeAttr('disabled');
+                $('#payment_default').val(0);
+            }else{
+                var id_salary = '{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->id : null }}';
+                var billin_default = false;
+                var payment_default = true;
+                var url = "/returnValuesDefault";
+                var token = '{{ csrf_token() }}';
+                var id_user = '{{ isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) ? $salaryServiceAssigneds->user_id : null }}';
+                var urlRedirect = '/workers/' + id_user + '?services';
+                var urlClean = urlRedirect.replace("%20", "");
+
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                    _token: token,
+                    id_salary: id_salary,
+                    billin_default: billin_default,
+                    payment_default: payment_default
                 },
-                error: function (error) { 
-                    console.log(error);
-                }
-			})
-        }
+                    success: function(data) {
+                        location.replace(urlClean.replace(" ", ""));
+                    },
+                    error: function (error) { 
+                        console.log(error);
+                    }
+                })
+            }
+        }   
     </script>
     <script> 
 
