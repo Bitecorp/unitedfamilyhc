@@ -1,0 +1,1329 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Laravel Generator APIs",
+        "version": "1.0.0"
+    },
+    "basePath": "/api/v1",
+    "paths": {},
+    "definitions": {
+        "Agent": {
+            "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "role_id",
+                "statu_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "first_name": {
+                    "description": "first_name",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "last_name",
+                    "type": "string"
+                },
+                "mi": {
+                    "description": "mi",
+                    "type": "string"
+                },
+                "street_addres": {
+                    "description": "street_addres",
+                    "type": "string"
+                },
+                "apartment_unit": {
+                    "description": "apartment_unit",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "city",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "state",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "zip_code",
+                    "type": "string"
+                },
+                "home_phone": {
+                    "description": "home_phone",
+                    "type": "string"
+                },
+                "alternate_phone": {
+                    "description": "alternate_phone",
+                    "type": "string"
+                },
+                "ssn": {
+                    "description": "ssn",
+                    "type": "string"
+                },
+                "birth_date": {
+                    "description": "birth_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "marital_state": {
+                    "description": "marital_state",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "email_verified_at": {
+                    "description": "email_verified_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "password": {
+                    "description": "password",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "role_id",
+                    "type": "string"
+                },
+                "statu_id": {
+                    "description": "statu_id",
+                    "type": "string"
+                },
+                "remember_token": {
+                    "description": "remember_token",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "alertDocuments": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "document_user_file_id": {
+                    "description": "document_user_file_id",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Companies": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "street_addres": {
+                    "description": "street_addres",
+                    "type": "string"
+                },
+                "apartment_unit": {
+                    "description": "apartment_unit",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "city",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "state",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "zip_code",
+                    "type": "string"
+                },
+                "home_phone": {
+                    "description": "home_phone",
+                    "type": "string"
+                },
+                "alternate_phone": {
+                    "description": "alternate_phone",
+                    "type": "string"
+                },
+                "ssn": {
+                    "description": "ssn",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ConfigSubServicesPatiente": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "salary_service_assigned_id": {
+                    "description": "salary_service_assigned_id",
+                    "type": "string"
+                },
+                "agent_id": {
+                    "description": "agent_id",
+                    "type": "string"
+                },
+                "code_patiente": {
+                    "description": "code_patiente",
+                    "type": "string"
+                },
+                "approved_units": {
+                    "description": "approved_units",
+                    "type": "string"
+                },
+                "date_expedition": {
+                    "description": "date_expedition",
+                    "type": "string",
+                    "format": "date"
+                },
+                "date_expired": {
+                    "description": "date_expired",
+                    "type": "string",
+                    "format": "date"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ConfirmationIndependent": {
+            "required": [
+                "independent_contractor"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "independent_contractor": {
+                    "description": "independent_contractor",
+                    "type": "boolean"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ContactEmergency": {
+            "required": [
+                "user_id",
+                "first_name",
+                "last_name"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "first_name": {
+                    "description": "first_name",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "last_name",
+                    "type": "string"
+                },
+                "mi": {
+                    "description": "mi",
+                    "type": "string"
+                },
+                "street_addres": {
+                    "description": "street_addres",
+                    "type": "string"
+                },
+                "apartment_unit": {
+                    "description": "apartment_unit",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "city",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "state",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "zip_code",
+                    "type": "string"
+                },
+                "home_phone": {
+                    "description": "home_phone",
+                    "type": "string"
+                },
+                "alternate_phone": {
+                    "description": "alternate_phone",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "DocumentUserFiles": {
+            "required": [
+                "file"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "document_id": {
+                    "description": "document_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "date_expedition": {
+                    "description": "date_expedition",
+                    "type": "string",
+                    "format": "date"
+                },
+                "date_expired": {
+                    "description": "date_expired",
+                    "type": "string",
+                    "format": "date"
+                },
+                "file": {
+                    "description": "file",
+                    "type": "string"
+                }
+            }
+        },
+        "Education": {
+            "required": [
+                "high_school",
+                "college_university"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "high_school": {
+                    "description": "high_school",
+                    "type": "string"
+                },
+                "college_university": {
+                    "description": "college_university",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ExternalsDocuments": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "title": {
+                    "description": "title",
+                    "type": "string"
+                },
+                "file": {
+                    "description": "file",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ImagesDocuments": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "title": {
+                    "description": "title",
+                    "type": "string"
+                },
+                "file": {
+                    "description": "file",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "JobInformation": {
+            "required": [
+                "title",
+                "supervisor",
+                "work_name_location",
+                "work_phone",
+                "salary"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "title",
+                    "type": "string"
+                },
+                "supervisor": {
+                    "description": "supervisor",
+                    "type": "string"
+                },
+                "work_name_location": {
+                    "description": "work_name_location",
+                    "type": "string"
+                },
+                "work_phone": {
+                    "description": "work_phone",
+                    "type": "string"
+                },
+                "salary": {
+                    "description": "salary",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Location": {
+            "required": [
+                "name_location"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_location": {
+                    "description": "name_location",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "MaritalStatus": {
+            "required": [
+                "name_marital_status"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_marital_status": {
+                    "description": "name_marital_status",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Patiente": {
+            "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "role_id",
+                "statu_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "first_name": {
+                    "description": "first_name",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "last_name",
+                    "type": "string"
+                },
+                "mi": {
+                    "description": "mi",
+                    "type": "string"
+                },
+                "street_addres": {
+                    "description": "street_addres",
+                    "type": "string"
+                },
+                "apartment_unit": {
+                    "description": "apartment_unit",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "city",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "state",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "zip_code",
+                    "type": "string"
+                },
+                "home_phone": {
+                    "description": "home_phone",
+                    "type": "string"
+                },
+                "alternate_phone": {
+                    "description": "alternate_phone",
+                    "type": "string"
+                },
+                "ssn": {
+                    "description": "ssn",
+                    "type": "string"
+                },
+                "birth_date": {
+                    "description": "birth_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "marital_state": {
+                    "description": "marital_state",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "email_verified_at": {
+                    "description": "email_verified_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "password": {
+                    "description": "password",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "role_id",
+                    "type": "string"
+                },
+                "statu_id": {
+                    "description": "statu_id",
+                    "type": "string"
+                },
+                "remember_token": {
+                    "description": "remember_token",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ReferencesJobs": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "name_and_address": {
+                    "description": "name_and_address",
+                    "type": "string"
+                },
+                "position": {
+                    "description": "position",
+                    "type": "string"
+                },
+                "supervisor": {
+                    "description": "supervisor",
+                    "type": "string"
+                },
+                "phone_supervisor": {
+                    "description": "phone_supervisor",
+                    "type": "string"
+                },
+                "dates_employed": {
+                    "description": "dates_employed",
+                    "type": "string"
+                },
+                "to_dates_employed": {
+                    "description": "to_dates_employed",
+                    "type": "string"
+                },
+                "reason_leaving": {
+                    "description": "reason_leaving",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ReferencesJobsTwo": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "reference_number": {
+                    "description": "reference_number",
+                    "type": "string"
+                },
+                "name_and_address": {
+                    "description": "name_and_address",
+                    "type": "string"
+                },
+                "position": {
+                    "description": "position",
+                    "type": "string"
+                },
+                "supervisor": {
+                    "description": "supervisor",
+                    "type": "string"
+                },
+                "phone_supervisor": {
+                    "description": "phone_supervisor",
+                    "type": "string"
+                },
+                "dates_employed": {
+                    "description": "dates_employed",
+                    "type": "string"
+                },
+                "to_dates_employed": {
+                    "description": "to_dates_employed",
+                    "type": "string"
+                },
+                "reason_leaving": {
+                    "description": "reason_leaving",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ReferencesPersonales": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "name_job": {
+                    "description": "name_job",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "address",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "phone",
+                    "type": "string"
+                },
+                "ocupation": {
+                    "description": "ocupation",
+                    "type": "string"
+                },
+                "time": {
+                    "description": "time",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ReferencesPersonalesTwo": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "reference_number": {
+                    "description": "reference_number",
+                    "type": "string"
+                },
+                "name_job": {
+                    "description": "name_job",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "address",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "phone",
+                    "type": "string"
+                },
+                "ocupation": {
+                    "description": "ocupation",
+                    "type": "string"
+                },
+                "time": {
+                    "description": "time",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Role": {
+            "required": [
+                "name_role"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_role": {
+                    "description": "name_role",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SalaryServiceAssigneds": {
+            "required": [
+                "type_salary"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "service_id": {
+                    "description": "service_id",
+                    "type": "string"
+                },
+                "type_salary": {
+                    "description": "type_salary",
+                    "type": "boolean"
+                },
+                "salary": {
+                    "description": "salary",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Service": {
+            "required": [
+                "name_service",
+                "documents"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_service": {
+                    "description": "name_service",
+                    "type": "string"
+                },
+                "documents": {
+                    "description": "documents",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "ServiceAssigneds": {
+            "required": [
+                "user_id",
+                "services"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "string"
+                },
+                "services": {
+                    "description": "services",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Statu": {
+            "required": [
+                "name_status"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_status": {
+                    "description": "name_status",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SubServices": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "service_id": {
+                    "description": "service_id",
+                    "type": "string"
+                },
+                "name_sub_service": {
+                    "description": "name_sub_service",
+                    "type": "string"
+                },
+                "price_sub_service": {
+                    "description": "price_sub_service",
+                    "type": "string"
+                },
+                "config_validate": {
+                    "description": "config_validate",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "TaskSubServices": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_task": {
+                    "description": "name_task",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "TitleJobs": {
+            "required": [
+                "name_job"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_job": {
+                    "description": "name_job",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "TypeDoc": {
+            "required": [
+                "name_doc"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_doc": {
+                    "description": "name_doc",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Units": {
+            "required": [
+                "type_unidad"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "time": {
+                    "description": "time",
+                    "type": "string"
+                },
+                "type_unidad": {
+                    "description": "por minutos/horas",
+                    "type": "boolean"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Worker": {
+            "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "role_id",
+                "statu_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "first_name": {
+                    "description": "first_name",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "last_name",
+                    "type": "string"
+                },
+                "mi": {
+                    "description": "mi",
+                    "type": "string"
+                },
+                "street_addres": {
+                    "description": "street_addres",
+                    "type": "string"
+                },
+                "apartment_unit": {
+                    "description": "apartment_unit",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "city",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "state",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "zip_code",
+                    "type": "string"
+                },
+                "home_phone": {
+                    "description": "home_phone",
+                    "type": "string"
+                },
+                "alternate_phone": {
+                    "description": "alternate_phone",
+                    "type": "string"
+                },
+                "ssn": {
+                    "description": "ssn",
+                    "type": "string"
+                },
+                "birth_date": {
+                    "description": "birth_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "marital_state": {
+                    "description": "marital_state",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "email_verified_at": {
+                    "description": "email_verified_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "password": {
+                    "description": "password",
+                    "type": "string"
+                },
+                "role_id": {
+                    "description": "role_id",
+                    "type": "string"
+                },
+                "statu_id": {
+                    "description": "statu_id",
+                    "type": "string"
+                },
+                "remember_token": {
+                    "description": "remember_token",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "documentsEditors": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name_document_editor": {
+                    "description": "name_document_editor",
+                    "type": "string"
+                },
+                "content": {
+                    "description": "content",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}
