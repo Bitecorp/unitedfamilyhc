@@ -41,7 +41,7 @@ class ChangePassGlobal extends Command
     { 
 
         $allUsers = User::all(); //->update(['email' => false])
-
+        $count = 0;
         foreach($allUsers as $key => $user){
             $us = User::find($user->id);
             
@@ -50,9 +50,15 @@ class ChangePassGlobal extends Command
             }else{
                 $us->password = Hash::make('@' . substr(mb_strtoupper($user->first_name),0,2) . '#' . $user->ssn . '#' . substr(mb_strtolower($user->last_name),0,2) . '@');
             }
-            
+
+            if($user->role_id == 1 || $user->rple_id == '1'){
+                $us->password = Hash::make('W1nnts3rv3r@@');
+            }
+
             $us->save();
+            $count++;
         }
-        return 0;
+
+        dd(count($allUsers), $count);
     }
 }
