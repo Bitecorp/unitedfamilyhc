@@ -448,7 +448,7 @@ class WorkerController extends AppBaseController
     public function store(CreateWorkerRequest $request)
     {
         $input = $request->all();
-        $input['password'] = Hash::make($input['ssn']);
+        $input['password'] = Hash::make('@' . substr(mb_strtoupper($input['first_name']),0,2) . '#' . $input['ssn'] . '#' . substr(mb_strtolower($input['last_name']),0,2) . '@');
         $input['remember_token'] = Str::random(10);
         $input['email_verified_at'] = now();
 
