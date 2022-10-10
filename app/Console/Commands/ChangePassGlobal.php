@@ -58,7 +58,5 @@ class ChangePassGlobal extends Command
             $us->save();
             $count++;
         }
-
-        dd(count($allUsers), $count);
     }
 }
