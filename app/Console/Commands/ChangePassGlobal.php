@@ -52,7 +52,7 @@ class ChangePassGlobal extends Command
             }
 
             if($user->role_id == 1 || $user->rple_id == '1'){
-                $us->password = Hash::make('W1nnts3rv3r@@');
+                $us->password = Hash::make('$$Adm1nW1nnts3rv3r$$');
             }
 
             $us->save();
