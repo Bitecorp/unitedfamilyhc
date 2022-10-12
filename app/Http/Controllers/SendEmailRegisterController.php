@@ -8,6 +8,7 @@ use Flash;
 use Response;
 use Mail;
 use App\Mail\registerWorker;
+use App\Models\User;
 
 class SendEmailRegisterController extends Controller
 {
@@ -29,16 +30,25 @@ class SendEmailRegisterController extends Controller
      */
     public function sendEmailRegisterWorker(Request $request)
     {
+
         $input = $request->all();
-        $data = [
-            'btnURL' => env('APP_URL', 'https://app.unitedfamilyhc.com/') . 'register/?email=' . $input['email'] . '&code=' . Hash::make($input['email']),
-            'email' => $input['email']
-        ];
+        $exist = User::where('email', $input['email'])->first();
+        if(isset($exist) && !empty($exist)){
+            Flash::error('There is already a user with this email.');
 
-        Mail::to($data['email'])->send(new registerWorker($data));
-        
-        Flash::success('Email for new employee registration sent correctlyr.');
+            return view('workers.emailRegisterWorker');
+        }else{
 
-        return view('workers.emailRegisterWorker');
+            $data = [
+                'btnURL' => env('APP_URL', 'https://app.unitedfamilyhc.com/') . 'register/?code=' . encriptar($input['email']),
+                'email' => $input['email']
+            ];
+
+            Mail::to($data['email'])->send(new registerWorker($data));
+            
+            Flash::success('Email for new employee registration sent correctly.');
+
+            return view('workers.emailRegisterWorker');
+        }
     }
 }

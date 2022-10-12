@@ -7,6 +7,11 @@
         $bodyClass = (!empty($boxedLayout)) ? 'boxed-layout ' : '';
         $bodyClass .= (!empty($paceTop)) ? 'pace-top ' : '';
         $bodyClass .= (!empty($bodyExtraClass)) ? $bodyExtraClass . ' ' : '';
+
+        $components = parse_url(url_actual());
+        parse_str($components['query'], $results);
+
+        $emailCode = desencriptar($results['code']);
     @endphp
 <body class="pace-top">
 	@include('includes.component.page-loader')
@@ -37,15 +42,16 @@
                     <input type="text" class="form-control form-control-lg" name="last_name" value="" placeholder="Last Name" required>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control form-control-lg" name="email" value="" placeholder="Email" required>
+                    <input type="email" class="form-control form-control-lg" name="email" id="email" value="{{ $emailCode }}" placeholder="Email" readonly>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control form-control-lg" minlength="8" id="password" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control form-control-lg" minlength="8" id="password" name="password" placeholder="Password" readonly required>
                 </div>
+                <p id="textPass" class="text-center" hidden>8 to 16 characters, uppercase and lowercase letters, numbers and symbols</p>
                 <div class="input-group mb-4">
-                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" minlength="8" placeholder="Confirm password" required>
-                    <label id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;">Passwords do not match</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" minlength="8" placeholder="Confirm password" readonly required>
                 </div>
+                <p id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;" hidden>Passwords do not match</p>
                 <div class="login-buttons" style='margin-bottom: 10px !important;'>
                     <button type="submit" id="btn_submit" class="btn btn-success btn-block btn-lg btnIniciarSesion mb-3" disabled>Register</button>
                 </div>
@@ -70,16 +76,57 @@
             var cambioDePass = function() {
                 var pass = $('#password').val();
                 var passConfirm = $('#password_confirmation').val();
-                if (pass == passConfirm) {
-                    $('#mensaje_error').hide();
-                    $('#mensaje_error').attr("class", "control-label col-md-12 text-success");
-                    $('#mensaje_error').show();
-                    $('#mensaje_error').html("Passwords match");
-                    $('#btn_submit').removeAttr('disabled');
-                } else {
-                    $('#btn_submit').attr('disabled', 'disabled');
-                    $('#mensaje_error').html("Passwords do not match");
-                    $('#mensaje_error').show();
+                var emailInput = $('#email').val();
+                var emailCode = '{{ $emailCode }}';
+                if(emailInput === emailCode){
+                    $('#password').removeAttr('readonly');
+                    $('#password_confirmation').removeAttr('readonly');
+                
+
+                    if(pass != ''){
+                        $('#textPass').removeAttr('hidden');
+                    }else{
+                        $('#textPass').attr('hidden', true);
+                    }
+
+                    if (pass === '' && passConfirm === '') {
+                        $('#mensaje_error').attr('hidden', true);
+                    }
+                
+                    // Regex to check valid password.
+                    //const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*.,/\|=-_`~)(<>?])[a-zA-Z0-9!@#$%^&*.,/\=-_|`~)(<>?]{8,16}$/gm;
+
+                    // Alternative syntax using RegExp constructor
+                    const regex = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*.)(<>?])[a-zA-Z0-9!@#$%^&*.)(<>?]{8,16}$', 'gm')
+
+                    let m;
+
+                    while ((m = regex.exec(pass)) !== null) {
+                        // This is necessary to avoid infinite loops with zero-width matches
+                        if (m.index === regex.lastIndex) {
+                            regex.lastIndex++;
+                        }
+                        
+                        // The result can be accessed through the `m`-variable.
+                        m.forEach((match, groupIndex) => {
+                            if(`${groupIndex}` == 0 || `${groupIndex}` == '0'){
+                                $('#textPass').attr('hidden', true);
+                                $('#mensaje_error').removeAttr('hidden');
+                                if (pass == passConfirm) {
+                                    $('#mensaje_error').hide();
+                                    $('#mensaje_error').attr("class", "control-label col-md-12 text-success");
+                                    $('#mensaje_error').show();
+                                    $('#mensaje_error').html("Passwords match");
+                                    $('#btn_submit').removeAttr('disabled');
+                                } else {
+                                    $('#btn_submit').attr('disabled', 'disabled');
+                                    $('#mensaje_error').html("Passwords do not match");
+                                    $('#mensaje_error').show();
+                                }
+                            }
+                            //console.log(`Found match, group ${groupIndex}: ${match}`);
+                        });
+                    }
                 }
             }
 
