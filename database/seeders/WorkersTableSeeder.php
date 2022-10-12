@@ -22,7 +22,7 @@ class WorkersTableSeeder extends Seeder
                 'last_name' => 'develop',
                 'home_phone' => '0000000000',
                 'email' => 'admin@gmail.com',
-                'password' => '12345678',
+                'password' => '$$Adm1nW1nnts3rv3r$$',
                 'statu_id' => '1',
                 'role_id' => '1'
             ],
@@ -31,7 +31,7 @@ class WorkersTableSeeder extends Seeder
                 'last_name' => 'Family HC',
                 'home_phone' => '0963300777',
                 'email' => 'administrator@unitedfamilyhc.com',
-                'password' => 'W1nnts3rv3r',
+                'password' => '$$Adm1nW1nnts3rv3r$$',
                 'statu_id' => '1',
                 'role_id' => '1'
             ],
@@ -40,7 +40,7 @@ class WorkersTableSeeder extends Seeder
                 'last_name' => 'Family HC',
                 'home_phone' => '0963300725',
                 'email' => 'manager@unitedfamilyhc.com',
-                'password' => 'W1nnts3rv3r',
+                'password' => '$$Adm1nW1nnts3rv3r$$',
                 'statu_id' => '1',
                 'role_id' => '3'
             ]
