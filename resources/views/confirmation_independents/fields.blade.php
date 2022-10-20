@@ -121,6 +121,7 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Next', ['class' => 'btn btn-primary']) !!}
+    <a href="{{ redirect()->back()->getTargetUrl() }}" class='btn btn-info'>Back</a>
     <?php
         $link = "$_SERVER[REQUEST_URI]";
         $stringSeparado = explode('/', $link);

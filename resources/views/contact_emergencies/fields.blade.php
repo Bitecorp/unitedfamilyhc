@@ -85,6 +85,7 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Next', ['class' => 'btn btn-primary']) !!}
+    <a href="{{ redirect()->back()->getTargetUrl() }}" class='btn btn-info'>Back</a>
     @if($contactEmergency->guardian == 0)
     <a href="{{ route($urlUser . '.show', [$contactEmergency->user_id]) }}" class='btn btn-success'>Show</a>
     <a href="{{ route($urlUser . '.index') }}" class="btn btn-secondary">Cancel</a>
