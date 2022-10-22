@@ -1,15 +1,8 @@
 <div class="row">
-    <!-- <div class="col-6"> -->
-        @if((new \Jenssegers\Agent\Agent())->isDesktop())
-            <div class="col-6">
-        @else
-            <div class="col">
-        @endif
-            <div class="panel panel-inverse">
-                <!-- begin panel-body -->
-                <div class="panel-body">
-                    <!-- <div class="col-xs-12 ">
-                        <div class="table-responsive">-->
+    <div class="col">
+            @if(!(new \Jenssegers\Agent\Agent())->isDesktop())
+                <div class="table-responsive">
+            @endif
                         <table id="tableDocumentsCurrents" class="table table-striped table-bordered table-td-valign-middle">
                             <thead>
                                 <tr>
@@ -61,26 +54,30 @@
                                                     @if(count(array($filesUploads)) >= 1)
                                                         @foreach($filesUploads as $key => $filesUpload)
                                                             @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired == 0)
-                                                                {!! Form::open(['route' => ['documentUserFiles.destroy', $filesUpload->id], 'method' => 'delete']) !!}
+                                                                @if($documentUserFile->isSol == 0)
+                                                                    {!! Form::open(['route' => ['documentUserFiles.destroy', $filesUpload->id], 'method' => 'delete']) !!}
+                                                                        <a onclick="vieFile('{{ $filesUpload->file }}');" class='btn btn-sm btn-primary' style="color: #FFF;"><i class="fa fa-eye"></i> Show </a>
+                                                                        @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                                                                            <br>
+                                                                            <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning mt-1 mb-1'><i class="fa fa-edit"></i> Edit </a>
+                                                                            <br>
+                                                                        @else
+                                                                            <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
+                                                                        @endif
+                                                                        @if(Auth::user()->role_id == 1)
+                                                                            {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                                                        @endif
+                                                                    {!! Form::close() !!}
+                                                                @else
                                                                     <a onclick="vieFile('{{ $filesUpload->file }}');" class='btn btn-sm btn-primary' style="color: #FFF;"><i class="fa fa-eye"></i> Show </a>
-                                                                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
-                                                                        <br>
-                                                                        <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning mt-1 mb-1'><i class="fa fa-edit"></i> Edit </a>
-                                                                        <br>
-                                                                    @else
-                                                                        <a href="{{ route('documentUserFiles.uploadFileUpdate', [$userID, $filesUpload->id, $filesUpload->document_id ]) }}" class='btn btn-sm btn-warning'><i class="fa fa-edit"></i> Edit </a>
-                                                                    @endif
-                                                                    @if(Auth::user()->role_id == 1)
-                                                                        {!! Form::button('<a><i class="fa fa-trash"></i> Delete </a>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                                                    @endif
-                                                                {!! Form::close() !!}
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endif
 
                                                     @if(count(array($filesUploads)) >= 1)
                                                         @foreach($filesUploads as $key => $filesUpload)
-                                                            @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired == 1)
+                                                            @if($filesUpload->document_id == $documentUserFile->id && $filesUpload->expired == 1 && $documentUserFile->isSol == 0)
                                                                 <a href="{{ route('documentUserFiles.uploadFile', [$userID, $filesUpload->document_id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-upload"></i> Upload </a>
                                                             @endif
                                                         @endforeach
@@ -88,11 +85,18 @@
 
                                                     @if(isset($documentUserFilesDiffs) && !empty($documentUserFilesDiffs) && count(array($documentUserFilesDiffs)) >= 1)
                                                         @foreach($documentUserFilesDiffs as $key => $documentUserFilesDiff)
-                                                            @if($documentUserFile->id == $documentUserFilesDiff->id)
+                                                            @if($documentUserFile->id == $documentUserFilesDiff->id && $documentUserFile->isSol == 0)
                                                                 <a href="{{ route('documentUserFiles.uploadFile', [$userID, $documentUserFilesDiff->id]) }}" class='btn btn-sm btn-success' ><i class="fa fa-upload"></i> Upload </a>
                                                             @endif
                                                         @endforeach
                                                     @endif
+
+                                                    <!-- begin custom-switches -->
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" onclick="changeStatus('{{ $userID }}', '{{ $documentUserFile->id }}', '{{ $documentUserFile->isSol }}');"  class="custom-control-input" name="Switch_{{ $documentUserFile->id  }}" id="Switch_{{ $documentUserFile->id }}" {{ $documentUserFile->isSol == 0 ? 'checked' : '' }} {{ Auth::user()->role_id != 1 ? 'disabled' : '' }}>
+                                                            <label class="custom-control-label" for="Switch_{{ $documentUserFile->id }}">{{ $documentUserFile->isSol == 0 ? 'Required' : 'Not required' }}</label>
+                                                        </div>
+                                                    <!-- end custom-switches -->
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -100,23 +104,16 @@
                                 @endif
                             </tbody>
                         </table>
-                        <!-- </div>
-                    </div> -->
+            @if(!(new \Jenssegers\Agent\Agent())->isDesktop())
                 </div>
-                <!-- end panel-body -->
-            </div>
-        </div>
+            @endif
+    </div>
 
-        @if((new \Jenssegers\Agent\Agent())->isDesktop())
-            <div class="col-6">
-        @else
-            <div class="col">
-        @endif
-            <div id='view' class="abs-center" >
+    <div class="col">
+        <div id='view' class="abs-center" >
 
-            </div>
         </div>
-    <!-- </div> -->
+    </div>
 </div>
 
 @push('scripts')
@@ -131,6 +128,33 @@
         }else{
             document.getElementById("view").innerHTML = '<img max-height="1000px" width="100%" src=' + urlTotal + '>';
         }
+    };
+
+
+    function changeStatus(userId, documentId, isSolDat) {
+        var user_id = userId;
+        var document_id = documentId;
+        var isSol = isSolDat;
+        var url = "/docIsSol";
+        var token = '{{ csrf_token() }}';
+
+        $.ajax({
+            type: "post",
+            url: url,
+            dataType: 'json',
+            data: {
+            _token: token,
+            user_id: user_id,
+            document_id: document_id,
+            isSol: isSol
+        },
+            success: function(data) {
+                location.reload(true)
+            },
+            error: function (error) { 
+                console.log(error);
+            }
+        })
     };
 </script>
 @endpush

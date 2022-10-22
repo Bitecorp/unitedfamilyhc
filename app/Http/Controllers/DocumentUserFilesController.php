@@ -18,6 +18,7 @@ use Response;
 use DB;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use App\Models\DocumentUserSol;
 
 class DocumentUserFilesController extends AppBaseController
 {
@@ -387,5 +388,24 @@ class DocumentUserFilesController extends AppBaseController
                 return redirect(route('workers.show', [$userID]) . "?documents");
             }
         }
+    }
+
+    public function docIsSol(Request $request)
+    {
+        $input = $request->all();
+        $ExisteDocIsSol = DocumentUserSol::where('document_id', $input['document_id'])->where('user_id', $input['user_id'])->where('isSol', 1)->first();
+        if(isset($ExisteDocIsSol) && !empty($ExisteDocIsSol)){
+            DocumentUserSol::destroy($ExisteDocIsSol->id);
+        }else{
+            DocumentUserSol::create([
+                'document_id' => $input['document_id'],
+                'user_id' => $input['user_id'],
+                'isSol' => 1,
+            ]);
+        }
+        return response()->json([
+            'msj' => "data procesada",
+            'success' => true
+        ]); 
     }
 }

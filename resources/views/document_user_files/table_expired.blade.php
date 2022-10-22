@@ -1,11 +1,9 @@
 
 <div class="row">
-    <!-- <div class="col-6"> -->
-        <div class="col">
-            <div class="panel panel-inverse">
-                <!-- begin panel-body -->
-                <div class="panel-body">
-                    <!-- <div class="col-xs-12 "> -->
+    <div class="col">
+            @if(!(new \Jenssegers\Agent\Agent())->isDesktop())
+                <div class="table-responsive">
+            @endif
                         <table id="tableDocumentsExpired" class="table table-striped table-bordered table-td-valign-middle">
                             <thead>
                                 <tr>
@@ -46,18 +44,16 @@
                                 @endif
                             </tbody>
                         </table>
-                    <!-- </div> -->
+            @if(!(new \Jenssegers\Agent\Agent())->isDesktop())
                 </div>
-                <!-- end panel-body -->
-            </div>
-        </div>
+            @endif
+    </div>
 
-        <div class="col">
-            <div id='viewExpired' class="abs-center" >
+    <div class="col">
+        <div id='viewExpired' class="abs-center" >
 
-            </div>
         </div>
-    <!-- </div> -->
+    </div>
 </div>
 
 @push('scripts')

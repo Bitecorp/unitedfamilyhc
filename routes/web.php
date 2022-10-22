@@ -161,7 +161,7 @@ Route::resource('documentUserFiles', App\Http\Controllers\DocumentUserFilesContr
 Route::get('/documentUserFiles/{id}', [App\Http\Controllers\DocumentUserFilesController::class, 'docsFileList'])->name('documentUserFiles.docsFileList');
 Route::get('/documentUserFiles/{userID}/{docID}', [App\Http\Controllers\DocumentUserFilesController::class, 'docFileCreate'])->name('documentUserFiles.uploadFile');
 Route::get('/documentUserFiles/{userID}/{fileID}/{docID}', [App\Http\Controllers\DocumentUserFilesController::class, 'docFileUpdate'])->name('documentUserFiles.uploadFileUpdate');
-
+Route::post('/docIsSol', [App\Http\Controllers\DocumentUserFilesController::class, 'docIsSol']);
 Route::post('/documentUserFiles/{userID}/{docID}', [App\Http\Controllers\DocumentUserFilesController::class, 'docFileUpload'])->name('documentUserFiles.docFileUpload');
 Route::post('/documentUserFiles/{userID}/{fileID}/{docID}', [App\Http\Controllers\DocumentUserFilesController::class, 'docFileUploadUpdate'])->name('documentUserFiles.docFileUploadUpdate');
 

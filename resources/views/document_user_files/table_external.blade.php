@@ -1,7 +1,7 @@
 <div class="panel panel-inverse">
 	<!-- begin panel-body -->
 	<div class="panel-body">
-        <div class="col-xs-12 ">
+        <div class="col">
             <table id="tableDocumentsExternals" class="table table-striped table-bordered table-td-valign-middle">
                 <thead>
                     <tr>

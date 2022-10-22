@@ -71,6 +71,7 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 use Mail;
 use App\Mail\resetPassword;
+use App\Models\DocumentUserSol;
 
 class MyPdf extends \TCPDF
 {
@@ -665,11 +666,17 @@ class WorkerController extends AppBaseController
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
                 $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->orderBy('name_doc', 'asc')->first();
                 if(isset($constData) && !empty($constData)){
+                    $docIsSol = DocumentUserSol::where('document_id', $constData->id)->where('user_id', $worker->id)->first();
+                    if(isset($docIsSol) && !empty($docIsSol)){
+                        $constData->isSol = intval($docIsSol->isSol);
+                    }else{
+                        $constData->isSol = 0;
+                    }
                     array_push($documentUserFiles,  $constData);
                 }                
             }
 
-            //dd($documentUserFiles);
+            //dd($worker->id, $documentUserFiles);
 
             /* $documentUserFiles = $documentUserFiles; */
             $filesUploads = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', 0)->orderBy('created_at', 'DESC')->get());
@@ -677,8 +684,14 @@ class WorkerController extends AppBaseController
 
             $documentUserFilesUpload = array();
             foreach ($filesUploads as $key => $value) {
-                //dd(DB::table('type_docs')->where('id', $value->document_id)->first());
-                array_push($documentUserFilesUpload, DB::table('type_docs')->where('id', $value->document_id)->first());
+                $fileUpload = DB::table('type_docs')->where('id', $value->document_id)->first();
+                $docIsSol = DocumentUserSol::where('document_id', $fileUpload->id)->where('user_id', $worker->id)->first();
+                if(isset($docIsSol) && !empty($docIsSol)){
+                    $fileUpload->isSol = intval($docIsSol->isSol);
+                }else{
+                    $fileUpload->isSol = 0;
+                }
+                array_push($documentUserFilesUpload, $fileUpload);
             }
 
             $documentUserFilesIDsA = array();
@@ -715,6 +728,12 @@ class WorkerController extends AppBaseController
                 foreach ($arrayData as $key => $value) {
                     $valConsult = DB::table('type_docs')->where('id', $value)->first();
                     if (!empty($valConsult)) {
+                        $docIsSol = DocumentUserSol::where('document_id', $valConsult->id)->where('user_id', $worker->id)->first();
+                        if(isset($docIsSol) && !empty($docIsSol)){
+                            $valConsult->isSol = intval($docIsSol->isSol);
+                        }else{
+                            $valConsult->isSol = 0;
+                        }
                         array_push($documentUserFilesDinst, $valConsult);
                     }
                 }
@@ -737,7 +756,7 @@ class WorkerController extends AppBaseController
                     }
                 }
             }
-           //dd($filesUploadsExpired); //OrdenarMatrizColumna
+           //dd($worker->id, $documentUserFiles); //OrdenarMatrizColumna
             $returnView = view('workers.show_index')
                 ->with('typeDocs', $typeDoc)
                 ->with('roles', $roles)
