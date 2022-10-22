@@ -40,7 +40,17 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Next', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ redirect()->back()->getTargetUrl() }}" class='btn btn-info'>Back</a>
+    <button id="btn_back" type="button" class="btn btn-info">Back</button>
+    @push('scripts')
+        <script>
+            let p = document.getElementById("btn_back"); // Encuentra el elemento "p" en el sitio
+            p.onclick = muestraAlerta; // Agrega función onclick al elemento
+                
+            function muestraAlerta(evento) {
+                window.history.back();
+            }
+        </script>
+    @endpush
     <?php
         $link = "$_SERVER[REQUEST_URI]";
         $stringSeparado = explode('/', $link);
