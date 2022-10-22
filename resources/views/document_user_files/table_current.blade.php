@@ -149,7 +149,12 @@
             isSol: isSol
         },
             success: function(data) {
-                location.reload(true)
+                var textLocation = window.location.href;
+                if(textLocation.includes('documents')){
+                    location.reload(true);
+                }else{
+                    location.href = location + '?documents';
+                }
             },
             error: function (error) { 
                 console.log(error);
