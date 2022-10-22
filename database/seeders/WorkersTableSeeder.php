@@ -14,7 +14,9 @@ class WorkersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run()APP_DEBUG is set to true while APP_ENV is not local
+
+    This could make your application vulnerable to remote execution. Read more about Ignition security.
     {
         $users = [
             [

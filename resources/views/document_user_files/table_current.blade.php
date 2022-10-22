@@ -93,8 +93,8 @@
 
                                                     <!-- begin custom-switches -->
                                                         <div class="custom-control custom-switch">
-                                                            <input type="checkbox" onclick="changeStatus('{{ $userID }}', '{{ $documentUserFile->id }}', '{{ $documentUserFile->isSol }}');"  class="custom-control-input" name="Switch_{{ $documentUserFile->id  }}" id="Switch_{{ $documentUserFile->id }}" {{ $documentUserFile->isSol == 0 ? 'checked' : '' }} {{ Auth::user()->role_id != 1 ? 'disabled' : '' }}>
-                                                            <label class="custom-control-label" for="Switch_{{ $documentUserFile->id }}">{{ $documentUserFile->isSol == 0 ? 'Required' : 'Not required' }}</label>
+                                                            <input type="checkbox" onclick="documentIsSol('{{ $userID }}', '{{ $documentUserFile->id }}', '{{ $documentUserFile->isSol }}');"  class="custom-control-input" name="Switch_{{ $documentUserFile->id  }}_{{ $userID }}" id="Switch_{{ $documentUserFile->id }}_{{ $userID }}" {{ $documentUserFile->isSol == 0 ? 'checked' : '' }} {{ Auth::user()->role_id != 1 ? 'disabled' : '' }}>
+                                                            <label class="custom-control-label" for="Switch_{{ $documentUserFile->id }}_{{ $userID }}">{{ $documentUserFile->isSol == 0 ? 'Required' : 'Not required' }}</label>
                                                         </div>
                                                     <!-- end custom-switches -->
                                                 </td>
@@ -131,7 +131,7 @@
     };
 
 
-    function changeStatus(userId, documentId, isSolDat) {
+    function documentIsSol(userId, documentId, isSolDat) {
         var user_id = userId;
         var document_id = documentId;
         var isSol = isSolDat;
