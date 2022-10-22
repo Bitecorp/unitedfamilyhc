@@ -889,7 +889,7 @@ class WorkerController extends AppBaseController
         $contactEmergencyID = DB::table('contacts_emergencys')->select('id')->where('user_id', '=', $id)->first();
         $contactEmergency = $this->contactEmergencyRepository->find($contactEmergencyID->id);
 
-        return view('contact_emergencies.edit', ['#test'])->with('contactEmergency', $contactEmergency);
+        return view('contact_emergencies.edit')->with('contactEmergency', $contactEmergency);
     }
 
     /**
