@@ -688,10 +688,6 @@ class PatienteController extends AppBaseController
                 }
             }
 
-
-
-
-
             $collections = collect(json_decode($servicesAssingneds->services));
 
             $data = [];

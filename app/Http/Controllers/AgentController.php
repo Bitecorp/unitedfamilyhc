@@ -66,6 +66,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Elibyy\TCPDF\Facades\TCPDF;
+use App\Models\DocumentUserSol;
 
 use Illuminate\Support\Facades\Config;
 
@@ -612,7 +613,16 @@ class AgentController extends AppBaseController
 
             $documentUserFiles = array();
             foreach(array_unique($documentUserFilesFo) as $key => $valID){
-                array_push($documentUserFiles,  DB::table('type_docs')->where('id', $valID)->where('role_id', [2,3])->first());
+                $constData = DB::table('type_docs')->where('id', $valID)->where('role_id', [2,3])->first();
+                if(isset($constData) && !empty($constData)){
+                    $docIsSol = DocumentUserSol::where('document_id', $constData->id)->where('user_id', $agent->id)->first();
+                    if(isset($docIsSol) && !empty($docIsSol)){
+                        $constData->isSol = intval($docIsSol->isSol);
+                    }else{
+                        $constData->isSol = 0;
+                    }
+                    array_push($documentUserFiles,  $constData);
+                }
             }
 
             //dd($documentUserFiles);
@@ -622,8 +632,15 @@ class AgentController extends AppBaseController
             $filesUploadsExpired = collect(DB::table('document_user_files')->select('id', 'document_id', 'date_expedition', 'date_expired', 'file', 'expired')->where('user_id', $id)->where('expired', '<>', 0)->orderBy('created_at', 'DESC')->get());
 
             $documentUserFilesUpload = array();
-            foreach($filesUploads AS $key => $value){
-                array_push($documentUserFilesUpload, DB::table('type_docs')->where('id', $value->document_id)->first());
+            foreach ($filesUploads as $key => $value) {
+                $fileUpload = DB::table('type_docs')->where('id', $value->document_id)->first();
+                $docIsSol = DocumentUserSol::where('document_id', $fileUpload->id)->where('user_id', $agent->id)->first();
+                if(isset($docIsSol) && !empty($docIsSol)){
+                    $fileUpload->isSol = intval($docIsSol->isSol);
+                }else{
+                    $fileUpload->isSol = 0;
+                }
+                array_push($documentUserFilesUpload, $fileUpload);
             }
 
             $documentUserFilesIDsA = array();
@@ -652,10 +669,16 @@ class AgentController extends AppBaseController
             }
 
             $documentUserFilesDinst = array();
-            if(!empty($arrayData) && count($arrayData) >= 1){
-                foreach($arrayData AS $key => $value){
+            if (!empty($arrayData) && count($arrayData) >= 1) {
+                foreach ($arrayData as $key => $value) {
                     $valConsult = DB::table('type_docs')->where('id', $value)->first();
-                    if(!empty($valConsult)){
+                    if (!empty($valConsult)) {
+                        $docIsSol = DocumentUserSol::where('document_id', $valConsult->id)->where('user_id', $agent->id)->first();
+                        if(isset($docIsSol) && !empty($docIsSol)){
+                            $valConsult->isSol = intval($docIsSol->isSol);
+                        }else{
+                            $valConsult->isSol = 0;
+                        }
                         array_push($documentUserFilesDinst, $valConsult);
                     }
                 }
