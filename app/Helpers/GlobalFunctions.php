@@ -266,7 +266,7 @@ function dataUser1099Global($idWorker){
     }
 }
 
-function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_hasta, $paid = 1, $isForHome = false){
+function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_hasta, $paid = 1, $isForHome = false, $isXml = false){
         $filters = [
             'paid' => $paid,
             'desde' => $fecha_desde,
@@ -522,6 +522,8 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                         $sumaCobros = $sumaCobros + $arraySumC->mont_cob;
                         $gananciaEmpresa = $gananciaEmpresa + $arraySumC->ganancia_empresa;
                     }
+
+                    dd($arraySumC->worker_id);
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
                     array_push($arrayFinal, $arraySumC);

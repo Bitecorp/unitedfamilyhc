@@ -1049,4 +1049,12 @@ class WorkerController extends AppBaseController
             return redirect(route('resetPassword'));
         }
     }
+
+    public function sendXml(Request $request)
+    {
+        $input = $request->all();
+
+        $test = dataPayUnitsServicesForWorker($input['worker_id'], $input['fecha_desde'], $input['fecha_hasta'], 1, false, true);
+        dd($test);
+    }
 }

@@ -20,11 +20,9 @@
 							<table id="contable-table-pat" class="table table-striped table-bordered table-td-valign-middle">
 								<thead>
 									<tr>
-										<th width="1%">#</th>
 										<th class="text-nowrap">Patient</th>	
 										<th class="text-nowrap">Service - Sub Service</th>
 										<th class="text-nowrap">Unit - Value</th>
-										<th class="text-nowrap">Date from - to</th>
 										<th class="text-nowrap">Time of attention = Units</th>
 										<th class="text-nowrap">Value receivable</th>
 										<th class="text-nowrap">Status/Action</th>
@@ -59,12 +57,10 @@
 							<table id="contable-table-wor" class="table table-striped table-bordered table-td-valign-middle">
 								<thead>
 									<tr>
-										<th width="1%">#</th>
 										<th class="text-nowrap">Patient</th>	
 										<th class="text-nowrap">Service - Sub Service</th>
 										<th class="text-nowrap">Worker</th>
 										<th class="text-nowrap">Unit - Value</th>
-										<th class="text-nowrap">Date from - to</th>
 										<th class="text-nowrap">Time of attention = Units</th>
 										<th class="text-nowrap">Value to by paid</th>
 										<th class="text-nowrap">Status/Action</th>

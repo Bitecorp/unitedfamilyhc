@@ -225,6 +225,8 @@
 							var eftorCheck = '';
 							var link = '';
 							var btnDownload = '';
+							var btnSendXml = '';
+							var txtBtn1099 = ' Generate';
 
 							for (var i = 0; i < Data1099.length; i++) {//Data1099['independent_contractor']
 								//if(index == 0){
@@ -242,7 +244,9 @@
 										
 										if(Data1099[i].file != '' && typeof Data1099[i].file != 'undefined' && Data1099[i].file != null){
 											link = Data1099[i].file;
-											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>\n';
+											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show</a>\n';
+											btnSendXml = '<button type="button" onclick="sendXml();" id="btn_send_xml_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px; margin-left: 10px;" ><i class="fa fa-upload"></i> Send Xml</button>\n';
+											txtBtn1099 = ' Update'
 										}
 										
 										
@@ -261,7 +265,7 @@
 													'</div>\n' +
 												'</div>\n' +
 												'<div class="col-4 pl-3" id="btnDownloadBtn">\n' +
-													'<button type="button" onclick="generate1099File(' + Data1099[i].worker_id.id + ',' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" >Generate 1099</button>\n' + 
+													'<button type="button" onclick="generate1099File(' + Data1099[i].id + ')" id="btn_save_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px;" ><i class="fa fa-file"></i>' + txtBtn1099 + ' 1099</button>\n' + 
 													btnDownload +
 												'</div>\n' +
 											'</div>\n';
@@ -288,13 +292,20 @@
 										paging: true,
 										autoFill: true,
 										responsive: true,
+										columnDefs: [
+											{ 
+												orderable: false, 
+												targets: 0
+											}
+										],
+										order: [
+											[0, 'asc']
+										]
 									}).row.add([
-										(i+1),
 										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
 										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
 										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
-										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)', 
-										dateDesdeT + ' - ' + dateHastaT,
+										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
 										check
@@ -441,12 +452,19 @@
 										paging: true,
 										autoFill: true,
 										responsive: true,
+										columnDefs: [
+											{ 
+												orderable: false, 
+												targets: 0
+											}
+										],
+										order: [
+											[0, 'asc']
+										]
 									}).row.add([
-										(i+1),
 										dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name, 
 										dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service, 
 										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
-										dateDesdeT + ' - ' + dateHastaT, 
 										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
 										dataFullP[i].mont_cob + '$ (USD)',
 										check
@@ -473,13 +491,20 @@
 										paging: true,
 										autoFill: true,
 										responsive: true,
+										columnDefs: [
+											{ 
+												orderable: false, 
+												targets: 0
+											}
+										],
+										order: [
+											[0, 'asc']
+										]
 									}).row.add([
-										(i+1),
 										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
 										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
 										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
-										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)', 
-										dateDesdeT + ' - ' + dateHastaT,
+										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
 										check
@@ -568,9 +593,56 @@
 			}
 		});
 	</script>
-
+	//btn_send_xml_
 	<script>
-		function generate1099File(idWorker, id1099Doc) {
+		function sendXml() {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var token = '{{ csrf_token() }}';
+			var roleUser = '{{ Auth::user()->role_id }}';
+			var url = "/sendXml";
+
+			var worker_id = $('#worker_id').val();
+			var paid = 1;
+
+			var eftor_check = $('#eftor_check_' + worker_id).val();
+			var invoice_number = $('#invoice_number_' + worker_id).val();
+
+			var opcion = confirm("Are you sure you want to send this document?");
+			var obj = document.getElementById('btn_submit_1099');
+					
+			if (opcion == true) {
+			
+				//setTimeout(
+					$.ajax({
+						type: "post",
+						url: url,
+						dataType: 'json',
+						data: {
+							_token: token,
+							worker_id: worker_id,
+							fecha_desde: dateDesde,
+							fecha_hasta: dateHasta,
+							paid: paid,
+							eftor_check: eftor_check,
+							invoice_number: invoice_number
+						},
+						success: function(data) {
+							var dataT = data['data'];	
+							if (obj){
+								obj.click();
+							}},
+						error: function (error) { 
+							console.log(error);
+						}
+					})
+				//, 5000);
+			}
+
+		};
+	</script>
+	<script>
+		function generate1099File(id1099Doc) {
 			var dateDesde = $('#desde').val() + ' 00:00:00';
 			var dateHasta = $('#hasta').val() + ' 23:59:59';
 			var token = '{{ csrf_token() }}';
@@ -578,7 +650,7 @@
 			var url = "/generateDocumentOfPai";
 			var id1099Document = id1099Doc;
 
-			var worker_id = idWorker;
+			var worker_id = $('#worker_id').val();
 			var paid = 1;
 
 			var eftor_check = $('#eftor_check_' + worker_id).val();
@@ -608,9 +680,7 @@
 							var dataT = data['data'];	
 							if (obj){
 								obj.click();
-							}						
-							//$('#btnDownloadBtn').empty().append('<a id="btn_download_' + dataT.worker_id + '" name="btn_download_' + dataT.worker_id + '" target="_blank" class="btn btn-sm btn-primary" href="' + dataT.file + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show </a>');	
-						},
+							}},
 						error: function (error) { 
 							console.log(error);
 						}

@@ -107,6 +107,8 @@ Route::resource('workers', App\Http\Controllers\WorkerController::class);
 
 Route::get('/workers/pdf/{id}/{idPdf}', [App\Http\Controllers\WorkerController::class, 'getPDF'])->name('workers.pdf');
 
+Route::post('/sendXml', [App\Http\Controllers\WorkerController::class, 'sendXml']);
+
 Route::post('/workers/updateState/{id}', [App\Http\Controllers\WorkerController::class, 'updateState'])->name('workers.updateState');
 
 Route::post('/emailReset', [App\Http\Controllers\WorkerController::class, 'sendEmailRecovery']);
