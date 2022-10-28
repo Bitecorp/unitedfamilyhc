@@ -130,14 +130,14 @@
 @endsection
 
 @push('scripts')
-<script>
-  $(".default-select2").select2();
-</script>
-<script>
-	var urlDoc = "{{ strpos(Request::url(), 'generate1099') }}";
-	var urlBAP = "{{ strpos(Request::url(), 'manageBillAndPay') }}";
-	var urlDash = "{{ strpos(Request::url(), 'matchAndControl') }}";
-</script>
+	<script>
+	$(".default-select2").select2();
+	</script>
+	<script>
+		var urlDoc = "{{ strpos(Request::url(), 'generate1099') }}";
+		var urlBAP = "{{ strpos(Request::url(), 'manageBillAndPay') }}";
+		var urlDash = "{{ strpos(Request::url(), 'matchAndControl') }}";
+	</script>
 
 	<script>
         $(function () {
@@ -337,11 +337,8 @@
 				$('#paid').val('');
 				$('#desde').val('');
 				$('#hasta').val('');
-				$('#resulWor').empty();
-				$('#resulPat').empty();
-				$('#resulWorTab').empty();
-				$('#extraDataGen1099').empty();
-				$('#resulPatTab').empty();
+
+				location.reload();
 			});
 		});
 	</script>
@@ -424,6 +421,15 @@
 								paging: true,
 								autoFill: true,
 								responsive: true,
+								columnDefs: [
+									{ 
+										orderable: false, 
+										targets: 0
+									}
+								],
+								order: [
+									[0, 'asc']
+								],
 							}).clear();	
 
 							$('#contable-table-wor').DataTable({
@@ -431,6 +437,15 @@
 								paging: true,
 								autoFill: true,
 								responsive: true,
+								columnDefs: [
+									{ 
+										orderable: false, 
+										targets: 0
+									}
+								],
+								order: [
+									[0, 'asc']
+								],
 							}).clear();
 							
 							if(dataFullP.length >= 1){

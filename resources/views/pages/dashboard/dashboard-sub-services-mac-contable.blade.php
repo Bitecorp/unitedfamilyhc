@@ -29,7 +29,28 @@
 									</tr>
 								</thead>
 								<tbody id="resulPatTab">
-									
+									@if (isset($dataMensual) && !empty($dataMensual) && isset($dataMensual['dataP']) && !empty($dataMensual['dataP']))
+										@foreach ($dataMensual['dataP'] as $key => $dataFullP )
+											<?php
+												$checkCheck = $dataFullP->collected == true ? 'checked' : '';
+												$revertir = $dataFullP->collected == true ? 'revertir' : '';
+												$valCollected = $dataFullP->collected == true ? 'true' : 'false';
+											?>
+											<tr>
+												<td>{{ json_decode($dataFullP->patiente_id)->first_name }}  {{ json_decode($dataFullP->patiente_id)->last_name }}</td>	
+												<td>{{ json_decode($dataFullP->service_id)->name_service }} - {{ json_decode($dataFullP->sub_service_id)->name_sub_service }}</td>
+												<td>{{ $dataFullP->unidad_time_worker }} {{ $dataFullP->unidad_type_worker }} - {{ $dataFullP->unit_value_worker }} $ (USD)</td>
+												<td>{{ $dataFullP->time_attention }} = {{ $dataFullP->unid_pay_worker }}</td>
+												<td>{{ $dataFullP->mont_cob }} $ (USD)</td>
+												<td>
+													<div class="custom-control custom-switch">
+														<input type="checkbox" onclick="{{ $revertir }}cobrar({{ json_decode($dataFullP->patiente_id)->id }}, {{ json_decode($dataFullP->service_id)->id }}, {{ json_decode($dataFullP->sub_service_id)->id }}, {{ $dataFullP->status }}, {{ $valCollected }});"  class="custom-control-input" name="Switch_{{ $dataFullP->id }}" id="Switch_patiente{{$dataFullP->id }}" {{ $checkCheck }}>
+														<label class="custom-control-label" for="Switch_patiente{{ $dataFullP->id }}"></label>
+													</div>
+												</td>
+											</tr>											
+										@endforeach
+									@endif	
 								</tbody>
 							</table>
 						</div>
@@ -67,7 +88,31 @@
 									</tr>
 								</thead>
 								<tbody id="resulWorTab">
-									
+									@if (isset($dataMensual) && !empty($dataMensual) && isset($dataMensual['dataW']) && !empty($dataMensual['dataW']))
+										@foreach ($dataMensual['dataW'] as $key => $dataFullW )
+											<?php 
+												$checkCheck = $dataFullW->paid == true ? 'checked' : '';
+												$revertir = $dataFullW->paid == true ? 'revertir' : '';
+												$valPay = $dataFullW->paid == true ? 'true' : 'false';
+											?>
+											<tr>
+												<td>{{ json_decode($dataFullW->patiente_id)->first_name }}  {{ json_decode($dataFullW->patiente_id)->last_name }}</td>	
+												<td>{{ json_decode($dataFullW->service_id)->name_service }} - {{ json_decode($dataFullW->sub_service_id)->name_sub_service }}/td>
+												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
+												<td>{{ $dataFullW->unidad_time_worker }} {{ $dataFullW->unidad_type_worker }} - {{ $dataFullW->unit_value_worker }} $ (USD)</td>
+												<td>{{ $dataFullW->time_attention }} = {{ $dataFullW->unid_pay_worker }}</td>
+												<td>{{ $dataFullW->mont_pay }} $ (USD) {{ $dataFullW->paid }}</td>
+												<td>
+
+													<div class="custom-control custom-switch">
+														<input type="checkbox" onclick="{{ $revertir }}cobrar({{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ $dataFullW->status }}, {{ $valPay }});"  class="custom-control-input" name="Switch_{{ $dataFullW->id }}" id="Switch_patiente{{ $dataFullW->id }}" {{ $checkCheck }}>
+														<label class="custom-control-label" for="Switch_patiente{{ $dataFullW->id }}"></label>
+													</div>
+												</td>
+
+											</tr>											
+										@endforeach
+									@endif
 								</tbody>
 							</table>
 						</div>
