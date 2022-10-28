@@ -523,7 +523,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                         $gananciaEmpresa = $gananciaEmpresa + $arraySumC->ganancia_empresa;
                     }
 
-                    dd($arraySumC->worker_id);
+                    //dd($arraySumC->worker_id);
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
                     array_push($arrayFinal, $arraySumC);
