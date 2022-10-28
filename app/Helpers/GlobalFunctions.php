@@ -290,12 +290,9 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
             foreach($dataCompare as $key => $dataComp){
                 array_push($arrayForCompare, $dataComp->id);
             }
-        }        
-        
+        }
+
         $registerAttentionss = [];
-        $sumaPagos = 0;
-        $sumaCobros = 0;
-        $gananciaEmpresa = 0;
         if((isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
             foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
@@ -354,6 +351,9 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
             $arraySumClean = collect($arraySum)->unique()->filter();
 
             $arrayFinal = [];
+            $sumaPagos = 0;
+            $sumaCobros = 0;
+            $gananciaEmpresa = 0;
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
                     $dataWorker = User::where('id', $arraySumC->worker_id)->first();
@@ -527,11 +527,13 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
                     array_push($arrayFinal, $arraySumC);
+
+                    
                 }
+                //dd($filters, $sumaPagos, $sumaCobros, $gananciaEmpresa);
             }
             //dd($sumaPagos);
             //dd(number_format((float)$sumaCobros, 2, '.', ''), number_format((float)$sumaPagos, 2, '.', ''), number_format((float)$gananciaEmpresa, 2, '.', ''));
-
             if($isForHome){
                 return [
                     'montoCobroTotal' => isset($sumaCobros) && !empty($sumaCobros) ? number_format((float)$sumaCobros, 2, '.', '') : '0.00',
@@ -734,7 +736,7 @@ function data_last_month_day_last() {
 
 /** Tree month first day **/
 function data_first_month_day_tri() {
-    $month = date('m')-4;
+    $month = date('m')-3;
     $year = date('Y');
     return date('Y-m-d', mktime(0,0,0, $month, 1, $year)) . ' 00:00:01';
 }
@@ -766,4 +768,16 @@ function data_previa_month_day_last() {
         return date('Y-m-d', mktime(0,0,0, $monthL, $dayL, $year)) . ' 23:59:59';
     }
     
+}
+
+function dataPagCobGanActual(){
+    return dataPayUnitsServicesForWorker(null, data_first_month_day(), data_last_month_day(), '1', true);
+}
+
+function dataPagCobGanLast(){
+    return dataPayUnitsServicesForWorker(null, data_first_month_day_last(), data_last_month_day_last(), '1', true);
+}
+
+function dataPagCobGanTri(){
+    return dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day_last(), '1', true);
 }

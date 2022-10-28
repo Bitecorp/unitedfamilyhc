@@ -264,7 +264,10 @@ class HomeController extends Controller
                 ->with('workersCount', count($workersCount))
                 ->with('countDocumentsWorkers', count(collect($workersDocumentsExpireds)))
                 ->with('patientesCount', count($patientesCount))
-                ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)));
+                ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)))
+                ->with('dataPagCobGanActual', dataPagCobGanActual())
+                ->with('dataPagCobGanLast', dataPagCobGanLast())
+                ->with('dataPagCobGanTri', dataPagCobGanTri());
         } else {
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 

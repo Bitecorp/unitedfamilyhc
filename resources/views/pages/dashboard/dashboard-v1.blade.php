@@ -2,14 +2,7 @@
 
 @section('title', 'Dashboard')
 
-<?php 
-	$dataPagCobGanActual = dataPayUnitsServicesForWorker(null, data_first_month_day(), data_last_month_day(), '1', true);
-
-	$dataPagCobGanLast = dataPayUnitsServicesForWorker(null, data_first_month_day_last(), data_last_month_day_last(), '1', true);
-
-	$dataPagCobGanTri = dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day_last(), '1', true);
-
-	//dd(data_first_month_day(), data_last_month_day(), data_first_month_day_last(), data_last_month_day_last(), data_first_month_day_Tri(), data_last_month_day_last());
+<?php
 	//dd($dataPagCobGanActual, $dataPagCobGanLast, $dataPagCobGanTri);
 ?>
 
