@@ -225,7 +225,6 @@
 							var eftorCheck = '';
 							var link = '';
 							var btnDownload = '';
-							var btnSendXml = '';
 							var txtBtn1099 = ' Generate';
 
 							for (var i = 0; i < Data1099.length; i++) {//Data1099['independent_contractor']
@@ -245,7 +244,6 @@
 										if(Data1099[i].file != '' && typeof Data1099[i].file != 'undefined' && Data1099[i].file != null){
 											link = Data1099[i].file;
 											btnDownload = '<a id="btn_download_'+ Data1099[i].worker_id.id +'" name="btn_download_'+ Data1099[i].worker_id.id +'" target="_blank" class="btn btn-sm btn-primary" href="' + link + '" style="padding: 8.5px; margin-top: 25px; margin-left: 10px;"><i class="fa fa-eye"></i> Show</a>\n';
-											btnSendXml = '<button type="button" onclick="sendXml();" id="btn_send_xml_'+ Data1099[i].worker_id.id +'" class="btn btn-success" style="margin-top: 25px; margin-left: 10px;" ><i class="fa fa-upload"></i> Send Xml</button>\n';
 											txtBtn1099 = ' Update'
 										}
 										
@@ -389,8 +387,10 @@
 						var colBG = '';
 						var checkCheck = '';
 						var block = '';
-						var revertir = '';						
-
+						var revertir = '';			
+						var btnSendXml = '';
+						var hiddenBtnXml = '';
+						var nameFile = '';
 						var dataFullW = data['dataW'];
 						var dataFullP = data['dataP'];
 
@@ -455,10 +455,15 @@
 									colBG = dataFullP[i].collected == true ? 'bg-teal' : 'bg-red';
 									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
 									revertir = dataFullP[i].collected == true ? 'revertir' : '';
+									hiddenBtnXml = dataFullP[i].collected == true ? '' : 'hidden';
+									nameFile = dataFullP[i].patiente_id.first_name + '_' + dataFullP[i].patiente_id.last_name + '_' + dataFullP[i].id + '.xml';
+									
+									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + nameFile + '"  download="' + nameFile + '" id="btn_send_xml_'+ dataFullP[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
+							
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ',' + dataFullP[i].status + ',' + dataFullP[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].id +');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -482,7 +487,7 @@
 										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
 										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
 										dataFullP[i].mont_cob + '$ (USD)',
-										check
+										check + btnSendXml
 									]).draw(null, false);
 								};
 							}
@@ -497,7 +502,7 @@
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].worker_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].status + ',' + dataFullW[i].paid + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].id + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -608,54 +613,6 @@
 			}
 		});
 	</script>
-	//btn_send_xml_
-	<script>
-		function sendXml() {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
-			var token = '{{ csrf_token() }}';
-			var roleUser = '{{ Auth::user()->role_id }}';
-			var url = "/sendXml";
-
-			var worker_id = $('#worker_id').val();
-			var paid = 1;
-
-			var eftor_check = $('#eftor_check_' + worker_id).val();
-			var invoice_number = $('#invoice_number_' + worker_id).val();
-
-			var opcion = confirm("Are you sure you want to send this document?");
-			var obj = document.getElementById('btn_submit_1099');
-					
-			if (opcion == true) {
-			
-				//setTimeout(
-					$.ajax({
-						type: "post",
-						url: url,
-						dataType: 'json',
-						data: {
-							_token: token,
-							worker_id: worker_id,
-							fecha_desde: dateDesde,
-							fecha_hasta: dateHasta,
-							paid: paid,
-							eftor_check: eftor_check,
-							invoice_number: invoice_number
-						},
-						success: function(data) {
-							var dataT = data['data'];	
-							if (obj){
-								obj.click();
-							}},
-						error: function (error) { 
-							console.log(error);
-						}
-					})
-				//, 5000);
-			}
-
-		};
-	</script>
 	<script>
 		function generate1099File(id1099Doc) {
 			var dateDesde = $('#desde').val() + ' 00:00:00';
@@ -707,18 +664,11 @@
 	</script>
 
 	<script>
-		function cobrar(idPatiente, idService, idSubService, status, paid) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+		function cobrar(idNote) {
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/cobrarPatiente";
-
-			var patiente_id = idPatiente;
-			var service_id = idService;
-			var sub_service = idSubService;
-			var status = status;
-			var paid = paid;
+			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -726,45 +676,68 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					patiente_id: patiente_id,
-					service_id: service_id,
-					sub_service_id: sub_service,
-					fecha_desde: dateDesde,
-					fecha_hasta: dateHasta,
-					status: status,
-					paid: paid,
+					note_id: note_id
 				},
 				success: function(data) {
-					var obj = document.getElementById('btn_submit');
-					if(data['success'] == true){
-						if (obj){
-							obj.click(); 
-						}
-					}
-					let msjOne = 'The payment process was carried out successfully.\n\n';
-					let msjTwo = 'El proceso cobro fue realizado con exito.';
-					alert(msjOne + msjTwo);
+					createXml(note_id);
 				},
 				error: function (error) { 
 					console.log(error);
 				}
 			});
 		};
+
+		function createXml(idNote) {
+			var dateDesde = $('#desde').val();
+			var dateHasta = $('#hasta').val();
+			var token = '{{ csrf_token() }}';
+			var url = "/sendXml";
+			var id_note = idNote;
+
+			var opcion = confirm("Are you sure you want to send this document?");
+					
+			if (opcion == true) {
+			
+				//setTimeout(
+					$.ajax({
+						type: "post",
+						url: url,
+						dataType: 'json',
+						data: {
+							_token: token,
+							id_note: id_note,
+						},
+						success: function(data) {
+							var obj = document.getElementById('btn_submit');
+							if(data['success'] == true){
+								if(dateDesde == '' && dateHasta == ''){
+									location.reload();
+								}else if(obj){
+									obj.click(); 
+								}
+							}
+							let msjOne = 'The payment process was carried out successfully.\n\n';
+							let msjTwo = 'El proceso cobro fue realizado con exito.';
+							alert(msjOne + msjTwo);
+						},
+						error: function (error) { 
+							console.log(error);
+						}
+					})
+				//, 5000);
+			}
+
+		};
 	</script>
 
 	<script>
-		function revertircobrar(idPatiente, idService, idSubService, status, paid) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+		function revertircobrar(idNote) {
+			var dateDesde = $('#desde').val();
+			var dateHasta = $('#hasta').val();
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/revertirCobrarPatiente";
-
-			var patiente_id = idPatiente;
-			var service_id = idService;
-			var sub_service = idSubService;
-			var status = status;
-			var paid = paid;
+			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -772,18 +745,14 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					patiente_id: patiente_id,
-					service_id: service_id,
-					sub_service_id: sub_service,
-					fecha_desde: dateDesde,
-					fecha_hasta: dateHasta,
-					status: status,
-					paid: paid,
+					note_id: note_id,
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if (obj){
+						if(dateDesde == '' && dateHasta == ''){
+							location.reload();
+						}else if(obj){
 							obj.click(); 
 						}
 					}
@@ -799,19 +768,13 @@
 	</script>
 
 	<script>
-		function pagar(idPatiente, idWorker, idService, idSubService, status, paid) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+		function pagar(idNote) {
+			var dateDesde = $('#desde').val();
+			var dateHasta = $('#hasta').val();
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/pagarWorker";
-
-			var worker_id = idWorker;
-			var patiente_id = idPatiente;
-			var service_id = idService;
-			var sub_service = idSubService;
-			var status = status;
-			var paid = paid;
+			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -819,22 +782,17 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					patiente_id: idPatiente,
-					worker_id: worker_id,
-					service_id: service_id,
-					sub_service_id: idSubService,
-					fecha_desde: dateDesde,
-					fecha_hasta: dateHasta,
-					status: status,
-					paid: paid
+					note_id: note_id,
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if (obj){
+						if(dateDesde == '' && dateHasta == ''){
+							location.reload();
+						}else if(obj){
 							obj.click(); 
 						}
-					}		
+					}	
 					let msjOne = 'The billing process was carried out successfully.\n\n';
 					let msjTwo = 'El proceso pago fue realizado con exito.';
 					alert(msjOne + msjTwo);		
@@ -847,19 +805,13 @@
 	</script>
 
 	<script>
-		function revertirpagar(idPatiente, idWorker, idService, idSubService, status, paid) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+		function revertirpagar(idNote) {
+			var dateDesde = $('#desde').val();
+			var dateHasta = $('#hasta').val();
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/revertirPagarWorker";
-
-			var worker_id = idWorker;
-			var patiente_id = idPatiente;
-			var service_id = idService;
-			var sub_service = idSubService;
-			var status = status;
-			var paid = paid;
+			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -867,22 +819,17 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					patiente_id: idPatiente,
-					worker_id: worker_id,
-					service_id: service_id,
-					sub_service_id: idSubService,
-					fecha_desde: dateDesde,
-					fecha_hasta: dateHasta,
-					status: status,
-					paid: paid
+					note_id: note_id,
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if (obj){
+						if(dateDesde == '' && dateHasta == ''){
+							location.reload();
+						}else if(obj){
 							obj.click(); 
 						}
-					}		
+					}	
 					let msjOne = 'The billing process was reversed out successfully.\n\n';
 					let msjTwo = 'El proceso pago fue revertido con exito.';
 					alert(msjOne + msjTwo);		

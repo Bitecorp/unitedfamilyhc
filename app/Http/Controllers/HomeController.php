@@ -1010,24 +1010,7 @@ class HomeController extends Controller
     public function cobrar(Request $request)
     {
         $filters = $request->all();
-        if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->where('collected', 0)->get();
-        }else{
-            $registerAttentions = RegisterAttentions::where('patiente_id', $filters['patiente_id'])
-                ->where('service_id', $filters['service_id'])
-                ->where('sub_service_id', $filters['sub_service_id'])
-                ->where('start', '>=', $filters['fecha_desde'])
-                ->where('end', '<=', $filters['fecha_hasta'])
-                ->where('collected', 0)->get();
-        }
-
-        foreach(collect($registerAttentions)->unique() as $key => $reg){
-            $flight = RegisterAttentions::find($reg->id);
- 
-            $flight->collected = true;
-            
-            $flight->save();
-        }
+        RegisterAttentions::where('id', $filters['note_id'])->update(['collected' => 1]);
 
         return response()->json([
             'data' => [],
@@ -1039,37 +1022,19 @@ class HomeController extends Controller
     public function pagar(Request $request)
     {
         $filters = $request->all();
-        if($filters['service_id'] == 'all'){
-            $registerAttentions = RegisterAttentions::where('paid', 0)->where('start', '>=', $filters['fecha_desde'])->where('end', '<=', $filters['fecha_hasta'])->get();
-        }else{
-            $registerAttentions = RegisterAttentions::where('paid', 0)
-                ->where('worker_id', $filters['worker_id'])
-                ->where('patiente_id', $filters['patiente_id'])
-                ->where('service_id', $filters['service_id'])
-                ->where('sub_service_id', $filters['sub_service_id'])
-                ->where('start', '>=', $filters['fecha_desde'])
-                ->where('end', '<=', $filters['fecha_hasta'])->get();
-        }
+        RegisterAttentions::where('id', $filters['note_id'])->update(['paid' => 1]);
+        $dataReg = RegisterAttentions::find($filters['note_id']);
 
-        foreach(collect($registerAttentions)->unique() as $reg){
-            $flight = RegisterAttentions::find($reg->id);
- 
-            $flight->paid = true;
-            
-            $flight->save();
-        }
-
-
-        $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $request['worker_id'])->where('from', '>=', $request['fecha_desde'])->where('to', '<=', $request['fecha_hasta'])->first() ?? '';
+        $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $dataReg->worker_id)->where('from', '>=', $dataReg->start)->where('to', '<=', $dataReg->end)->first() ?? '';
 
         if(empty($existeGenerate1099)){
             $generate1099 = new GenerateDocuments1099;
         
-                $generate1099->worker_id = $request['worker_id'];
-                $generate1099->from = $request['fecha_desde'];
-                $generate1099->to = $request['fecha_hasta'];
-                $generate1099->eftor_check = $request['eftor_check'];
-                $generate1099->invoice_number = $request['invoice_number'];
+                $generate1099->worker_id = $dataReg->worker_id;
+                $generate1099->from = $dataReg->start;
+                $generate1099->to = $dataReg->end;
+                $generate1099->eftor_check = null;
+                $generate1099->invoice_number = null;
     
             $generate1099->save();
         }
@@ -1084,21 +1049,12 @@ class HomeController extends Controller
     public function revertirCobrar(Request $request)
     {
         $filters = $request->all();
-            $registerAttentions = RegisterAttentions::where('patiente_id', $filters['patiente_id'])
-                ->where('service_id', $filters['service_id'])
-                ->where('sub_service_id', $filters['sub_service_id'])
-                ->where('start', '>=', $filters['fecha_desde'])
-                ->where('end', '<=', $filters['fecha_hasta'])
-                ->where('collected', 1)->get();
-        
+        RegisterAttentions::where('id', $filters['note_id'])->update(['collected' => 0]);
+        $dataReg = RegisterAttentions::find($filters['note_id']);
 
-        foreach(collect($registerAttentions)->unique() as $key => $reg){
-            $flight = RegisterAttentions::find($reg->id);
- 
-            $flight->collected = false;
-            
-            $flight->save();
-        }
+        $nameFile = User::find($dataReg->patiente_id)->first_name . '_' . User::find($dataReg->patiente_id)->last_name . '_' . $filters['note_id'] . '.xml';
+
+        unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
 
         return response()->json([
             'data' => [],
@@ -1110,26 +1066,10 @@ class HomeController extends Controller
     public function revertirPagar(Request $request)
     {
         $filters = $request->all();
-
-            $registerAttentions = RegisterAttentions::where('paid', 1)
-                ->where('worker_id', $filters['worker_id'])
-                ->where('patiente_id', $filters['patiente_id'])
-                ->where('service_id', $filters['service_id'])
-                ->where('sub_service_id', $filters['sub_service_id'])
-                ->where('start', '>=', $filters['fecha_desde'])
-                ->where('end', '<=', $filters['fecha_hasta'])->get();
+        RegisterAttentions::where('id', $filters['note_id'])->update(['paid' => 0]);
+        $dataReg = RegisterAttentions::find($filters['note_id']);
         
-
-        foreach(collect($registerAttentions)->unique() as $key => $reg){
-            $flight = RegisterAttentions::find($reg->id);
- 
-            $flight->paid = false;
-            
-            $flight->save();
-        }
-
-
-        $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filters['fecha_desde'])->where('to', '<=', $filters['fecha_hasta'])->first();
+        $generate1099 = GenerateDocuments1099::where('worker_id', $dataReg->worker_id)->where('from', '>=', $dataReg->start)->where('to', '<=', $dataReg->end)->first();
         if(isset($generate1099) && !empty($generate1099)){
             $generate1099Id = GenerateDocuments1099::find($generate1099->id);
         
@@ -1138,7 +1078,7 @@ class HomeController extends Controller
                 //Storage::disk('public_templates_documents')->delete($generate1099Id->file);
                 unlink(storage_path('app/templates_documents') .'/'. $generate1099Id->file); //elimino el f   
             }
-        }
+        }  
 
         return response()->json([
             'data' => [],

@@ -78,6 +78,12 @@ return [
             'url' => env('APP_URL').'/templatesOthers',
             'visibility' => 'public',
         ],
+        'public_files_xml' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files_xml'),
+            'url' => env('APP_URL').'/filesXml',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -107,6 +113,7 @@ return [
         public_path('templatesDocuments') => storage_path('app/templates_documents'),
         public_path('templatesEmails') => storage_path('app/templates_emails'),
         public_path('templatesOthers') => storage_path('app/templates_others'),
+        public_path('filesXml') => storage_path('app/files_xml'),
     ],
 
 ];

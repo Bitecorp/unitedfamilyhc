@@ -16,7 +16,7 @@ use App\Models\ConfigSubServicesPatiente;
 use App\Models\Service;
 use App\Models\SubServices;
 use App\Models\GenerateDocuments1099;
-
+use App\Models\NotesSubServicesRegister;
 use App\Models\documentsEditors;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
@@ -266,18 +266,21 @@ function dataUser1099Global($idWorker){
     }
 }
 
-function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_hasta, $paid = 1, $isForHome = false, $isXml = false){
+function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $fecha_hasta = null, $paid = 1, $isForHome = false, $isXml = false, $idNote = null){
         $filters = [
             'paid' => $paid,
             'desde' => $fecha_desde,
             'hasta' => $fecha_hasta,
             'worker_id' => $worker_id
         ];
+        
 
         $registerAttentions = [];
         if($isForHome){
             $registerAttentions = RegisterAttentions::where('start', '>=', new \DateTime($fecha_desde))
                 ->where('end', '<=', new \DateTime($fecha_hasta))->get();
+        }elseif(isset($idNote) && $isXml){
+            $registerAttentions = RegisterAttentions::find(intval($idNote));
         }else{
             $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
                 ->where('start', '>=', new \DateTime($fecha_desde))
@@ -291,29 +294,52 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                 array_push($arrayForCompare, $dataComp->id);
             }
         }
+        //dd($arrayForCompare);
 
         $registerAttentionss = [];
-        if((isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
-            foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
+        if((isset($registerAttentions) && !empty($registerAttentions)) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
+            if(is_array($registerAttentions) && count($registerAttentions) >= 1){
+                foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
+                    $timeAttention = $registerAttention->start->diff($registerAttention->end);
+                    $times = explode(":", $timeAttention->format('%H:%i:%s'));
+
+                    if($times[0] < 10){
+                        $times[0] = str_split($times[0])[1];
+                    }
+
+                    if($times[1] < 10){
+                        $times[1] = '0' . $times[1];
+                    }
+
+                    if($times[2] < 10){
+                        $times[2] = '0' . $times[2];
+                    }
+                    
+                    $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+
+                    array_push($registerAttentionss, $registerAttention);
+                }
+            }else{
+                $registerAttention = $registerAttentions;
                 $timeAttention = $registerAttention->start->diff($registerAttention->end);
-                $times = explode(":", $timeAttention->format('%H:%i:%s'));
+                    $times = explode(":", $timeAttention->format('%H:%i:%s'));
 
-                if($times[0] < 10){
-                    $times[0] = str_split($times[0])[1];
-                }
+                    if($times[0] < 10){
+                        $times[0] = str_split($times[0])[1];
+                    }
 
-                if($times[1] < 10){
-                    $times[1] = '0' . $times[1];
-                }
+                    if($times[1] < 10){
+                        $times[1] = '0' . $times[1];
+                    }
 
-                if($times[2] < 10){
-                    $times[2] = '0' . $times[2];
-                }
-                
-                $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
+                    if($times[2] < 10){
+                        $times[2] = '0' . $times[2];
+                    }
+                    
+                    $registerAttention->time_attention = $times[0] . ':' . $times[1] . ':' . $times[2];
 
-                array_push($registerAttentionss, $registerAttention);
+                    array_push($registerAttentionss, $registerAttention);
             }
             
             $arrayCollect = collect($registerAttentionss)->unique();
@@ -356,6 +382,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
             $gananciaEmpresa = 0;
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
+                    $arraySumC->note = NotesSubServicesRegister::find($arraySumC->id);
                     $dataWorker = User::where('id', $arraySumC->worker_id)->first();
                     $dataindependentContractor = ConfirmationIndependent::where('user_id', $arraySumC->worker_id)->first();
                     $arraySumC->worker_id = $dataWorker;
@@ -457,7 +484,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                         $arraySumC->mont_pay = number_format((float)$calcPay, 2, '.', '');                        
                     }
 
-                    if($isForHome){
+                    if($isForHome || $isXml){
                         $dataCobroPatiente = SalaryServiceAssigneds::where('service_id', $dataSubService->id)->where('user_id', $dataPatiente->id)->first();
 
                         if(isset($dataCobroPatiente) && !empty($dataCobroPatiente)){
@@ -523,23 +550,65 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde, $fecha_h
                         $gananciaEmpresa = $gananciaEmpresa + $arraySumC->ganancia_empresa;
                     }
 
-                    //dd($arraySumC->worker_id);
+                    if($isXml){
+                        $textStatus = 'In Progress';
+                        $valNote = '';
+                        if((isset($arraySumC->note->note) && isset($arraySumC->note->firma)) || (!empty($arraySumC->note->note) && !empty($arraySumC->note->firma))){
+                            $textStatus = 'Complete';
+                            $valNote = $arraySumC->note->note;
+                        };
+                        //dd($arraySumC->service_id);
+
+                        $arrayXml = [
+                            'submiterID' => $arraySumC->id,
+                            'caseno' => '',
+                            'firstname' => json_decode($arraySumC->patiente_id)->first_name,
+                            'lastname' => json_decode($arraySumC->patiente_id)->last_name,
+                            'activitydatetime' => [
+                                'startdate' => date_format($arraySumC->start,"Y/m/d"),
+                                'starttime' => date_format($arraySumC->start,"H:i:s"),
+                                'enddate' => date_format($arraySumC->end,"Y/m/d"),
+                                'endtime' => date_format($arraySumC->end,"H:i:s"),
+                            ],
+                            'authoritation' => '',
+                            'authserviceid' => '',
+                            'workerid' => '',
+                            'location' => '',
+                            'primarydiagnosis' => '',
+                            'status' => $textStatus,
+                            'program' => json_decode($arraySumC->service_id)->num_prov,
+                            'vendorserviceid' => '',
+                            'totalcost' => $arraySumC->mont_cob,
+                            'units' => $arraySumC->unid_cob_patiente,
+                            'placeofservice' => '',
+                            'groupnote' => $valNote,
+                            'contacttype' => [
+                                'value' => 'Progress Note'
+                            ]
+
+                        ];
+                        //dd($arrayXml);
+
+                        
+                    }
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
+
+
                     array_push($arrayFinal, $arraySumC);
 
                     
                 }
-                //dd($filters, $sumaPagos, $sumaCobros, $gananciaEmpresa);
             }
-            //dd($sumaPagos);
-            //dd(number_format((float)$sumaCobros, 2, '.', ''), number_format((float)$sumaPagos, 2, '.', ''), number_format((float)$gananciaEmpresa, 2, '.', ''));
+
             if($isForHome){
                 return [
                     'montoCobroTotal' => isset($sumaCobros) && !empty($sumaCobros) ? number_format((float)$sumaCobros, 2, '.', '') : '0.00',
                     'montoPagoTotal' => isset($sumaPagos) && !empty($sumaPagos) ? number_format((float)$sumaPagos, 2, '.', '') : '0:00',
                     'montoGananciaTotal' => isset($gananciaEmpresa) && !empty($gananciaEmpresa) ? number_format((float)$gananciaEmpresa, 2, '.', '') : '0.00'
                 ];
+            }elseif($isXml){
+                return $arrayXml;
             }else{
                 return [
                     'dataPagos' => collect($arrayFinal)->unique(), 
