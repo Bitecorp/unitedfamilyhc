@@ -280,7 +280,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
             $registerAttentions = RegisterAttentions::where('start', '>=', new \DateTime($fecha_desde))
                 ->where('end', '<=', new \DateTime($fecha_hasta))->get();
         }elseif(isset($idNote) && $isXml){
-            $registerAttentions = RegisterAttentions::find(intval($idNote));
+            $registerAttentions = [RegisterAttentions::find(intval($idNote))];
         }else{
             $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
                 ->where('start', '>=', new \DateTime($fecha_desde))
@@ -298,7 +298,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
 
         $registerAttentionss = [];
         if((isset($registerAttentions) && !empty($registerAttentions)) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
-            if($registerAttentions && count($registerAttentions) >= 1){
+            if(count(collect($registerAttentions)) > 1){
                 foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
                     $timeAttention = $registerAttention->start->diff($registerAttention->end);
@@ -321,7 +321,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                     array_push($registerAttentionss, $registerAttention);
                 }
             }else{
-                $registerAttention = $registerAttentions;
+                $registerAttention = $registerAttentions[0];
                 $timeAttention = $registerAttention->start->diff($registerAttention->end);
                     $times = explode(":", $timeAttention->format('%H:%i:%s'));
 
@@ -380,6 +380,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
             $sumaPagos = 0;
             $sumaCobros = 0;
             $gananciaEmpresa = 0;
+            $arrayXml = '';
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
                     $arraySumC->note = NotesSubServicesRegister::find($arraySumC->id);
@@ -557,7 +558,6 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                             $textStatus = 'Complete';
                             $valNote = $arraySumC->note->note;
                         };
-                        //dd($arraySumC->service_id);
 
                         $arrayXml = [
                             'submiterID' => $arraySumC->id,
@@ -585,18 +585,12 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                             'contacttype' => [
                                 'value' => 'Progress Note'
                             ]
-
                         ];
-                        //dd($arrayXml);
-
-                        
                     }
 
                     $sumaPagos = $sumaPagos + $arraySumC->mont_pay;
 
-
                     array_push($arrayFinal, $arraySumC);
-
                     
                 }
             }
@@ -622,6 +616,8 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                     'montoPagoTotal' => '0:00',
                     'montoGananciaTotal' => '0.00'
                 ];
+            }elseif($isXml){
+                return [];
             }else{
                 return [
                     'dataPagos' => [], 

@@ -1105,6 +1105,7 @@ class WorkerController extends AppBaseController
                     }
 
                 $dom->save(storage_path('app/files_xml/') . $nameFile);
+
         return response()->json([
             'data' => [],
             'msj' => "data actualizada y xml creado",
