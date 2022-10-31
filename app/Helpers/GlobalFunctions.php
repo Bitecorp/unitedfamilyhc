@@ -298,7 +298,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
 
         $registerAttentionss = [];
         if((isset($registerAttentions) && !empty($registerAttentions)) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
-            if(is_array($registerAttentions) && count($registerAttentions) >= 1){
+            if($registerAttentions && count($registerAttentions) >= 1){
                 foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
                     $timeAttention = $registerAttention->start->diff($registerAttention->end);
