@@ -142,6 +142,14 @@
 	<script>
         $(function () {
             $('#contable-table-wor').DataTable( {
+				dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+				buttons: [
+					
+					{ extend: 'csv', className: 'btn-sm' },
+					{ extend: 'excel', className: 'btn-sm' },
+					{ extend: 'pdf', className: 'btn-sm' },
+					{ extend: 'print', className: 'btn-sm' }
+				],
                 retrieve: true,
                 paging: true,
                 autoFill: true,
@@ -153,6 +161,14 @@
 	<script>
         $(function () {
             $('#contable-table-pat').DataTable( {
+				dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+				buttons: [
+					
+					{ extend: 'csv', className: 'btn-sm' },
+					{ extend: 'excel', className: 'btn-sm' },
+					{ extend: 'pdf', className: 'btn-sm' },
+					{ extend: 'print', className: 'btn-sm' }
+				],
                 retrieve: true,
                 paging: true,
                 autoFill: true,
@@ -417,6 +433,14 @@
 						if(urlActualBYP){
 
 							$('#contable-table-pat').DataTable({
+								dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+								buttons: [
+									
+									{ extend: 'csv', className: 'btn-sm' },
+									{ extend: 'excel', className: 'btn-sm' },
+									{ extend: 'pdf', className: 'btn-sm' },
+									{ extend: 'print', className: 'btn-sm' }
+								],
 								retrieve: true,
 								paging: true,
 								autoFill: true,
@@ -426,13 +450,18 @@
 										orderable: false, 
 										targets: 0
 									}
-								],
-								order: [
-									[0, 'asc']
 								],
 							}).clear();	
 
 							$('#contable-table-wor').DataTable({
+								dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+								buttons: [
+									
+									{ extend: 'csv', className: 'btn-sm' },
+									{ extend: 'excel', className: 'btn-sm' },
+									{ extend: 'pdf', className: 'btn-sm' },
+									{ extend: 'print', className: 'btn-sm' }
+								],
 								retrieve: true,
 								paging: true,
 								autoFill: true,
@@ -442,10 +471,7 @@
 										orderable: false, 
 										targets: 0
 									}
-								],
-								order: [
-									[0, 'asc']
-								],
+								]
 							}).clear();
 							
 							if(dataFullP.length >= 1){
@@ -468,6 +494,14 @@
 									'</div>\n';
 
 									$('#contable-table-pat').DataTable({
+										dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+										buttons: [
+											
+											{ extend: 'csv', className: 'btn-sm' },
+											{ extend: 'excel', className: 'btn-sm' },
+											{ extend: 'pdf', className: 'btn-sm' },
+											{ extend: 'print', className: 'btn-sm' }
+										],
 										retrieve: true,
 										paging: true,
 										autoFill: true,
@@ -477,9 +511,6 @@
 												orderable: false, 
 												targets: 0
 											}
-										],
-										order: [
-											[0, 'asc']
 										]
 									}).row.add([
 										dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name, 
@@ -507,6 +538,14 @@
 									'</div>\n';
 
 									$('#contable-table-wor').DataTable({
+										dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
+										buttons: [
+											
+											{ extend: 'csv', className: 'btn-sm' },
+											{ extend: 'excel', className: 'btn-sm' },
+											{ extend: 'pdf', className: 'btn-sm' },
+											{ extend: 'print', className: 'btn-sm' }
+										],
 										retrieve: true,
 										paging: true,
 										autoFill: true,
@@ -516,9 +555,6 @@
 												orderable: false, 
 												targets: 0
 											}
-										],
-										order: [
-											[0, 'asc']
 										]
 									}).row.add([
 										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
