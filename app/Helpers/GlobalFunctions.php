@@ -297,8 +297,8 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
         //dd($arrayForCompare);
 
         $registerAttentionss = [];
-        if((isset($registerAttentions) && !empty($registerAttentions)) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
-            if(count(collect($registerAttentions)) > 1){
+        if((isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){
+            if(!$isXml){
                 foreach(collect($registerAttentions)->whereIn('id', $arrayForCompare) as $registerAttention){
 
                     $timeAttention = $registerAttention->start->diff($registerAttention->end);
@@ -321,6 +321,7 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                     array_push($registerAttentionss, $registerAttention);
                 }
             }else{
+                $registerAttentions;
                 $registerAttention = $registerAttentions[0];
                 $timeAttention = $registerAttention->start->diff($registerAttention->end);
                     $times = explode(":", $timeAttention->format('%H:%i:%s'));
