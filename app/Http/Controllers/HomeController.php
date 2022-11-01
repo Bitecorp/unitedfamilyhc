@@ -1053,8 +1053,9 @@ class HomeController extends Controller
         $dataReg = RegisterAttentions::find($filters['note_id']);
 
         $nameFile = User::find($dataReg->patiente_id)->first_name . '_' . User::find($dataReg->patiente_id)->last_name . '_' . $filters['note_id'] . '.xml';
-
-        unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
+        if (file_exists(storage_path('app/files_xml') .'/'. $nameFile)) {
+            unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
+        };        
 
         return response()->json([
             'data' => [],
