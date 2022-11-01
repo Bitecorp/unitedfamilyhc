@@ -34,8 +34,9 @@ class NotesSubServicesRegisterController extends Controller
         $workers = User::all();
         $arrayForNotes = []; 
 
+        //dd(new DateTime(data_first_month_day()), new DateTime(data_last_month_day()));
         if(Auth::user()->role_id == 1){
-            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', new DateTime(data_first_month_day()))->where('end', '<=', new DateTime(data_last_month_day()))->get();
+            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', new DateTime(data_first_month_day_last()))->where('end', '<=', new DateTime(data_last_month_day_last()))->get();
         }else{
             $notesRegs = RegisterAttentions::select('id')->where('worker_id', Auth::user()->id)->where('start', '>=', new DateTime(data_first_month_day()))->where('end', '<=', new DateTime(data_last_month_day()))->get();
         }
@@ -243,7 +244,7 @@ class NotesSubServicesRegisterController extends Controller
             array_push($notes, $newNote);
         }
 
-        //foreach(collect($notes) as $key => $note){
+       // foreach(collect($notes) as $key => $note){
             //dd($note['id']);
         //};
 

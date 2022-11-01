@@ -169,45 +169,47 @@
 				<!-- end panel-body -->
 			</div>
 
-            @foreach($notes as $key => $note)
-                <div class="modal fade" id="exampleModal_{{ $key  }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel_{{ $key  }}">Signature</h5>
-                            <button id="btn-clear-signature-x" type="button" class="close" data-dismiss="modal_{{ $key  }}" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" >
-                            
-                            <canvas id="signature"></canvas>
+            @if (isset($notes) && !empty($notes))
+                @foreach($notes as $key => $note)
+                    <div class="modal fade" id="exampleModal_{{ $key  }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel_{{ $key  }}">Signature</h5>
+                                <button id="btn-clear-signature-x" type="button" class="close" data-dismiss="modal_{{ $key  }}" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" >
+                                
+                                <canvas id="signature"></canvas>
 
-                        </div>
-                        <div id="signature-left-buttons-holder" class="modal-footer">
-                            <button id="btn-clear-signature" type="button" class="btn btn-secondary" data-dismiss="modal_{{ $key  }}">Close</button>
-                            <button id="btn-save-signature" type="button" class="btn btn-primary">Save</button>
-                        </div>
+                            </div>
+                            <div id="signature-left-buttons-holder" class="modal-footer">
+                                <button id="btn-clear-signature" type="button" class="btn btn-secondary" data-dismiss="modal_{{ $key  }}">Close</button>
+                                <button id="btn-save-signature" type="button" class="btn btn-primary">Save</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
 @endsection
 
 @push('scripts')
     <script>
-    $(".default-select2").select2();
+        $(".default-select2").select2();
 
-    function showAlertDelete(){
-        let msjOne = 'This note has already been paid, you must reverse it in order to delete it.\n\n';
-		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder eliminarla.';
-		alert(msjOne + msjTwo);
-    }
-    function showAlertEdit(){
-        let msjOne = 'This note has already been paid, you must reverse it to be able to edit it.\n\n';
-		let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder editarla.';
-		alert(msjOne + msjTwo);
-    }
+        function showAlertDelete(){
+            let msjOne = 'This note has already been paid, you must reverse it in order to delete it.\n\n';
+            let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder eliminarla.';
+            alert(msjOne + msjTwo);
+        }
+        function showAlertEdit(){
+            let msjOne = 'This note has already been paid, you must reverse it to be able to edit it.\n\n';
+            let msjTwo = 'Esta nota ya fue pagada debe revertirla para poder editarla.';
+            alert(msjOne + msjTwo);
+        }
     </script>
     <script>
         $(function () {
@@ -287,7 +289,6 @@
         };
 
         Signature.prototype.signaturePad = function(_canvas, _opts) {
-
             let _this = SignaturePad;
 
             function Point(x, y, time) {
@@ -384,7 +385,7 @@
                 _this.backgroundColor = opts.backgroundColor || 'rgba(0,0,0,0)';
                 _this.onBegin = opts.onBegin;
                 _this.onEnd = opts.onEnd;
-                _this._canvas = canvas;
+                _this._canvas = canvas; //aqui
                 _this._ctx = canvas.getContext('2d');
                 _this.prototype.clear();
                 _this._handleMouseDown = function (event) {
