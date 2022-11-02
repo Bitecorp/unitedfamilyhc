@@ -111,7 +111,7 @@
     <div class="col">
         <div class="form-group">
             {!! Form::label('number_of_notes', 'Number of Notes:') !!}
-            <input type="text" name="number_of_notes" id="number_of_notes" class="form-control" value="" required placeholder="Value min 1">
+            <input type="text" name="number_of_notes" id="number_of_notes" class="form-control" value="" placeholder="Value min 1" required>
         </div>
     </div>
 </div>
@@ -242,18 +242,18 @@
 			});
 		});
 
-        $("#sub_service_id").change(function() {
-			$("#sub_service_id option:selected").each(function() {
-                var worker_id = $('#worker_id').val();
-                var service_id = $('#service_id').val();
-                var patiente_id = $('#patiente_id').val();
-                var sub_service_id = $('#sub_service_id').val();
-
-                if(worker_id != '' && service_id != '' && patiente_id != '' && sub_service_id != ''){
-                    $('#btn_submit').removeAttr('disabled');
-                }	
-			});
-		});
+        $('#number_of_notes').change(function() {
+            var worker_id = $('#worker_id').val();
+            var service_id = $('#service_id').val();
+            var patiente_id = $('#patiente_id').val();
+            var sub_service_id = $('#sub_service_id').val();
+            var number_of_notes = $('#number_of_notes').val();
+            if(number_of_notes != '' && typeof number_of_notes != undefined && number_of_notes != null && (number_of_notes != '0' || number_of_notes != 0) && worker_id != '' && service_id != '' && patiente_id != '' && sub_service_id != ''){
+                $('#btn_submit').removeAttr('disabled');
+            }else{
+                $('#btn_submit').attr('disabled', 'disabled');
+            }
+        });
 
         $('#btn_submit').click(function() {
 

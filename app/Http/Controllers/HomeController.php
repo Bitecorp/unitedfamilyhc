@@ -1076,7 +1076,6 @@ class HomeController extends Controller
         
             $generate1099Id->delete();
             if(isset($generate1099Id->file) &&  !empty($generate1099Id->file)){
-                //Storage::disk('public_templates_documents')->delete($generate1099Id->file);
                 unlink(storage_path('app/templates_documents') .'/'. $generate1099Id->file); //elimino el f   
             }
         }  

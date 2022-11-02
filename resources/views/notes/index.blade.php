@@ -169,7 +169,7 @@
 				<!-- end panel-body -->
 			</div>
 
-            @if (isset($notes) && !empty($notes))
+            @if(isset($notes) && !empty($notes))
                 @foreach($notes as $key => $note)
                     <div class="modal fade" id="exampleModal_{{ $key  }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
