@@ -73,7 +73,11 @@ class SalaryServiceAssigneds extends Model
         'aditional_one',
         'aditional_two',
         'aditional_three',
-        'aditional_four'
+        'aditional_four',
+        'workerIdIc',
+        'aditional_one_w',
+        'aditional_two_w',
+        'aditional_three_w'
     ];
 
     /**
@@ -93,7 +97,11 @@ class SalaryServiceAssigneds extends Model
         'aditional_one' => 'string',
         'aditional_two' => 'string',
         'aditional_three' => 'string',
-        'aditional_four' => 'string'
+        'aditional_four' => 'string',
+        'workerIdIc' => 'string',
+        'aditional_one_w' => 'string',
+        'aditional_two_w' => 'string',
+        'aditional_three_w' => 'string'
     ];
 
     /**
@@ -113,6 +121,10 @@ class SalaryServiceAssigneds extends Model
         'aditional_two' => 'nullable|string|max:255',
         'aditional_three' => 'nullable|string|max:255',
         'aditional_four' => 'nullable|string|max:255',
+        'workerIdIc' => 'nullable|string|max:255',
+        'aditional_one_w' => 'nullable|string|max:255',
+        'aditional_two_w' => 'nullable|string|max:255',
+        'aditional_three_w' => 'nullable|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

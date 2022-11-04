@@ -79,9 +79,7 @@
         <!-- unit Id Field -->
         <div class="form-group">
             {!! Form::label('unit_id', 'Unit Of Time:') !!}
-            <select name='unit_id' id='unit_id' class="default-select2 form-control"
-            {{ strpos(URL::previous(), "workers") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'readonly disabled' : (strpos(URL::previous(), "patientes") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'readonly disabled' : ''))) }}
-            >
+            <select name='unit_id' id='unit_id' class="default-select2 form-control" {{ strpos(URL::previous(), "workers") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->salary) && !empty($salaryServiceAssigneds->salary) ? '' : (isset($services) && !empty($services) && isset($services->worker_payment) && !empty($services->worker_payment) ? 'readonly disabled' : (strpos(URL::previous(), "patientes") && isset($salaryServiceAssigneds) && !empty($salaryServiceAssigneds) && isset($salaryServiceAssigneds->customer_payment) && !empty($salaryServiceAssigneds->customer_payment) ? '' : (isset($services) && !empty($services) && isset($services->price_sub_service) && !empty($services->price_sub_service) ? 'readonly disabled' : ''))) }}>
                 <option value='' selected>Select Unit of Time..</option>
                 @foreach($units as $unit)
                     <option value='{{ $unit->id }}' 
@@ -89,6 +87,42 @@
                         (isset($services) && $services->unit_customer_id == $unit->id ? 'selected' : '') }} >{{ $unit->time }} {{ $unit->type_unidad == 0 ? 'Minutes' : 'Hour'}}</option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    @if((new \Jenssegers\Agent\Agent())->isDesktop())
+        <div class="row" {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
+        <?php $styleNew = '0px'; ?>
+    @else
+        <div {{ strpos(URL::previous(), "patientes") ? 'hidden' : ''}}>
+        <?php $styleNew = '20px'; ?>
+    @endif
+        <div class="col" style="margin-right:{{ $styleNew }};">
+            <!-- Name Sub Service Field -->
+            <div class="form-group">
+                {!! Form::label('workerIdIc', 'Worker ID IConect:') !!}
+                {!! Form::text('workerIdIc', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            </div>
+        </div>
+        <div class="col" style="margin-right:{{ $styleNew }};">
+            <!-- Name Sub Service Field -->
+            <div class="form-group">
+                {!! Form::label('aditional_one_w', 'Aditional One:') !!}
+                {!! Form::text('aditional_one_w', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            </div>
+        </div>
+        <div class="col" style="margin-right:{{ $styleNew }};">
+            <!-- Name Sub Service Field -->
+            <div class="form-group">
+                {!! Form::label('aditional_two_w', 'Aditional Two:') !!}
+                {!! Form::text('aditional_two_w', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            </div>
+        </div>
+        <div class="col" style="margin-right:{{ $styleNew }};">
+            <!-- Name Sub Service Field -->
+            <div class="form-group">
+                {!! Form::label('aditional_three_w', 'Aditional Tree:') !!}
+                {!! Form::text('aditional_three_w', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            </div>
         </div>
     </div>
     <div class="col" {{ strpos(URL::previous(), "workers") ? 'hidden' : ''}}>
