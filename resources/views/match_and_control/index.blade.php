@@ -582,13 +582,13 @@
 									revertir = dataFullW[i].paid == true ? 'revertir' : '';				
 									
 										var dataW = 
-											'<div class="col-xl-6 col-md-6">\n' +
+											'<div class="col-xl-4 col-md-4">\n' +
 												'<div class="widget widget-stats ' + colBG + '">\n' +
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
-														'<h4>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h4>\n' +
-														'<h4>Time: ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + ' units </h4>\n' +
-														'<h4>Amount to be paid: ' + dataFullW[i].mont_pay + '$ (USD) </h4>\n' +												
+														'<p style="font-size: 100%">' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</p>\n' +
+														'<p style="font-size: 100%">Time: <span style="font-size: 150%">' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + '</span> units </h4>\n' +
+														'<p style="font-size: 100%">Amount to be paid: <span style="font-size: 150%">' + dataFullW[i].mont_pay + '</span>$ (USD) </h4>\n' +												
 													'</div>\n' +
 												'</div>\n' +
 											'</div>\n';
@@ -608,15 +608,15 @@
 									revertir = dataFullP[i].collected == true ? 'revertir' : '';
 
 										var dataP = 
-											'<div class="col-xl-6 col-md-6">\n' +
+											'<div class="col-xl-4 col-md-4">\n' +
 												'<div class="widget widget-stats ' + colBG + '">\n' +
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
-														'<h4>'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</h4>\n' +
-														'<h4>Time: ' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + ' units </h4>\n' +
-														'<h4>Amount receivable: ' + dataFullP[i].mont_cob + '$ (USD) </h4>\n' +
-														'<h4>Amount to be paid: ' + dataFullP[i].mont_pay + '$ (USD) </h4>\n' +
-														'<h4>Company profit: ' + dataFullP[i].ganancia_empresa +  '$ (USD) </h4>\n' +	
+														'<p style="font-size: 100%">'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</p>\n' +
+														'<p style="font-size: 100%">Time: <span style="font-size: 150%">' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + '</span> units </p>\n' +
+														'<p style="font-size: 100%">Amount receivable: <span style="font-size: 150%">' + dataFullP[i].mont_cob + '</span>$ (USD) </p>\n' +
+														'<p style="font-size: 100%">Amount to be paid: <span style="font-size: 150%">' + dataFullP[i].mont_pay + '</span>$ (USD) </p>\n' +
+														'<p style="font-size: 100%">Company profit: <span style="font-size: 150%">' + dataFullP[i].ganancia_empresa +  '</span>$ (USD) </p>\n' +	
 													'</div>\n' +
 												'</div>\n' +
 											'</div>\n';
