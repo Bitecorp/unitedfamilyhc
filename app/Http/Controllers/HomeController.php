@@ -505,11 +505,12 @@ class HomeController extends Controller
         ]);
     }
 
-    public function matchAndControlFilter ()
+    public function matchAndControlFilter (Request $request)
     {
         $services = Service::all();
         $dataMensual = $this->matchAndControl() ?? [];
-        return view('match_and_control.index')->with('services', $services)->with('dataMensual', $dataMensual);
+        $dataMensualDasboard = $this->matchAndControlAgrupado($request) ?? [];
+        return view('match_and_control.index')->with('services', $services)->with('dataMensual', $dataMensual)->with('dataMensualDasboard', $dataMensualDasboard);
     
     }
 
@@ -521,7 +522,7 @@ class HomeController extends Controller
     
     }
 
-    public function matchAndControlSearch (Request $request)
+    public function matchAndControlSearch (Request $request, $dataDasboard = false)
     {
         $filters = $request->all();
 
@@ -753,22 +754,168 @@ class HomeController extends Controller
 
             $dataPatiente = $this->matchAndControlSearchPatientes($request);
 
-            return response()->json([
-                'dataW' => collect($arrayFinal),
-                'dataP' => $dataPatiente,
-                'msj' => "data encontrada",
-                'success' => true
-            ]); 
+            if($dataDasboard){
+                return [
+                    'dataW' => collect($arrayFinal),
+                    'dataP' => $dataPatiente,
+                    'msj' => "data encontrada",
+                    'success' => true
+                ];
+            }else{
+                return response()->json([
+                    'dataW' => collect($arrayFinal),
+                    'dataP' => $dataPatiente,
+                    'msj' => "data encontrada",
+                    'success' => true
+                ]); 
+            }
 
         }else{
             $dataPatiente = $this->matchAndControlSearchPatientes($request);
 
-            return response()->json([
-                'dataW' => [],
-                'dataP' => $dataPatiente,
-                'msj' => "data no encontrada",
+            if($dataDasboard){
+                return [
+                    'dataW' => [],
+                    'dataP' => $dataPatiente,
+                    'msj' => "data no encontrada",
+                    'success' => true
+                ];
+            }else{
+                return response()->json([
+                    'dataW' => [],
+                    'dataP' => $dataPatiente,
+                    'msj' => "data no encontrada",
+                    'success' => true
+                ]);
+            } 
+        }
+    }
+
+    public function matchAndControlAgrupado (Request $request)
+    {   
+        $data = [];
+        if(count($request->all()) == 0){
+            $data = $this->matchAndControl(true);
+        }else{
+            $data = $this->matchAndControlSearch($request, true);
+        }
+
+        $newDataW = [];
+        $dataW2 = $data['dataW'];
+        foreach($data['dataW'] as $k => $v){
+            unset($dataW2[$k]);
+            foreach($dataW2 as $k2 => $v2){
+                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
+                    $times = explode(":", $v['time_attention']);
+
+                    if($times[0] < 10){
+                        $times[0] = str_split($times[0])[1];
+                    }
+
+                    if($times[1] < 10){
+                        $times[1] = '0' . $times[1];
+                    }
+
+                    if($times[2] < 10){
+                        $times[2] = '0' . $times[2];
+                    }
+
+
+                    $times2 = explode(":", $v['time_attention']);
+
+                    if($times2[0] < 10){
+                        $times2[0] = str_split($times[0])[1];
+                    }
+
+                    if($times2[1] < 10){
+                        $times2[1] = '0' . $times[1];
+                    }
+
+                    if($times2[2] < 10){
+                        $times2[2] = '0' . $times[2];
+                    }
+
+                    $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
+                    $min = intval($times[1] + $times2[1]) < 10 ? '0' . strval($times[1] + $times2[1]) : strval($times[1] + $times2[1]);
+                    $seg = intval($times[2] + $times2[2]) < 10 ? '0' . strval($times[2] + $times2[2]) : strval($times[2] + $times2[2]);
+                    
+                    $v['time_attention'] = $hor . ':' . $min . ':' . $seg;
+                    $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
+                    $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
+                    $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
+
+                    array_push($newDataW, $v);
+                    unset($data['dataW'][$k2]);
+
+                }
+            }
+        }
+
+        $newDataP = [];
+        $dataP2 = $data['dataP'];
+        foreach($data['dataP'] as $k => $v){
+            unset($dataP2[$k]);
+            foreach($data['dataP'] as $k2 => $v2){
+                if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
+                    $times = explode(":", $v['time_attention']);
+
+                    if($times[0] < 10){
+                        $times[0] = str_split($times[0])[1];
+                    }
+
+                    if($times[1] < 10){
+                        $times[1] = '0' . $times[1];
+                    }
+
+                    if($times[2] < 10){
+                        $times[2] = '0' . $times[2];
+                    }
+
+
+                    $times2 = explode(":", $v['time_attention']);
+
+                    if($times2[0] < 10){
+                        $times2[0] = str_split($times[0])[1];
+                    }
+
+                    if($times2[1] < 10){
+                        $times2[1] = '0' . $times[1];
+                    }
+
+                    if($times2[2] < 10){
+                        $times2[2] = '0' . $times[2];
+                    }
+
+                    $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
+                    $min = intval($times[1] + $times2[1]) < 10 ? '0' . strval($times[1] + $times2[1]) : strval($times[1] + $times2[1]);
+                    $seg = intval($times[2] + $times2[2]) < 10 ? '0' . strval($times[2] + $times2[2]) : strval($times[2] + $times2[2]);
+                    
+                    $v['time_attention'] = $hor . ':' . $min . ':' . $seg;
+                    $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
+                    $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
+                    $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
+
+                    array_push($newDataP, $v);
+                    unset($data['dataP'][$k2]);
+
+                }
+            }
+        }
+
+        if(count($request->all()) == 0){
+            return collect([
+                'dataW' => collect($newDataW),
+                'dataP' => collect($newDataP),
+                'msj' => "data encontrada",
                 'success' => true
-            ]); 
+            ]);
+        }else{
+            return response()->json([
+                'dataW' => collect($newDataW),
+                'dataP' => collect($newDataP),
+                'msj' => "data encontrada",
+                'success' => true
+            ]);
         }
     }
 
@@ -1272,9 +1419,8 @@ class HomeController extends Controller
         }
     }
 
-    public function matchAndControl ()
+    public function matchAndControl($dataDasboard = false)
     {
-
         $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? []; 
         
         //dd(data_previa_month_day_first(), data_previa_month_day_last());
@@ -1480,22 +1626,40 @@ class HomeController extends Controller
 
             $dataPatiente = $this->matchAndControlPatientes();
             
-            return collect([
-                'dataW' => collect($arrayFinal),
-                'dataP' => $dataPatiente,
-                'msj' => "data encontrada",
-                'success' => true
-            ]); 
+            if($dataDasboard){
+                return [
+                    'dataW' => collect($arrayFinal),
+                    'dataP' => $dataPatiente,
+                    'msj' => "data encontrada",
+                    'success' => true
+                ];
+            }else{
+                return collect([
+                    'dataW' => collect($arrayFinal),
+                    'dataP' => $dataPatiente,
+                    'msj' => "data encontrada",
+                    'success' => true
+                ]);
+            } 
 
         }else{
             $dataPatiente = $this->matchAndControlPatientes();
 
-            return collect([
-                'dataW' => [],
-                'dataP' => $dataPatiente,
-                'msj' => "data no encontrada",
-                'success' => true
-            ]); 
+            if($dataDasboard){
+                return [
+                    'dataW' => [],
+                    'dataP' => $dataPatiente,
+                    'msj' => "data no encontrada",
+                    'success' => true
+                ];
+            }else{
+                return collect([
+                    'dataW' => [],
+                    'dataP' => $dataPatiente,
+                    'msj' => "data no encontrada",
+                    'success' => true
+                ]); 
+            }
         }
     }
 

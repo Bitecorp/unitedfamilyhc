@@ -59,7 +59,7 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/generate1099', 'dataConsultGenerate1099');
     
-    Route::post('/matchAndControl', 'matchAndControlSearch'); 
+    Route::post('/matchAndControl', 'matchAndControlAgrupado'); 
 
     Route::post('/cobrarPatiente', 'cobrar');
 

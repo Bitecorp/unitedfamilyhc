@@ -36,7 +36,7 @@ class NotesSubServicesRegisterController extends Controller
 
         //dd(new DateTime(data_first_month_day()), new DateTime(data_last_month_day()));
         if(Auth::user()->role_id == 1){
-            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', new DateTime(data_first_month_day_last()))->where('end', '<=', new DateTime(data_last_month_day_last()))->get();
+            $notesRegs = RegisterAttentions::select('id')->where('start', '>=', new DateTime(data_previa_month_day_first()))->where('end', '<=', new DateTime(data_previa_month_day_last()))->get();
         }else{
             $notesRegs = RegisterAttentions::select('id')->where('worker_id', Auth::user()->id)->where('start', '>=', new DateTime(data_first_month_day()))->where('end', '<=', new DateTime(data_last_month_day()))->get();
         }

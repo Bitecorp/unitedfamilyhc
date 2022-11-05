@@ -586,10 +586,7 @@
 												'<div class="widget widget-stats ' + colBG + '">\n' +
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
-														'<h4>' + dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + '</h4>\n' +
-														'<h4>WK: ' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h4>\n' +
-														'<h4>' + dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service + '</h4>\n' +
-														'<h4>Unit of: ' + dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - Unit value: ' + dataFullW[i].unit_value_worker + '$ (USD)</h4>\n' +
+														'<h4>' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</h4>\n' +
 														'<h4>Time: ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + ' units </h4>\n' +
 														'<h4>Amount to be paid: ' + dataFullW[i].mont_pay + '$ (USD) </h4>\n' +												
 													'</div>\n' +
@@ -616,8 +613,6 @@
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
 														'<h4>'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</h4>\n' +
-														'<h4>' + dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service + '</h4>\n' +
-														'<h4>Unit of: ' + dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - Unit value: ' + dataFullP[i].unit_value_patiente + '$ (USD)</h4>\n' +
 														'<h4>Time: ' + dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker + ' units </h4>\n' +
 														'<h4>Amount receivable: ' + dataFullP[i].mont_cob + '$ (USD) </h4>\n' +
 														'<h4>Amount to be paid: ' + dataFullP[i].mont_pay + '$ (USD) </h4>\n' +
