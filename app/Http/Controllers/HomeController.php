@@ -838,8 +838,30 @@ class HomeController extends Controller
                     $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
                     $min = intval($times[1] + $times2[1]) < 10 ? '0' . strval($times[1] + $times2[1]) : strval($times[1] + $times2[1]);
                     $seg = intval($times[2] + $times2[2]) < 10 ? '0' . strval($times[2] + $times2[2]) : strval($times[2] + $times2[2]);
+
+                    if(intval($seg) > 60){
+                        $min = intval($min) + explode(".", floatval(intval($seg) / 60))[0];
+                        if(intval($min) < 10){
+                            $min = strval('0' . strval($min));
+                        }
+
+                        if(intval($seg) < 10){
+                            $seg = strval('0' . explode(".", floatval(intval($seg) / 60))[1] ?? '0');
+                        }
+                    }
                     
-                    $v['time_attention'] = $hor . ':' . $min . ':' . $seg;
+                    if(intval($min) > 60){
+                        $hor = intval($hor) + explode(".", floatval(intval($min) / 60))[0];
+                        if(intval($hor) < 10){
+                            $hor = strval('0' . strval($hor));
+                        }
+
+                        if(intval($min) < 10){
+                            $min = strval('0' . explode(".", floatval(intval($min) / 60))[1] ?? '0');
+                        }
+                    }
+                    
+                    $v['time_attention'] = $hor . ':' . $min;
                     $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
                     $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
                     $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
@@ -889,8 +911,30 @@ class HomeController extends Controller
                     $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
                     $min = intval($times[1] + $times2[1]) < 10 ? '0' . strval($times[1] + $times2[1]) : strval($times[1] + $times2[1]);
                     $seg = intval($times[2] + $times2[2]) < 10 ? '0' . strval($times[2] + $times2[2]) : strval($times[2] + $times2[2]);
+
+                    if(intval($seg) > 60){
+                        $min = intval($min) + explode(".", floatval(intval($seg) / 60))[0];
+                        if(intval($min) < 10){
+                            $min = strval('0' . strval($min));
+                        }
+
+                        if(intval($seg) < 10){
+                            $seg = strval('0' . explode(".", floatval(intval($seg) / 60))[1] ?? '0');
+                        }
+                    }
                     
-                    $v['time_attention'] = $hor . ':' . $min . ':' . $seg;
+                    if(intval($min) > 60){
+                        $hor = intval($hor) + explode(".", floatval(intval($min) / 60))[0];
+                        if(intval($hor) < 10){
+                            $hor = strval('0' . strval($hor));
+                        }
+
+                        if(intval($min) < 10){
+                            $min = strval('0' . explode(".", floatval(intval($min) / 60))[1] ?? '0');
+                        }
+                    }
+                    
+                    $v['time_attention'] = $hor . ':' . $min;
                     $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
                     $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
                     $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
