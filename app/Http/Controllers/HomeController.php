@@ -808,31 +808,49 @@ class HomeController extends Controller
                 if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
                     $times = explode(":", $v['time_attention']);
 
-                    if($times[0] < 10){
-                        $times[0] = str_split($times[0])[1];
+                    if(isset($times[0]) && !empty($times[0])){
+                        if($times[0] < 10)
+                        $times[0] = str_split($times[0])[1] ?? $times[0];
+                    }else{
+                        $times[0] = '0';
                     }
 
-                    if($times[1] < 10){
+                    if(isset($times[1]) && !empty($times[1])){
+                        if($times[1] < 10)
                         $times[1] = '0' . $times[1];
+                    }else{
+                        $times[1] = '0';
                     }
 
-                    if($times[2] < 10){
+                    if(isset($times[2]) && !empty($times[2])){
+                        if($times[2] < 10)
                         $times[2] = '0' . $times[2];
+                    }else{
+                        $times[2] = '0';
                     }
 
 
                     $times2 = explode(":", $v['time_attention']);
 
-                    if($times2[0] < 10){
-                        $times2[0] = str_split($times[0])[1];
+                    if(isset($times2[0]) && !empty($times2[0])){
+                        if($times2[0] < 10)
+                        $times2[0] = str_split($times2[0])[1] ?? $times2[0];
+                    }else{
+                        $times2[0] = '0';
                     }
 
-                    if($times2[1] < 10){
-                        $times2[1] = '0' . $times[1];
+                    if(isset($times2[1]) && !empty($times2[1])){
+                        if($times2[1] < 10)
+                        $times2[1] = '0' . $times2[1];
+                    }else{
+                        $times2[1] = '0';
                     }
 
-                    if($times2[2] < 10){
-                        $times2[2] = '0' . $times[2];
+                    if(isset($times2[2]) && !empty($times2[2])){
+                        if($times2[2] < 10)
+                        $times2[2] = '0' . $times2[2];
+                    }else{
+                        $times2[2] = '0';
                     }
 
                     $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
@@ -881,31 +899,49 @@ class HomeController extends Controller
                 if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
                     $times = explode(":", $v['time_attention']);
 
-                    if($times[0] < 10){
-                        $times[0] = str_split($times[0])[1];
+                    if(isset($times[0]) && !empty($times[0])){
+                        if($times[0] < 10)
+                        $times[0] = str_split($times[0])[1] ?? $times[0];
+                    }else{
+                        $times[0] = '0';
                     }
 
-                    if($times[1] < 10){
+                    if(isset($times[1]) && !empty($times[1])){
+                        if($times[1] < 10)
                         $times[1] = '0' . $times[1];
+                    }else{
+                        $times[1] = '0';
                     }
 
-                    if($times[2] < 10){
+                    if(isset($times[2]) && !empty($times[2])){
+                        if($times[2] < 10)
                         $times[2] = '0' . $times[2];
+                    }else{
+                        $times[2] = '0';
                     }
 
 
                     $times2 = explode(":", $v['time_attention']);
 
-                    if($times2[0] < 10){
-                        $times2[0] = str_split($times[0])[1];
+                    if(isset($times2[0]) && !empty($times2[0])){
+                        if($times2[0] < 10)
+                        $times2[0] = str_split($times2[0])[1] ?? $times2[0];
+                    }else{
+                        $times2[0] = '0';
                     }
 
-                    if($times2[1] < 10){
-                        $times2[1] = '0' . $times[1];
+                    if(isset($times2[1]) && !empty($times2[1])){
+                        if($times2[1] < 10)
+                        $times2[1] = '0' . $times2[1];
+                    }else{
+                        $times2[1] = '0';
                     }
 
-                    if($times2[2] < 10){
-                        $times2[2] = '0' . $times[2];
+                    if(isset($times2[2]) && !empty($times2[2])){
+                        if($times2[2] < 10)
+                        $times2[2] = '0' . $times2[2];
+                    }else{
+                        $times2[2] = '0';
                     }
 
                     $hor = intval($times[0] + $times2[0]) < 10 ? '0' . strval($times[0] + $times2[0]) : strval($times[0] + $times2[0]);
