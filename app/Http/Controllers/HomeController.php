@@ -803,9 +803,8 @@ class HomeController extends Controller
         $newDataW = [];
         $dataW2 = $data['dataW'];
         foreach($data['dataW'] as $k => $v){
-            unset($dataW2[$k]);
-            foreach($dataW2 as $k2 => $v2){
-                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
+            foreach($dataW2->where('id', $v['id']) as $k2 => $v2){
+                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
                     if(isset($times[0]) && !empty($times[0])){
@@ -830,7 +829,7 @@ class HomeController extends Controller
                     }
 
 
-                    $times2 = explode(":", $v['time_attention']);
+                    $times2 = explode(":", $v2['time_attention']);
 
                     if(isset($times2[0]) && !empty($times2[0])){
                         if($times2[0] < 10)
@@ -883,10 +882,11 @@ class HomeController extends Controller
                     $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
                     $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
                     $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
-
                     array_push($newDataW, $v);
-                    unset($data['dataW'][$k2]);
-
+                }else{
+                    $times = explode(":", $v['time_attention']);
+                    $v['time_attention'] = strval($times[0]) . ':' . strval($times[1]);
+                    array_push($newDataW, $v);
                 }
             }
         }
@@ -894,9 +894,8 @@ class HomeController extends Controller
         $newDataP = [];
         $dataP2 = $data['dataP'];
         foreach($data['dataP'] as $k => $v){
-            unset($dataP2[$k]);
-            foreach($data['dataP'] as $k2 => $v2){
-                if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id && json_decode($v['id']) != json_decode($v2['id'])){
+            foreach($dataP2->where('id', $v['id']) as $k2 => $v2){
+                if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
                     if(isset($times[0]) && !empty($times[0])){
@@ -921,7 +920,7 @@ class HomeController extends Controller
                     }
 
 
-                    $times2 = explode(":", $v['time_attention']);
+                    $times2 = explode(":", $v2['time_attention']);
 
                     if(isset($times2[0]) && !empty($times2[0])){
                         if($times2[0] < 10)
@@ -974,25 +973,27 @@ class HomeController extends Controller
                     $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
                     $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
                     $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
-
                     array_push($newDataP, $v);
-                    unset($data['dataP'][$k2]);
-
+                }else{
+                    $times = explode(":", $v['time_attention']);
+                    $v['time_attention'] = strval($times[0]) . ':' . strval($times[1]);
+                    array_push($newDataP, $v);
                 }
             }
         }
+        //dd($newDataW, $newDataP);
 
         if(count($request->all()) == 0){
             return collect([
-                'dataW' => collect($newDataW),
-                'dataP' => collect($newDataP),
+                'dataW' => array_unique($newDataW),
+                'dataP' => array_unique($newDataP),
                 'msj' => "data encontrada",
                 'success' => true
             ]);
         }else{
             return response()->json([
-                'dataW' => collect($newDataW),
-                'dataP' => collect($newDataP),
+                'dataW' => $newDataW,
+                'dataP' => $newDataP,
                 'msj' => "data encontrada",
                 'success' => true
             ]);
