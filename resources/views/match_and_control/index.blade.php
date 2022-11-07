@@ -587,6 +587,7 @@
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
 														'<p style="font-size: 100%">' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</p>\n' +
+														'<p style="font-size: 100%">' + dataFullW[i].sub_service_id.name_sub_service + '</p>\n' +
 														'<p style="font-size: 100%">Hours: <span style="font-size: 100%">' + dataFullW[i].time_attention + '</span></h4>\n' +
 														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + dataFullW[i].mont_pay + '</span></h4>\n' +												
 													'</div>\n' +
@@ -613,6 +614,7 @@
 													'<div class="stats-icon stats-icon-lg"><i class="fa fa-clock fa-fw"></i></div>\n' +
 													'<div class="stats-info">\n' +
 														'<p style="font-size: 100%">'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</p>\n' +
+														'<p style="font-size: 100%">' + dataFullP[i].sub_service_id.name_sub_service + '</p>\n' +
 														'<p style="font-size: 100%">Hours: <span style="font-size: 100%">' + dataFullP[i].time_attention + '</span></p>\n' +
 														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + dataFullP[i].mont_cob + '</span></p>\n' +
 													'</div>\n' +
