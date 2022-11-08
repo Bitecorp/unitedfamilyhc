@@ -517,7 +517,7 @@
 										dataFullP[i].service_id.name_service + ' - ' + dataFullP[i].sub_service_id.name_sub_service, 
 										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
 										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
-										(dataFullP[i].mont_cob/2) + '$ (USD)',
+										dataFullP[i].mont_cob + '$ (USD)',
 										check + btnSendXml
 									]).draw(null, false);
 								};
@@ -562,7 +562,7 @@
 										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
-										(dataFullW[i].mont_pay/2) + '$ (USD)',
+										dataFullW[i].mont_pay + '$ (USD)',
 										check
 									]).draw(null, false);
 								};
@@ -589,7 +589,7 @@
 														'<p style="font-size: 100%">' + dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name + '</p>\n' +
 														'<p style="font-size: 100%">' + dataFullW[i].sub_service_id.name_sub_service + '</p>\n' +
 														'<p style="font-size: 100%">Hours: <span style="font-size: 100%">' + dataFullW[i].time_attention + '</span></h4>\n' +
-														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + (dataFullW[i].mont_pay/2) + '</span></h4>\n' +												
+														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + dataFullW[i].mont_pay  + '</span></h4>\n' +												
 													'</div>\n' +
 												'</div>\n' +
 											'</div>\n';
@@ -616,7 +616,7 @@
 														'<p style="font-size: 100%">'+ dataFullP[i].patiente_id.first_name + ' ' + dataFullP[i].patiente_id.last_name + '</p>\n' +
 														'<p style="font-size: 100%">' + dataFullP[i].sub_service_id.name_sub_service + '</p>\n' +
 														'<p style="font-size: 100%">Hours: <span style="font-size: 100%">' + dataFullP[i].time_attention + '</span></p>\n' +
-														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + (dataFullP[i].mont_cob/2) + '</span></p>\n' +
+														'<p style="font-size: 225%"><span style="font-size: 225%">$ ' + dataFullP[i].mont_cob + '</span></p>\n' +
 													'</div>\n' +
 												'</div>\n' +
 											'</div>\n';

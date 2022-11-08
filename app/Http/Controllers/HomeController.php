@@ -803,7 +803,7 @@ class HomeController extends Controller
         $newDataW = [];
         $dataW2 = $data['dataW'];
         foreach($data['dataW'] as $k => $v){
-            foreach($dataW2->where('id', $v['id']) as $k2 => $v2){
+            foreach($dataW2->where('id', '<>', $v['id']) as $k2 => $v2){
                 if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
@@ -882,7 +882,6 @@ class HomeController extends Controller
                     $v['mont_pay'] = number_format((float)floatval($v['mont_pay'] + $v2['mont_pay']), 2, '.', '');
                     $v['mont_cob'] = number_format((float)floatval($v['mont_cob'] + $v2['mont_cob']), 2, '.', '');
                     $v['ganancia_empresa'] = number_format((float)floatval($v['ganancia_empresa'] + $v2['ganancia_empresa']), 2, '.', '');
-
                     array_push($newDataW, $v);
                 }else{
                     $times = explode(":", $v['time_attention']);
@@ -895,7 +894,7 @@ class HomeController extends Controller
         $newDataP = [];
         $dataP2 = $data['dataP'];
         foreach($data['dataP'] as $k => $v){
-            foreach($dataP2->where('id', $v['id']) as $k2 => $v2){
+            foreach($dataW2->where('id', '<>', $v['id']) as $k2 => $v2){
                 if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
@@ -982,7 +981,6 @@ class HomeController extends Controller
                 }
             }
         }
-        //dd($newDataW, $newDataP);
 
         if(count($request->all()) == 0){
             return collect([
