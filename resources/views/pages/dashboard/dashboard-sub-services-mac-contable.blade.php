@@ -104,7 +104,7 @@
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
 												<td>{{ $dataFullW->unidad_time_worker }} {{ $dataFullW->unidad_type_worker }} - {{ $dataFullW->unit_value_worker }} $ (USD)</td>
 												<td>{{ $dataFullW->time_attention }} = {{ $dataFullW->unid_pay_worker }}</td>
-												<td>{{ $dataFullW->mont_pay }} $ (USD) {{ $dataFullW->paid }}</td>
+												<td>{{ $dataFullW->mont_pay }} (USD)</td>
 												<td>
 
 													<div class="custom-control custom-switch">
