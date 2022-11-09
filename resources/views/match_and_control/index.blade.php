@@ -483,13 +483,14 @@
 									revertir = dataFullP[i].collected == true ? 'revertir' : '';
 									hiddenBtnXml = dataFullP[i].collected == true ? '' : 'hidden';
 									nameFile = dataFullP[i].patiente_id.first_name + '_' + dataFullP[i].patiente_id.last_name + '_' + dataFullP[i].id + '.xml';
+									linkDownload = '{{ asset("filesXml") }}/' + nameFile;
 									
-									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + nameFile + '"  download="' + nameFile + '" id="btn_send_xml_'+ dataFullP[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
+									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile + '" id="btn_send_xml_'+ dataFullP[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
 							
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].id +');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].worker_id.id + ',' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -533,7 +534,7 @@
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].id + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -695,11 +696,16 @@
 	</script>
 
 	<script>
-		function cobrar(idNote) {
+		function cobrar(idWorker, idPatiente, idService, idSubservice) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service_id = idSubservice;
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/cobrarPatiente";
-			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -707,68 +713,45 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					note_id: note_id
+					desde: dateDesde,
+					hasta: dateHasta,
+					worker_id: worker_id,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service_id,
+					collected: 0
 				},
 				success: function(data) {
-					createXml(note_id);
+					var obj = document.getElementById('btn_submit');
+					if(data['success'] == true){
+						if(dateDesde == '' && dateHasta == ''){
+							location.reload();
+						}else if(obj){
+							obj.click(); 
+						}
+					}
+					let msjOne = 'The payment process was carried out successfully.\n\n';
+					let msjTwo = 'El proceso cobro fue realizado con exito.';
+					alert(msjOne + msjTwo);
 				},
 				error: function (error) { 
 					console.log(error);
 				}
 			});
 		};
-
-		function createXml(idNote) {
-			var dateDesde = $('#desde').val();
-			var dateHasta = $('#hasta').val();
-			var token = '{{ csrf_token() }}';
-			var url = "/sendXml";
-			var id_note = idNote;
-
-			var opcion = confirm("Are you sure you want to send this document?");
-					
-			if (opcion == true) {
-			
-				//setTimeout(
-					$.ajax({
-						type: "post",
-						url: url,
-						dataType: 'json',
-						data: {
-							_token: token,
-							id_note: id_note,
-						},
-						success: function(data) {
-							var obj = document.getElementById('btn_submit');
-							if(data['success'] == true){
-								if(dateDesde == '' && dateHasta == ''){
-									location.reload();
-								}else if(obj){
-									obj.click(); 
-								}
-							}
-							let msjOne = 'The payment process was carried out successfully.\n\n';
-							let msjTwo = 'El proceso cobro fue realizado con exito.';
-							alert(msjOne + msjTwo);
-						},
-						error: function (error) { 
-							console.log(error);
-						}
-					})
-				//, 5000);
-			}
-
-		};
 	</script>
 
 	<script>
-		function revertircobrar(idNote) {
-			var dateDesde = $('#desde').val();
-			var dateHasta = $('#hasta').val();
+		function revertircobrar(idWorker, idPatiente, idService, idSubservice) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service_id = idSubservice;
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/revertirCobrarPatiente";
-			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -776,7 +759,13 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					note_id: note_id,
+					desde: dateDesde,
+					hasta: dateHasta,
+					worker_id: worker_id,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service_id,
+					collected: 1
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
@@ -799,13 +788,16 @@
 	</script>
 
 	<script>
-		function pagar(idNote) {
-			var dateDesde = $('#desde').val();
-			var dateHasta = $('#hasta').val();
+		function pagar(idWorker, idPatiente, idService, idSubservice) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service_id = idSubservice;
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/pagarWorker";
-			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -813,7 +805,13 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					note_id: note_id,
+					desde: dateDesde,
+					hasta: dateHasta,
+					worker_id: worker_id,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service_id,
+					paid: 0
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
@@ -836,13 +834,16 @@
 	</script>
 
 	<script>
-		function revertirpagar(idNote) {
-			var dateDesde = $('#desde').val();
-			var dateHasta = $('#hasta').val();
+		function revertirpagar(idWorker, idPatiente, idService, idSubservice) {
+			var dateDesde = $('#desde').val() + ' 00:00:00';
+			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service_id = idSubservice;
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/revertirPagarWorker";
-			var note_id = idNote;
 
 			$.ajax({
 				type: "post",
@@ -850,7 +851,13 @@
 				dataType: 'json',
 				data: {
 					_token: token,
-					note_id: note_id,
+					desde: dateDesde,
+					hasta: dateHasta,
+					worker_id: worker_id,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service_id,
+					paid: 1
 				},
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');

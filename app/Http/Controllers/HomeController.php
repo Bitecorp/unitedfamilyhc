@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use LDAP\Result;
 
 class jsonUsuario {
     public $servicio = "";
@@ -1242,11 +1243,23 @@ class HomeController extends Controller
     public function cobrar(Request $request)
     {
         $filters = $request->all();
-        RegisterAttentions::where('id', $filters['note_id'])->update(['collected' => 1]);
+        $filtersDate = [];
+        unset($filters['_token']);
+        foreach(array('desde' => 'start', 'hasta' => 'end') as $k => $v){
+            $filtersDate[$v] = $filters[$k];
+            unset($filters[$k]);
+        }
+        RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['collected' => 1]);
+
+        $filters['collected'] = 1;  
+        $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
+        foreach($notes as $kn => $n){
+            sendXml($n->id);
+        } 
 
         return response()->json([
             'data' => [],
-            'msj' => "data actualizada",
+            'msj' => "data actualizada y xml creados con exito",
             'success' => true
         ]); 
     }
@@ -1254,17 +1267,22 @@ class HomeController extends Controller
     public function pagar(Request $request)
     {
         $filters = $request->all();
-        RegisterAttentions::where('id', $filters['note_id'])->update(['paid' => 1]);
-        $dataReg = RegisterAttentions::find($filters['note_id']);
+        $filtersDate = [];
+        unset($filters['_token']);
+        foreach(array('desde' => 'start', 'hasta' => 'end') as $k => $v){
+            $filtersDate[$v] = $filters[$k];
+            unset($filters[$k]);
+        }
+        RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['paid' => 1]);
 
-        $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $dataReg->worker_id)->where('from', '>=', $dataReg->start)->where('to', '<=', $dataReg->end)->first() ?? '';
+        $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filtersDate['start'])->where('to', '<=', $filtersDate['end'])->first() ?? '';
 
         if(empty($existeGenerate1099)){
             $generate1099 = new GenerateDocuments1099;
         
-                $generate1099->worker_id = $dataReg->worker_id;
-                $generate1099->from = $dataReg->start;
-                $generate1099->to = $dataReg->end;
+                $generate1099->worker_id = $filters['worker_id'];
+                $generate1099->from = $filtersDate['start'];
+                $generate1099->to = $filtersDate['end'];
                 $generate1099->eftor_check = null;
                 $generate1099->invoice_number = null;
     
@@ -1281,13 +1299,25 @@ class HomeController extends Controller
     public function revertirCobrar(Request $request)
     {
         $filters = $request->all();
-        RegisterAttentions::where('id', $filters['note_id'])->update(['collected' => 0]);
-        $dataReg = RegisterAttentions::find($filters['note_id']);
+        $filtersDate = [];
+        unset($filters['_token']);
+        foreach(array('desde' => 'start', 'hasta' => 'end') as $k => $v){
+            $filtersDate[$v] = $filters[$k];
+            unset($filters[$k]);
+        }
 
-        $nameFile = User::find($dataReg->patiente_id)->first_name . '_' . User::find($dataReg->patiente_id)->last_name . '_' . $filters['note_id'] . '.xml';
-        if (file_exists(storage_path('app/files_xml') .'/'. $nameFile)) {
-            unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
-        };        
+        RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['collected' => 0]);
+
+        $filters['collected'] = 0;
+        $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
+
+        foreach($notes as $kn => $n){
+            $nameFile = User::find($filters['patiente_id'])->first_name . '_' . User::find($filters['patiente_id'])->last_name . '_' . $n->id . '.xml';
+
+            if (file_exists(storage_path('app/files_xml') .'/'. $nameFile)) {
+                unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
+            }; 
+        }       
 
         return response()->json([
             'data' => [],
@@ -1299,10 +1329,16 @@ class HomeController extends Controller
     public function revertirPagar(Request $request)
     {
         $filters = $request->all();
-        RegisterAttentions::where('id', $filters['note_id'])->update(['paid' => 0]);
-        $dataReg = RegisterAttentions::find($filters['note_id']);
-        
-        $generate1099 = GenerateDocuments1099::where('worker_id', $dataReg->worker_id)->where('from', '>=', $dataReg->start)->where('to', '<=', $dataReg->end)->first();
+        $filtersDate = [];
+        unset($filters['_token']);
+        foreach(array('desde' => 'start', 'hasta' => 'end') as $k => $v){
+            $filtersDate[$v] = $filters[$k];
+            unset($filters[$k]);
+        }
+
+        RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['paid' => 0]);
+
+        $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filtersDate['start'])->where('to', '<=', $filtersDate['end'])->first();
         if(isset($generate1099) && !empty($generate1099)){
             $generate1099Id = GenerateDocuments1099::find($generate1099->id);
         
@@ -1365,7 +1401,7 @@ class HomeController extends Controller
             }
 
             $arrayCollect = collect($registerAttentionss)->unique()->filter();
-            
+
             $arraySum = [];
             if(count($arrayCollect) > 1){
                 foreach($arrayCollect as $keyI => $registerAttention){

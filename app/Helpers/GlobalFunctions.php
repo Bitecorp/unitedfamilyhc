@@ -846,3 +846,60 @@ function dataPagCobGanLast(){
 function dataPagCobGanTri(){
     return dataPayUnitsServicesForWorker(null, data_first_month_day_Tri(), data_last_month_day_last(), '1', true);
 }
+
+function sendXml($idNote){
+        $dataForXml = dataPayUnitsServicesForWorker(null, null, null, 1, false, true, $idNote);
+
+        $nameFile = $dataForXml['firstname'] . '_' . $dataForXml['lastname'] . '_' . $dataForXml['submiterID'] . '.xml';
+
+        $dom = new \DOMDocument('1.0', 'utf-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+
+        $activitiesimport = $dom->createElement("activitiesimport");
+        $activitiesimport = $dom->appendChild($activitiesimport);
+        $activitiesimport->setAttribute('submitterID', $dataForXml['submiterID']);
+
+            $consumers = $dom->createElement("consumers");
+            $consumers = $activitiesimport->appendChild($consumers);
+
+            $caseno = $dom->createElement("caseno");
+            $caseno = $consumers->appendChild($caseno);
+            $caseno->setAttribute('caseno', $dataForXml['caseno']);
+
+                    $activity = $dom->createElement("activity");
+                    $activity = $caseno->appendChild($activity);
+
+                    foreach($dataForXml as $key => $value){
+                        if($key == 'activitydatetime'){
+                            $activitydatetime = $dom->createElement($key);
+                            $activitydatetime = $activity->appendChild($activitydatetime);
+
+                            foreach($value as $k => $v){
+                                $titlek = $dom->createElement($k);
+                                $titlek = $activitydatetime->appendChild($titlek);
+                                $textK = $dom->createTextNode($v);
+                                $textK = $titlek->appendChild($textK);
+                            }
+                        }elseif($key == 'contacttype'){
+                            $contacttype = $dom->createElement($key);
+                            $contacttype = $activity->appendChild($contacttype);
+
+                            foreach($value as $k => $v){
+                                $titlek = $dom->createElement($k);
+                                $titlek = $contacttype->appendChild($titlek);
+                                $textK = $dom->createTextNode($v);
+                                $textK = $titlek->appendChild($textK);
+                            }
+                        }else{
+                            $titlekey = $dom->createElement($key);
+                            $titlekey = $caseno->appendChild($titlekey);
+                            $textKey = $dom->createTextNode($value);
+                            $textKey = $titlekey->appendChild($textKey);
+                        }
+                    }
+
+                $dom->save(storage_path('app/files_xml/') . $nameFile);
+
+        return true; 
+    }
