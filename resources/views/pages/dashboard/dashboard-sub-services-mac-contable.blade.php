@@ -46,7 +46,7 @@
 												<td>{{ $dataFullP->mont_cob }} $ (USD)</td>
 												<td>
 													<div class="custom-control custom-switch">
-														<input type="checkbox" onclick="{{ $revertir }}cobrar({{ json_decode($dataFullP->worker_id)->first_name }}, {{ json_decode($dataFullP->patiente_id)->first_name }}, {{ json_decode($dataFullP->service_id)->id }}, {{ json_decode($dataFullP->sub_service_id)->id }} );"  class="custom-control-input" name="Switch_{{ $dataFullP->id }}" id="Switch_patiente{{$dataFullP->id }}" {{ $checkCheck }}>
+														<input type="checkbox" onclick="{{ $revertir }}cobrar({{ json_decode($dataFullP->worker_id)->id }}, {{ json_decode($dataFullP->patiente_id)->id }}, {{ json_decode($dataFullP->service_id)->id }}, {{ json_decode($dataFullP->sub_service_id)->id }});"  class="custom-control-input" name="Switch_{{ $dataFullP->id }}" id="Switch_patiente{{$dataFullP->id }}" {{ $checkCheck }}>
 														<label class="custom-control-label" for="Switch_patiente{{ $dataFullP->id }}"></label>
 													</div>
 													<a type="button" href="{{ asset('filesXml/' . $nameFile) }}"  download="{{ $nameFile }}" {{ $hiddenBtnXml }} id="btn_send_xml_{{ $dataFullP->id }}" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>
@@ -108,7 +108,7 @@
 												<td>
 
 													<div class="custom-control custom-switch">
-														<input type="checkbox" onclick="{{ $revertir }}pagar({{ json_decode($dataFullW->worker_id)->first_name }}, {{ json_decode($dataFullW->patiente_id)->first_name }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }} );"  class="custom-control-input" name="Switch_{{ $dataFullW->id }}" id="Switch_worker{{ $dataFullW->id }}" {{ $checkCheck }}>
+														<input type="checkbox" onclick="{{ $revertir }}pagar({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }});"  class="custom-control-input" name="Switch_{{ $dataFullW->id }}" id="Switch_worker{{ $dataFullW->id }}" {{ $checkCheck }}>
 														<label class="custom-control-label" for="Switch_worker{{ $dataFullW->id }}"></label>
 													</div>
 												</td>

@@ -848,58 +848,88 @@ function dataPagCobGanTri(){
 }
 
 function sendXml($idNote){
-        $dataForXml = dataPayUnitsServicesForWorker(null, null, null, 1, false, true, $idNote);
+    $dataForXml = dataPayUnitsServicesForWorker(null, null, null, 1, false, true, $idNote);
 
-        $nameFile = $dataForXml['firstname'] . '_' . $dataForXml['lastname'] . '_' . $dataForXml['submiterID'] . '.xml';
+    $nameFile = $dataForXml['firstname'] . '_' . $dataForXml['lastname'] . '_' . $dataForXml['submiterID'] . '.xml';
 
-        $dom = new \DOMDocument('1.0', 'utf-8');
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
+    $dom = new \DOMDocument('1.0', 'utf-8');
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
 
-        $activitiesimport = $dom->createElement("activitiesimport");
-        $activitiesimport = $dom->appendChild($activitiesimport);
-        $activitiesimport->setAttribute('submitterID', $dataForXml['submiterID']);
+    $activitiesimport = $dom->createElement("activitiesimport");
+    $activitiesimport = $dom->appendChild($activitiesimport);
+    $activitiesimport->setAttribute('submitterID', $dataForXml['submiterID']);
 
-            $consumers = $dom->createElement("consumers");
-            $consumers = $activitiesimport->appendChild($consumers);
+    $consumers = $dom->createElement("consumers");
+    $consumers = $activitiesimport->appendChild($consumers);
 
-            $caseno = $dom->createElement("caseno");
-            $caseno = $consumers->appendChild($caseno);
-            $caseno->setAttribute('caseno', $dataForXml['caseno']);
+    $caseno = $dom->createElement("caseno");
+    $caseno = $consumers->appendChild($caseno);
+    $caseno->setAttribute('caseno', $dataForXml['caseno']);
 
-                    $activity = $dom->createElement("activity");
-                    $activity = $caseno->appendChild($activity);
+        $activity = $dom->createElement("activity");
+        $activity = $caseno->appendChild($activity);
 
-                    foreach($dataForXml as $key => $value){
-                        if($key == 'activitydatetime'){
-                            $activitydatetime = $dom->createElement($key);
-                            $activitydatetime = $activity->appendChild($activitydatetime);
+        foreach($dataForXml as $key => $value){
+            if($key == 'activitydatetime'){
+                $activitydatetime = $dom->createElement($key);
+                $activitydatetime = $activity->appendChild($activitydatetime);
 
-                            foreach($value as $k => $v){
-                                $titlek = $dom->createElement($k);
-                                $titlek = $activitydatetime->appendChild($titlek);
-                                $textK = $dom->createTextNode($v);
-                                $textK = $titlek->appendChild($textK);
-                            }
-                        }elseif($key == 'contacttype'){
-                            $contacttype = $dom->createElement($key);
-                            $contacttype = $activity->appendChild($contacttype);
+                foreach($value as $k => $v){
+                    $titlek = $dom->createElement($k);
+                    $titlek = $activitydatetime->appendChild($titlek);
+                    $textK = $dom->createTextNode($v);
+                    $textK = $titlek->appendChild($textK);
+                }
+            }elseif($key == 'contacttype'){
+                $contacttype = $dom->createElement($key);
+                $contacttype = $activity->appendChild($contacttype);
 
-                            foreach($value as $k => $v){
-                                $titlek = $dom->createElement($k);
-                                $titlek = $contacttype->appendChild($titlek);
-                                $textK = $dom->createTextNode($v);
-                                $textK = $titlek->appendChild($textK);
-                            }
-                        }else{
-                            $titlekey = $dom->createElement($key);
-                            $titlekey = $caseno->appendChild($titlekey);
-                            $textKey = $dom->createTextNode($value);
-                            $textKey = $titlekey->appendChild($textKey);
-                        }
-                    }
+               foreach($value as $k => $v){
+                    $titlek = $dom->createElement($k);
+                    $titlek = $contacttype->appendChild($titlek);
+                    $textK = $dom->createTextNode($v);
+                    $textK = $titlek->appendChild($textK);
+                }
+            }else{
+                $titlekey = $dom->createElement($key);
+                $titlekey = $caseno->appendChild($titlekey);
+                $textKey = $dom->createTextNode($value);
+                $textKey = $titlekey->appendChild($textKey);
+            }
+        }
 
-                $dom->save(storage_path('app/files_xml/') . $nameFile);
+        $dom->save(storage_path('app/files_xml/') . $nameFile);
 
-        return true; 
-    }
+    return true; 
+}
+
+function generateZipXmls($desde, $hasta, $worker_id, $patiente_id, $service_id, $sub_service_id){
+    $notes = RegisterAttentions::where([
+        'worker_id' => $worker_id,
+        'patiente_id' => $patiente_id,
+        'service_id' => $service_id,
+        'sub_service_id' => $sub_service_id       
+    ])->where('start', '>=', $desde + '00:00:01')->where('end', '>=', $hasta + '00:00:01')->get();
+
+    // Creamos un instancia de la clase ZipArchive
+    $zip = new ZipArchive();
+    // Creamos y abrimos un archivo zip temporal
+    $zip->open("miarchivo.zip",ZipArchive::CREATE);
+    // Añadimos un directorio
+    $dir = 'miDirectorio';
+    $zip->addEmptyDir($dir);
+    // Añadimos un archivo en la raid del zip.
+    $zip->addFile("imagen1.jpg","mi_imagen1.jpg");
+    //Añadimos un archivo dentro del directorio que hemos creado
+    $zip->addFile("imagen2.jpg",$dir."/mi_imagen2.jpg");
+    // Una vez añadido los archivos deseados cerramos el zip.
+    $zip->close();
+    // Creamos las cabezeras que forzaran la descarga del archivo como archivo zip.
+    header("Content-type: application/octet-stream");
+    header("Content-disposition: attachment; filename=miarchivo.zip");
+    // leemos el archivo creado
+    readfile('miarchivo.zip');
+    // Por último eliminamos el archivo temporal creado
+    unlink('miarchivo.zip');//Destruye el archivo temporal
+}

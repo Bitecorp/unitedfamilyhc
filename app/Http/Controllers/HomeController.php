@@ -1253,6 +1253,8 @@ class HomeController extends Controller
 
         $filters['collected'] = 1;  
         $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
+
+        //mkdir(storage_path('app/files_xml/') . $nameFile, 755, true);
         foreach($notes as $kn => $n){
             sendXml($n->id);
         } 

@@ -697,8 +697,8 @@
 
 	<script>
 		function cobrar(idWorker, idPatiente, idService, idSubservice) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
@@ -724,12 +724,12 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if(dateDesde == '' && dateHasta == ''){
+						if($('#desde').val() == '' && $('#hasta').val() == ''){
 							location.reload();
 						}else if(obj){
 							obj.click(); 
 						}
-					}
+					}	
 					let msjOne = 'The payment process was carried out successfully.\n\n';
 					let msjTwo = 'El proceso cobro fue realizado con exito.';
 					alert(msjOne + msjTwo);
@@ -743,8 +743,8 @@
 
 	<script>
 		function revertircobrar(idWorker, idPatiente, idService, idSubservice) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
@@ -770,12 +770,12 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if(dateDesde == '' && dateHasta == ''){
+						if($('#desde').val() == '' && $('#hasta').val() == ''){
 							location.reload();
 						}else if(obj){
 							obj.click(); 
 						}
-					}
+					}	
 					let msjOne = 'The payment process was reversed out successfully.\n\n';
 					let msjTwo = 'El proceso cobro fue revertido con exito.';
 					alert(msjOne + msjTwo);
@@ -789,8 +789,8 @@
 
 	<script>
 		function pagar(idWorker, idPatiente, idService, idSubservice) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
@@ -816,7 +816,7 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if(dateDesde == '' && dateHasta == ''){
+						if($('#desde').val() == '' && $('#hasta').val() == ''){
 							location.reload();
 						}else if(obj){
 							obj.click(); 
@@ -835,8 +835,8 @@
 
 	<script>
 		function revertirpagar(idWorker, idPatiente, idService, idSubservice) {
-			var dateDesde = $('#desde').val() + ' 00:00:00';
-			var dateHasta = $('#hasta').val() + ' 23:59:59';
+			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
@@ -862,7 +862,7 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if(dateDesde == '' && dateHasta == ''){
+						if($('#desde').val() == '' && $('#hasta').val() == ''){
 							location.reload();
 						}else if(obj){
 							obj.click(); 
