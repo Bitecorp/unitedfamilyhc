@@ -110,7 +110,6 @@ class MyPdf extends \TCPDF
     }
 }
 
-
 function url_actual(){
     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
         $url = "https://"; 
@@ -267,6 +266,7 @@ function dataUser1099Global($idWorker){
 }
 
 function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $fecha_hasta = null, $paid = 1, $isForHome = false, $isXml = false, $idNote = null){
+
         $filters = [
             'paid' => $paid,
             'desde' => $fecha_desde,
@@ -294,7 +294,6 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                 array_push($arrayForCompare, $dataComp->id);
             }
         }
-        //dd($arrayForCompare);
 
         $registerAttentionss = [];
         if((isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1) && (isset($arrayForCompare) && !empty($arrayForCompare) && count($arrayForCompare) >= 1)){

@@ -257,8 +257,6 @@ class HomeController extends Controller
             }
         }
 
-        //dd($dataPagCobGan);
-
         if (Auth::user()->role_id == 1) {
             return view('pages/dashboard/dashboard-v1')
                 ->with('workersCount', count($workersCount))
@@ -570,7 +568,7 @@ class HomeController extends Controller
                 array_push($registerAttentionss, $registerAttention);
             }
 
-            $arrayCollect = collect($registerAttentionss)->unique();
+            $arrayCollect = collect($registerAttentionss)->unique()->filter();
             $arraySum = [];
             if(count($arrayCollect) > 1){
                 foreach($arrayCollect as $keyI => $registerAttention){
@@ -591,9 +589,8 @@ class HomeController extends Controller
                         }
                     }elseif(count($count) == 1){
                         foreach($arrayCollect->where('id', $registerAttention->id) as $key => $registerAttent){
-                            //$registerAttention->time_attention = sumaFechasTiempos($registerAttention->time_attention, $registerAttent->time_attention);
                             array_push($arraySum, $registerAttention);
-                            unset($arrayCollect[$key]);  
+                            unset($arrayCollect[$key]); 
                         }
                     }
 
@@ -603,6 +600,8 @@ class HomeController extends Controller
             }
 
             $arraySumClean = collect($arraySum)->unique()->filter();
+
+            //dd($arraySumClean);
 
             $arrayFinal = [];
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
@@ -756,15 +755,15 @@ class HomeController extends Controller
 
             if($dataDasboard){
                 return [
-                    'dataW' => collect($arrayFinal),
-                    'dataP' => $dataPatiente,
+                    'dataW' => collect($arrayFinal)->unique()->filter(),
+                    'dataP' => $dataPatiente->unique()->filter(),
                     'msj' => "data encontrada",
                     'success' => true
                 ];
             }else{
                 return response()->json([
-                    'dataW' => collect($arrayFinal),
-                    'dataP' => $dataPatiente,
+                    'dataW' => collect($arrayFinal)->unique()->filter(),
+                    'dataP' => $dataPatiente->unique()->filter(),
                     'msj' => "data encontrada",
                     'success' => true
                 ]); 
@@ -803,8 +802,11 @@ class HomeController extends Controller
         $newDataW = [];
         $dataW2 = $data['dataW'];
         foreach($data['dataW'] as $k => $v){
-            foreach($dataW2->where('id', $v['id']) as $k2 => $v2){
-                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id){
+            foreach($dataW2->where('id', '<>', $v['id']) as $k2 => $v2){
+                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id 
+                && json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id
+                && json_decode($v['service_id'])->id == json_decode($v2['service_id'])->id
+                && json_decode($v['sub_service_id'])->id == json_decode($v2['sub_service_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
                     if(isset($times[0]) && !empty($times[0])){
@@ -894,8 +896,11 @@ class HomeController extends Controller
         $newDataP = [];
         $dataP2 = $data['dataP'];
         foreach($data['dataP'] as $k => $v){
-            foreach($dataP2->where('id', $v['id']) as $k2 => $v2){
-                if(json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id){
+            foreach($dataP2->where('id', '<>', $v['id']) as $k2 => $v2){
+                if(json_decode($v['worker_id'])->id == json_decode($v2['worker_id'])->id 
+                && json_decode($v['patiente_id'])->id == json_decode($v2['patiente_id'])->id
+                && json_decode($v['service_id'])->id == json_decode($v2['service_id'])->id
+                && json_decode($v['sub_service_id'])->id == json_decode($v2['sub_service_id'])->id){
                     $times = explode(":", $v['time_attention']);
 
                     if(isset($times[0]) && !empty($times[0])){
@@ -981,7 +986,6 @@ class HomeController extends Controller
                 }
             }
         }
-        //dd($newDataW, $newDataP);
 
         if(count($request->all()) == 0){
             return collect([
@@ -1316,7 +1320,7 @@ class HomeController extends Controller
     }
 
     public function generateDocumentOfPay(Request $request)
-    { 
+    {
         $filters = $request->all();
         $documents = generar1099($filters);
 
@@ -1331,7 +1335,10 @@ class HomeController extends Controller
     {
         $filters = $request->all();
 
-        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])->where('paid', $filters['paid'])->where('start', '>=', $filters['desde'])->where('end', '<=', $filters['hasta'])->get();       
+        $registerAttentions = RegisterAttentions::where('worker_id', $filters['worker_id'])
+            ->where('paid', $filters['paid'])
+            ->where('start', '>=', $filters['desde'])
+            ->where('end', '<=', $filters['hasta'])->get();       
         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
@@ -1357,7 +1364,8 @@ class HomeController extends Controller
                 array_push($registerAttentionss, $registerAttention);
             }
 
-            $arrayCollect = collect($registerAttentionss)->unique();
+            $arrayCollect = collect($registerAttentionss)->unique()->filter();
+            
             $arraySum = [];
             if(count($arrayCollect) > 1){
                 foreach($arrayCollect as $keyI => $registerAttention){
@@ -1503,6 +1511,8 @@ class HomeController extends Controller
     {
         $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? [];
         
+        //$registerAttentions = RegisterAttentions::where('start', '>=', '2022-07-01 00:00:01')->where('end', '<=', '2022-07-15 11:11:59')->get() ?? [];
+
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){
@@ -1743,8 +1753,7 @@ class HomeController extends Controller
     {
 
         $registerAttentions = RegisterAttentions::where('start', '>=', data_previa_month_day_first())->where('end', '<=', data_previa_month_day_last())->get() ?? []; 
-        
-        
+         
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){
