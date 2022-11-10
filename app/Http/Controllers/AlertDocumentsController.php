@@ -24,6 +24,7 @@ use App\Models\JobInformation;
 use App\Models\ContactEmergency;
 use App\Models\documentsEditors;
 use App\Models\DocumentUserFiles;
+use App\Models\DocumentUserSol;
 use App\Models\Location;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\ReferencesJobs;
@@ -82,7 +83,22 @@ class AlertDocumentsController extends AppBaseController
                 $dataUser = User::find($dataDocument['user_id']);
             }
             if(isset($dataUser) && !empty($dataUser)){
-                $dataUser->countExpired = count(DocumentUserFiles::where('user_id', $dataUser->id)->where('expired', 1)->get());
+
+                $idNotInclude = [];
+                $dataNoSol = DocumentUserSol::where('user_id', $dataUser->id)->get() ?? []; //->toArray()
+                if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+                    //$dataDocUser = DocumentUserFiles::where('user_id', $DNS->user_id)->where('document_id', $DNS->document_id)->first();
+                    foreach($dataNoSol AS $k => $DNS){
+                        array_push($idNotInclude, $DNS->document_id);
+                    }
+                }
+
+                if(count($idNotInclude) > 0){
+                    $dataUser->countExpired = count(DocumentUserFiles::where('user_id', $dataUser->id)->where('expired', 1)->whereNotIn('document_id', $idNotInclude)->get());
+                }else{
+                    $dataUser->countExpired = count(DocumentUserFiles::where('user_id', $dataUser->id)->where('expired', 1)->get());
+                }
+
                 array_push($workers, $dataUser);
             }
         }
