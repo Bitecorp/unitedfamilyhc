@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
 
+use ZipArchive;
+
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
@@ -904,32 +906,45 @@ function sendXml($idNote){
     return true; 
 }
 
-function generateZipXmls($desde, $hasta, $worker_id, $patiente_id, $service_id, $sub_service_id){
-    $notes = RegisterAttentions::where([
-        'worker_id' => $worker_id,
-        'patiente_id' => $patiente_id,
-        'service_id' => $service_id,
-        'sub_service_id' => $sub_service_id       
-    ])->where('start', '>=', $desde + '00:00:01')->where('end', '>=', $hasta + '00:00:01')->get();
+function generateZipXmls(Request $request){
+    $filters = $request->all();
+    $filtersDate = [];
+    unset($filters['_token']);
+    foreach(array('desde' => 'start', 'hasta' => 'end') as $k => $v){
+        $filtersDate[$v] = $filters[$k];
+        unset($filters[$k]);
+    }
+    $filters['collected'] = 1;
 
+    $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
+    
+    $nameDirZip = User::where('id', $filters['patiente_id'])->first()->first_name . '_' . User::where('id', $filters['patiente_id'])->first()->last_name . '_from_' . date_format(date_create($filtersDate['start']), 'd_m_Y') . '_to_' . date_format(date_create($filtersDate['end']), 'd_m_Y');
+
+    $fileFinal = storage_path('app/files_xml') . '/' . $nameDirZip . ".zip";
+    
+    if(is_file($fileFinal)){
+        unlink($fileFinal);
+    }
+    
+    //dd($fileFinal);
     // Creamos un instancia de la clase ZipArchive
     $zip = new ZipArchive();
     // Creamos y abrimos un archivo zip temporal
-    $zip->open("miarchivo.zip",ZipArchive::CREATE);
+    $zip->open($fileFinal, ZipArchive::CREATE);
     // Añadimos un directorio
-    $dir = 'miDirectorio';
-    $zip->addEmptyDir($dir);
-    // Añadimos un archivo en la raid del zip.
-    $zip->addFile("imagen1.jpg","mi_imagen1.jpg");
-    //Añadimos un archivo dentro del directorio que hemos creado
-    $zip->addFile("imagen2.jpg",$dir."/mi_imagen2.jpg");
+    $zip->addEmptyDir($nameDirZip . '_files_xml');
+    //Añadimos los archivos
+    foreach($notes as $k => $n){
+        $nameFile = User::where('id', $filters['patiente_id'])->first()->first_name . '_' . User::where('id', $filters['patiente_id'])->first()->last_name . '_' . $n->id . '.xml';
+        // Añadimos un archivo en la raid del zip.
+        //$zip->addFile($nameFile, $nameFile);
+        //Añadimos un archivo dentro del directorio que hemos creado
+        $zip->addFile(storage_path('app/files_xml') . '/' . $nameFile, $nameDirZip . '_files_xml/' . basename($nameFile));
+    }
     // Una vez añadido los archivos deseados cerramos el zip.
     $zip->close();
-    // Creamos las cabezeras que forzaran la descarga del archivo como archivo zip.
-    header("Content-type: application/octet-stream");
-    header("Content-disposition: attachment; filename=miarchivo.zip");
-    // leemos el archivo creado
-    readfile('miarchivo.zip');
-    // Por último eliminamos el archivo temporal creado
-    unlink('miarchivo.zip');//Destruye el archivo temporal
+
+    if(is_file($fileFinal)){
+        return true;
+    }
 }

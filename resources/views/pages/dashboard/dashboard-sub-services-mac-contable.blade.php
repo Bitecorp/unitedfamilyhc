@@ -36,7 +36,7 @@
 												$revertir = $dataFullP->collected == true ? 'revertir' : '';
 												$valCollected = $dataFullP->collected == true ? 'true' : 'false';
 												$hiddenBtnXml = $dataFullP->collected == true ? '' : 'hidden';
-												$nameFile = json_decode($dataFullP->patiente_id)->first_name . '_' . json_decode($dataFullP->patiente_id)->last_name . '_' . $dataFullP->id . '.xml';
+												$nameFile = json_decode($dataFullP->patiente_id)->first_name . '_' . json_decode($dataFullP->patiente_id)->last_name . '_from_' . date_format(date_create(data_previa_month_day_first()), 'd_m_Y') . '_to_' . date_format(date_create(data_previa_month_day_last()), 'd_m_Y') . '.zip';
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullP->patiente_id)->first_name }}  {{ json_decode($dataFullP->patiente_id)->last_name }}</td>	

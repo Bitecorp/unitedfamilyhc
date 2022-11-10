@@ -383,6 +383,12 @@
 			var dateDesdeT = new Date(dateDesde).toLocaleString('en-US');
 			var dateHastaT = new Date(dateHasta).toLocaleString('en-US');
 
+			var dateDesdeTT = $('#desde').val().split('-');
+			var dateHastaTT = $('#hasta').val().split('-');
+
+			var newDesde = dateDesdeTT[2] + '_' + dateDesdeTT[1] + '_' + dateDesdeTT[0];
+			var newHasta = dateHastaTT[2] + '_' + dateHastaTT[1] + '_' + dateHastaTT[0];
+
 			if(service_id != '' && paid != '' && dateDesde != '' && dateHasta != ''){
 				$.ajax({
 					type: "post",
@@ -482,7 +488,7 @@
 									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
 									revertir = dataFullP[i].collected == true ? 'revertir' : '';
 									hiddenBtnXml = dataFullP[i].collected == true ? '' : 'hidden';
-									nameFile = dataFullP[i].patiente_id.first_name + '_' + dataFullP[i].patiente_id.last_name + '_' + dataFullP[i].id + '.xml';
+									nameFile = dataFullP[i].patiente_id.first_name + '_' + dataFullP[i].patiente_id.last_name + '_from_' + newDesde + '_to_' + newHasta + '.zip';
 									linkDownload = '{{ asset("filesXml") }}/' + nameFile;
 									
 									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile + '" id="btn_send_xml_'+ dataFullP[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';

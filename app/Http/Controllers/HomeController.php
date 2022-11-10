@@ -1257,7 +1257,9 @@ class HomeController extends Controller
         //mkdir(storage_path('app/files_xml/') . $nameFile, 755, true);
         foreach($notes as $kn => $n){
             sendXml($n->id);
-        } 
+        }
+        
+        generateZipXmls($request);
 
         return response()->json([
             'data' => [],
@@ -1317,9 +1319,14 @@ class HomeController extends Controller
             $nameFile = User::find($filters['patiente_id'])->first_name . '_' . User::find($filters['patiente_id'])->last_name . '_' . $n->id . '.xml';
 
             if (file_exists(storage_path('app/files_xml') .'/'. $nameFile)) {
-                unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f  
+                unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f
             }; 
         }       
+
+        $nameFileZip = User::find($filters['patiente_id'])->first_name . '_' . User::find($filters['patiente_id'])->last_name . '_from_' . date_format(date_create($filtersDate['start']), 'd_m_Y') . '_to_' . date_format(date_create($filtersDate['end']), 'd_m_Y') . '.zip';
+        if (file_exists(storage_path('app/files_xml') .'/'. $nameFileZip)) {
+            unlink(storage_path('app/files_xml') .'/'. $nameFileZip); //elimino el f
+        }; 
 
         return response()->json([
             'data' => [],
