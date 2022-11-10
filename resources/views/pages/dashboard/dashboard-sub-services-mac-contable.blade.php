@@ -81,9 +81,9 @@
 							<table id="contable-table-wor" class="table table-striped table-bordered table-td-valign-middle">
 								<thead>
 									<tr>
-										<th class="text-nowrap">Patient</th>	
-										<th class="text-nowrap">Service - Sub Service</th>
 										<th class="text-nowrap">Worker</th>
+										<th class="text-nowrap">Service - Sub Service</th>
+										<th class="text-nowrap">Patient</th>	
 										<th class="text-nowrap">Unit - Value</th>
 										<th class="text-nowrap">Time of attention = Units</th>
 										<th class="text-nowrap">Value to by paid</th>
@@ -99,9 +99,9 @@
 												$valPay = $dataFullW->paid == true ? 'true' : 'false';
 											?>
 											<tr>
-												<td>{{ json_decode($dataFullW->patiente_id)->first_name }}  {{ json_decode($dataFullW->patiente_id)->last_name }}</td>	
-												<td>{{ json_decode($dataFullW->service_id)->name_service }} - {{ json_decode($dataFullW->sub_service_id)->name_sub_service }}</td>
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
+												<td>{{ json_decode($dataFullW->service_id)->name_service }} - {{ json_decode($dataFullW->sub_service_id)->name_sub_service }}</td>
+												<td>{{ json_decode($dataFullW->patiente_id)->first_name }}  {{ json_decode($dataFullW->patiente_id)->last_name }}</td>	
 												<td>{{ $dataFullW->unidad_time_worker }} {{ $dataFullW->unidad_type_worker }} - {{ $dataFullW->unit_value_worker }} $ (USD)</td>
 												<td>{{ $dataFullW->time_attention }} = {{ $dataFullW->unid_pay_worker }}</td>
 												<td>{{ $dataFullW->mont_pay }} (USD)</td>

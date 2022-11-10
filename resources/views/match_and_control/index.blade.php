@@ -564,9 +564,9 @@
 											}
 										]
 									}).row.add([
-										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
-										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
 										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
+										dataFullW[i].service_id.name_service + ' - ' + dataFullW[i].sub_service_id.name_sub_service, 
+										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
