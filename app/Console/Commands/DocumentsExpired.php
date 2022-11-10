@@ -5,11 +5,13 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\TypeDoc;
 use App\Models\DocumentUserFiles;
+use App\Models\DocumentUserSol;
 use App\Models\AlertDocumentsExpired;
 use App\Models\User;
 use Carbon\Carbon;
 use Mail;
 use App\Mail\updateDocuments;
+use DB;
 
 class DocumentsExpired extends Command
 {
@@ -84,6 +86,8 @@ class DocumentsExpired extends Command
             }
         }
 
+
+
         $dataAlerts = AlertDocumentsExpired::where('send_email', 0)->get() ?? [];
         if(isset($dataAlerts) && !empty($dataAlerts) && count($dataAlerts) > 0){
             foreach($dataAlerts AS $key => $dataAlert){
@@ -106,6 +110,16 @@ class DocumentsExpired extends Command
                     Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $arrayDocs));
                 }
 
+            }
+        }
+
+        $dataNoSol = DocumentUserSol::all() ?? [];
+        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+            foreach($dataNoSol as $k => $DNS){
+                $dataDocUser = DocumentUserFiles::where('user_id', $DNS->user_id)->where('document_id', $DNS->document_id)->first();
+                if(isset($dataDocUser) && !empty($dataDocUser)){
+                    AlertDocumentsExpired::where('document_user_file_id', $dataDocUser->id)->delete();
+                }
             }
         }
 
