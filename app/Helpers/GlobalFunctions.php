@@ -24,8 +24,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
 
-use ZipArchive;
-
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
@@ -945,6 +943,6 @@ function generateZipXmls(Request $request){
     $zip->close();
 
     if(is_file($fileFinal)){
-        return true;
+        return $nameDirZip . ".zip";
     }
 }

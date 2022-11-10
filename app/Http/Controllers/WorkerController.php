@@ -1049,4 +1049,13 @@ class WorkerController extends AppBaseController
             return redirect(route('resetPassword'));
         }
     }
+
+    public function createXmlZip(Request $request){
+        $generateZipXmls = generateZipXmls($_REQUEST);
+        return response()->json([
+            'fileName' => [],
+            'msj' => "data actualizada",
+            'success' => true
+        ]); 
+    }
 }

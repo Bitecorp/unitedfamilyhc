@@ -884,6 +884,58 @@
 			});
 		};
 	</script>
+
+<script>
+	function generateZipXmls(idWorker, idPatiente, idService, idSubservice) {
+		var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+		var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
+		var worker_id = idWorker;
+		var patiente_id = idPatiente;
+		var service_id = idService;
+		var sub_service_id = idSubservice;
+		var token = '{{ csrf_token() }}';
+		var url = "/downloadXmlZip";
+
+		$.ajax({
+			type: "post",
+			url: url,
+			dataType: 'json',
+			data: {
+				_token: token,
+				desde: dateDesde,
+				hasta: dateHasta,
+				worker_id: worker_id,
+				patiente_id: patiente_id,
+				service_id: service_id,
+				sub_service_id: sub_service_id,
+				collected: 1
+			},
+			success: function(data) {
+				event.preventDefault();	
+			},
+			error: function (error) { 
+				console.log(error);
+			}
+		});
+	};
+</script>
+<script type="text/javascript">
+    function DownloadFromUrl(fileName) {
+		var localURL = '{{ asset("filesXml/") }}';
+		var fileURL = localURL + fileName;
+		console.log(localURL, fileURL);
+		debugger;
+
+		var link = document.createElement('a');
+		link.href = fileURL;
+		link.download = fileName;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+
+		console.log('sali');
+    };
+</script>  
 @endpush
 
 @push('scripts')
