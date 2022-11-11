@@ -146,6 +146,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        scriptInitial();
+
         $arrayUsers = [];
         $usersActives = DB::table('users')
             ->where('statu_id', 1)

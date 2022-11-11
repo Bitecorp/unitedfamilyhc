@@ -51,7 +51,8 @@
         },
         "files": [
             "app/Helpers/GlobalFunctions.php",
-            "app/Helpers/LocalStorage.php"
+            "app/Helpers/LocalStorage.php",
+            "app/Helpers/InitialFunctions.php"
         ]
     },
     "extra": {
