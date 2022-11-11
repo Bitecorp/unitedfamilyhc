@@ -48,6 +48,9 @@ class ChangePassGlobal extends Command
             if(!isset($user->ssn) || empty($user->ssn)){                
                 $us->password = Hash::make('@' . substr(mb_strtoupper($user->first_name),0,2) . '#' . mt_rand(1,10) . '#' . substr(mb_strtolower($user->last_name),0,2) . '@');
             }else{
+                //if($us->id == 6){
+                    //dd('@' . substr(mb_strtoupper($user->first_name),0,2) . '#' . $user->ssn . '#' . substr(mb_strtolower($user->last_name),0,2) . '@');
+                //}
                 $us->password = Hash::make('@' . substr(mb_strtoupper($user->first_name),0,2) . '#' . $user->ssn . '#' . substr(mb_strtolower($user->last_name),0,2) . '@');
             }
 

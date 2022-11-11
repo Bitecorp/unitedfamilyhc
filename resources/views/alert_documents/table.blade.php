@@ -12,7 +12,7 @@
     <tbody>
         @if (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'workers')
             @foreach($workers as $key => $worker)
-                @if ($worker->role_id == 2 || $worker->role_id == 3)
+                @if ($worker->role_id == 2 || $worker->role_id == 3 && $worker->countExpired > 0)
                     <tr data-id='{{ $worker->id }}' id="data_{{ $worker->id }}">
                         <td>{{ $worker->first_name }} {{ $worker->last_name }}</td>
                         <td>{{ $worker->home_phone }}</td>
@@ -36,7 +36,7 @@
 
         @if (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'patientes')
             @foreach($workers as $key => $worker)
-                @if ($worker->role_id == 4)
+                @if ($worker->role_id == 4 && $worker->countExpired > 0)
                     <tr data-id='{{ $worker->id }}' id="data_{{ $worker->id }}">
                         <td>{{ $worker->first_name }} {{ $worker->last_name }}</td>
                         <td>{{ $worker->home_phone }}</td>
