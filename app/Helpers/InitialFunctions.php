@@ -8,7 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\updateDocuments;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 function scriptInitial(){
         $arrayUsers = [];
