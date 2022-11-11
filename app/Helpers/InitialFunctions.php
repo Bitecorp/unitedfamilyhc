@@ -6,7 +6,7 @@ use App\Models\DocumentUserSol;
 use App\Models\AlertDocumentsExpired;
 use App\Models\User;
 use Carbon\Carbon;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\updateDocuments;
 use DB;
 
