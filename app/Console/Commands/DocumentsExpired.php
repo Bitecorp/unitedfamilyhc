@@ -58,8 +58,20 @@ class DocumentsExpired extends Command
         foreach($usersActives->unique() as $usersActive){
             array_push($arrayUsers, $usersActive->id);
         }
+
+        $idNotInclude = [];
+        $documents = [];
+        $dataNoSol = DocumentUserSol::all() ?? [];
+        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+            foreach($dataNoSol AS $k => $DNS){
+                $DC = DocumentUserFiles::where('document_id', intval($DNS->document_id))->where('user_id', intval($DNS->user_id))->first();
+                if(isset($DC) && !empty($DC)){
+                    array_push($idNotInclude, $DC->id);   
+                }
+            }
+        }
         
-        $documents = DocumentUserFiles::where('expired', 0)->get() ?? [];
+        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('id', $dataNoSol)->get() ?? [];
 
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
@@ -109,11 +121,9 @@ class DocumentsExpired extends Command
                     }
                     Mail::to($infoUser->email)->send(new updateDocuments($infoUser, $arrayDocs));
                 }
-
             }
         }
-
-        $dataNoSol = DocumentUserSol::all() ?? [];
+        
         if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
             foreach($dataNoSol as $k => $DNS){
                 $dataDocUser = DocumentUserFiles::where('user_id', $DNS->user_id)->where('document_id', $DNS->document_id)->first();

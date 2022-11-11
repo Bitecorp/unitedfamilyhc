@@ -141,9 +141,20 @@ class AlertDocumentsController extends AppBaseController
             return redirect(route('alertDocuments.index'));
         }
 
+        $idNotInclude = [];
+        $dataNoSol = DocumentUserSol::where('user_id', $idUser)->get() ?? [];
+        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+            foreach($dataNoSol AS $k => $DNS){
+                $DC = DocumentUserFiles::where('document_id', intval($DNS->document_id))->where('user_id', intval($idUser))->first();
+                if(isset($DC) && !empty($DC)){
+                    array_push($idNotInclude, $DC->id);   
+                }
+            }
+        }
+
         $arrayDocs = [];
         if(isset($infoUser) && !empty($infoUser)){
-        $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
+        $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->whereNotIn('document_id', $idNotInclude)->get() ?? [];
             if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
                 foreach($documentsUser AS $documentUser){
                     $infoDocs = TypeDoc::find($documentUser->document_id);
@@ -171,14 +182,25 @@ class AlertDocumentsController extends AppBaseController
     {
         $dataDocumentsExpired = AlertDocumentsExpired::all();
 
+        $idNotInclude = [];
+        $dataNoSol = DocumentUserSol::all() ?? [];
+        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+            foreach($dataNoSol AS $k => $DNS){
+                $DC = DocumentUserFiles::where('document_id', intval($DNS->document_id))->where('user_id', $DNS->user_id)->first();
+                if(isset($DC) && !empty($DC)){
+                    array_push($idNotInclude, $DC->id);   
+                }
+            }
+        }
+
         if(!empty($dataDocumentsExpired)){
-            foreach($dataDocumentsExpired AS $dataDocumentExpired){
+            foreach($dataDocumentsExpired->whereNotIn('document_id', $idNotInclude) AS $dataDocumentExpired){
                 $dataDocument = DocumentUserFiles::find($dataDocumentExpired->document_user_file_id);
                 $infoUser = User::find($dataDocument->user_id);
 
                 $arrayDocs = [];
                 if(isset($infoUser) && !empty($infoUser)){
-                $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
+                $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->whereNotIn('document_id', $idNotInclude)->get() ?? [];
                     if(isset($documentsUser) && !empty($documentsUser) && count($documentsUser) > 0){
                         foreach($documentsUser AS $keyD => $documentUser){
                             $infoDocs = TypeDoc::find($documentUser->document_id);
