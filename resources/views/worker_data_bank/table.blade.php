@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>Bank</th>
+                <th>Routing Number</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
@@ -10,6 +11,7 @@
         @foreach($banks as $bank)
             <tr>
                 <td>{{ $bank->name_bank }}</td>
+                <td>{{ $bank->routing_number }}</td>
                 <td class="with-btn" nowrap>
                     {!! Form::open(['route' => ['banks.destroy', $bank->id], 'method' => 'delete']) !!}
                     <div>
