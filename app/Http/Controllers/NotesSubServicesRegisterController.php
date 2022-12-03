@@ -75,6 +75,7 @@ class NotesSubServicesRegisterController extends Controller
             $service = Service::find($note->service_id);
             $subService = SubServices::find($note->sub_service_id);
             $data = RegisterAttentions::find($note->register_attentions_id);
+            $dataConfigServicePatiente = ConfigSubServicesPatiente::all()->whereIn('salary_service_assigned_id', SalaryServiceAssigneds::where('user_id', $patiente->id)->where('service_id', $subService->id)->first()->id) ?? '';
                 
                 if(isset($data) && !empty($data)){
                 
@@ -104,7 +105,7 @@ class NotesSubServicesRegisterController extends Controller
                         'fullName' => $worker->first_name . ' ' . $worker->last_name
                     ),
                     "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service, 'numProvider' => $service->num_prov),
                     "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                     "note" => $note->note,
                     "firma" => $note->firma,
@@ -114,6 +115,7 @@ class NotesSubServicesRegisterController extends Controller
                     "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
                     "statusPaid" => $data->paid,
                     "statusCollected" => $data->collected,
+                    "dataConfigServicePatiente" => $dataConfigServicePatiente,
                     "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                     "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
                 );
@@ -335,7 +337,10 @@ class NotesSubServicesRegisterController extends Controller
                 $service = Service::find($note->service_id);
                 $subService = SubServices::find($note->sub_service_id);
                 $data = RegisterAttentions::find($note->register_attentions_id);
-                    
+                $dataConfigServicePatiente = ConfigSubServicesPatiente::all()->whereIn('salary_service_assigned_id', SalaryServiceAssigneds::where('user_id', $patiente->id)->where('service_id', $subService->id)->first()->id) ?? '';
+                
+
+                //dd($dataConfigServicePatiente[15]);
                     if(isset($data) && !empty($data)){
                     
                         $timeAttention = $data->start->diff($data->end);
@@ -364,7 +369,7 @@ class NotesSubServicesRegisterController extends Controller
                         'fullName' => $worker->first_name . ' ' . $worker->last_name
                     ),
                     "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                    "service_id" => array('id' => $service->id, 'nameService' => $service->name_service, 'numProvider' => $service->num_prov),
                     "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                     "note" => $note->note,
                     "firma" => $note->firma,
@@ -374,6 +379,7 @@ class NotesSubServicesRegisterController extends Controller
                     "time_attention" => isset($data) && !empty($data) && isset($data->time_attention) && !empty($data->time_attention) ? $data->time_attention : '00:00:00',
                     "statusPaid" => $data->paid,
                     "statusCollected" => $data->collected,
+                    "dataConfigServicePatiente" => $dataConfigServicePatiente,
                     "created_at" => Carbon::parse($note->created_at)->toDateTimeString(),
                     "updated_at" => Carbon::parse($note->updated_at)->toDateTimeString()
                 );
@@ -577,6 +583,7 @@ class NotesSubServicesRegisterController extends Controller
         $service = Service::find($noteData->service_id);
         $subService = SubServices::find($noteData->sub_service_id);
         $data = RegisterAttentions::find($noteData->register_attentions_id);
+        $dataConfigServicePatiente = ConfigSubServicesPatiente::all()->whereIn('salary_service_assigned_id', SalaryServiceAssigneds::where('user_id', $patiente->id)->where('service_id', $subService->id)->first()->id) ?? '';
 
         $note = [];
         $newNote = array( 
@@ -584,12 +591,13 @@ class NotesSubServicesRegisterController extends Controller
             "register_attentions_id" => $noteData->register_attentions_id,
             "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
             "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-            "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+            "service_id" => array('id' => $service->id, 'nameService' => $service->name_service, 'numProvider' => $service->num_prov),
             "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
             "note" => $noteData->note,
             "firma" => $noteData->firma,
             "status" => $data->status,
             "register_attentions" => $data,
+            "dataConfigServicePatiente" => $dataConfigServicePatiente,
             "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
             "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
         );
@@ -615,6 +623,7 @@ class NotesSubServicesRegisterController extends Controller
         $service = Service::find($noteData->service_id);
         $subService = SubServices::find($noteData->sub_service_id);
         $data = RegisterAttentions::find($noteData->register_attentions_id);
+        $dataConfigServicePatiente = ConfigSubServicesPatiente::all()->whereIn('salary_service_assigned_id', SalaryServiceAssigneds::where('user_id', $patiente->id)->where('service_id', $subService->id)->first()->id) ?? '';
 
         $note = [];
         $newNote = array( 
@@ -622,12 +631,13 @@ class NotesSubServicesRegisterController extends Controller
             "register_attentions_id" => $noteData->register_attentions_id,
             "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
             "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-            "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+            "service_id" => array('id' => $service->id, 'nameService' => $service->name_service, 'numProvider' => $service->num_prov),
             "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
             "note" => $noteData->note,
             "firma" => $noteData->firma,
             "status" => $data->status,
             "register_attentions" => $data,
+            "dataConfigServicePatiente" => $dataConfigServicePatiente,
             "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
             "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
         );
@@ -726,6 +736,7 @@ class NotesSubServicesRegisterController extends Controller
                     $service = Service::find($noteData->service_id);
                     $subService = SubServices::find($noteData->sub_service_id);
                     $data = RegisterAttentions::find($noteData->register_attentions_id);
+                    $dataConfigServicePatiente = ConfigSubServicesPatiente::all()->whereIn('salary_service_assigned_id', SalaryServiceAssigneds::where('user_id', $patiente->id)->where('service_id', $subService->id)->first()->id) ?? '';
 
                     $note = [];
                     $newNote = array( 
@@ -733,11 +744,12 @@ class NotesSubServicesRegisterController extends Controller
                         "register_attentions_id" => $noteData->register_attentions_id,
                         "worker_id" => array('id' => $worker->id, 'fullName' => $worker->first_name . ' ' . $worker->last_name),
                         "patiente_id" => array('id' => $patiente->id, 'fullName' => $patiente->first_name . ' ' . $patiente->last_name),
-                        "service_id" => array('id' => $service->id, 'nameService' => $service->name_service),
+                        "service_id" => array('id' => $service->id, 'nameService' => $service->name_service, 'numProvider' => $service->num_prov),
                         "sub_service_id" => array('id' => $subService->id, 'nameSubService' => $subService->name_sub_service),
                         "note" => $noteData->note,
                         "firma" => $noteData->firma,
                         "status" => $data->status,
+                        "dataConfigServicePatiente" => $dataConfigServicePatiente,
                         "created_at" => Carbon::parse($noteData->created_at)->toDateTimeString(),
                         "updated_at" => Carbon::parse($noteData->updated_at)->toDateTimeString()
                     );

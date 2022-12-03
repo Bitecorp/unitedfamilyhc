@@ -92,9 +92,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-nowrap">Worker</th>
-                                    <th class="text-nowrap">Service</th>
+                                    <th class="text-nowrap">Service - N# Provider</th>
                                     <th class="text-nowrap">Sub Service</th>
-                                    <th class="text-nowrap">Patient</th>
+                                    <th class="text-nowrap">Patient - Cod-Patient</th>
                                     <th class="text-nowrap">In</th>
                                     <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Quantity of units</th>
@@ -105,6 +105,8 @@
                                             to be paid
                                         @endif 
                                     </th> 
+                                    <th class="text-nowrap">N# Provider</th>
+                                    <th class="text-nowrap">Cod-Patient</th>
                                     <th class="text-nowrap">Status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
@@ -115,7 +117,11 @@
                                         <td>{{ $note['worker_id']['fullName'] }}</td>
                                         <td>{{ $note['service_id']['nameService'] }}</td>
                                         <td>{{ $note['sub_service_id']['nameSubService'] }}</td>
-                                        <td>{{ $note['patiente_id']['fullName'] }}</td>
+                                        <td>{{ $note['patiente_id']['fullName'] }} -
+                                            @foreach ($note['dataConfigServicePatiente'] as $DCSSP)
+                                                {{ isset($DCSSP->code_patiente) && !empty($DCSSP->code_patiente) ? $DCSSP->code_patiente : 'N/A' }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $note['start'] }}</td>
                                         <td>{{ $note['end'] }}</td>
                                         <td>{{ isset($note['unid_pay_worker']) && !empty($note['unid_pay_worker']) ? $note['unid_pay_worker'] : '00.00' }} of {{ isset($note['unidad_time_worker']) && !empty($note['unidad_time_worker']) ? $note['unidad_time_worker'] : '15' }} {{ isset($note['unidad_type_worker']) && !empty($note['unidad_type_worker']) ? $note['unidad_type_worker'] : 'Minutes' }}</td>
@@ -126,21 +132,24 @@
                                                 x {{ isset($note['unit_value_worker']) && !empty($note['unit_value_worker']) ? $note['unit_value_worker'] : '0' }} = {{ isset($note['mont_pay']) && !empty($note['mont_pay']) ? $note['mont_pay'] : '0' }}$ (USD)
                                             @endif                                        
                                         </td>
+                                        <td>{{ $note['service_id']['numProvider'] }}</td>
                                         <td>
-
-                                        @if ($note['status'] == 2)
-                                            @if (($note['firma'] != '' && $note['firma'] != null) && ($note['note'] == '' || $note['note'] == null))
-                                                Pending Notes
-                                            @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] != '' || $note['note'] != null))
-                                                Pending Signature
-                                            @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] == '' || $note['note'] == null))
-                                                Pending Notes and Signature
+                                            @foreach ($note['dataConfigServicePatiente'] as $DCSSP)
+                                                {{ isset($DCSSP->code_patiente) && !empty($DCSSP->code_patiente) ? $DCSSP->code_patiente : 'N/A' }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if ($note['status'] == 2)
+                                                @if (($note['firma'] != '' && $note['firma'] != null) && ($note['note'] == '' || $note['note'] == null))
+                                                    Pending Notes
+                                                @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] != '' || $note['note'] != null))
+                                                    Pending Signature
+                                                @elseif (($note['firma'] == '' || $note['firma'] == null) && ($note['note'] == '' || $note['note'] == null))
+                                                    Pending Notes and Signature
+                                                @endif
+                                            @elseif ($note['status'] == 3)
+                                                Full Service
                                             @endif
-                                        @elseif ($note['status'] == 3)
-                                            Full Service
-                                        @endif
-                                            
-                                        
                                         </td>
                                         <td class="with-btn" nowrap>
                                             <div>
