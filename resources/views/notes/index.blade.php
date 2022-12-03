@@ -135,7 +135,7 @@
                                         <td>{{ $note['service_id']['numProvider'] }}</td>
                                         <td>
                                             @foreach ($note['dataConfigServicePatiente'] as $DCSSP)
-                                                {{ isset($DCSSP->code_patiente) && !empty($DCSSP->code_patiente) ? $DCSSP->code_patiente : 'N/A' }}
+                                                {{ isset($DCSSP->code_patiente) && !empty($DCSSP->code_patiente) ? $DCSSP->code_patiente : '' }}
                                             @endforeach
                                         </td>
                                         <td>
