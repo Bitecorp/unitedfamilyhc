@@ -132,7 +132,7 @@
                                                 x {{ isset($note['unit_value_worker']) && !empty($note['unit_value_worker']) ? $note['unit_value_worker'] : '0' }} = {{ isset($note['mont_pay']) && !empty($note['mont_pay']) ? $note['mont_pay'] : '0' }}$ (USD)
                                             @endif                                        
                                         </td>
-                                        <td>{{ $note['service_id']['numProvider'] }}</td>
+                                        <td>{{ isset($note['service_id']['numProvider']) && !empty($note['service_id']['numProvider']) ? $note['service_id']['numProvider'] : '' }}</td>
                                         <td>
                                             @foreach ($note['dataConfigServicePatiente'] as $DCSSP)
                                                 {{ isset($DCSSP->code_patiente) && !empty($DCSSP->code_patiente) ? $DCSSP->code_patiente : '' }}
