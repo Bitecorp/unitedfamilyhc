@@ -16,7 +16,8 @@ class WorkerDataBank extends Model
     public $fillable = [
         'user_id',
         'bank_id',
-        'account'
+        'account',
+        'routing_number'
     ];
 
     /**
@@ -28,7 +29,8 @@ class WorkerDataBank extends Model
         'id' => 'integer',
         'user_id' => 'string',
         'bank_id' => 'string',
-        'account' => 'string'
+        'account' => 'string',
+        'routing_number' => 'string'
     ];
 
     /**
@@ -38,8 +40,9 @@ class WorkerDataBank extends Model
      */
     public static $rules = [
         'user_id' => 'required|string|max:255',
-        'bank_id' => 'nullable|string|max:255',
-        'account' => 'nullable|string|max:255',
+        'bank_id' => 'required|string|max:255',
+        'account' => 'required|string|max:255',
+        'routing_number' => 'required|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

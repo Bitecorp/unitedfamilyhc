@@ -29,6 +29,12 @@
             {!! Form::text('account', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
         </div>
     </div>
+    <div class="col">
+        <div class="form-group">
+            {!! Form::label('routing_number', 'Routing Number:') !!}
+            {!! Form::text('routing_number', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true]) !!}
+        </div>
+    </div>
 </div>
 
 <!-- Submit Field -->

@@ -15,9 +15,10 @@ class CreateWorkersDataBanksTable extends Migration
     {
         Schema::create('workers_data_banks', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('bank_id')->nullable();
-            $table->string('account')->nullable();
+            $table->string('user_id')->required();
+            $table->string('bank_id')->required();
+            $table->string('account')->required();
+            $table->string('routing_number')->required();
             $table->timestamps();
         });
     }

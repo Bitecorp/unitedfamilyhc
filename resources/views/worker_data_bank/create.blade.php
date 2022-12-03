@@ -23,7 +23,11 @@
         </div>
         <div class="panel-body">
             {!! Form::open(['route' => 'addBankAccount.store']) !!}
-                @include('worker_data_bank.fields')
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                    @include('worker_data_bank.fields')
+                @else
+                    @include('worker_data_bank.fields_mobil')
+                @endif 
             {!! Form::close() !!}
         </div>
     </div>
