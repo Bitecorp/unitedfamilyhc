@@ -16,7 +16,7 @@
         @if(Auth::user()->role_id != 2)
             @if(isset($education))
                 @if($education->user_id == $worker->id && !is_null($education->high_school))
-                    <li class="nav-item"><a href="#nav-assign-service" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><i class="fa fa-tags fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
+                    <li class="nav-item"><a href="#nav-services" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><i class="fa fa-tags fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
                     <li class="nav-item"><a href="#nav-documents" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'active' : ''}}"><i class="fa fa-folder fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Documents</span>&nbsp;</a></li>
                     <li class="nav-item"><a href="#nav-banks" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'banks' ? 'active' : ''}}"><i class="fa fa-university fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Banks Accounts</span>&nbsp;</a></li>
                 @endif
@@ -40,7 +40,7 @@
             @if(isset($education))
                 @if($education->user_id == $userID && !is_null($education->high_school))
                     <!-- begin tab-pane -->
-                    <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'show active' : ''}}"  id="nav-assign-service">
+                    <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'show active' : ''}}"  id="nav-services">
                         <!-- begin row -->
                         <div>
                             @include('service_assigneds.acordion')
@@ -72,3 +72,21 @@
 	</div>
 	<!-- end panel -->
 @endsection
+
+@push('scripts')
+<script>
+    $(".default-select2").select2();
+</script>
+    <script>
+        function setParam(val){
+            let qs = '?' + val;
+            var loc = window.location.origin;
+            var pathName = window.location.pathname;
+            var urlClean = loc + pathName;
+            var newUrl = (urlClean + qs).toString();
+            
+            window.location = newUrl.replace()
+
+        }
+    </script>
+@endpush
