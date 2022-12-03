@@ -92,9 +92,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-nowrap">Worker</th>
-                                    <th class="text-nowrap">Service - N# Provider</th>
+                                    <th class="text-nowrap">Service</th>
                                     <th class="text-nowrap">Sub Service</th>
-                                    <th class="text-nowrap">Patient - Cod-Patient</th>
+                                    <th class="text-nowrap">Patient</th>
                                     <th class="text-nowrap">In</th>
                                     <th class="text-nowrap">Out</th>
                                     <th class="text-nowrap">Quantity of units</th>
