@@ -292,7 +292,10 @@
 							};
 
 							if(dataFullW.length >= 1){
-								for (var i = 0; i < dataFullW.length; i++) {							
+								for (var i = 0; i < dataFullW.length; i++) {		
+									
+									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
+									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker;
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
@@ -322,6 +325,7 @@
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
+										memo,
 										check
 									]).draw(null, false);
 								};
@@ -544,6 +548,10 @@
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
+									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
+									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker;
+									
+									dataFullW[i].sub_service_id.name_sub_service.split(' ')[0]
 									$('#contable-table-wor').DataTable({
 										dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
 										buttons: [
@@ -570,6 +578,7 @@
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										dataFullW[i].mont_pay + '$ (USD)',
+										memo,
 										check
 									]).draw(null, false);
 								};

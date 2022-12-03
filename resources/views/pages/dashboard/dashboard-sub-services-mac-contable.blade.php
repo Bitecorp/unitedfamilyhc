@@ -87,6 +87,7 @@
 										<th class="text-nowrap">Unit - Value</th>
 										<th class="text-nowrap">Time of attention = Units</th>
 										<th class="text-nowrap">Value to by paid</th>
+										<th class="text-nowrap">Memo</th>
 										<th class="text-nowrap">Status/Action</th>
 									</tr>
 								</thead>
@@ -97,6 +98,8 @@
 												$checkCheck = $dataFullW->paid == true ? 'checked' : '';
 												$revertir = $dataFullW->paid == true ? 'revertir' : '';
 												$valPay = $dataFullW->paid == true ? 'true' : 'false';
+												$explodeIM = isset(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) && !empty(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) ? explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0] : '';
+												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' .$dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker;
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
@@ -104,6 +107,7 @@
 												<td>{{ json_decode($dataFullW->patiente_id)->first_name }}  {{ json_decode($dataFullW->patiente_id)->last_name }}</td>	
 												<td>{{ $dataFullW->unidad_time_worker }} {{ $dataFullW->unidad_type_worker }} - {{ $dataFullW->unit_value_worker }} $ (USD)</td>
 												<td>{{ $dataFullW->time_attention }} = {{ $dataFullW->unid_pay_worker }}</td>
+												<td>{{ $memo }}</td>
 												<td>{{ $dataFullW->mont_pay }} (USD)</td>
 												<td>
 

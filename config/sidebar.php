@@ -67,6 +67,10 @@ return [
             'caret' => true,
             'sub_menu' => [
                 [
+                    'url' => '/settings/banks',
+                    'title' => 'Banks'
+                ],
+                [
                     'url' => '/settings/roles',
                     'title' => 'Roles'
                 ],

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @SWG\Definition(
- *      definition="Role",
- *      required={"name_role"},
+ *      definition="Bank",
+ *      required={"name_bank"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="name_role",
- *          description="name_role",
+ *          property="name_bank",
+ *          description="name_bank",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -35,17 +35,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      )
  * )
  */
-class Role extends Model
+class Bank extends Model
 {
 
     use HasFactory;
 
-    public $table = 'roles';
+    public $table = 'banks';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+
+
+
     public $fillable = [
-        'name_role'
+        'name_bank'
     ];
 
     /**
@@ -55,7 +58,7 @@ class Role extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name_role' => 'string'
+        'name_bank' => 'string'
     ];
 
     /**
@@ -64,7 +67,7 @@ class Role extends Model
      * @var array
      */
     public static $rules = [
-        'name_role' => 'required|unique:roles|string|max:255',
+        'name_bank' => 'required|unique:banks|string|max:255',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

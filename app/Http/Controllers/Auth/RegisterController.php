@@ -69,7 +69,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $dataReuturn = DB::table('users')->insert([
+        $dataReturn = DB::table('users')->insert([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -82,63 +82,63 @@ class RegisterController extends Controller
             'updated_at' => now(),
         ]);
 
-        if($dataReuturn){
-            $dataReuturn = User::where('email', $data['email'])->first();
+        if($dataReturn){
+            $dataReturn = User::where('email', $data['email'])->first();
         }
 
         DB::table('contacts_emergencys')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('jobs_information')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('educations')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('confirmations')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('references')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'reference_number' => '1',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('references_jobs')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'reference_number' => '1',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('references')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'reference_number' => '2',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
          DB::table('references_jobs')->insert([
-            'user_id' => $dataReuturn->id,
+            'user_id' => $dataReturn->id,
             'reference_number' => '2',
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         Flash::success('Worker saved successfully.');
-        return $dataReuturn;
+        return $dataReturn;
     }
 }

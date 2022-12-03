@@ -6,8 +6,8 @@
     $isVisibiliti = false;
     $link = "$_SERVER[REQUEST_URI]";
     $stringSeparado = parse_url($link, PHP_URL_QUERY );
-    $isVisibiliti =  isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' ? true : (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'services' ? true : false);
-    $isVisibilitiValue = isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' || $stringSeparado == 'services' ? $stringSeparado : '';
+    $isVisibiliti =  isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' ? true : (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'services' ? true : (isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'banks' ? true : false));
+    $isVisibilitiValue = isset($stringSeparado) && !empty($stringSeparado) && $stringSeparado == 'documents' || $stringSeparado == 'services' || $stringSeparado == 'banks' ? $stringSeparado : '';
 
 ?>
 	<!-- begin nav-tabs -->
@@ -18,6 +18,7 @@
                 @if($education->user_id == $worker->id && !is_null($education->high_school))
                     <li class="nav-item"><a href="#nav-assign-service" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'services' ? 'active' : ''}}"><i class="fa fa-tags fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Assign Services</span>&nbsp;</a></li>
                     <li class="nav-item"><a href="#nav-documents" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'documents' ? 'active' : ''}}"><i class="fa fa-folder fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Documents</span>&nbsp;</a></li>
+                    <li class="nav-item"><a href="#nav-banks" data-toggle="tab" class="nav-link {{ $isVisibiliti == true && $isVisibilitiValue == 'banks' ? 'active' : ''}}"><i class="fa fa-university fa-lg m-r-5"></i><span class="d-none d-lg-inline m-l-5">Banks Accounts</span>&nbsp;</a></li>
                 @endif
             @endif
         @endif
@@ -52,6 +53,15 @@
                         <!-- begin row -->
                         <div>
                             @include('document_user_files.table')
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- end tab-pane -->
+                    <!-- begin tab-pane -->
+                    <div class="tab-pane fade {{ $isVisibiliti == true && $isVisibilitiValue == 'banks' ? 'show active' : ''}}" id="nav-banks">
+                        <!-- begin row -->
+                        <div>
+                            @include('worker_data_bank.index')
                         </div>
                         <!-- end row -->
                     </div>

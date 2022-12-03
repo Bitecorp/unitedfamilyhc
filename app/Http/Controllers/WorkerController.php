@@ -58,6 +58,8 @@ use App\Models\ReferencesPersonalesTwo;
 use App\Models\alertDocuments;
 use App\Models\SubServices;
 use App\Models\ExternalsDocuments;
+use App\Models\Bank;
+use App\Models\WorkerDataBank;
 use Flash;
 use Response;
 use DB;
@@ -560,6 +562,10 @@ class WorkerController extends AppBaseController
 
         $worker = $this->workerRepository->find($id);
 
+        $allBanks = Bank::all() ?? [];
+
+        $dataBankUser = WorkerDataBank::where('user_id', $id)->get() ?? [];
+
         if (empty($worker)) {
             Flash::error('Worker not found');
             return redirect(route('workers.index'));
@@ -789,7 +795,9 @@ class WorkerController extends AppBaseController
                 ->with('maritalStatus', $maritalStatus)
                 ->with('filesUploadsExpired', !empty($filesUploadsExpired) ? $filesUploadsExpired : null)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
-                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null)
+                ->with('banks', $allBanks)
+                ->with('dataBankUser', $dataBankUser);
         } else {
 
             $returnView = view('workers.show_index')
@@ -821,7 +829,9 @@ class WorkerController extends AppBaseController
                 ->with('serviceAssigneds', !empty($servicesAssingneds) ? $servicesAssingneds : null)
                 ->with('maritalStatus', $maritalStatus)
                 ->with('subServices', !empty($subServices) ? $subServices : null)
-                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null);
+                ->with('externalDocuments', !empty($externalDocuments) ? $externalDocuments : null)
+                ->with('banks', $allBanks)
+                ->with('dataBankUser', $dataBankUser);
         }
 
         //dd($confirmationIndependent);

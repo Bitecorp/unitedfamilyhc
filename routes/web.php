@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\resetPassword;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WorkerDataBankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,15 @@ Route::controller(HomeController::class)->group(function () {
 
 });
 
+
+Route::controller(WorkerDataBankController::class)->group(function () {
+    Route::get('addBankAccount/{idUser}', 'create')->name('addBankAccount.create');
+    Route::post('addBankAccount', 'store')->name('addBankAccount.store');
+    Route::get('editBankAccount/{idUser}/{idWorkerDataBank}/edit', 'edit')->name('editBankAccount.edit');
+    Route::post('editBankAccount/{idWorkerDataBank}', 'update')->name('editBankAccount.update');
+    Route::delete('deleteBankAccount/{idWorkerDataBank}', 'destroy')->name('deleteBankAccount.destroy');
+});
+
 Route::resource('notesSubServices', App\Http\Controllers\NotesSubServicesRegisterController::class);
 
 Route::post('/notesSubServices', [App\Http\Controllers\NotesSubServicesRegisterController::class, 'search'])->name('notesSubServices.search');
@@ -120,6 +130,8 @@ Route::get('/sendEmailRegister/emailRegisterWorker', [App\Http\Controllers\SendE
 Route::post('/sendEmailRegister/emailRegisterWorker', [App\Http\Controllers\SendEmailRegisterController::class, 'sendEmailRegisterWorker'])->name('sendEmailRegisterController.sendEmailRegisterWorker');
 
 Route::resource('settings/roles', App\Http\Controllers\RoleController::class);
+
+Route::resource('settings/banks', App\Http\Controllers\BankController::class);
 
 Route::resource('settings/status', App\Http\Controllers\StatuController::class);
 
