@@ -29,6 +29,7 @@
                             <th width="1%"></th>
                             <th class="text-nowrap">Bank</th>
                             <th class="text-nowrap">Account</th>
+                            <th class="text-nowrap">Routing Number</th>
                             <th class="text-nowrap">Action</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                                     @endforeach
                                 </td>
                                 <td>{{ $bank->account }}</td>
+                                <td>{{ $bank->routing_number }}</td>
                                 <td class="with-btn" nowrap>
                                     {!! Form::open(['route' => ['deleteBankAccount.destroy', $bank->id], 'method' => 'delete']) !!}
                                     <div>
