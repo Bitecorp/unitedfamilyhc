@@ -324,8 +324,8 @@
 										dataFullW[i].worker_id.first_name + ' ' + dataFullW[i].worker_id.last_name,
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
-										dataFullW[i].mont_pay + '$ (USD)',
 										memo,
+										dataFullW[i].mont_pay + '$ (USD)',
 										check
 									]).draw(null, false);
 								};
@@ -577,8 +577,8 @@
 										dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name, 
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
-										dataFullW[i].mont_pay + '$ (USD)',
 										memo,
+										dataFullW[i].mont_pay + '$ (USD)',
 										check
 									]).draw(null, false);
 								};

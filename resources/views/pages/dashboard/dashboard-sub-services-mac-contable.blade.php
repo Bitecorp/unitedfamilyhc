@@ -86,8 +86,8 @@
 										<th class="text-nowrap">Patient</th>	
 										<th class="text-nowrap">Unit - Value</th>
 										<th class="text-nowrap">Time of attention = Units</th>
-										<th class="text-nowrap">Value to by paid</th>
 										<th class="text-nowrap">Memo</th>
+										<th class="text-nowrap">Value to by paid</th>
 										<th class="text-nowrap">Status/Action</th>
 									</tr>
 								</thead>
