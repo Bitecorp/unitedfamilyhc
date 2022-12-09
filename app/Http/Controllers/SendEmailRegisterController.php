@@ -44,7 +44,7 @@ class SendEmailRegisterController extends Controller
                 'email' => $input['email']
             ];
 
-            Mail::to($data['email'])->send(new registerWorker($data));
+            Mail::to($data['email'])->cc(config('mail.username'))->send(new registerWorker($data));
             
             Flash::success('Email for new employee registration sent correctly.');
 
