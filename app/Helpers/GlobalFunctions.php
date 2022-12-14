@@ -24,8 +24,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
 
-use DB;
-
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
