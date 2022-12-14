@@ -1253,16 +1253,6 @@ class HomeController extends Controller
         }
         RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['collected' => 1]);
 
-        $filters['collected'] = 1;  
-        $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
-
-        //mkdir(storage_path('app/files_xml/') . $nameFile, 755, true);
-        foreach($notes as $kn => $n){
-            sendXml($n->id);
-        }
-        
-        generateZipXmls($request);
-
         return response()->json([
             'data' => [],
             'msj' => "data actualizada y xml creados con exito",
@@ -1280,6 +1270,17 @@ class HomeController extends Controller
             unset($filters[$k]);
         }
         RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['paid' => 1]);
+
+        $filters['paid'] = 1;  
+        $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
+
+        //mkdir(storage_path('app/files_xml/') . $nameFile, 755, true);
+        foreach($notes as $kn => $n){
+            $dateForFile = 'from_' . date_format(date_create($filtersDate['start']), 'd_m_Y') . '_to_' . date_format(date_create($filtersDate['end']), 'd_m_Y');
+            sendXml($n->id, $dateForFile);
+        }
+        
+        generateZipXmls($request);
 
         $existeGenerate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filtersDate['start'])->where('to', '<=', $filtersDate['end'])->first() ?? '';
 
@@ -1314,22 +1315,6 @@ class HomeController extends Controller
 
         RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['collected' => 0]);
 
-        $filters['collected'] = 0;
-        $notes = RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->get();
-
-        foreach($notes as $kn => $n){
-            $nameFile = User::find($filters['patiente_id'])->first_name . '_' . User::find($filters['patiente_id'])->last_name . '_' . $n->id . '.xml';
-
-            if (file_exists(storage_path('app/files_xml') .'/'. $nameFile)) {
-                unlink(storage_path('app/files_xml') .'/'. $nameFile); //elimino el f
-            }; 
-        }       
-
-        $nameFileZip = User::find($filters['patiente_id'])->first_name . '_' . User::find($filters['patiente_id'])->last_name . '_from_' . date_format(date_create($filtersDate['start']), 'd_m_Y') . '_to_' . date_format(date_create($filtersDate['end']), 'd_m_Y') . '.zip';
-        if (file_exists(storage_path('app/files_xml') .'/'. $nameFileZip)) {
-            unlink(storage_path('app/files_xml') .'/'. $nameFileZip); //elimino el f
-        }; 
-
         return response()->json([
             'data' => [],
             'msj' => "data actualizada",
@@ -1348,6 +1333,17 @@ class HomeController extends Controller
         }
 
         RegisterAttentions::where($filters)->where('start', '>=', $filtersDate['start'])->where('end', '<=', $filtersDate['end'])->update(['paid' => 0]);
+
+        $filters['paid'] = 0;  
+
+        $nameFileZip = storage_path('app/files_xml') .'/'. User::find($filters['worker_id'])->first_name . '_' . User::find($filters['worker_id'])->last_name . '_' . str_replace(' ', '_', SubServices::find($filters['sub_service_id'])->name_sub_service) . '_from_' . date_format(date_create($filtersDate['start']), 'd_m_Y') . '_to_' . date_format(date_create($filtersDate['end']), 'd_m_Y');
+        if (is_dir($nameFileZip)){
+            deleteDirectory($nameFileZip);
+        }; 
+
+        if (file_exists($nameFileZip . '.zip')) {
+            unlink($nameFileZip . '.zip'); //elimino el f
+        }; 
 
         $generate1099 = GenerateDocuments1099::where('worker_id', $filters['worker_id'])->where('from', '>=', $filtersDate['start'])->where('to', '<=', $filtersDate['end'])->first();
         if(isset($generate1099) && !empty($generate1099)){

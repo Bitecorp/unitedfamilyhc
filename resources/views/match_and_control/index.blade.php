@@ -299,7 +299,7 @@
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" checked disabled readonly>\n' +
+										'<input type="checkbox"  class="custom-control-input" name="Switch_worker_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" checked disabled readonly>\n' +
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -491,16 +491,10 @@
 									colBG = dataFullP[i].collected == true ? 'bg-teal' : 'bg-red';
 									block = dataFullP[i].collected == true ? ' disabled readonly' : '';
 									revertir = dataFullP[i].collected == true ? 'revertir' : '';
-									hiddenBtnXml = dataFullP[i].collected == true ? '' : 'hidden';
-									nameFile = dataFullP[i].patiente_id.first_name + '_' + dataFullP[i].patiente_id.last_name + '_from_' + newDesde + '_to_' + newHasta + '.zip';
-									linkDownload = '{{ asset("filesXml") }}/' + nameFile;
-									
-									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile + '" id="btn_send_xml_'+ dataFullP[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
-							
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].worker_id.id + ',' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ');"  class="custom-control-input" name="Switch_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'cobrar(' + dataFullP[i].worker_id.id + ',' + dataFullP[i].patiente_id.id + ',' + dataFullP[i].service_id.id + ',' + dataFullP[i].sub_service_id.id + ');"  class="custom-control-input" name="Switch_patiente_' + dataFullP[i].id + '" id="Switch_patiente' + dataFullP[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_patiente' + dataFullP[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -529,7 +523,7 @@
 										dataFullP[i].unidad_time_worker + ' ' + dataFullP[i].unidad_type_worker + ' - ' + dataFullP[i].unit_value_patiente + '$ (USD)',
 										dataFullP[i].time_attention + ' = ' + dataFullP[i].unid_pay_worker,
 										dataFullP[i].mont_cob + '$ (USD)',
-										check + btnSendXml
+										check
 									]).draw(null, false);
 								};
 							}
@@ -541,10 +535,15 @@
 									colBG = dataFullW[i].paid == true ? 'bg-teal' : 'bg-red';
 									block = dataFullW[i].paid == true ? ' disabled readonly' : '';
 									revertir = dataFullW[i].paid == true ? 'revertir' : '';
+									hiddenBtnXml = dataFullW[i].paid == true ? '' : 'hidden';
+									nameFile = dataFullW[i].worker_id.first_name + '_' + dataFullW[i].worker_id.last_name + '_' + dataFullW[i].sub_service_id.name_sub_service.split(" ").join("_") + '_from_' + newDesde + '_to_' + newHasta + '.zip';
+									linkDownload = '{{ asset("filesXml") }}/' + nameFile.split(" ").join("_");
+
+									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile.split(" ").join("_") + '" id="btn_send_xml_'+ dataFullW[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
-										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ');"  class="custom-control-input" name="Switch_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
+										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].id + ');"  class="custom-control-input" name="Switch_worker_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
 										'<label class="custom-control-label" for="Switch_worker_' + dataFullW[i].id + '"></label>\n' +
 									'</div>\n';
 
@@ -579,7 +578,7 @@
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										memo,
 										dataFullW[i].mont_pay + '$ (USD)',
-										check
+										check + btnSendXml
 									]).draw(null, false);
 								};
 							}
@@ -739,15 +738,15 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if($('#desde').val() == '' && $('#hasta').val() == ''){
-							location.reload();
-						}else if(obj){
-							obj.click(); 
-						}
-					}	
-					let msjOne = 'The payment process was carried out successfully.\n\n';
-					let msjTwo = 'El proceso cobro fue realizado con exito.';
-					alert(msjOne + msjTwo);
+						//if($('#desde').val() == '' && $('#hasta').val() == ''){
+							//location.reload();
+						//}else if(obj){
+							//obj.click(); 
+						//}
+						let msjOne = 'The payment process was carried out successfully.\n\n';
+						let msjTwo = 'El proceso cobro fue realizado con exito.';
+						alert(msjOne + msjTwo);
+					}
 				},
 				error: function (error) { 
 					console.log(error);
@@ -785,15 +784,16 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if($('#desde').val() == '' && $('#hasta').val() == ''){
-							location.reload();
-						}else if(obj){
-							obj.click(); 
-						}
-					}	
-					let msjOne = 'The payment process was reversed out successfully.\n\n';
-					let msjTwo = 'El proceso cobro fue revertido con exito.';
-					alert(msjOne + msjTwo);
+						//if($('#desde').val() == '' && $('#hasta').val() == ''){
+							//location.reload();
+						//}else if(obj){
+							//obj.click(); 
+						//}
+
+						let msjOne = 'The payment process was reversed out successfully.\n\n';
+						let msjTwo = 'El proceso cobro fue revertido con exito.';
+						alert(msjOne + msjTwo);
+					}
 				},
 				error: function (error) { 
 					console.log(error);
@@ -803,7 +803,7 @@
 	</script>
 
 	<script>
-		function pagar(idWorker, idPatiente, idService, idSubservice) {
+		function pagar(idWorker, idPatiente, idService, idSubservice, id) {
 			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
 			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
@@ -813,6 +813,10 @@
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/pagarWorker";
+			var id = id;
+			var btnXmlid = 'btn_send_xml_' + id;
+			var swichPagar = '#Switch_worker_' + id;
+			var newFunction = 'revertirpagar(' + worker_id + ',' + patiente_id + ',' + service_id + ',' + sub_service_id + ',' + id +');';
 
 			$.ajax({
 				type: "post",
@@ -831,15 +835,21 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if($('#desde').val() == '' && $('#hasta').val() == ''){
-							location.reload();
-						}else if(obj){
-							obj.click(); 
-						}
-					}	
-					let msjOne = 'The billing process was carried out successfully.\n\n';
-					let msjTwo = 'El proceso pago fue realizado con exito.';
-					alert(msjOne + msjTwo);		
+						//if($('#desde').val() == '' && $('#hasta').val() == ''){
+							//location.reload();
+						//}else if(obj){
+							//obj.click(); 
+						//}$('#btn_submit_1099').attr('disabled', 'disabled');
+						$(swichPagar).removeAttr('onclick');
+						$(swichPagar).attr('onclick', newFunction);
+						document.getElementById(btnXmlid).removeAttribute('hidden');
+						//$(btnXmlid).removeAttr('hidden');	
+
+						let msjOne = 'The billing process was carried out successfully.\n\n';
+						let msjTwo = 'El proceso pago fue realizado con exito.';
+						alert(msjOne + msjTwo);
+					}
+						
 				},
 				error: function (error) { 
 					console.log(error);
@@ -847,9 +857,9 @@
 			});
 		};
 	</script>
-
+	
 	<script>
-		function revertirpagar(idWorker, idPatiente, idService, idSubservice) {
+		function revertirpagar(idWorker, idPatiente, idService, idSubservice, id) {
 			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
 			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
 			var worker_id = idWorker;
@@ -859,6 +869,10 @@
 			var token = '{{ csrf_token() }}';
 			var roleUser = '{{ Auth::user()->role_id }}';
 			var url = "/revertirPagarWorker";
+			var id = id;
+			var btnXmlid = 'btn_send_xml_' + id;
+			var swichPagar = '#Switch_worker_' + id;
+			var newFunction = 'pagar(' + worker_id + ',' + patiente_id + ',' + service_id + ',' + sub_service_id + ',' + id +');';
 
 			$.ajax({
 				type: "post",
@@ -877,15 +891,21 @@
 				success: function(data) {
 					var obj = document.getElementById('btn_submit');
 					if(data['success'] == true){
-						if($('#desde').val() == '' && $('#hasta').val() == ''){
-							location.reload();
-						}else if(obj){
-							obj.click(); 
-						}
+						//if($('#desde').val() == '' && $('#hasta').val() == ''){
+							//location.reload();
+						//}else if(obj){
+							//obj.click(); 
+						//}
+
+						$(swichPagar).removeAttr('onclick');
+						$(swichPagar).attr('onclick', newFunction);
+						document.getElementById(btnXmlid).setAttribute('hidden', 'true');
+						//$(btnXmlid).attr('hidden',true);
+
+						let msjOne = 'The billing process was reversed out successfully.\n\n';
+						let msjTwo = 'El proceso pago fue revertido con exito.';
+						alert(msjOne + msjTwo);	
 					}	
-					let msjOne = 'The billing process was reversed out successfully.\n\n';
-					let msjTwo = 'El proceso pago fue revertido con exito.';
-					alert(msjOne + msjTwo);		
 				},
 				error: function (error) { 
 					console.log(error);
