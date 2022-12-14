@@ -35,7 +35,6 @@
 												$checkCheck = $dataFullP->collected == true ? 'checked' : '';
 												$revertir = $dataFullP->collected == true ? 'revertir' : '';
 												$valCollected = $dataFullP->collected == true ? 'true' : 'false';
-												$hiddenBtnXml = $dataFullP->collected == true ? '' : 'hidden';
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullP->patiente_id)->first_name }}  {{ json_decode($dataFullP->patiente_id)->last_name }}</td>	
@@ -96,6 +95,7 @@
 												$checkCheck = $dataFullW->paid == true ? 'checked' : '';
 												$revertir = $dataFullW->paid == true ? 'revertir' : '';
 												$valPay = $dataFullW->paid == true ? 'true' : 'false';
+												$hiddenBtnXml = $dataFullW->paid == true ? '' : 'hidden';
 												$explodeIM = isset(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) && !empty(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) ? explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0] : '';
 												$nameFile = json_decode($dataFullW->worker_id)->first_name . '_' . json_decode($dataFullW->worker_id)->last_name . '_' . str_replace(' ', '_', json_decode($dataFullW->sub_service_id)->name_sub_service) . '_from_' . date_format(date_create(data_previa_month_day_first()), 'd_m_Y') . '_to_' . date_format(date_create(data_previa_month_day_last()), 'd_m_Y') . '.zip';
 												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' .$dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker;
