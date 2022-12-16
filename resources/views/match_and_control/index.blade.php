@@ -541,6 +541,8 @@
 
 									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile.split(" ").join("_") + '" id="btn_send_xml_'+ dataFullW[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
 
+									btnRedirectAddMemo = '<button onclick="redirectAddMemoForPai(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].id + ',' + dataFullW[i].mont_pay + ');" id="redirectAddMemoForPai" name="redirectAddMemoForPai" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>\n'
+
 									var check =
 									'<div class="custom-control custom-switch">\n' +
 										'<input type="checkbox" onclick="'+revertir+'pagar(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + dataFullW[i].id + ');"  class="custom-control-input" name="Switch_worker_' + dataFullW[i].id + '" id="Switch_worker_' + dataFullW[i].id + '" ' + checkCheck + '>\n' +
@@ -578,7 +580,7 @@
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										memo,
 										dataFullW[i].mont_pay + '$ (USD)',
-										check + btnSendXml
+										check + btnRedirectAddMemo + btnSendXml
 									]).draw(null, false);
 								};
 							}
@@ -659,7 +661,50 @@
 			}
 		});
 	</script>
-	<script>
+	<script type="text/javascript">
+		function redirectAddMemoForPai(idWorker, idPatiente, idService, idSubservice, amountBase) {
+			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
+			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
+			var worker_id = idWorker;
+			var patiente_id = idPatiente;
+			var service_id = idService;
+			var sub_service_id = idSubservice;
+			var token = '{{ csrf_token() }}';
+			var datosAnid = worker_id + '/' + patiente_id + '/' + service_id + '/' + sub_service_id;
+			var amountBase = amountBase;
+
+			localStorage.setItem('dateDesde', dateDesde);
+			localStorage.setItem('dateHasta', dateHasta);
+			localStorage.setItem('amountBase', amountBase);
+
+			var url = '/reasonMemo/addMemoForPai/';
+
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType: 'json',
+				data: {
+					_token: token,
+					desde: dateDesde,
+					hasta: dateHasta,
+					worker_id: worker_id,
+					patiente_id: patiente_id,
+					service_id: service_id,
+					sub_service_id: sub_service_id
+				},
+				success: function(data) {
+					if(data['success'] == true){
+						window.location.href = url + datosAnid;
+						console.log(true);
+					}
+				},
+				error: function (error) { 
+					console.log(error);
+				}
+			});
+		};
+	</script>
+	<script type="text/javascript">
 		function generate1099File(id1099Doc) {
 			var dateDesde = $('#desde').val() + ' 00:00:00';
 			var dateHasta = $('#hasta').val() + ' 23:59:59';
@@ -953,7 +998,6 @@
 		var localURL = '{{ asset("filesXml/") }}';
 		var fileURL = localURL + fileName;
 		console.log(localURL, fileURL);
-		debugger;
 
 		var link = document.createElement('a');
 		link.href = fileURL;

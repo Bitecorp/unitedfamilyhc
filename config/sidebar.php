@@ -71,6 +71,10 @@ return [
                     'title' => 'Banks'
                 ],
                 [
+                    'url' => '/settings/reasonsMemos',
+                    'title' => 'Reasons Memos'
+                ],
+                [
                     'url' => '/settings/roles',
                     'title' => 'Roles'
                 ],

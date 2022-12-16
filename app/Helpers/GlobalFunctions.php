@@ -17,6 +17,7 @@ use App\Models\Service;
 use App\Models\SubServices;
 use App\Models\GenerateDocuments1099;
 use App\Models\NotesSubServicesRegister;
+use App\Models\ReasonMemo;
 use App\Models\documentsEditors;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
@@ -118,6 +119,44 @@ function url_actual()
         $url = "http://";
     }
     return $url . $_SERVER['HTTP_HOST'] .  $_SERVER['REQUEST_URI'];
+}
+
+function allReason()
+{
+    return ReasonMemo::all() ?? [] ;
+}
+
+function infoService($id, $dato = null)
+{
+    if(isset($dato)){
+        if($dato == 'name'){
+            return Service::find($id)->name_service;
+        }
+    }else{
+        return Service::find($id);
+    }
+}
+
+function infoSubService($id, $dato = null)
+{
+    if(isset($dato)){
+        if($dato == 'name'){
+            return SubServices::find($id)->name_sub_service;
+        }
+    }else{
+        return SubServices::find($id);
+    }
+}
+
+function infoUser($id, $dato = null)
+{
+    if(isset($dato)){
+        if($dato == 'fullName'){
+            return User::find($id)->first_name .' '. User::find($id)->last_name;
+        }
+    }else{
+        return User::find($id);
+    }
 }
 
 function encriptar($st)

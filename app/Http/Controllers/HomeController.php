@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use LDAP\Result;
 
+use App\Models\ReasonMemo;
+
 class jsonUsuario {
     public $servicio = "";
     public $statusPay = "";
