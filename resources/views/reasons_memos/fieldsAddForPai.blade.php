@@ -96,5 +96,15 @@ $urlAct = Request::fullUrl();
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('reasonsMemos.index') }}" class="btn btn-secondary">Cancel</a>
+    <button id="btn_back" type="button" class="btn btn-secondary">Back</button>
+    @push('scripts')
+        <script>
+            let p = document.getElementById("btn_back"); // Encuentra el elemento "p" en el sitio
+            p.onclick = muestraAlerta; // Agrega función onclick al elemento
+                
+            function muestraAlerta(evento) {
+                window.history.back();
+            }
+        </script>
+    @endpush
 </div>
