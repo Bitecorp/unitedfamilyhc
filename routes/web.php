@@ -83,6 +83,9 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/createMultiRegister', 'createMultiRegister');
 
+    Route::get('/patientAndWorkersWithoutNotes', 'dataSinagignacion')->name('dataSinagignacion.index');
+    Route::post('/patientAndWorkersWithoutNotes', 'dataSinagignacion')->name('dataSinagignacion.search');
+
 });
 
 

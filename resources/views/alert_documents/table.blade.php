@@ -66,6 +66,7 @@
             $('#tableDocumentsExpired').DataTable( {
                 retrieve: true,
                 paging: true,
+                autoFill: true,
                 searching: true
             });
         });

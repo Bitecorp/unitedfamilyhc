@@ -1,7 +1,7 @@
 <?php 
 
 $urlAct = Request::fullUrl();
-//dd(explode('/', $urlAct));
+//dd(base64_decode(explode('=', explode('?', explode('/', $urlAct)[8])[1])[1]));
 
 ?>
 <!-- Name Role Field -->
@@ -35,7 +35,7 @@ $urlAct = Request::fullUrl();
         <!-- Name Role Field -->
         <div class="form-group">
             {!! Form::label('sub_service_id', 'Sub Service:') !!}
-            {!! Form::text('sub_service_id', infoSubService(intval(explode('/', $urlAct)[8]), 'name'), ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true, 'readonly' => true]) !!}
+            {!! Form::text('sub_service_id', infoSubService(intval(explode('?', explode('/', $urlAct)[8])[0]), 'name'), ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true, 'readonly' => true]) !!}
         </div>
     </div>
 </div>
@@ -45,14 +45,14 @@ $urlAct = Request::fullUrl();
         <!-- Name Role Field -->
         <div class="form-group">
             {!! Form::label('desde', 'From:') !!}
-            {!! Form::text('desde', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true, 'readonly' => true]) !!}
+            <input type="text" name="desde" class="form-control" readonly value="" >
         </div>
     </div>
     <div class="col">
         <!-- Name Role Field -->
         <div class="form-group">
             {!! Form::label('hasta', 'To:') !!}
-            {!! Form::text('hasta', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255,'maxlength' => 255, 'required' => true, 'readonly' => true]) !!}
+            <input type="text" name="hasta" class="form-control" readonly value="" >
         </div>
     </div>
 </div>
@@ -97,14 +97,26 @@ $urlAct = Request::fullUrl();
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <button id="btn_back" type="button" class="btn btn-secondary">Back</button>
-    @push('scripts')
-        <script>
-            let p = document.getElementById("btn_back"); // Encuentra el elemento "p" en el sitio
-            p.onclick = muestraAlerta; // Agrega función onclick al elemento
-                
-            function muestraAlerta(evento) {
-                window.history.back();
-            }
-        </script>
-    @endpush
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+        let p = document.getElementById("btn_back"); // Encuentra el elemento "p" en el sitio
+        p.onclick = muestraAlerta; // Agrega función onclick al elemento
+                
+        function muestraAlerta(evento) {
+            window.history.back();
+        }
+
+        $(document).ready(function () {
+            var desde = localStorage.getItem('dateDesde');  
+            var hasta = localStorage.getItem('dateHasta');  
+            var amountBase = localStorage.getItem('amountBase');    
+
+            document.getElementById('desde').innerHTML = desde;
+            document.getElementById('hasta').innerHTML = hasta;
+            document.getElementById('amountBase').innerHTML = amountBase;
+        });
+
+    </script>
+@endpush

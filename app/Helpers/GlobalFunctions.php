@@ -19,6 +19,7 @@ use App\Models\GenerateDocuments1099;
 use App\Models\NotesSubServicesRegister;
 use App\Models\ReasonMemo;
 use App\Models\documentsEditors;
+use App\Models\PatientesAssignedWorkers;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 
@@ -1073,4 +1074,27 @@ function deleteDirectory($dir)
     }
     closedir($dh);
     @rmdir($dir);
+}
+
+function workersSinNotas($desde = null, $hasta = null){
+    $filtersAssigned = [];
+    $workersAssigneds = PatientesAssignedWorkers::all();
+    foreach($workersAssigneds as $key => $val){
+        array_push($filtersAssigned, ['worker_id' => $val['worker_id'], 'patiente_id' => $val['patiente_id']]);
+    }
+
+    $arrayWorkersSinNotas = [];
+    foreach($filtersAssigned as $key => $val){//data_previa_month_day_first()data_previa_month_day_last()
+        $dateDesde = isset($desde) ? $desde : data_previa_month_day_first();
+        $dateHasta = isset($hasta) ? $hasta : data_previa_month_day_last();
+
+        $notasCreadas = RegisterAttentions::where($val)->where('start', '>=', $dateDesde)->where('end', '<=', $dateHasta)->get();
+        if(count($notasCreadas) == 0){
+            $val['worker_id'] = User::where('id', $val['worker_id'])->first() ? User::where('id', $val['worker_id'])->first()->first_name . ' ' . User::where('id', $val['worker_id'])->first()->last_name : $val['worker_id'];
+            $val['patiente_id'] = User::where('id', $val['patiente_id'])->first() ? User::where('id', $val['patiente_id'])->first()->first_name . ' ' . User::where('id', $val['patiente_id'])->first()->last_name : $val['patiente_id'];
+            array_push($arrayWorkersSinNotas, $val);
+        }
+    }
+    
+    return count(collect($arrayWorkersSinNotas)) >= 1 ? collect($arrayWorkersSinNotas) : collect([]);
 }

@@ -262,6 +262,8 @@ class HomeController extends Controller
             }
         }
 
+        $arrayWorkersSinNotas = workersSinNotas();
+
         if (Auth::user()->role_id == 1) {
             return view('pages/dashboard/dashboard-v1')
                 ->with('workersCount', count($workersCount))
@@ -270,7 +272,9 @@ class HomeController extends Controller
                 ->with('countDocumentsPatientes', count(collect($patientesDocumentsExpireds)))
                 ->with('dataPagCobGanActual', dataPagCobGanActual())
                 ->with('dataPagCobGanLast', dataPagCobGanLast())
-                ->with('dataPagCobGanTri', dataPagCobGanTri());
+                ->with('dataPagCobGanTri', dataPagCobGanTri())
+                ->with('countSinNotas', count($arrayWorkersSinNotas))
+                ->with('sinNotas', $arrayWorkersSinNotas );
         } else {
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
@@ -286,6 +290,13 @@ class HomeController extends Controller
         }
     }
 
+    public function dataSinagignacion(Request $request){
+
+        $arrayWorkersSinNotas = !empty($request->all()) ? workersSinNotas($request->all()['desde'], $request->all()['hasta']) : workersSinNotas();
+
+        return view('workers_patients_without_notes/index')->with('sinNotas', $arrayWorkersSinNotas );
+
+    }
     public function searchPatienteService(Request $request)
     {
         $input = $request->all();

@@ -117,6 +117,23 @@
 			</div>
 		</div>
 		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-xl-3 col-md-6">
+			<div class="widget widget-stats {{ $countSinNotas >= 1 ? 'bg-red' : 'bg-teal' }}">
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-users"></i></div>
+                <div class="stats-content">
+					<div class="stats-title">WORKEERS/PATIENT WITHOUT NOTES</div>
+					<div class="stats-info">
+						<h4>DATA FROM THE PREVIOUS FORTNIGHT</h4>
+					</div>
+					<div class="stats-number">{{ $countSinNotas }}</div>
+					<div class="stats-link">
+                        <a href="{{ route('dataSinagignacion.index') }}">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
 	</div>
 	<!-- end row -->
 	<!-- begin row -->
