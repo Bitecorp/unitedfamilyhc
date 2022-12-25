@@ -112,10 +112,10 @@
 												<td>
 
 													<div class="custom-control custom-switch">
-														<input type="checkbox" onclick="{{ $revertir }}pagar({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }});"  class="custom-control-input" name="Switch_worker{ $dataFullW->id }}" id="Switch_worker{{ $dataFullW->id }}" {{ $checkCheck }}>
-														<label class="custom-control-label" for="Switch_worker{{ $dataFullW->id }}"></label>
+														<input type="checkbox" onclick="{{ $revertir }}pagar({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ $dataFullW->id }});"  class="custom-control-input" name="Switch_worker_{{ $dataFullW->id }}" id="Switch_worker_{{ $dataFullW->id }}" {{ $checkCheck }}>
+														<label class="custom-control-label" for="Switch_worker_{{ $dataFullW->id }}"></label>
 													</div>
-													<button onclick="redirectAddMemoForPai({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ $dataFullW->mont_pay }});" id="redirectAddMemoForPai" name="redirectAddMemoForPai" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>
+													<button hidden onclick="redirectAddMemoForPai({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ $dataFullW->mont_pay }});" id="redirectAddMemoForPai" name="redirectAddMemoForPai" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>
 													<a type="button" href="{{ asset('filesXml/' . str_replace(' ', '_', $nameFile)) }}"  download="{{ str_replace(' ', '_', $nameFile) }}" {{ $hiddenBtnXml }} id="btn_send_xml_{{ $dataFullW->id }}" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>
 												</td>
 

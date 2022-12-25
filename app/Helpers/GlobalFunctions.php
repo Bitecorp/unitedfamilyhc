@@ -1078,23 +1078,29 @@ function deleteDirectory($dir)
 
 function workersSinNotas($desde = null, $hasta = null){
     $filtersAssigned = [];
+
+    //busco la relacion entre pacientes y trabajadores (los trabajadores asignados de cada patiente)
     $workersAssigneds = PatientesAssignedWorkers::all();
     foreach($workersAssigneds as $key => $val){
+        //los filtro solo para obtener el id de patiente y el id del trabajador
         array_push($filtersAssigned, ['worker_id' => $val['worker_id'], 'patiente_id' => $val['patiente_id']]);
     }
 
     $arrayWorkersSinNotas = [];
-    foreach($filtersAssigned as $key => $val){//data_previa_month_day_first()data_previa_month_day_last()
+    //corro un ciclo para ver las notas de cada relacion obtenida anteriormente
+    foreach($filtersAssigned as $key => $val){
+        //si no paso fechas en los filtros uso las del sistema (quincena anterior)
         $dateDesde = isset($desde) ? $desde : data_previa_month_day_first();
         $dateHasta = isset($hasta) ? $hasta : data_previa_month_day_last();
 
         $notasCreadas = RegisterAttentions::where($val)->where('start', '>=', $dateDesde)->where('end', '<=', $dateHasta)->get();
+        //si el resultado del filtro es 0 egrego esa data de worker y patiente a los datos q pasare a la vista ubicando su nombre y apellido;
         if(count($notasCreadas) == 0){
             $val['worker_id'] = User::where('id', $val['worker_id'])->first() ? User::where('id', $val['worker_id'])->first()->first_name . ' ' . User::where('id', $val['worker_id'])->first()->last_name : $val['worker_id'];
             $val['patiente_id'] = User::where('id', $val['patiente_id'])->first() ? User::where('id', $val['patiente_id'])->first()->first_name . ' ' . User::where('id', $val['patiente_id'])->first()->last_name : $val['patiente_id'];
             array_push($arrayWorkersSinNotas, $val);
         }
     }
-    
+    //retorno los datos de trabajadores q estan asignados a un paciente y q no tienen notas en la quincena anterior o en la quincena de fechas ingresadas
     return count(collect($arrayWorkersSinNotas)) >= 1 ? collect($arrayWorkersSinNotas) : collect([]);
 }
