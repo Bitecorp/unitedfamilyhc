@@ -1096,9 +1096,15 @@ function workersSinNotas($desde = null, $hasta = null){
         $notasCreadas = RegisterAttentions::where($val)->where('start', '>=', $dateDesde)->where('end', '<=', $dateHasta)->get();
         //si el resultado del filtro es 0 egrego esa data de worker y patiente a los datos q pasare a la vista ubicando su nombre y apellido;
         if(count($notasCreadas) == 0){
-            $val['worker_id'] = User::where('id', $val['worker_id'])->first() ? User::where('id', $val['worker_id'])->first()->first_name . ' ' . User::where('id', $val['worker_id'])->first()->last_name : $val['worker_id'];
-            $val['patiente_id'] = User::where('id', $val['patiente_id'])->first() ? User::where('id', $val['patiente_id'])->first()->first_name . ' ' . User::where('id', $val['patiente_id'])->first()->last_name : $val['patiente_id'];
-            array_push($arrayWorkersSinNotas, $val);
+            if(count($notasCreadas) == 0){
+                $workerFil = User::where('id', $val['worker_id'])->first();
+                $patienteFil = User::where('id', $val['patiente_id'])->first();
+                if(($workerFil && $workerFil->statu_id == 1) && ($patienteFil && $patienteFil->statu_id == 1)){
+                    $val['worker_id'] = $workerFil ? $workerFil->first_name . ' ' . $workerFil->last_name : $val['worker_id'];
+                    $val['patiente_id'] = $patienteFil ? $patienteFil->first_name . ' ' . $patienteFil->last_name : $val['patiente_id'];
+                    array_push($arrayWorkersSinNotas, $val);
+                }
+            }
         }
     }
     //retorno los datos de trabajadores q estan asignados a un paciente y q no tienen notas en la quincena anterior o en la quincena de fechas ingresadas
