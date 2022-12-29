@@ -140,7 +140,7 @@ Route::resource('settings/banks', App\Http\Controllers\BankController::class);
 Route::resource('settings/reasonsMemos', App\Http\Controllers\ReasonMemoController::class);
 
 Route::controller(ReasonMemoController::class)->group(function () {
-    Route::post('/reasonMemo/addMemoForPai/', 'addMemoForPai');
+    Route::get('/reasonMemo/addMemoForPai/', 'addMemoForPai');
     Route::get('/reasonMemo/addMemoForPai/{idW}/{idP}/{idS}/{idSS}', 'addMemoForPaiView')->name('reasonMemo.addMemoForPai');
     Route::post('/reasonMemo/addMemoForPaiStore/', 'addMemoForPaiStore')->name('reasonsMemos.addMemoForPai');
 });

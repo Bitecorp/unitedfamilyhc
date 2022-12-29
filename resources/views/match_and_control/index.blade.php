@@ -683,7 +683,7 @@
 			var url = '/reasonMemo/addMemoForPai/';
 
 			$.ajax({
-				type: "post",
+				type: "get",
 				url: url,
 				dataType: 'json',
 				data: {
