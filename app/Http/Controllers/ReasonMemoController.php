@@ -8,6 +8,7 @@ use App\Repositories\ReasonMemoRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\ReasonMemo;
+use App\Models\ReasonMemoForPai;
 use Flash;
 use Response;
 
@@ -168,6 +169,63 @@ class ReasonMemoController extends AppBaseController
     public function addMemoForPaiView($idW, $idP, $idS, $idSS, Request $request){
         $reasonMemos = ReasonMemo::all();
 
-        return view('reasons_memos.addMemoForPaiView')->with('reasonMemos', $reasonMemos);
+        $decode = explode(",", base64_decode($request->all()['token']));
+        $filters = [
+            'worker_id' => $idW,
+            'patiente_id' => $idP,
+            'service_id' => $idS,
+            'sub_service_id' => $idSS,
+            'amount_base' => number_format((float)(floatval($decode[2]) - 0.01), 2, '.', '')
+        ];
+
+        $resonMemosForPai = ReasonMemoForPai::where($filters)->where('from', '>=',  $decode[0] . ' 00:00:01')->where('to', '>=',  $decode[1] . ' 23:59:59')->first();
+
+        return view('reasons_memos.addMemoForPaiView')->with('reasonMemos', $reasonMemos)->with('resonMemosForPai', $resonMemosForPai ? $resonMemosForPai : null);
     }
+
+    public function addMemoForPaiStore(Request $request){
+        $input = $request->all();
+        $filters = [
+            'worker_id' => $input['worker_id'],
+            'patiente_id' => $input['patiente_id'],
+            'service_id' => $input['service_id'],
+            'sub_service_id' => $input['sub_service_id'],
+            'amount_base' => number_format((float)floatval($input['amount_base']), 2, '.', '')
+        ];
+
+        $resonMemosForPai = ReasonMemoForPai::where($filters)->where('from', '>=',  $input['from'])->where('to', '>=',  $input['to'])->first();
+
+        $flight = isset($resonMemosForPai) ? ReasonMemoForPai::find($resonMemosForPai->id) : new ReasonMemoForPai;
+        foreach($input AS $k => $v){
+            if($k != '_token' &&
+                $k != 'worker' &&
+                $k != 'patiente' &&
+                $k != 'service' &&
+                $k != 'sub_service' &&
+                $k != 'desde' &&
+                $k != 'hasta' &&
+                $k != 'reason_id' &&
+                $k != 'mont_memo'
+            ){
+                $flight->$k = $v;
+            }
+
+            if($k == 'reason_id'){
+                $flight->reasons_id = json_encode($v);
+            }
+
+            if($k == 'mont_memo'){
+                $flight->monts_memo = json_encode($v);
+            }
+        }
+
+        if(!isset($resonMemosForPai)){
+            $flight->created_at = now();
+        }        
+        $flight->updated_at = now();
+        
+        $flight->save();
+        return redirect(route('manageBillAndPay'));
+    }
+    
 }

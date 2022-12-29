@@ -1,3 +1,9 @@
+<?php 
+
+$urlAct = Request::fullUrl();
+//dd([intval(explode('/', $urlAct)[5]), intval(explode('/', $urlAct)[6]), intval(explode('/', $urlAct)[7]), intval(explode('/', $urlAct)[8])]);
+?>
+
 @extends('layouts.default')
 
 @section('content')
@@ -5,7 +11,7 @@
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">New Memo For Pai</h4>
+            <h4 class="panel-title">New Credi Memo</h4>
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
@@ -14,7 +20,7 @@
             </div>
         </div>
         <div class="panel-body">
-            {!! Form::open(['route' => 'reasonsMemos.store']) !!}
+            {!! Form::open(['route' => 'reasonsMemos.addMemoForPai']) !!}
                 @include('reasons_memos.fieldsAddForPai')
             {!! Form::close() !!}
         </div>

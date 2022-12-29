@@ -55,7 +55,7 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/myProfile/{idUser}', 'postMyProfile')->name('home.MyProfile');
 
-    Route::get('/manageBillAndPay', 'matchAndControlFilter');
+    Route::get('/manageBillAndPay', 'matchAndControlFilter')->name('manageBillAndPay');
 
     Route::get('/generate1099', 'generate1099Filters');
 
@@ -142,6 +142,7 @@ Route::resource('settings/reasonsMemos', App\Http\Controllers\ReasonMemoControll
 Route::controller(ReasonMemoController::class)->group(function () {
     Route::post('/reasonMemo/addMemoForPai/', 'addMemoForPai');
     Route::get('/reasonMemo/addMemoForPai/{idW}/{idP}/{idS}/{idSS}', 'addMemoForPaiView')->name('reasonMemo.addMemoForPai');
+    Route::post('/reasonMemo/addMemoForPaiStore/', 'addMemoForPaiStore')->name('reasonsMemos.addMemoForPai');
 });
 
 Route::resource('settings/status', App\Http\Controllers\StatuController::class);
