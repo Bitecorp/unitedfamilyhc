@@ -18,6 +18,7 @@ use DB;
 use Carbon\Carbon;
 use App\Models\NotesSubServicesRegister;
 use App\Models\ReferencesPersonalesTwo;
+use App\Models\ReasonMemoForPai;
 use Flash;
 use DateTime;
 use App\Models\Units;
@@ -1366,7 +1367,13 @@ class HomeController extends Controller
             if(isset($generate1099Id->file) &&  !empty($generate1099Id->file)){
                 unlink(storage_path('app/templates_documents') .'/'. $generate1099Id->file); //elimino el f   
             }
-        }  
+        }
+
+        unset($filters['paid']);
+        $memoForPai = ReasonMemoForPai::where($filters)->where('from', '>=', $filtersDate['start'])->where('to', '<=', $filtersDate['end'])->first();
+        if(isset($memoForPai)){
+            ReasonMemoForPai::destroy($memoForPai->id);
+        }
 
         return response()->json([
             'data' => [],
