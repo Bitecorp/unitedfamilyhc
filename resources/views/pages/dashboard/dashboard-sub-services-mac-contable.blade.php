@@ -101,7 +101,7 @@
 												$crediMemo = number_format((float)$dataFullW->montMemos, 2, '.', '') > 0 ? ' / Credi Memos = ' . number_format((float)$dataFullW->montMemos, 2, '.', '') : '';
 												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' . $dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker . $crediMemo;
 												$valToPai = number_format((float)($dataFullW->mont_pay - $dataFullW->montMemos), 2, '.', '');
-												$hiddenBtnMemo = isset($dataFullW->credi_memos) ? 'hidden' : '';
+												$hiddenBtnMemo = isset($dataFullW->credi_memos) || $dataFullW->paid == true ? 'hidden' : '';
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
