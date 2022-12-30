@@ -103,6 +103,12 @@
             <input type="text" id="to" name="to" class="form-control" readonly value="" >
         </div>
     </div>
+    <div class="col">
+        <!-- Name Role Field -->
+        <div class="form-group">
+            <input type="text" id="tokenUrl" name="tokenUrl" class="form-control" readonly value="{{ $token }}" >
+        </div>
+    </div>
 </div>
 
 <div class="card mb-3 ml-1 mr-1 mt-1">
@@ -125,17 +131,21 @@
         </div>
         @if (isset($resonMemosForPai))
             <?php
-                $monts = explode('"', $resonMemosForPai->monts_memo);
-                $arrayMonts = [];
-                for($i = 1; $i < count($monts); $i+=2){
-                    array_push($arrayMonts, intval($monts[$i]));
-                }
+                //$monts = explode('"', $resonMemosForPai->monts_memo);
+                //$arrayMonts = [];
+                //for($i = 1; $i < count($monts); $i+=2){
+                  //  array_push($arrayMonts, intval($monts[$i]));
+                //}
 
-                $reasons = explode('"', $resonMemosForPai->reasons_id);
-                $arrayReasons = [];
-                for($i = 1; $i < count($reasons); $i+=2){
-                    array_push($arrayReasons, intval($reasons[$i]));
-                }
+                $arrayMonts = json_decode($resonMemosForPai['monts_memo']);
+
+                //$reasons = explode('"', $resonMemosForPai['reasons_id']);
+                //$arrayReasons = [];
+                //for($i = 1; $i < count($reasons); $i+=2){
+                  //  array_push($arrayReasons, intval($reasons[$i]));
+                //}
+
+                $arrayReasons = json_decode($resonMemosForPai['reasons_id']);
             ?>
         @endif
 
@@ -155,7 +165,7 @@
 
                         <div class="col">
                             <div class="form-group">
-                                <input type="text" id="mont_meno[]" name="mont_memo[]" class="form-control" value="{{ $arrayMonts[0] ? $arrayMonts[0] : '' }}" required/>
+                                <input type="text" id="mont_meno[]" name="mont_memo[]" class="form-control" value="{{ $arrayMonts[0] ? number_format((float)$arrayMonts[0], 2, '.', '') : '' }}" required/>
                             </div>
                         </div>
                         <a href="javascript:void(0);" class="add_button btn btn-xs btn-icon btn-circle btn-primary mt-2" title="Add Memo"><i class="fa fa-plus"></i></a>
@@ -190,7 +200,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <select name="reason_id[]" id="reason_id[]" class="default-select2 form-control">
+                                    <select name="reason_id[]" id="reason_id" class="default-select2 form-control">
                                         @foreach($reasonMemos as $reasonMemo)
                                             <option value="{{ $reasonMemo->id }}" {{ intval($arrayReasons[$i]) == intval($reasonMemo->id) ? 'selected' : '' }}>{{ $reasonMemo->title_reason }}</option>
                                         @endforeach
@@ -200,7 +210,7 @@
 
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="text" id="mont_meno[]" name="mont_memo[]" class="form-control" value="{{ $arrayMonts[$i] ? $arrayMonts[$i] : '' }}" required/>
+                                    <input type="text" id="mont_meno" name="mont_memo[]" class="form-control" value="{{ $arrayMonts[$i] ? number_format((float)$arrayMonts[$i], 2, '.', '') : '' }}" required/>
                                 </div>
                             </div>
                             <a href="javascript:void(0);" class="remove_button btn btn-xs btn-icon btn-circle btn-danger mt-2" title="Remove Memo"><i class="fa fa-minus"></i></a>
@@ -214,17 +224,31 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+    <button id="send_form_memo" name="send_form_memo" onclick="evalAndSendForm()" type="button" class="btn btn-primary">Save</button>
+    <!--{!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}-->
     <button id="btn_back" type="button" class="btn btn-secondary">Back</button>
 </div>
 
 @push('scripts')
     <script type="text/javascript">
+        function evalAndSendForm(){
+            //window.history.pushState({ prevUrl: window.location.href }, null, "/new/route");
+
+            $('#formMemoForPai').submit();
+            
+        }
+    </script>
+
+    <script type="text/javascript">
         let p = document.getElementById("btn_back"); // Encuentra el elemento "p" en el sitio
         p.onclick = muestraAlerta; // Agrega función onclick al elemento
                 
         function muestraAlerta(evento) {
-            window.history.back();
+            let querystring = window.location.search;
+            let params = new URLSearchParams(querystring)
+            let returnVal = '-' + params.get('r');
+            window.history.go(returnVal);
+            //window.history.back();
         }
 
         $(document).ready(function () {

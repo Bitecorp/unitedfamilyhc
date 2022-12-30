@@ -550,8 +550,10 @@
 									'</div>\n';
 
 									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
-									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker;
-									
+									var crediMemo = dataFullW[i].montMemos > 0 ? ' / Credi Memos = ' + parseFloat(dataFullW[i].montMemos) : '';
+									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo;
+									var valToPai = parseFloat(parseFloat(dataFullW[i].mont_pay) - parseFloat(dataFullW[i].montMemos)).toFixed(2);
+
 									dataFullW[i].sub_service_id.name_sub_service.split(' ')[0]
 									$('#contable-table-wor').DataTable({
 										dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex mr-0 mr-sm-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>>',
@@ -579,7 +581,7 @@
 										dataFullW[i].unidad_time_worker + ' ' + dataFullW[i].unidad_type_worker + ' - ' + dataFullW[i].unit_value_worker + '$ (USD)',
 										dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker,
 										memo,
-										dataFullW[i].mont_pay + '$ (USD)',
+										valToPai + '$ (USD)',
 										check + btnRedirectAddMemo + btnSendXml
 									]).draw(null, false);
 								};
@@ -665,6 +667,8 @@
 		function redirectAddMemoForPai(idWorker, idPatiente, idService, idSubservice, amountBase) {
 			var dateDesde = $('#desde').val() != '' ? $('#desde').val() + ' 00:00:00' : '{{ data_previa_month_day_first() }}';
 			var dateHasta = $('#hasta').val() != '' ? $('#hasta').val() + ' 23:59:59' : '{{ data_previa_month_day_last() }}';
+			var serviceFilter = $('#service_id').val();
+			var paidFilter = $('#paid').val();
 			var worker_id = idWorker;
 			var patiente_id = idPatiente;
 			var service_id = idService;
@@ -677,10 +681,14 @@
 			localStorage.setItem('dateHasta', dateHasta.split(' ')[0]);
 			localStorage.setItem('amountBase', amountBase.toString());
 
+			let filters = new Array(serviceFilter, paidFilter, dateDesde.split(' ')[0], dateHasta.split(' ')[0]);
+
 			var qs = dateDesde.split(' ')[0] + ',' + dateHasta.split(' ')[0] + ',' + amountBase;
 			var qse = btoa(qs);
 
 			var url = '/reasonMemo/addMemoForPai/';
+
+			var urlTotal = url + datosAnid + '?token=' + qse + '&r=1';
 
 			$.ajax({
 				type: "get",
@@ -697,7 +705,7 @@
 				},
 				success: function(data) {
 					if(data['success'] == true){
-						window.location.href = url + datosAnid + '?token=' + qse;
+						window.location.href = urlTotal;
 						console.log(true);
 					}
 				},
@@ -888,6 +896,7 @@
 						//}else if(obj){
 							//obj.click(); 
 						//}$('#btn_submit_1099').attr('disabled', 'disabled');
+						document.getElementById('redirectAddMemoForPai_' + id).setAttribute('hidden', 'true');
 						$(swichPagar).removeAttr('onclick');
 						$(swichPagar).attr('onclick', newFunction);
 						document.getElementById(btnXmlid).removeAttribute('hidden');
@@ -944,7 +953,7 @@
 						//}else if(obj){
 							//obj.click(); 
 						//}
-
+						$('#redirectAddMemoForPai_' + id).removeAttr('hidden');
 						$(swichPagar).removeAttr('onclick');
 						$(swichPagar).attr('onclick', newFunction);
 						document.getElementById(btnXmlid).setAttribute('hidden', 'true');

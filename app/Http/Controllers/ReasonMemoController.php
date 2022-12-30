@@ -180,11 +180,38 @@ class ReasonMemoController extends AppBaseController
 
         $resonMemosForPai = ReasonMemoForPai::where($filters)->where('from', '>=',  $decode[0] . ' 00:00:01')->where('to', '>=',  $decode[1] . ' 23:59:59')->first();
 
+        //dd(json_decode($resonMemosForPai['monts_memo']));
+
         return view('reasons_memos.addMemoForPaiView')->with('reasonMemos', $reasonMemos)->with('resonMemosForPai', $resonMemosForPai ? $resonMemosForPai : null);
     }
 
     public function addMemoForPaiStore(Request $request){
+
         $input = $request->all();
+
+        $sumMemos = 0;
+        if(count($input['mont_memo']) > 1){
+            foreach($input['mont_memo'] as $k => $v){
+                foreach($input['mont_memo'] as $k2 => $v2){
+                    if($k < $k2){
+                        $sumMemos = number_format(number_format((float)floatval($v), 2, '.', '') + number_format((float)floatval($v2), 2, '.', ''), 2, '.', '');
+                    }
+                }
+            }
+        }else{
+            $sumMemos = number_format((float)floatval($input['mont_memo'][0]), 2, '.', '');
+        }
+        if(number_format((float)floatval($sumMemos), 2, '.', '') > number_format((float)floatval($input['amount_base']), 2, '.', '')){
+            Flash::error('The sum of the Credi Memos cannot be greater than the base amount');
+
+            $oldToken = str_replace("&token", "", explode('=', $input['tokenUrl']));
+            $sum = intval($oldToken[1]) + 1;
+            $newToken = $oldToken[2] . '&r=' . strval($sum);
+
+            return redirect(route('reasonMemo.addMemoForPai', [$input['worker_id'], $input['patiente_id'], $input['service_id'], $input['sub_service_id']])  . "?token=" . $newToken);
+        }
+
+
         $filters = [
             'worker_id' => $input['worker_id'],
             'patiente_id' => $input['patiente_id'],
@@ -205,7 +232,8 @@ class ReasonMemoController extends AppBaseController
                 $k != 'desde' &&
                 $k != 'hasta' &&
                 $k != 'reason_id' &&
-                $k != 'mont_memo'
+                $k != 'mont_memo' &&
+                $k != 'tokenUrl'
             ){
                 $flight->$k = $v;
             }
@@ -225,7 +253,17 @@ class ReasonMemoController extends AppBaseController
         $flight->updated_at = now();
         
         $flight->save();
-        return redirect(route('manageBillAndPay'));
+            if(isset($resonMemosForPai)){
+                Flash::success('Your Credi Memos were successfully updated.');
+            }else{
+                Flash::success('Your Credi Memos were successfully processed.');
+            }
+
+            $oldToken = str_replace("&token", "", explode('=', $input['tokenUrl']));
+            $sum = intval($oldToken[1]) + 1;
+            $newToken = $oldToken[2] . '&r=' . strval($sum);
+
+            return redirect(route('reasonMemo.addMemoForPai', [$input['worker_id'], $input['patiente_id'], $input['service_id'], $input['sub_service_id']])  . "?token=" . $newToken);
     }
     
 }

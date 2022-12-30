@@ -98,8 +98,9 @@
 												$hiddenBtnXml = $dataFullW->paid == true ? '' : 'hidden';
 												$explodeIM = isset(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) && !empty(explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0]) ? explode(' ', json_decode($dataFullW->sub_service_id)->name_sub_service)[0] : '';
 												$nameFile = json_decode($dataFullW->worker_id)->first_name . '_' . json_decode($dataFullW->worker_id)->last_name . '_' . str_replace(' ', '_', json_decode($dataFullW->sub_service_id)->name_sub_service) . '_from_' . date_format(date_create(data_previa_month_day_first()), 'd_m_Y') . '_to_' . date_format(date_create(data_previa_month_day_last()), 'd_m_Y') . '.zip';
-												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' .$dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker;
-
+												$crediMemo = number_format((float)$dataFullW->montMemos, 2, '.', '') > 0 ? ' / Credi Memos = ' . number_format((float)$dataFullW->montMemos, 2, '.', '') : '';
+												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' . $dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker . $crediMemo;
+												$valToPai = number_format((float)($dataFullW->mont_pay - $dataFullW->montMemos), 2, '.', '')
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
@@ -108,7 +109,7 @@
 												<td>{{ $dataFullW->unidad_time_worker }} {{ $dataFullW->unidad_type_worker }} - {{ $dataFullW->unit_value_worker }} $ (USD)</td>
 												<td>{{ $dataFullW->time_attention }} = {{ $dataFullW->unid_pay_worker }}</td>
 												<td>{{ $memo }}</td>
-												<td>{{ $dataFullW->mont_pay }} (USD)</td>
+												<td>{{ $valToPai }} $ (USD)</td>
 												<td>
 
 													<div class="custom-control custom-switch">

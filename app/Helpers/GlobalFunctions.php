@@ -20,6 +20,7 @@ use App\Models\NotesSubServicesRegister;
 use App\Models\ReasonMemo;
 use App\Models\documentsEditors;
 use App\Models\PatientesAssignedWorkers;
+use App\Models\ReasonMemoForPai;
 use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Support\Facades\Config;
 
@@ -522,6 +523,33 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                     } else {
                         $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                         $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                    }
+
+                    //dd($dataWorker->id, $dataPatiente->id, $dataService->id, $dataSubService->id, data_previa_month_day_first(), data_previa_month_day_last());
+                    $crediMemos = ReasonMemoForPai::where('service_id', $dataService->id)
+                        ->where('worker_id', $dataWorker->id)
+                        ->where('sub_service_id', $dataSubService->id)
+                        ->where('patiente_id', $dataPatiente->id)
+                        ->where('from', '>=', new \DateTime($fecha_desde))
+                        ->where('to', '<=', new \DateTime($fecha_hasta))->first();
+
+                    if(isset($crediMemos)){
+                        $arraySumC->credi_memos = $crediMemos;
+                        $arraySumC->montMemos = 0;
+                        if(count(json_decode($crediMemos->monts_memo)) > 1){
+                            foreach(json_decode($crediMemos->monts_memo) as $k => $v){
+                                foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
+                                    if($k < $k2){
+                                        $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                    }
+                                }
+                            }
+                        }else{
+                            $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                        }
+                    }else{
+                        $arraySumC->credi_memos = [];
+                        $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
                     }
 
                     $arraySumC->unid_pay_worker = $unidadesPorPagar;

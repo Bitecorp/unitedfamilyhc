@@ -525,6 +525,7 @@ class HomeController extends Controller
         $services = Service::all();
         $dataMensual = $this->matchAndControl() ?? [];
         $dataMensualDasboard = $this->matchAndControlAgrupado($request) ?? [];
+
         return view('match_and_control.index')->with('services', $services)->with('dataMensual', $dataMensual)->with('dataMensualDasboard', $dataMensualDasboard);
     
     }
@@ -696,6 +697,33 @@ class HomeController extends Controller
                             $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                             $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
                         }
+
+                        //dd($dataWorker->id, $dataPatiente->id, $dataService->id, $dataSubService->id, data_previa_month_day_first(), data_previa_month_day_last());
+                        $crediMemos = ReasonMemoForPai::where('service_id', $dataService->id)
+                            ->where('worker_id', $dataWorker->id)
+                            ->where('sub_service_id', $dataSubService->id)
+                            ->where('patiente_id', $dataPatiente->id)
+                            ->where('from', '>=', $filters['desde'])
+                            ->where('to', '<=', $filters['hasta'])->first();
+
+                        if(isset($crediMemos)){
+                            $arraySumC->credi_memos = $crediMemos;
+                            $arraySumC->montMemos = 0;
+                            if(count(json_decode($crediMemos->monts_memo)) > 1){
+                                foreach(json_decode($crediMemos->monts_memo) as $k => $v){
+                                    foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
+                                        if($k < $k2){
+                                            $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                        }
+                                    }
+                                }
+                            }else{
+                                $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                            }
+                        }else{
+                            $arraySumC->credi_memos = [];
+                            $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
+                        }
                         
                         $arraySumC->unid_pay_worker = $unidadesPorPagar;
                         $calcPay = $arraySumC->unid_pay_worker * $dataPagosWorker->salary;
@@ -813,7 +841,7 @@ class HomeController extends Controller
         if(count($request->all()) == 0){
             $data = $this->matchAndControl(true);
         }else{
-            $data = $this->matchAndControlSearch($request, true);
+            $data = $this->matchAndControlSearch($request, true); ////
         }
 
         $newDataW = [];
@@ -1175,6 +1203,33 @@ class HomeController extends Controller
                         }else{
                             $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                             $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+
+                        //dd($dataWorker->id, $dataPatiente->id, $dataService->id, $dataSubService->id, data_previa_month_day_first(), data_previa_month_day_last());
+                        $crediMemos = ReasonMemoForPai::where('service_id', $dataService->id)
+                            ->where('worker_id', $dataWorker->id)
+                            ->where('sub_service_id', $dataSubService->id)
+                            ->where('patiente_id', $dataPatiente->id)
+                            ->where('from', '>=', $filters['desde'])
+                            ->where('to', '<=', $filters['hasta'])->first();
+
+                        if(isset($crediMemos)){
+                            $arraySumC->credi_memos = $crediMemos;
+                            $arraySumC->montMemos = 0;
+                            if(count(json_decode($crediMemos->monts_memo)) > 1){
+                                foreach(json_decode($crediMemos->monts_memo) as $k => $v){
+                                    foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
+                                        if($k < $k2){
+                                            $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                        }
+                                    }
+                                }
+                            }else{
+                                $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                            }
+                        }else{
+                            $arraySumC->credi_memos = [];
+                            $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
                         }
 
                         
@@ -1636,7 +1691,7 @@ class HomeController extends Controller
             if(isset($arraySumClean) && !empty($arraySumClean) && count($arraySumClean) >= 1){
                 foreach($arraySumClean as $arraySumC){
                     //array_push($dataInit, array($arraySumC->worker_id, $arraySumC->patiente_id, $arraySumC->service_id, $arraySumC->sub_service_id));
-
+                    
                     $dataWorker = User::find($arraySumC->worker_id);
                     $arraySumC->worker_id = $dataWorker;
 
@@ -1700,6 +1755,32 @@ class HomeController extends Controller
                         }else{
                             $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                             $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+                        //dd($dataWorker->id, $dataPatiente->id, $dataService->id, $dataSubService->id, data_previa_month_day_first(), data_previa_month_day_last());
+                        $crediMemos = ReasonMemoForPai::where('service_id', $dataService->id)
+                            ->where('worker_id', $dataWorker->id)
+                            ->where('sub_service_id', $dataSubService->id)
+                            ->where('patiente_id', $dataPatiente->id)
+                            ->where('from', '>=', data_previa_month_day_first())
+                            ->where('to', '<=', data_previa_month_day_last())->first();
+
+                        if(isset($crediMemos)){
+                            $arraySumC->credi_memos = $crediMemos;
+                            $arraySumC->montMemos = 0;
+                            if(count(json_decode($crediMemos->monts_memo)) > 1){
+                                foreach(json_decode($crediMemos->monts_memo) as $k => $v){
+                                    foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
+                                        if($k < $k2){
+                                            $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                        }
+                                    }
+                                }
+                            }else{
+                                $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                            }
+                        }else{
+                            $arraySumC->credi_memos = [];
+                            $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
                         }
                         
                         $arraySumC->unid_pay_worker = $unidadesPorPagar;
@@ -1938,6 +2019,33 @@ class HomeController extends Controller
                         }else{
                             $calc = ($times[0] + ($times[1] / 100)) / $arraySumC->unidad_time_worker;
                             $unidadesPorPagar = number_format((float)$calc, 2, '.', '');
+                        }
+
+                        //dd($dataWorker->id, $dataPatiente->id, $dataService->id, $dataSubService->id, data_previa_month_day_first(), data_previa_month_day_last());
+                        $crediMemos = ReasonMemoForPai::where('service_id', $dataService->id)
+                            ->where('worker_id', $dataWorker->id)
+                            ->where('sub_service_id', $dataSubService->id)
+                            ->where('patiente_id', $dataPatiente->id)
+                            ->where('from', '>=', data_previa_month_day_first())
+                            ->where('to', '<=', data_previa_month_day_last())->first();
+
+                        if(isset($crediMemos)){
+                            $arraySumC->credi_memos = $crediMemos;
+                            $arraySumC->montMemos = 0;
+                            if(count(json_decode($crediMemos->monts_memo)) > 1){
+                                foreach(json_decode($crediMemos->monts_memo) as $k => $v){
+                                    foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
+                                        if($k < $k2){
+                                            $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                        }
+                                    }
+                                }
+                            }else{
+                                $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                            }
+                        }else{
+                            $arraySumC->credi_memos = [];
+                            $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
                         }
 
                         

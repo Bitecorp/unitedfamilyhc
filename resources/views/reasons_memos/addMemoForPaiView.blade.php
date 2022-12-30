@@ -1,13 +1,19 @@
 <?php 
 
 $urlAct = Request::fullUrl();
+//base64_decode(str_replace("%3D", "=", explode('=' ,explode('/', $urlAct)[8])))
+//dd($urlAct, base64_decode(str_replace("%3D", "=", explode('=' ,explode('/', $urlAct)[8]))[1]));
 //dd([intval(explode('/', $urlAct)[5]), intval(explode('/', $urlAct)[6]), intval(explode('/', $urlAct)[7]), intval(explode('/', $urlAct)[8])]);
+
+$token = explode('?', str_replace("%3D", "=",explode('/', $urlAct)[8]))[1];
+//dd(explode('?', str_replace("%3D", "=",explode('/', $urlAct)[8]))[1]);
 ?>
 
 @extends('layouts.default')
 
 @section('content')
     @include('coreui-templates::common.errors')
+    @include('flash::message')
     <!-- begin panel -->
     <div class="panel panel-inverse">
         <div class="panel-heading">
@@ -20,7 +26,7 @@ $urlAct = Request::fullUrl();
             </div>
         </div>
         <div class="panel-body">
-            {!! Form::open(['route' => 'reasonsMemos.addMemoForPai']) !!}
+            {!! Form::open(['route' => 'reasonsMemos.addMemoForPai', 'id' => 'formMemoForPai']) !!}
                 @include('reasons_memos.fieldsAddForPai')
             {!! Form::close() !!}
         </div>
