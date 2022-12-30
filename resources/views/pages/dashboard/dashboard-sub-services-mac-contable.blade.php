@@ -100,7 +100,8 @@
 												$nameFile = json_decode($dataFullW->worker_id)->first_name . '_' . json_decode($dataFullW->worker_id)->last_name . '_' . str_replace(' ', '_', json_decode($dataFullW->sub_service_id)->name_sub_service) . '_from_' . date_format(date_create(data_previa_month_day_first()), 'd_m_Y') . '_to_' . date_format(date_create(data_previa_month_day_last()), 'd_m_Y') . '.zip';
 												$crediMemo = number_format((float)$dataFullW->montMemos, 2, '.', '') > 0 ? ' / Credi Memos = ' . number_format((float)$dataFullW->montMemos, 2, '.', '') : '';
 												$memo = json_decode($dataFullW->patiente_id)->first_name . ' ' . json_decode($dataFullW->patiente_id)->last_name . ' ' . $explodeIM . ' ' . $dataFullW->time_attention . ' = ' . $dataFullW->unid_pay_worker . $crediMemo;
-												$valToPai = number_format((float)($dataFullW->mont_pay - $dataFullW->montMemos), 2, '.', '')
+												$valToPai = number_format((float)($dataFullW->mont_pay - $dataFullW->montMemos), 2, '.', '');
+												$hiddenBtnMemo = isset($dataFullW->credi_memos) ? 'hidden' : '';
 											?>
 											<tr>
 												<td>{{ json_decode($dataFullW->worker_id)->first_name }} {{ json_decode($dataFullW->worker_id)->last_name }}</td>
@@ -117,7 +118,7 @@
 														<label class="custom-control-label" for="Switch_worker_{{ $dataFullW->id }}"></label>
 													</div>
 
-													<button onclick="redirectAddMemoForPai({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ strval(($dataFullW->mont_pay + 0.01)) }});" id="redirectAddMemoForPai_{{ $dataFullW->id }}" name="redirectAddMemoForPai_{{ $dataFullW->id }}" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>
+													<button {{ $hiddenBtnMemo }} onclick="redirectAddMemoForPai({{ json_decode($dataFullW->worker_id)->id }}, {{ json_decode($dataFullW->patiente_id)->id }}, {{ json_decode($dataFullW->service_id)->id }}, {{ json_decode($dataFullW->sub_service_id)->id }}, {{ strval(($dataFullW->mont_pay + 0.01)) }});" id="redirectAddMemoForPai_{{ $dataFullW->id }}" name="redirectAddMemoForPai_{{ $dataFullW->id }}" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>
 													<a type="button" href="{{ asset('filesXml/' . str_replace(' ', '_', $nameFile)) }}"  download="{{ str_replace(' ', '_', $nameFile) }}" {{ $hiddenBtnXml }} id="btn_send_xml_{{ $dataFullW->id }}" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>
 												</td>
 

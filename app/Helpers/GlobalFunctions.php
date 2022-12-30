@@ -540,16 +540,16 @@ function dataPayUnitsServicesForWorker($worker_id = null, $fecha_desde = null, $
                             foreach(json_decode($crediMemos->monts_memo) as $k => $v){
                                 foreach(json_decode($crediMemos->monts_memo) as $k2 => $v2){
                                     if($k < $k2){
-                                        $arraySumC->montMemos = number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
+                                        $arraySumC->montMemos = $arraySumC->montMemos + number_format((float)$v, 2, '.', '') + number_format((float)$v2, 2, '.', '');
                                     }
                                 }
                             }
                         }else{
-                            $arraySumC->montMemos = number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
+                            $arraySumC->montMemos = $arraySumC->montMemos + number_format((float)json_decode($crediMemos->monts_memo)[0], 2, '.', '');
                         }
                     }else{
-                        $arraySumC->credi_memos = [];
-                        $arraySumC->montMemos = number_format((float)$arraySumC->montMemos, 2, '.', '');
+                        $arraySumC->credi_memos = null;
+                        $arraySumC->montMemos = $arraySumC->montMemos + number_format((float)$arraySumC->montMemos, 2, '.', '');
                     }
 
                     $arraySumC->unid_pay_worker = $unidadesPorPagar;
@@ -714,6 +714,7 @@ function generar1099($filters)
     $dataWorker = dataUser1099Global(intval($filters['worker_id']));
 
     $dataPagos = dataPayUnitsServicesForWorker($filters['worker_id'], $filters['fecha_desde'], $filters['fecha_hasta'], 1);
+
     $updateDataDoc = GenerateDocuments1099::find($filters['document_1099_id']);
 
     $updateDataDoc->eftor_check = $filters['eftor_check'];
@@ -763,6 +764,26 @@ function generar1099($filters)
 
     $vendorCodeArray = $dataWorker->id;
 
+    $arrayCrediMemo = [];
+    $sumMontsMemos = 0;
+    foreach($dataPagos['dataPagos'] as $key => $value){
+        //dd(json_decode($value['credi_memos']->reasons_id), json_decode($value['credi_memos']->monts_memo));
+        if(isset($value['credi_memos'])){
+            foreach(json_decode($value['credi_memos']->reasons_id) as $k => $v){
+                $sumMontsMemos = $sumMontsMemos + json_decode($value['credi_memos']->monts_memo)[$k];
+                array_push($arrayCrediMemo, [
+                    'memo' => ReasonMemo::find($v)->title_reason,
+                    'montMemo' => json_decode($value['credi_memos']->monts_memo)[$k]
+                ]);
+            }
+        }else{
+            $arrayCrediMemo = null;
+        }
+    }
+
+    $restMontTotalMemoPai = (isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) ? $dataPagos['montoPagoTotal'] : 0.00) - number_format((float)$sumMontsMemos, 2, '.', '');
+
+    //dd($arrayCrediMemo);
     $arrayData = [
         'infoUser' => $dataWorker,
         'vendorCode' => $vendorCodeArray,
@@ -776,7 +797,12 @@ function generar1099($filters)
         'hasta' => date_format(date_create($filters['fecha_hasta']), 'm/d/Y'),
         'datePai' => date("m/d/Y", strtotime(date_format(date_create($filters['fecha_hasta']), 'm/d/Y') . "+ 1 days")),
         'dataPagos' => isset($dataPagos['dataPagos']) && !empty($dataPagos['dataPagos']) ? $dataPagos['dataPagos'] : [],
-        'montoTotal' => isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) ? $dataPagos['montoPagoTotal'] : 00.00,
+        'montoTotal' => isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) && isset($dataPagos['montoPagoTotal']) && !empty($dataPagos['montoPagoTotal']) ? $dataPagos['montoPagoTotal'] : 0.00,
+    
+        
+        'arrayCrediMemo' => $arrayCrediMemo,
+        'sumMontsMemos' => number_format((float)$sumMontsMemos, 2, '.', ''),
+        'restMontTotalMemoPai' => $restMontTotalMemoPai   
     ];
 
     //foreach($dataPagos['dataPagos'] as $key => $value) {

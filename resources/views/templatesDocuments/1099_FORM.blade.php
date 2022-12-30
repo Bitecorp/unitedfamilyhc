@@ -30,7 +30,9 @@
             <p style=" font-size: 10px;"><strong>BUSINESS NAME:</strong> {{ strtoupper($fullNameCompani) }}.</p>
             <p style=" font-size: 10px;"><strong>ADDRESS:</strong> {{ strtoupper($addres) }}</p>
             <p style="text-align: center; font-size: 10px;"><strong>INVOICE INFORMATION</strong></p>
-            <p style="text-align: left; font-size: 10px;">INVOICE NUMBER: {{ $invoiceNumber }}</p>
+            <p style="text-align: left; font-size: 10px;"><strong>INVOICE NUMBER:</strong> {{ $invoiceNumber }}</p>
+
+            <!-- Tabla de Servicios -->
             <table style="border-collapse: collapse; width: 100%;" border="1">
                 <thead>
                     <tr>
@@ -57,7 +59,31 @@
                     @endforeach
                 </tbody>
             </table>
-            <p style="text-align: right; font-size: 10px;">Total: {{ number_format((float)$montoTotal, 2, '.', '') }} $ (USD)</p>
+            <p style="text-align: right; font-size: 10px;">{{ isset($arrayCrediMemo) ? 'Total-Services: ' : 'Total: ' }} {{ number_format((float)$montoTotal, 2, '.', '') }} $ (USD)</p>
+
+            <!-- Tabla Memos -->
+            @if(isset($arrayCrediMemo))
+                <table style="border-collapse: collapse; width: 100%;" border="1">
+                    <thead>
+                        <tr>
+                            <td style="width: 5.12391%; font-size: 10px;"><strong>N#</strong></td>
+                            <td style="width: 80,69040%; font-size: 10px;"><strong>CREDI MEMO</strong></td>
+                            <td style="width: 14.28569%; font-size: 10px;"><strong>AMOUNT</strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($arrayCrediMemo as $key => $value)
+                            <tr id="{{ $key }}">
+                                <td style="width: 5.12391%; font-size: 10px;">{{ $key + 1 }}</td>
+                                <td style="width: 80,69040%; font-size: 10px;">{{ $value['memo'] ? $value['memo'] : 'N/A' }}</td>
+                                <td style="width: 14.28569%; font-size: 10px;">{{ $value['montMemo'] ? $value['montMemo'] : 'N/A' }} $ (USD)</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <p style="text-align: right; font-size: 10px;">Total-Credi Memos: {{ number_format((float)$sumMontsMemos, 2, '.', '') }} $ (USD)</p>
+                <p style="text-align: right; font-size: 10px;">(Services - Credi Memos) Total: {{ number_format((float)$restMontTotalMemoPai, 2, '.', '') }} $ (USD)</p>
+            @endif
         </body>
     </html>
         
