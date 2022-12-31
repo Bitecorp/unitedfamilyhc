@@ -543,7 +543,7 @@
 
 									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile.split(" ").join("_") + '" id="btn_send_xml_'+ dataFullW[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
 
-									var hiddenBtnMemo = isset(dataFullW[i].credi_memos) || dataFullW[i].paid == true ? 'hidden' : '';
+									var hiddenBtnMemo = dataFullW[i].paid == true ? 'hidden' : '';
 									btnRedirectAddMemo = '<button' + hiddenBtnMemo + 'onclick="redirectAddMemoForPai(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + ((parseFloat(dataFullW[i].mont_pay) + 0.01)).toString() + ');" id="redirectAddMemoForPai_'+ dataFullW[i].id +'" name="redirectAddMemoForPai_'+ dataFullW[i].id +'" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>\n'
 
 									var check =
@@ -553,7 +553,7 @@
 									'</div>\n';
 
 									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
-									var crediMemo = dataFullW[i].montMemos > 0 ? ' / Credi Memos = ' + parseFloat(dataFullW[i].montMemos) : '';
+									var crediMemo = dataFullW[i].montMemos > 0 ? ' - Credi Memos = ' + parseFloat(dataFullW[i].montMemos) : '';
 									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo;
 									var valToPai = parseFloat(parseFloat(dataFullW[i].mont_pay) - parseFloat(dataFullW[i].montMemos)).toFixed(2);
 
