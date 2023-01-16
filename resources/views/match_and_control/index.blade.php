@@ -544,7 +544,7 @@
 									btnSendXml = '<a type="button" ' + hiddenBtnXml + ' href="' + linkDownload + '"  download="' + nameFile.split(" ").join("_") + '" id="btn_send_xml_'+ dataFullW[i].id +'" class="btn btn-success" style="margin-top: 5px;" ><i class="fa fa-download"></i> Download Xml </a>\n';
 
 									var hiddenBtnMemo = dataFullW[i].paid == true ? 'hidden' : '';
-									btnRedirectAddMemo = '<button' + hiddenBtnMemo + 'onclick="redirectAddMemoForPai(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + ((parseFloat(dataFullW[i].mont_pay) + 0.01)).toString() + ');" id="redirectAddMemoForPai_'+ dataFullW[i].id +'" name="redirectAddMemoForPai_'+ dataFullW[i].id +'" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>\n'
+									btnRedirectAddMemo = '<button ' + hiddenBtnMemo + ' onclick="redirectAddMemoForPai(' + dataFullW[i].worker_id.id + ',' + dataFullW[i].patiente_id.id + ',' + dataFullW[i].service_id.id + ',' + dataFullW[i].sub_service_id.id + ',' + ((parseFloat(dataFullW[i].mont_pay) + 0.01)).toString() + ');" id="redirectAddMemoForPai_'+ dataFullW[i].id +'" name="redirectAddMemoForPai_'+ dataFullW[i].id +'" type="button" class="btn btn-success" style="margin-top: 5px;">Memo</button>\n'
 
 									var check =
 									'<div class="custom-control custom-switch">\n' +
