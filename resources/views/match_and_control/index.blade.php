@@ -554,7 +554,7 @@
 
 									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
 									var crediMemo = dataFullW[i].montMemos > 0 ? ' - Credi Memos = ' + parseFloat(dataFullW[i].montMemos) : '';
-									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo;
+									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo + ' - from ' + newDesde + ' to ' + newHasta;
 									var valToPai = parseFloat(parseFloat(dataFullW[i].mont_pay) - parseFloat(dataFullW[i].montMemos)).toFixed(2);
 
 									dataFullW[i].sub_service_id.name_sub_service.split(' ')[0]
