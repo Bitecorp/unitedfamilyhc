@@ -119,6 +119,20 @@
 		<!-- end col-3 -->
 		<!-- begin col-3 -->
 		<div class="col-xl-3 col-md-6">
+			<div class="widget widget-stats {{ $countPatientsSinAtencion >= 1 ? 'bg-red' : 'bg-teal' }}">
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-users"></i></div>
+                <div class="stats-content">
+					<div class="stats-title">PATIENTS WITHOUT ATTENTION</div>
+					<div class="stats-number">{{ $countPatientsSinAtencion }}</div>
+					<div class="stats-link">
+                        <a href="{{ route('patientsWithoutAttention.index') }}">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-xl-3 col-md-6">
 			<div class="widget widget-stats {{ $countSinNotas >= 1 ? 'bg-red' : 'bg-teal' }}">
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-users"></i></div>
                 <div class="stats-content">

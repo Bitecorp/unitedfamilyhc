@@ -1164,3 +1164,20 @@ function workersSinNotas($desde = null, $hasta = null){
     //retorno los datos de trabajadores q estan asignados a un paciente y q no tienen notas en la quincena anterior o en la quincena de fechas ingresadas
     return count(collect($arrayWorkersSinNotas)) >= 1 ? collect($arrayWorkersSinNotas) : collect([]);
 }
+
+function patientsSinAtencion(){
+    $filtersAssigned = [];
+
+    //busco la relacion entre pacientes y trabajadores (los trabajadores asignados de cada patiente)
+    $workersAssigneds = PatientesAssignedWorkers::all();
+    foreach($workersAssigneds as $key => $val){
+        //los filtro solo para obtener el id de patiente que si tiene asignado un trabajador
+        array_push($filtersAssigned, $val['patiente_id']);
+    }
+    
+    $patientsSinServicio = (User::whereNotIn('id', array_unique($filtersAssigned))->where('role_id', 4)->where('statu_id', 1)->get())->unique()->filter();
+
+    
+    //retorno los datos de trabajadores q estan asignados a un paciente y q no tienen notas en la quincena anterior o en la quincena de fechas ingresadas
+    return count(collect($patientsSinServicio)) >= 1 ? collect($patientsSinServicio) : collect([]);
+}

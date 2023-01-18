@@ -86,6 +86,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/patientAndWorkersWithoutNotes', 'dataSinagignacion')->name('dataSinagignacion.index');
     Route::post('/patientAndWorkersWithoutNotes', 'dataSinagignacion')->name('dataSinagignacion.search');
 
+    Route::get('/PatientsWithoutAttention', 'patientsWithoutAttention')->name('patientsWithoutAttention.index');
+
 });
 
 

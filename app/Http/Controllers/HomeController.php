@@ -264,6 +264,7 @@ class HomeController extends Controller
         }
 
         $arrayWorkersSinNotas = workersSinNotas();
+        $patientsSinAtencion = patientsSinAtencion();
 
         if (Auth::user()->role_id == 1) {
             return view('pages/dashboard/dashboard-v1')
@@ -275,7 +276,8 @@ class HomeController extends Controller
                 ->with('dataPagCobGanLast', dataPagCobGanLast())
                 ->with('dataPagCobGanTri', dataPagCobGanTri())
                 ->with('countSinNotas', count($arrayWorkersSinNotas))
-                ->with('sinNotas', $arrayWorkersSinNotas );
+                ->with('sinNotas', $arrayWorkersSinNotas)
+                ->with('countPatientsSinAtencion', count($patientsSinAtencion));
         } else {
             $dataFull = ReferencesPersonalesTwo::where('user_id', Auth::user()->id)->where('reference_number', 2)->get();
 
@@ -298,6 +300,14 @@ class HomeController extends Controller
         return view('workers_patients_without_notes/index')->with('sinNotas', $arrayWorkersSinNotas );
 
     }
+
+    public function patientsWithoutAttention(Request $request){
+
+        $patientsSinServicio = patientsSinAtencion();
+        return view('patientes_without_attention/index')->with('patientsSinServicio', $patientsSinServicio );
+
+    }
+
     public function searchPatienteService(Request $request)
     {
         $input = $request->all();
