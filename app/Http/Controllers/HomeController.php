@@ -183,7 +183,7 @@ class HomeController extends Controller
             foreach ($documentsExpireds->whereNotIn('user_id', $arrayUsers) as $key => $documentsExpired) {
                 $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
                 if (isset($dataDocument) && !empty($dataDocument)) {
-                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->first();
+                    $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->where('statu_id', 1)->first();
                     if (isset($infoUser) && !empty($infoUser)) {
                         array_push($patientesDocumentsExpireds, $infoUser);
                     }

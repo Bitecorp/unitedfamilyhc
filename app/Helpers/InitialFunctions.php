@@ -19,7 +19,7 @@ function scriptInitial(){
             ->select('document_user_files.id')
             ->get();
 
-        foreach($usersActives->unique() as $usersActive){
+        foreach($usersActives->unique()->filter() as $usersActive){
             array_push($arrayUsers, $usersActive->id);
         }
 

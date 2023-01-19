@@ -49,7 +49,8 @@ use App\Models\PatientesAssignedWorkers;
 use App\Models\JobInformation;
 use App\Models\ContactEmergency;
 use App\Models\documentsEditors;
-use App\Models\DocumentsUserFiles;
+use App\Models\DocumentUserFiles;
+use App\Models\AlertDocumentsExpired;
 use App\Models\Location;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\ReferencesJobs;
@@ -920,6 +921,19 @@ class PatienteController extends AppBaseController
         $patiente->save();
 
         Flash::success('Patiente updated successfully.');
+
+        $dataAlert = DB::select(
+            'SELECT id FROM alert_documents WHERE document_user_file_id IN 
+            (SELECT id FROM document_user_files WHERE user_id =' . $id . ' AND expired = 1)'
+        );
+
+        if(count($dataAlert) >= 1){
+            foreach($dataAlert as $key => $val){
+                AlertDocumentsExpired::where('id', $val)->delete();
+            }
+
+            DocumentUserFiles::where('user_id', $id)->where('expired', 1)->update(['expired' => 0]);
+        }
 
         $roles = Role::all();
 
