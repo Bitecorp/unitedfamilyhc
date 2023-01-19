@@ -117,7 +117,7 @@ class AlertDocumentsController extends AppBaseController
         ->with('confirmationIndependents', $confirmationIndependents)
         ->with('contactEmergencies', $contactEmergencies)
         ->with('jobInformations', $jobInformations)
-        ->with('workers', collect($workers)->unique())
+        ->with('workers', collect($workers)->unique()->filter())
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);
