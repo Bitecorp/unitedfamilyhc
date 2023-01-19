@@ -69,7 +69,7 @@ function scriptInitial(){
             foreach($dataAlerts AS $key => $dataAlert){
                 $dataDocument = DocumentUserFiles::where('id', $dataAlert->document_user_file_id)->first() ?? '';
                 if(isset($dataDocument) && !empty($dataDocument)){
-                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2, 3])->first() ?? '';
+                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2, 3])->where('statu_id', 1)->first() ?? '';
                     $arrayDocs = [];
                     if(isset($infoUser) && !empty($infoUser)){
                         $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];

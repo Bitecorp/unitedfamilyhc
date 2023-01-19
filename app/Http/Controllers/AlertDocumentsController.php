@@ -117,7 +117,7 @@ class AlertDocumentsController extends AppBaseController
         ->with('confirmationIndependents', $confirmationIndependents)
         ->with('contactEmergencies', $contactEmergencies)
         ->with('jobInformations', $jobInformations)
-        ->with('workers', collect($workers)->unique()->filter())
+        ->with('workers', collect($workers)->unique()->filter()->where('statu_id', 1))
         ->with('servicesAssigned', $servicesAssigned)
         ->with('educations', $educations)
         ->with('maritalStatus', $maritalStatus);
@@ -133,7 +133,7 @@ class AlertDocumentsController extends AppBaseController
      */
     public function sendEmail($idUser)
     {
-        $infoUser = User::where('id', $idUser)->first();
+        $infoUser = User::where('id', $idUser)->where('statu_id', 1)->first();
 
         if (empty($infoUser)) {
             Flash::error('User not found');
@@ -196,8 +196,7 @@ class AlertDocumentsController extends AppBaseController
         if(!empty($dataDocumentsExpired)){
             foreach($dataDocumentsExpired->whereNotIn('document_id', $idNotInclude) AS $dataDocumentExpired){
                 $dataDocument = DocumentUserFiles::find($dataDocumentExpired->document_user_file_id);
-                $infoUser = User::find($dataDocument->user_id);
-
+                $infoUser = User::where('id', $dataDocument->user_id)->where('statu_id', 1)->first();
                 $arrayDocs = [];
                 if(isset($infoUser) && !empty($infoUser)){
                 $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->whereNotIn('document_id', $idNotInclude)->get() ?? [];

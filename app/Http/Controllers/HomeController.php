@@ -22,6 +22,7 @@ use App\Models\ReasonMemoForPai;
 use Flash;
 use DateTime;
 use App\Models\Units;
+use App\Models\DocumentUserSol;
 use App\Models\ConfigSubServicesPatiente;
 use App\Models\GenerateDocuments1099;
 use App\Models\ConfirmationIndependent;
@@ -161,17 +162,26 @@ class HomeController extends Controller
             array_push($arrayUsers, $usersActive->id);
         }
 
-        $documentsExpireds = AlertDocumentsExpired::all();
+
+        $idNotInclude = [];
+        $dataNoSol = DocumentUserSol::all() ?? [];
+        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
+            foreach($dataNoSol AS $k => $DNS){
+                array_push($idNotInclude, $DNS->document_id);
+            }
+        }
+
+        $documentsExpireds = AlertDocumentsExpired::all();    
 
         $workersCount = User::whereNotIn('role_id', [1, 4, 5])->where('statu_id', 1)->get();
         $patientesCount = User::where('role_id', 4)->where('statu_id', 1)->get();
         $workersDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
-            foreach ($documentsExpireds->whereNotIn('user_id', $arrayUsers) as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
+            foreach ($documentsExpireds->unique()->filter() as $key => $documentsExpired) {
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', $idNotInclude)->first() ?? null;
                 if (isset($dataDocument) && !empty($dataDocument)) {
-                    $infoUser = User::where('id', $dataDocument->user_id)->first();
-                    if (isset($infoUser) && !empty($infoUser) && ($infoUser['role_id'] == 2 || $infoUser['role_id'] == 3)) {
+                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2,3])->where('statu_id', 1)->first();
+                    if (isset($infoUser) && !empty($infoUser)) {
                         array_push($workersDocumentsExpireds, $infoUser);
                     }
                 }
@@ -180,8 +190,8 @@ class HomeController extends Controller
 
         $patientesDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
-            foreach ($documentsExpireds->whereNotIn('user_id', $arrayUsers) as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->first();
+            foreach ($documentsExpireds->unique()->filter() as $key => $documentsExpired) {
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', $idNotInclude)->first() ?? null;
                 if (isset($dataDocument) && !empty($dataDocument)) {
                     $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->where('statu_id', 1)->first();
                     if (isset($infoUser) && !empty($infoUser)) {
@@ -265,6 +275,8 @@ class HomeController extends Controller
 
         $arrayWorkersSinNotas = workersSinNotas();
         $patientsSinAtencion = patientsSinAtencion();
+
+        //dd(collect($workersDocumentsExpireds)->unique());
 
         if (Auth::user()->role_id == 1) {
             return view('pages/dashboard/dashboard-v1')
