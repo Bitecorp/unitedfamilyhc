@@ -14,9 +14,9 @@ function scriptInitial(){
         $arrayUsers = [];
 
         $usersActives = DB::table('users')
+            ->select('document_user_files.id')
             ->where('statu_id', 1)
             ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
-            ->select('document_user_files.id')
             ->get();
 
         foreach($usersActives->unique()->filter() as $usersActive){
@@ -35,8 +35,8 @@ function scriptInitial(){
             }
         }
         
-        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('id', $dataNoSol)->get() ?? [];
-
+        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('id', $dataNoSol)->whereIn('user_id', $arrayUsers)->get() ?? [];
+        
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
             foreach($documents->whereIn('user_id', $arrayUsers) AS $key => $document){

@@ -953,8 +953,6 @@ class WorkerController extends AppBaseController
             foreach($dataAlert as $key => $val){
                 AlertDocumentsExpired::where('id', $val->id)->delete();
             }
-
-            DocumentUserFiles::where('user_id', $id)->where('expired', 1)->update(['expired' => 0]);
         }
 
         Flash::success('Worker updated successfully.');
