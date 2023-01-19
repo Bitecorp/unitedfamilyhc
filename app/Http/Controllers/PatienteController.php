@@ -924,12 +924,12 @@ class PatienteController extends AppBaseController
 
         $dataAlert = DB::select(
             'SELECT id FROM alert_documents WHERE document_user_file_id IN 
-            (SELECT id FROM document_user_files WHERE user_id =' . $id . ' AND expired = 1)'
+            (SELECT id FROM document_user_files WHERE user_id = ' . $id . ' AND expired = 1)'
         );
 
         if(count($dataAlert) >= 1){
             foreach($dataAlert as $key => $val){
-                AlertDocumentsExpired::where('id', $val)->delete();
+                AlertDocumentsExpired::where('id', $val->id)->delete();
             }
 
             DocumentUserFiles::where('user_id', $id)->where('expired', 1)->update(['expired' => 0]);
