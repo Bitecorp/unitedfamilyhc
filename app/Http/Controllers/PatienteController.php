@@ -922,6 +922,17 @@ class PatienteController extends AppBaseController
 
         Flash::success('Patiente updated successfully.');
 
+        $dataAlert = DB::select(
+            'SELECT id FROM alert_documents WHERE document_user_file_id IN 
+            (SELECT id FROM document_user_files WHERE user_id = ' . $id . ' AND expired = 1)'
+        );
+
+        if(count($dataAlert) >= 1){
+            foreach($dataAlert as $key => $val){
+                AlertDocumentsExpired::where('id', $val->id)->update(['send_email' => 0]);
+            }
+        }
+
         $roles = Role::all();
 
         $status = Statu::all();
