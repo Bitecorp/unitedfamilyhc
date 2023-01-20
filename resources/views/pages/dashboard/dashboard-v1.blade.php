@@ -137,9 +137,6 @@
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-users"></i></div>
                 <div class="stats-content">
 					<div class="stats-title">WORKEERS/PATIENT WITHOUT NOTES</div>
-					<div class="stats-info">
-						<h4>DATA FROM THE PREVIOUS FORTNIGHT</h4>
-					</div>
 					<div class="stats-number">{{ $countSinNotas }}</div>
 					<div class="stats-link">
                         <a href="{{ route('dataSinagignacion.index') }}">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
