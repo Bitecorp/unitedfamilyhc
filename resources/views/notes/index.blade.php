@@ -108,6 +108,11 @@
                                     <th class="text-nowrap">N# Provider</th>
                                     <th class="text-nowrap">Cod-Patient</th>
                                     <th class="text-nowrap">Status</th>
+                                    @if(Auth::user()->role_id == 1)
+                                        <th class="text-nowrap">
+                                            Amount to be paid
+                                        </th> 
+                                    @endif
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
@@ -151,6 +156,11 @@
                                                 Full Service
                                             @endif
                                         </td>
+                                        @if(Auth::user()->role_id == 1)
+                                            <td>
+                                                {{ isset($note['mont_pay']) && !empty($note['mont_pay']) ? $note['mont_pay'] : '0' }}$ (USD)
+                                            </td>
+                                        @endif
                                         <td class="with-btn" nowrap>
                                             <div>
                                                 {!! Form::open(['route' => ['notesSubServices.destroy', $note['id']], 'method' => 'delete']) !!}

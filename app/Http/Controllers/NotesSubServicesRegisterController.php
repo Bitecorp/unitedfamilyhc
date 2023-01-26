@@ -122,7 +122,6 @@ class NotesSubServicesRegisterController extends Controller
 
             $dataPagosWorker = SalaryServiceAssigneds::where('service_id', $subService->id)->where('user_id', isset($worker->id) && !empty($worker->id) ? $worker->id : (isset($worker['id']) && !empty($worker['id']) ? $worker['id'] : null))->first();
 
-
             if(isset($dataPagosWorker) && !empty($dataPagosWorker)){
                 if(!isset($dataPagosWorker->salary) || empty($dataPagosWorker->salary)){
                     $dataPagosWorker->salary = $subService->worker_payment;
