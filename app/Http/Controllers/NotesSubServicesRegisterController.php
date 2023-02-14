@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use App\Models\SalaryServiceAssigneds;
 use App\Models\Units;
 use App\Models\ConfigSubServicesPatiente;
+use App\Models\DataAmountsNotes;
 use DateTime;
 
 class NotesSubServicesRegisterController extends Controller
@@ -801,6 +802,10 @@ class NotesSubServicesRegisterController extends Controller
         }
         
             $reg = RegisterAttentions::find($note->register_attentions_id);
+
+                $amountsNote = DataAmountsNotes::where('note_id', $reg->id)->first();
+                $amountsNote->delete();
+
             $reg->delete();
             
         deleteFile($note->firma);

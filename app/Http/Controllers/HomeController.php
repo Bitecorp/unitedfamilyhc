@@ -33,8 +33,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use LDAP\Result;
+use App\Models\DataAmountsNotes;
 
 use App\Models\ReasonMemo;
+use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
 
 class jsonUsuario {
     public $servicio = "";
@@ -178,7 +180,7 @@ class HomeController extends Controller
         $workersDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
             foreach ($documentsExpireds->unique()->filter() as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', $idNotInclude)->first() ?? null;
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', array_unique($idNotInclude))->first() ?? null;
                 if (isset($dataDocument) && !empty($dataDocument)) {
                     $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2,3])->where('statu_id', 1)->first();
                     if (isset($infoUser) && !empty($infoUser)) {
@@ -191,7 +193,7 @@ class HomeController extends Controller
         $patientesDocumentsExpireds = [];
         if (isset($documentsExpireds) && !empty($documentsExpireds) && count($documentsExpireds) > 0) {
             foreach ($documentsExpireds->unique()->filter() as $key => $documentsExpired) {
-                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', $idNotInclude)->first() ?? null;
+                $dataDocument = DocumentUserFiles::where('id', $documentsExpired->document_user_file_id)->whereNotIn('id', array_unique($idNotInclude))->first() ?? null;
                 if (isset($dataDocument) && !empty($dataDocument)) {
                     $infoUser = User::where('id', $dataDocument->user_id)->where('role_id', 4)->where('statu_id', 1)->first();
                     if (isset($infoUser) && !empty($infoUser)) {
@@ -535,6 +537,9 @@ class HomeController extends Controller
                 $regNote->firma = null;
         
             $regNote->save();
+
+            saveDataAmountNote($regNote->id, $input['worker_id'], $input['patiente_id'], $input['sub_service_id']);
+
         }
         
         return response()->json([

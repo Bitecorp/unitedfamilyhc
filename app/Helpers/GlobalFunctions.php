@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
 
+use App\Models\DataAmountsNotes;
+
 class MyPdf extends \TCPDF
 {
     protected $headerCallback;
@@ -111,6 +113,30 @@ class MyPdf extends \TCPDF
 
         parent::addHTMLTOC($page, $toc_name, $templates, $correct_align, $style, $color);
     }
+}
+
+function saveDataAmountNote($note_id, $worker_id, $patiente_id, $sub_service_id){
+    $regMontNote = new DataAmountsNotes;
+
+    $regMontNote->note_id = $note_id;
+
+        $dataSalarySAW = SalaryServiceAssigneds::where('user_id', $worker_id)->where('service_id', $sub_service_id)->first();
+        $dataSalaryConfigW = ConfigSubServicesPatiente::find($dataSalarySAW->id);
+        $dataSubServiceW = SubServices::find($dataSalarySAW->service_id);
+            
+            $regMontNote->worker_payment = isset($dataSalarySAW->salary) && $dataSalarySAW->salary != '' ? $dataSalarySAW->salary : $dataSubServiceW->worker_payment;
+            $regMontNote->type_payment = $dataSalarySAW->type_salary;
+            $regMontNote->worker_unit_time_id = isset($dataSalaryConfigW->unit_id) && $dataSalaryConfigW->unit_id != '' ? $dataSalaryConfigW->unit_id : $dataSubServiceW->unit_worker_payment_id;
+
+        $dataSalarySAP = SalaryServiceAssigneds::where('user_id', $patiente_id)->where('service_id', $sub_service_id)->first();
+        $dataSalaryConfigP = ConfigSubServicesPatiente::find($dataSalarySAP->id);
+        $dataSubServiceP = SubServices::find($dataSalarySAP->service_id);
+
+            $regMontNote->customer_billing = isset($dataSalarySAP->customer_payment) && $dataSalarySAP->customer_payment != '' ? $dataSalarySAP->customer_payment : $dataSubServiceP->price_sub_service;
+            $regMontNote->type_customer = $dataSalarySAP->type_salary;
+            $regMontNote->patiente_unit_time_id = isset($dataSalaryConfigP->unit_id) && $dataSalaryConfigP->unit_id != '' ? $dataSalaryConfigP->unit_id : $dataSubServiceP->unit_customer_id;
+
+    $regMontNote->save();
 }
 
 function url_actual()

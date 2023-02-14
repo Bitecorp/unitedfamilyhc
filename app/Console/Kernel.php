@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\DocumentsExpired::class,
         \App\Console\Commands\ChangePassGlobal::class,
+        \App\Console\Commands\CreateDataNoteAmount::class,
     ];
 
     /**
