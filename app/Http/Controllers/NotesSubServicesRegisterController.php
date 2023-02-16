@@ -804,7 +804,9 @@ class NotesSubServicesRegisterController extends Controller
             $reg = RegisterAttentions::find($note->register_attentions_id);
 
                 $amountsNote = DataAmountsNotes::where('note_id', $reg->id)->first();
-                $amountsNote->delete();
+                if(isset($amountsNote) || !empty($amountsNote)){
+                    $amountsNote->delete();
+                }
 
             $reg->delete();
             
