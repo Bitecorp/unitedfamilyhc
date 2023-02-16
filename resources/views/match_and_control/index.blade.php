@@ -395,6 +395,9 @@
 			var newDesde = dateDesdeTT[2] + '_' + dateDesdeTT[1] + '_' + dateDesdeTT[0];
 			var newHasta = dateHastaTT[2] + '_' + dateHastaTT[1] + '_' + dateHastaTT[0];
 
+			var desdeSoloMemo = dateDesdeTT[1] + '_' + dateDesdeTT[2] + '_' + dateDesdeTT[0];
+			var hastaSoloMemo = dateDesdeTT[1] + '_' + dateDesdeTT[2] + '_' + dateDesdeTT[0];
+
 			if(service_id != '' && paid != '' && dateDesde != '' && dateHasta != ''){
 				$.ajax({
 					type: "post",
@@ -554,7 +557,7 @@
 
 									var explodeIM = dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] ? dataFullW[i].sub_service_id.name_sub_service.split(' ')[0] : '';
 									var crediMemo = dataFullW[i].montMemos > 0 ? ' - Credi Memos = ' + parseFloat(dataFullW[i].montMemos) : '';
-									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo + ' - from ' + newDesde + ' to ' + newHasta;
+									var memo = dataFullW[i].patiente_id.first_name + ' ' + dataFullW[i].patiente_id.last_name + ' ' + explodeIM + ' ' + dataFullW[i].time_attention + ' = ' + dataFullW[i].unid_pay_worker + crediMemo + ' - from ' + desdeSoloMemo + ' to ' + hastaSoloMemo;
 									var valToPai = parseFloat(parseFloat(dataFullW[i].mont_pay) - parseFloat(dataFullW[i].montMemos)).toFixed(2);
 
 									dataFullW[i].sub_service_id.name_sub_service.split(' ')[0]
