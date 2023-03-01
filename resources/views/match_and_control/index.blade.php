@@ -396,7 +396,7 @@
 			var newHasta = dateHastaTT[2] + '_' + dateHastaTT[1] + '_' + dateHastaTT[0];
 
 			var desdeSoloMemo = dateDesdeTT[1] + '_' + dateDesdeTT[2] + '_' + dateDesdeTT[0];
-			var hastaSoloMemo = dateDesdeTT[1] + '_' + dateDesdeTT[2] + '_' + dateDesdeTT[0];
+			var hastaSoloMemo = dateHastaTT[1] + '_' + dateHastaTT[2] + '_' + dateHastaTT[0];
 
 			if(service_id != '' && paid != '' && dateDesde != '' && dateHasta != ''){
 				$.ajax({
