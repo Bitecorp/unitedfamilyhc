@@ -45,11 +45,11 @@
                     <input type="email" class="form-control form-control-lg" name="email" id="email" value="{{ $emailCode }}" placeholder="Email" readonly>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control form-control-lg" minlength="8" id="password" name="password" placeholder="Password" readonly required>
+                    <input type="password" class="form-control form-control-lg" minlength="8" id="password" name="password" placeholder="Password" required>
                 </div>
                 <p id="textPass" class="text-center" hidden>8 to 16 characters, uppercase and lowercase letters, numbers and symbols</p>
                 <div class="input-group mb-4">
-                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" minlength="8" placeholder="Confirm password" readonly required>
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" minlength="8" placeholder="Confirm password" required>
                 </div>
                 <p id="mensaje_error" class="control-label col-md-12 text-success" style="display: block;" hidden>Passwords do not match</p>
                 <div class="login-buttons" style='margin-bottom: 10px !important;'>
@@ -77,10 +77,9 @@
                 var pass = $('#password').val();
                 var passConfirm = $('#password_confirmation').val();
                 var emailInput = $('#email').val();
-                var emailCode = '{{ $emailCode }}';
-                if(emailInput === emailCode){
-                    $('#password').removeAttr('readonly');
-                    $('#password_confirmation').removeAttr('readonly');
+                //if(emailInput != ""){
+                    //$('#password').removeAttr('readonly');
+                    //$('#password_confirmation').removeAttr('readonly');
                 
 
                     if(pass != ''){
@@ -127,7 +126,7 @@
                             //console.log(`Found match, group ${groupIndex}: ${match}`);
                         });
                     }
-                }
+                //}
             }
 
             $("#password").on('keyup', cambioDePass);

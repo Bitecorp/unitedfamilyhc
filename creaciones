@@ -1,6 +1,13 @@
 php artisan infyom:scaffold ConnectionsExternals --fromTable --tableName= --save --factory --seeder
 
-sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm composer.lock; npm i -f; npm run dev; composer install; php artisan migrate; 
+sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm  -rf composer.lock; npm i -f; npm run dev; composer install; php artisan migrate; 
 
 
 composer install; npm install --force; php artisan storage:link; composer clearcache; php artisan cache:clear; php artisan view:clear; php artisan route:cache; php artisan config:cache; php artisan optimize; composer dump-autoload --optimize;
+
+
+
+
+
+
+sudo rm -rf vendor; rm -rf node_modules; rm -rf var; rm -rf composer.lock; rm -rf packaje-lock.json;

@@ -78,7 +78,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "github-oauth": {
-            "github.com": "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"
+            "github.com": "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"
         }
     },
     "minimum-stability": "dev",
