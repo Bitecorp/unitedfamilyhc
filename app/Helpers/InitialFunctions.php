@@ -82,7 +82,7 @@ function scriptInitial(){
                                 }
                             }
                         }
-                        Mail::to($infoUser->email)->cc(config('mail.username'))->send(new updateDocuments($infoUser, $arrayDocs));
+                        Mail::to($infoUser->email)->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new updateDocuments($infoUser, $arrayDocs));
                     }
                 }
             }

@@ -1048,7 +1048,7 @@ class WorkerController extends AppBaseController
         $input = $request->all();
         $exist = Worker::where('email', $input['email'])->first();
         if(isset($exist) && !empty($exist)){
-            Mail::to($exist->email)->cc(config('mail.username'))->send(new resetPassword($exist, $input));
+            Mail::to($exist->email)->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new resetPassword($exist, $input));
             Flash::success('An email with the recovery link has been sent to the email ' . $input['email'] . '.');
             return redirect(route('login'));
         }else{

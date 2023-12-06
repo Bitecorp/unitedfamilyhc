@@ -165,7 +165,7 @@ class AlertDocumentsController extends AppBaseController
             }
         }
 
-        Mail::to($infoUser->email)->cc(config('mail.username'))->send(new updateDocuments($infoUser, $arrayDocs));
+        Mail::to($infoUser->email)->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new updateDocuments($infoUser, $arrayDocs));
 
         Flash::success('Send Email successfully.');
 
@@ -209,7 +209,7 @@ class AlertDocumentsController extends AppBaseController
                         }
                     }
                 }
-                Mail::to($infoUser->email)->cc(config('mail.username'))->send(new updateDocuments($infoUser, $arrayDocs));
+                Mail::to($infoUser->email)->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new updateDocuments($infoUser, $arrayDocs));
             }
         }
 
@@ -270,7 +270,7 @@ class AlertDocumentsController extends AppBaseController
                 foreach($documentsUser AS $keyD => $documentUser){
                     $infoDocs = TypeDoc::where('id', $documentUser->document_id)->get() ?? [];
                     if(isset($infoDocs) && !empty($infoDocs) && count($infoDocs) > 0){
-                        Mail::to($infoUser->email)->cc(config('mail.username'))->send(new updateDocuments($infoUser, $infoDocs));
+                        Mail::to($infoUser->email)->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new updateDocuments($infoUser, $infoDocs));
                     }
                 }
             }
