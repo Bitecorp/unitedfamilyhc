@@ -11,12 +11,16 @@ yarn-error.log
 public/filesUsers
 public/storage
 public/hot
+public/templatesOthers
+public/templatesEmails
+public/templatesDocuments
+public/filesXml
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot
 
-storage/*.key
+#storage/*.key
 .env
 Homestead.yaml
 Homestead.json

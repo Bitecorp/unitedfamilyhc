@@ -152,7 +152,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        scriptInitial();
+        //scriptInitial();
 
         $arrayUsers = [];
         $usersActives = DB::table('users')
