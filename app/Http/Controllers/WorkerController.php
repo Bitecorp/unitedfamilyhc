@@ -670,6 +670,7 @@ class WorkerController extends AppBaseController
             }
 
             $documentUserFiles = array();
+            //dd($documentUserFilesFo);
             foreach (array_unique($documentUserFilesFo) as $key => $valID) {
                 $constData = DB::table('type_docs')->where('id', $valID)->whereIn('role_id', [2, 3])->orderBy('name_doc', 'asc')->first();
                 if(isset($constData) && !empty($constData)){

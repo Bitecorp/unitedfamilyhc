@@ -132,8 +132,9 @@ class DocumentsExpired extends Command
             }
         }
         
-        Mail::to('ing.pedro.h@gmail.com')->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new cronEjecutando(Carbon::now()->toDateTimeString()));
+        Mail::to('janpaul@bitecorp.com')->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new cronEjecutando(Carbon::now()->toDateTimeString()));
 
+        //Mail::to('ing.pedro.h@gmail.com')->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new cronEjecutando(Carbon::now()->toDateTimeString()));
         return 0;
     }
 }

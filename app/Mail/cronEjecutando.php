@@ -33,4 +33,3 @@ class cronEjecutando extends Mailable
         return $this->from('no-reply@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Cron Job Form United')->view('mails.cronEjecutando')->with('data', $data);
     }
 }
-    
