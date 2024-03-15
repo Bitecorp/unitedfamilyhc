@@ -9,9 +9,10 @@ use App\Models\DocumentUserSol;
 use App\Models\AlertDocumentsExpired;
 use App\Models\User;
 use Carbon\Carbon;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\updateDocuments;
-use DB;
+use App\Mail\cronEjecutando;
+use Illuminate\Support\Facades\DB;
 
 class DocumentsExpired extends Command
 {
@@ -48,34 +49,29 @@ class DocumentsExpired extends Command
     {
      
         $arrayUsers = [];
+        $usersActives = [];
 
-        $usersActives = DB::table('users')
-            ->where('statu_id', 1)
-            ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
-            ->select('document_user_files.id')
-            ->get();
+        $usersActives = User::select('id')->where('statu_id', 1)->where('role_id', '!=', [1, 5])->get();
 
-        foreach($usersActives->unique() as $usersActive){
+        foreach($usersActives->unique()->filter() as $usersActive){
             array_push($arrayUsers, $usersActive->id);
         }
 
         $idNotInclude = [];
         $documents = [];
-        $dataNoSol = DocumentUserSol::all() ?? [];
-        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
-            foreach($dataNoSol AS $k => $DNS){
-                $DC = DocumentUserFiles::where('document_id', intval($DNS->document_id))->where('user_id', intval($DNS->user_id))->first();
-                if(isset($DC) && !empty($DC)){
-                    array_push($idNotInclude, $DC->id);   
-                }
-            }
+
+        $TypesDocumentsSiExpireds =  []; //docs q si expiran
+        
+        foreach(DB::table('type_docs')->select('id')->whereIn('role_id', [2, 3, 4])->where('expired', 1)->get() as $docType){
+            array_push($TypesDocumentsSiExpireds, $docType->id);
         }
         
-        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('id', $dataNoSol)->get() ?? [];
-
+        $documents = DocumentUserFiles::where('expired', 0)->whereIn('document_id', $TypesDocumentsSiExpireds)->get() ?? [];        
+        
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
-            foreach($documents->whereIn('user_id', $arrayUsers) AS $key => $document){
+            foreach($documents AS $key => $document){   
+
                 if(isset($document->date_expired)){
                     $dataA = Carbon::parse($dateActual);
                     $dataAA = Carbon::parse($dateActual)->addMonth(1);
@@ -86,26 +82,29 @@ class DocumentsExpired extends Command
                         $dataE->toDateString() < $dataA->toDateString() ||  
                         ($dataE->toDateString() > $dataA->toDateString() && $dataE->toDateString() < $dataAA->toDateString())    
                     ){
-                        $alert = new AlertDocumentsExpired();
-                        $alert->document_user_file_id = $document->id;
-                        $alert->save();
+                        $isDocReqForUser = DocumentUserSol::where('user_id', DocumentUserFiles::select('user_id')->where('id', $document->id)->first()->user_id)->first() ?? null;
 
-                        if($alert){
-                            DocumentUserFiles::where('id', $document->id)->update(['expired' => 1]);
+                        if(isset($isDocReqForUser) && !is_null($isDocReqForUser) && (isset($isDocReqForUser->isSol) && !empty($isDocReqForUser->isSol) || is_null($isDocReqForUser->isSol) || $isDocReqForUser != 1)){       
+                            $alert = new AlertDocumentsExpired();
+                            $alert->document_user_file_id = $document->id;
+                            $alert->save();
+
+                            if($alert){
+                                DocumentUserFiles::where('id', $document->id)->update(['expired' => 1]);
+                            }
                         }
+                        
                     }
                 }
             }
         }
-
-
 
         $dataAlerts = AlertDocumentsExpired::where('send_email', 0)->get() ?? [];
         if(isset($dataAlerts) && !empty($dataAlerts) && count($dataAlerts) > 0){
             foreach($dataAlerts AS $key => $dataAlert){
                 $dataDocument = DocumentUserFiles::where('id', $dataAlert->document_user_file_id)->first() ?? '';
                 if(isset($dataDocument) && !empty($dataDocument)){
-                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2, 3])->first() ?? '';
+                    $infoUser = User::where('id', $dataDocument->user_id)->whereIn('role_id', [2, 3])->where('statu_id', 1)->first() ?? '';
                     $arrayDocs = [];
                     if(isset($infoUser) && !empty($infoUser)){
                         $documentsUser = DocumentUserFiles::where('user_id', $infoUser->id)->where('expired', 1)->get() ?? [];
@@ -132,6 +131,8 @@ class DocumentsExpired extends Command
                 }
             }
         }
+        
+        Mail::to('ing.pedro.h@gmail.com')->cc(env('MAIL_USERNAME', 'update@unitedfamilyhc.com'))->send(new cronEjecutando(Carbon::now()->toDateTimeString()));
 
         return 0;
     }

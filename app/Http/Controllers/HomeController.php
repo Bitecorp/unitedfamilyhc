@@ -589,6 +589,8 @@ class HomeController extends Controller
             }
         }
 
+        //dd($registerAttentions[0]);
+
         $registerAttentionss = [];
         if(isset($registerAttentions) && !empty($registerAttentions) && count($registerAttentions) >= 1){
             foreach($registerAttentions as $registerAttention){

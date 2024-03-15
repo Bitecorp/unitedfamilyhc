@@ -36,6 +36,6 @@ class resetPassword extends Mailable
             'btnURL' => env('APP_URL', 'https://app.unitedfamilyhc.com/') . 'recoveryPassword/?code=' . encriptar($this->input['email']),
         ];
 
-        return $this->from('update@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Recovery password')->view('mails.resetPass')->with('data', $data);
+        return $this->from('no-reply@unitedfamilyhc.com', 'United Family Health Care Inc.')->subject('Recovery password')->view('mails.resetPass')->with('data', $data);
     }
 }

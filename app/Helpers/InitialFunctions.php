@@ -12,12 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 function scriptInitial(){
         $arrayUsers = [];
+        $usersActives = [];
 
-        $usersActives = DB::table('users')
-            ->select('document_user_files.id')
-            ->where('statu_id', 1)
-            ->join('document_user_files', 'users.id', '=', 'document_user_files.user_id')
-            ->get();
+        $usersActives = User::select('id')->where('statu_id', 1)->where('role_id', '!=', [1, 5])->get();
 
         foreach($usersActives->unique()->filter() as $usersActive){
             array_push($arrayUsers, $usersActive->id);
@@ -25,21 +22,21 @@ function scriptInitial(){
 
         $idNotInclude = [];
         $documents = [];
-        $dataNoSol = DocumentUserSol::all() ?? [];
-        if(isset($dataNoSol) && !empty($dataNoSol) && count($dataNoSol) > 0){
-            foreach($dataNoSol AS $k => $DNS){
-                $DC = DocumentUserFiles::where('document_id', intval($DNS->document_id))->where('user_id', intval($DNS->user_id))->first();
-                if(isset($DC) && !empty($DC)){
-                    array_push($idNotInclude, $DC->id);   
-                }
-            }
-        }
+
+        $documentsSiExpireds =  []; //docs q si expiran
         
-        $documents = DocumentUserFiles::where('expired', 0)->whereNotIn('id', $dataNoSol)->whereIn('user_id', $arrayUsers)->get() ?? [];
+        foreach(DB::table('type_docs')->select('id')->whereIn('role_id', [2, 3, 4])->where('expired', 1)->get() as $docType){
+            array_push($documentsSiExpireds, $docType->id);
+        }
+
+
+        
+        $documents = DocumentUserFiles::where('expired', 0)->whereIn('document_id', $documentsSiExpireds)->get() ?? [];
         
         $dateActual = Carbon::now()->format('Y-m-d');
         if(isset($documents) && !empty($documents) && count($documents) > 0){
-            foreach($documents->whereIn('user_id', $arrayUsers) AS $key => $document){
+            foreach($documents AS $key => $document){   
+
                 if(isset($document->date_expired)){
                     $dataA = Carbon::parse($dateActual);
                     $dataAA = Carbon::parse($dateActual)->addMonth(1);
@@ -50,13 +47,17 @@ function scriptInitial(){
                         $dataE->toDateString() < $dataA->toDateString() ||  
                         ($dataE->toDateString() > $dataA->toDateString() && $dataE->toDateString() < $dataAA->toDateString())    
                     ){
-                        $alert = new AlertDocumentsExpired();
-                        $alert->document_user_file_id = $document->id;
-                        $alert->save();
+                        $isDocReqForUser = DocumentUserSol::where('user_id', DocumentUserFiles::select('user_id')->where('id', $document->id)->first()->user_id)->first()->isSol;
+                        if(isset($isDocReqForUser) && !empty($isDocReqForUser) && $isDocReqForUser != 1){       
+                            $alert = new AlertDocumentsExpired();
+                            $alert->document_user_file_id = $document->id;
+                            $alert->save();
 
-                        if($alert){
-                            DocumentUserFiles::where('id', $document->id)->update(['expired' => 1]);
+                            if($alert){
+                                DocumentUserFiles::where('id', $document->id)->update(['expired' => 1]);
+                            }
                         }
+                        
                     }
                 }
             }
