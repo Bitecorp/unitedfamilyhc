@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<activitiesimport submitterID="103690700_HUNIT">
+  <consumers>
+    <caseno caseno="8623285832">
+      <firstname>Martha</firstname>
+      <lastname>Ardila</lastname>
+      <activity>
+        <activitydatetime>
+          <startdate>2024/04/30</startdate>
+          <starttime>10:45:00</starttime>
+          <enddate>2024/04/30</enddate>
+          <endtime>20:00:00</endtime>
+        </activitydatetime>
+      </activity>
+      <authoritation></authoritation>
+      <authserviceid></authserviceid>
+      <workerid></workerid>
+      <location></location>
+      <primarydiagnosis></primarydiagnosis>
+      <status>In Progress</status>
+      <program>103690700</program>
+      <vendorserviceid></vendorserviceid>
+      <totalcost>202.39</totalcost>
+      <units>138.75</units>
+      <placeofservice></placeofservice>
+      <groupnote></groupnote>
+      <contacttype>
+        <value>Progress Note</value>
+      </contacttype>
+    </caseno>
+  </consumers>
+</activitiesimport>
